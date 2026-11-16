@@ -1,0 +1,15 @@
+{
+  "name": "hyperframes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "./hf.sh preview",
+    "check": "./hf.sh check",
+    "render": "./hf.sh render --skill=hyperframes",
+    "doctor": "./hf.sh doctor",
+    "hf": "./hf.sh"
+  },
+  "devDependencies": {
+    "hyperframes": "^0.9.58"
+  }
+}
