@@ -267,7 +267,7 @@ def overlays():
     y = np.linspace(0, 1, H)[:, None]
     x = np.linspace(-1, 1, W)[None, :]
     top = np.clip(1 - y / 0.36, 0, 1) ** 1.6 * 0.78
-    bot = np.clip((y - 0.6) / 0.4, 0, 1) ** 1.4 * 0.85
+    bot = np.clip((y - 0.5) / 0.32, 0, 1) ** 1.2 * 0.9
     vig = np.clip((np.sqrt(x ** 2 * 0.6 + ((y - 0.5) * 2) ** 2 * 0.5) - 0.55) / 0.7, 0, 1) ** 2 * 0.55
     a = 1 - (1 - top) * (1 - bot) * (1 - vig)
     arr = np.zeros((H, W, 4), np.uint8)
@@ -339,7 +339,7 @@ def draw_subs(frame, t, chunks, layer, sub_y=SUB_Y):
         spoken = t >= w["t0"] - 0.03
         p = ease_out((t - (w["t0"] - 0.03)) / 0.14)
         col = {"red": C.RED, "silver": (214, 220, 228)}.get(w["style"], (255, 255, 255))
-        alpha = (1.0 if spoken else 0.42) * fade
+        alpha = (1.0 if spoken else 0.55) * fade
         lift = int(10 * (1 - p)) if spoken else 0
         img = sub_word(w["display"], col)
         if alpha < 1:
