@@ -23,56 +23,57 @@ ROOT = HF.parent
 sys.path.insert(0, str(ROOT / "src"))
 import audio as A  # noqa: E402  (music + sfx synth, reused read-only)
 import edge_tts  # noqa: E402
+import tts as _tts  # noqa: E402
 from tts import PROXY, norm, parse_tokens, tighten  # noqa: E402
+
+_tts.MAX_GAP, _tts.KEEP_GAP = 0.34, 0.24   # snappier sentence pauses
 
 ASSETS = HF / "assets"
 AUD = ASSETS / "audio"
 PH = ASSETS / "photos"
 
-VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "+6%", "+0Hz"   # "Suara B"
+VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "+12%", "+0Hz"   # "Suara B"
 BPM = 118
 BEAT = 60 / BPM
 SR = 48000
 
 # --------------------------------------------------------------------- script
 SCRIPT = [
-    dict(  # 0 HOOK
-        vo="Weh, kejap! Nak pakai SUV, tapi *pinjaman *bank tak lepas?",
+    dict(  # 1 HOOK
+        vo="Ada satu unit ^Proton ^X50|X-fifty ^Executive ^Spec nak dijual secara *sambung *bayar *berdeposit.",
         head=[("SAMBUNG BAYAR", "hero", "pearl"), ("LEASE TO OWN", "label", "silver")],
-        photos=["01_hitam_depan34.jpg"], move="push", trans=None, min_beats=8),
-    dict(  # 1 MODEL
-        vo="Rilek, yang ni boleh *sambung *bayar! ^Proton ^X50|X-fifty ^Executive ^Facelift *2026.|dua-ribu-dua-puluh-enam.",
+        photos=["01_hitam_depan34.jpg"], move="push", trans=None, min_beats=0),
+    dict(  # 2 MODEL
+        vo="^Proton ^X50|X-fifty ^Executive ^Facelift ^2026!|dua-ribu-dua-puluh-enam! Kereta baru, puas hati kereta baru!",
         head=[("PROTON X50", "hero", "silver"), ("EXECUTIVE FACELIFT 2026", "label", "pearl")],
         photos=["02_hitam_depan.jpg"], move="rise", trans="whip-left", min_beats=8),
-    dict(  # 2 DEPOSIT
-        vo="*Deposit? *RM13,000|tiga-belas-ribu je.",
+    dict(  # 3 DEPOSIT
+        vo="*Deposit? *RM13,000.|tiga-belas-ribu-ringgit.",
         head=[("DEPOSIT", "label", "silver"), ("RM13,000", "price", "red")],
         photos=["03_hitam_belakang34.jpg"], move="pull", trans="flash", min_beats=6),
-    dict(  # 3 MONTHLY
-        vo="*Bulan-bulan, bayar *RM1,300|seribu-tiga-ratus je. Senang kan?",
-        head=[("BULANAN", "label", "silver"), ("RM1,300", "price", "red")],
+    dict(  # 4 BULANAN
+        vo="*Bulanan pula, *RM1,300|seribu-tiga-ratus-ringgit je. *Loan *9|sembilan *tahun!",
+        head=[("BULANAN", "label", "silver"), ("RM1,300", "price", "red"), ("LOAN 9 TAHUN", "tag", "pearl")],
         photos=["04_hitam_badge.jpg"], move="push", trans="whip-up", min_beats=6),
-    dict(  # 4 AGREEMENT
-        vo="Perjanjian *terus dengan *tuan *punya. Takde orang tengah, takde pening!",
-        head=[("AGREEMENT", "label", "silver"), ("DIRECT OWNER", "hero", "pearl")],
+    dict(  # 5 AGREEMENT
+        vo="Yang bestnya, ^agreement *terus *dengan *owner. Semua urusan kita bantu sampai selesai!",
+        head=[("AGREEMENT", "label", "silver"), ("DIRECT OWNER", "hero", "pearl"), ("PROSES MUDAH & PANTAS", "tag", "pearl")],
         photos=["05_hitam_belakang.jpg"], move="track", trans="zoom", min_beats=8),
-    dict(  # 5 INTERIOR MONTAGE
-        vo="Dalam pun ^selesa. Bawa keluarga jalan-jalan, memang puas hati.",
-        head=[],
+    dict(  # 6 INTERIOR MONTAGE
+        vo="Tengoklah interior dia. ^Moden, ^selesa, ruang pun ^luas. Memang ngam untuk bawa ^family!",
+        head=[("MODERN INTERIOR", "hero-s", "pearl"), ("COMFORTABLE FAMILY SUV", "label", "silver")],
         photos=["06_stereng.jpg", "07_tempat_duduk_depan.jpg", "08_tempat_duduk_belakang.jpg"],
         move="montage", trans="whip-left", min_beats=8),
-    dict(  # 6 CTA
-        vo="Nak tengok? *WhatsApp je terus, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama tau!",
+    dict(  # 7 CLOSING & CTA
+        vo="Berminat dengan kereta? *WhatsApp je sekarang! *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama!",
         head="cta",
-        photos=["01_hitam_depan34.jpg"], move="cta", trans="dip", min_beats=12),
+        photos=["01_hitam_depan34.jpg"], move="cta", trans="dip", min_beats=0),
 ]
-CTA = dict(brand="KL AUTO SB", title="SAMBUNG BAYAR BERDEPOSIT",
-           model="PROTON X50 EXECUTIVE FACELIFT 2026", deposit="DEPOSIT RM13,000",
-           monthly="BULANAN RM1,300", agree="AGREEMENT DIRECT OWNER", phone="017-203 6099")
+CTA = dict(q="NAK VIEW KERETA?", sub="WHATSAPP SEKARANG", phone="017-203 6099")
 
-VO_LEAD = 0.18
-TAIL_PAD = 0.22
-CTA_HOLD = 1.7
+VO_LEAD = 0.12
+TAIL_PAD = 0.12
+CTA_HOLD = 1.1
 
 
 # --------------------------------------------------------------------- voice
@@ -124,7 +125,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"], math.ceil(need / BEAT))
+        beats = max(cfg["min_beats"] if i in (0, len(SCRIPT) - 1) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -210,19 +211,29 @@ def head_html(i, head):
     return f'<div class="heads">{"".join(out)}</div>'
 
 
-def chunks(words, max_n=3, max_chars=18):
+def chunks(words, max_n=5, max_chars=24):
+    """Phrase-based groups: break at sentence ends, at commas once a group has 2+ words,
+    or at the size limit, so every caption reads as a tidy phrase (max 2 short lines)."""
     out, cur = [], []
     for w in words:
         if cur and (len(cur) >= max_n or len(" ".join(x["display"] for x in cur + [w])) > max_chars):
             out.append(cur)
             cur = []
         cur.append(w)
-        if w["display"][-1] in ".!?":
+        end = w["display"][-1]
+        if end in ".!?" or (end == "," and len(cur) >= 2):
             out.append(cur)
             cur = []
     if cur:
         out.append(cur)
-    return out
+    # never leave a lonely single word if it can join the previous phrase
+    merged = []
+    for g in out:
+        if merged and len(g) == 1 and len(merged[-1]) < max_n and merged[-1][-1]["display"][-1] not in ".!?":
+            merged[-1] = merged[-1] + g
+        else:
+            merged.append(g)
+    return merged
 
 
 PRE = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0, None: 0.0}
@@ -281,10 +292,17 @@ def make_html(scenes, total):
             cta_js(J, s)
         elif cfg["head"]:
             inner.append(head_html(i, cfg["head"]))
+            pidx = next((k for k, h in enumerate(cfg["head"]) if h[1] == "price"), None)
             for j, (txt, style, color) in enumerate(cfg["head"]):
                 at = s["start"] + (0.0 if i == 0 else 0.15) + (BEAT if style == "price" else 0.14 * j)
+                if pidx is not None and j > pidx:
+                    at = s["start"] + 0.15 + BEAT + 0.35
+                elif style == "tag":
+                    at = s["start"] + 0.15 + 0.14 * j + 0.2
                 if i == 0:  # frame 0 is the thumbnail: hook title already on screen
                     J(f'tl.fromTo("#h{i}_{j}",{{scale:1.08}},{{scale:1,duration:0.35,ease:"power3.out"}},0);')
+                elif style == "tag":
+                    J(f'tl.fromTo("#h{i}_{j}",{{opacity:0,y:18}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{at:.3f});')
                 elif style == "price":
                     J(f'tl.fromTo("#h{i}_{j}",{{yPercent:110,scale:0.9}},{{yPercent:0,scale:1,duration:0.5,ease:"back.out(1.5)"}},{at:.3f});')
                 else:
@@ -304,17 +322,16 @@ def make_html(scenes, total):
         end = (groups[g_i + 1][0]["t0"] - 0.1) if g_i + 1 < len(groups) else min(total, g[-1]["t1"] + 0.8)
         end = min(end, g[-1]["t1"] + 0.9)
         cls = "grp cta-pos" if start >= cta_start - 0.05 else "grp"
-        spans = "".join(f'<span id="c{g_i}w{k}" class="w {w["style"] or ""}">{esc(w["display"])}</span> ' for k, w in enumerate(g))
-        caps.append(f'<div id="c{g_i}" class="{cls}">{spans.strip()}</div>')
+        spans = " ".join(f'<span class="w {w["style"] or ""}">{esc(w["display"])}</span>' for w in g)
+        caps.append(f'<div id="c{g_i}" class="{cls}"><span id="c{g_i}p" class="pill">{spans}</span></div>')
         J(f'tl.set("#c{g_i}",{{opacity:1,visibility:"visible"}},{start:.3f});')
-        for k, w in enumerate(g):
-            J(f'tl.fromTo("#c{g_i}w{k}",{{opacity:0.5,y:10}},{{opacity:1,y:0,duration:0.12,ease:"power2.out"}},{w["t0"] - 0.03:.3f});')
+        J(f'tl.fromTo("#c{g_i}p",{{opacity:0,y:12}},{{opacity:1,y:0,duration:0.14,ease:"power2.out"}},{start:.3f});')
         J(f'tl.to("#c{g_i}",{{opacity:0,duration:0.1,ease:"power2.in"}},{end - 0.1:.3f});')
         J(f'tl.set("#c{g_i}",{{opacity:0,visibility:"hidden"}},{end:.3f});')
     body.append(f'<div id="captions" class="clip" data-start="0" data-duration="{total}" data-track-index="5" '
                 f'data-track-kind="captions" style="z-index:40">{"".join(caps)}</div>')
     # brand bug (hidden on the end card, which carries the brand itself)
-    body.append(f'<div id="bug" class="clip" data-start="0" data-duration="{cta_start + 0.2:.3f}" data-track-index="6" '
+    body.append(f'<div id="bug" class="clip" data-start="0" data-duration="{total}" data-track-index="6" '
                 f'data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>')
     body.append(f'<div id="fx" class="clip" data-start="0" data-duration="{total}" data-track-index="7" data-track-kind="graphics" style="z-index:42">'
                 f'<div id="flash"></div><div id="dip"></div></div>')
@@ -354,28 +371,18 @@ def transition_js(J, scenes, s):
 def cta_html(i):
     c = CTA
     return f'''<div class="cta">
-          <div class="line hero ctab"><span id="ct_brand" class="silver">{esc(c["brand"])}</span></div>
-          <div id="ct_rule" class="rule"></div>
-          <div class="line label ctat"><span id="ct_title" class="pearl">{esc(c["title"])}</span></div>
-          <div id="ct_low" class="ctlow">
-            <div id="ct_model" class="ctmodel">{esc(c["model"])}</div>
-            <div class="chips"><span id="ct_c1" class="chip">{esc(c["deposit"])}</span><span id="ct_c2" class="chip">{esc(c["monthly"])}</span></div>
-            <div id="ct_agree" class="ctagree">{esc(c["agree"])}</div>
-            <div id="ct_btn" class="btn"><svg viewBox="0 0 48 48" width="46" height="46" aria-hidden="true"><circle cx="24" cy="23" r="17" fill="none" stroke="#fff" stroke-width="4"/><path d="M10 40 L13 31 L19 36 Z" fill="#fff"/><rect x="18" y="15" width="12" height="16" rx="4" fill="none" stroke="#fff" stroke-width="3.5"/></svg><span>WHATSAPP&nbsp; {esc(c["phone"])}</span><div id="ct_glint" class="glint"></div></div>
-          </div>
+          <div class="line hero-s ctaq"><span id="ct_q" class="pearl">{esc(c["q"])}</span></div>
+          <div class="line label ctas"><span id="ct_sub" class="silver">{esc(c["sub"])}</span></div>
+          <div id="ct_btn" class="btn"><svg viewBox="0 0 48 48" width="58" height="58" aria-hidden="true"><circle cx="24" cy="23" r="17" fill="none" stroke="#fff" stroke-width="4"/><path d="M10 40 L13 31 L19 36 Z" fill="#fff"/><rect x="18" y="15" width="12" height="16" rx="4" fill="none" stroke="#fff" stroke-width="3.5"/></svg><span>{esc(c["phone"])}</span><div id="ct_glint" class="glint"></div></div>
         </div>'''
 
 
 def cta_js(J, s):
     b = s["start"]
     ph = [w for w in s["words"] if w["display"].startswith("017")][0]["t0"]
-    J(f'tl.fromTo("#ct_brand",{{yPercent:110}},{{yPercent:0,duration:0.55,ease:"power3.out"}},{b + 0.1:.3f});')
-    J(f'tl.fromTo("#ct_rule",{{scaleX:0}},{{scaleX:1,duration:0.45,ease:"power3.out"}},{b + 0.35:.3f});')
-    J(f'tl.fromTo("#ct_title",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.4:.3f});')
-    J(f'tl.fromTo("#ct_model",{{opacity:0,y:24}},{{opacity:1,y:0,duration:0.45,ease:"power3.out"}},{b + 0.6:.3f});')
-    J(f'tl.fromTo(["#ct_c1","#ct_c2"],{{opacity:0,y:24}},{{opacity:1,y:0,duration:0.45,ease:"power3.out",stagger:0.12}},{b + 0.8:.3f});')
-    J(f'tl.fromTo("#ct_agree",{{opacity:0,y:24}},{{opacity:1,y:0,duration:0.45,ease:"power3.out"}},{b + 1.05:.3f});')
-    J(f'tl.fromTo("#ct_btn",{{opacity:0,scale:0.6}},{{opacity:1,scale:1,duration:0.5,ease:"back.out(1.7)"}},{ph - 0.35:.3f});')
+    J(f'tl.fromTo("#ct_q",{{yPercent:110}},{{yPercent:0,duration:0.55,ease:"power3.out"}},{b + 0.1:.3f});')
+    J(f'tl.fromTo("#ct_sub",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.3:.3f});')
+    J(f'tl.fromTo("#ct_btn",{{opacity:0,scale:0.6}},{{opacity:1,scale:1,duration:0.5,ease:"back.out(1.7)"}},{min(b + 1.2, ph - 0.35):.3f});')
     J(f'tl.fromTo("#ct_glint",{{x:-200}},{{x:760,duration:0.7,ease:"power2.inOut"}},{ph + 2.4:.3f});')
 
 
@@ -406,9 +413,9 @@ TEMPLATE = r"""<!doctype html>
       .card { position: absolute; left: -22px; top: 430px; width: 1124px; height: 843px; object-fit: cover;
               -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
                       mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%); }
-      .cta-card { left: 230px; top: 590px; width: 620px; height: 430px; }
+      .cta-card { left: 170px; top: 500px; width: 740px; height: 480px; }
       .shade { position: absolute; inset: 0;
-               background: linear-gradient(180deg, rgba(11,13,18,.88) 0%, rgba(11,13,18,.55) 14%, rgba(11,13,18,0) 30%,
+               background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,
                            rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%); }
       .sweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
                background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.16) 50%, transparent 58%); }
@@ -416,19 +423,23 @@ TEMPLATE = r"""<!doctype html>
       .line { overflow: hidden; line-height: 1.12; }
       .line span { display: inline-block; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
       .hero { font-weight: 800; font-size: 90px; letter-spacing: -0.01em; white-space: nowrap; }
+      .hero-s { font-weight: 800; font-size: 66px; letter-spacing: -0.01em; white-space: nowrap; }
+      .line.tag { margin-top: 16px; overflow: visible; }
+      .tag span { font-weight: 700; font-size: 38px; letter-spacing: .06em; padding: 8px 26px; border-radius: 40px; background: var(--red); color: #fff; filter: none; box-shadow: 0 6px 18px rgba(0,0,0,.45); }
       .price { font-weight: 800; font-size: 176px; letter-spacing: -0.01em; line-height: 1.05; }
-      .label { font-family: var(--font-label); font-weight: 700; font-size: 40px; letter-spacing: 0.14em; margin: 6px 0; }
+      .label { font-family: var(--font-label); font-weight: 700; font-size: 38px; letter-spacing: 0.1em; margin: 6px 0; }
       .pearl { color: var(--pearl); }
       .silver { background: var(--silver-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
       .red { color: var(--red); }
       .price .red { text-shadow: 0 0 34px rgba(226,35,45,.55); }
       #captions { position: absolute; inset: 0; pointer-events: none; }
-      .grp { position: absolute; left: 120px; top: 1150px; width: 660px; text-align: center;
-             font-weight: 700; font-size: 56px; line-height: 1.15; color: #fff; opacity: 0; visibility: hidden;
-             text-shadow: 0 3px 10px rgba(0,0,0,.95), 0 0 2px rgba(0,0,0,.8); }
-      .grp.cta-pos { top: 1190px; font-size: 44px; }
-      .grp .w { display: inline-block; }
-      .grp .red { color: #ff3b44; }
+      .grp { position: absolute; left: 120px; top: 1096px; width: 660px; text-align: center;
+             font-weight: 700; font-size: 48px; line-height: 1.42; color: #fff; opacity: 0; visibility: hidden; }
+      .grp.cta-pos { top: 1140px; }
+      .pill { display: inline-block; padding: 4px 22px 8px; border-radius: 18px; background: rgba(11,13,18,.62);
+              text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+      .grp .w { display: inline; }
+      .grp .red { color: #ff4a52; }
       .grp .silver { background: none; color: #d6dce4; }
       #bug { position: absolute; left: 64px; top: 186px; display: flex; align-items: center; gap: 14px; }
       #bug .bar { width: 8px; height: 38px; background: var(--red); }
@@ -438,21 +449,13 @@ TEMPLATE = r"""<!doctype html>
       #flash { background: #fff; }
       #dip { background: var(--ground); }
       .cta { position: absolute; inset: 0; text-align: center; }
-      .ctab { position: absolute; top: 280px; left: 120px; width: 840px; }
-      .ctab.hero { font-size: 104px; }
-      .rule { position: absolute; top: 398px; left: 440px; width: 200px; height: 7px; background: var(--red); }
-      .ctat { position: absolute; top: 414px; left: 120px; width: 840px; }
-      .ctat.label { font-size: 36px; letter-spacing: .12em; }
-      .ctlow { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
-      .ctmodel { position: absolute; left: 120px; top: 470px; width: 840px; font-family: var(--font-label); font-weight: 700; font-size: 30px; letter-spacing: .06em; color: #d6dce4; }
-      .chips { position: absolute; left: 120px; top: 520px; width: 840px; display: flex; gap: 20px; justify-content: center; }
-      .chip { font-weight: 600; font-size: 31px; color: var(--pearl); padding: 10px 28px; border-radius: 40px;
-              border: 2px solid rgba(214,220,228,.8); background: rgba(11,13,18,.6); }
-      .ctagree { position: absolute; left: 120px; top: 1028px; width: 660px; font-family: var(--font-label); font-weight: 700; font-size: 28px; letter-spacing: .14em; color: #c9ced5; }
-      .btn { position: absolute; overflow: hidden; left: 125px; top: 1078px; width: 650px; height: 96px; border-radius: 48px;
+      .ctaq { position: absolute; top: 300px; left: 120px; width: 840px; }
+      .ctas { position: absolute; top: 400px; left: 120px; width: 840px; }
+      .ctas.label { font-size: 44px; letter-spacing: .16em; }
+      .btn { position: absolute; overflow: hidden; left: 125px; top: 1000px; width: 650px; height: 116px; border-radius: 58px;
              background: var(--red); display: flex; align-items: center; justify-content: center; gap: 22px;
              box-shadow: 0 0 44px rgba(226,35,45,.55), 0 10px 26px rgba(0,0,0,.5);
-             font-weight: 800; font-size: 38px; color: #fff; letter-spacing: .01em; }
+             font-weight: 800; font-size: 58px; color: #fff; letter-spacing: .01em; }
       .glint { position: absolute; left: 0; top: -20px; width: 90px; height: 160px; transform: rotate(18deg);
                background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); }
     </style>
