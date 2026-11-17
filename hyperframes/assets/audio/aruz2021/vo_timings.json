@@ -1,0 +1,642 @@
+[
+ {
+  "tokens": [
+   {
+    "display": "Ada",
+    "spoken": "Ada",
+    "style": null,
+    "t0": 0.06,
+    "t1": 0.33345800000000003
+   },
+   {
+    "display": "satu",
+    "spoken": "satu",
+    "style": null,
+    "t0": 0.35950000000000004,
+    "t1": 0.672
+   },
+   {
+    "display": "unit",
+    "spoken": "unit",
+    "style": null,
+    "t0": 0.7110420000000001,
+    "t1": 0.9974999999999999
+   },
+   {
+    "display": "Perodua",
+    "spoken": "Perodua",
+    "style": "silver",
+    "t0": 1.023542,
+    "t1": 1.440208
+   },
+   {
+    "display": "Aruz",
+    "spoken": "Aruz",
+    "style": "silver",
+    "t0": 1.440208,
+    "t1": 1.8829159999999998
+   },
+   {
+    "display": "Advance",
+    "spoken": "Advance",
+    "style": "silver",
+    "t0": 1.8959579999999998,
+    "t1": 2.429833
+   },
+   {
+    "display": "nak",
+    "spoken": "nak",
+    "style": null,
+    "t0": 2.455833,
+    "t1": 2.6641660000000003
+   },
+   {
+    "display": "dijual",
+    "spoken": "dijual",
+    "style": null,
+    "t0": 2.6772080000000003,
+    "t1": 3.1459580000000003
+   },
+   {
+    "display": "secara",
+    "spoken": "secara",
+    "style": null,
+    "t0": 3.172,
+    "t1": 3.497541
+   },
+   {
+    "display": "sambung",
+    "spoken": "sambung",
+    "style": "red",
+    "t0": 3.523542,
+    "t1": 3.940208
+   },
+   {
+    "display": "bayar",
+    "spoken": "bayar",
+    "style": "red",
+    "t0": 3.979292,
+    "t1": 4.343875
+   },
+   {
+    "display": "berdeposit.",
+    "spoken": "berdeposit.",
+    "style": "red",
+    "t0": 4.382917,
+    "t1": 5.1381250000000005
+   }
+  ],
+  "duration": 5.358125
+ },
+ {
+  "tokens": [
+   {
+    "display": "Perodua",
+    "spoken": "Perodua",
+    "style": "silver",
+    "t0": 0.06,
+    "t1": 0.463666
+   },
+   {
+    "display": "Aruz",
+    "spoken": "Aruz",
+    "style": "silver",
+    "t0": 0.46366700000000005,
+    "t1": 0.8672920000000001
+   },
+   {
+    "display": "Advance,",
+    "spoken": "Advance,",
+    "style": "silver",
+    "t0": 0.8672920000000001,
+    "t1": 1.4792919999999998
+   },
+   {
+    "display": "tahun",
+    "spoken": "tahun",
+    "style": null,
+    "t0": 1.674583,
+    "t1": 2.078249
+   },
+   {
+    "display": "2021.",
+    "spoken": "dua ribu dua puluh satu.",
+    "style": "red",
+    "t0": 2.104292,
+    "t1": 3.523583
+   },
+   {
+    "display": "SUV",
+    "spoken": "SUV",
+    "style": null,
+    "t0": 3.9735829999999996,
+    "t1": 4.520458
+   },
+   {
+    "display": "tujuh",
+    "spoken": "tujuh",
+    "style": null,
+    "t0": 4.5465,
+    "t1": 4.911083
+   },
+   {
+    "display": "tempat",
+    "spoken": "tempat",
+    "style": null,
+    "t0": 4.950166,
+    "t1": 5.249666
+   },
+   {
+    "display": "duduk,",
+    "spoken": "duduk,",
+    "style": null,
+    "t0": 5.275666,
+    "t1": 5.705374
+   },
+   {
+    "display": "memang",
+    "spoken": "memang",
+    "style": null,
+    "t0": 5.900666,
+    "t1": 6.252249
+   },
+   {
+    "display": "selesa",
+    "spoken": "selesa",
+    "style": null,
+    "t0": 6.278291,
+    "t1": 6.734041
+   },
+   {
+    "display": "untuk",
+    "spoken": "untuk",
+    "style": null,
+    "t0": 6.773083,
+    "t1": 7.111624
+   },
+   {
+    "display": "keluarga.",
+    "spoken": "keluarga.",
+    "style": null,
+    "t0": 7.150666,
+    "t1": 7.671499000000001
+   }
+  ],
+  "duration": 7.8915
+ },
+ {
+  "tokens": [
+   {
+    "display": "Deposit?",
+    "spoken": "Deposit?",
+    "style": "red",
+    "t0": 0.06,
+    "t1": 0.672
+   },
+   {
+    "display": "RM6,988.",
+    "spoken": "enam ribu sembilan ratus lapan puluh lapan ringgit.",
+    "style": "red",
+    "t0": 1.122,
+    "t1": 4.06475
+   }
+  ],
+  "duration": 4.28475
+ },
+ {
+  "tokens": [
+   {
+    "display": "Bulanan",
+    "spoken": "Bulanan",
+    "style": "red",
+    "t0": 0.06,
+    "t1": 0.502708
+   },
+   {
+    "display": "pula,",
+    "spoken": "pula,",
+    "style": null,
+    "t0": 0.51575,
+    "t1": 0.880333
+   },
+   {
+    "display": "RM1,017.",
+    "spoken": "seribu tujuh belas ringgit.",
+    "style": "red",
+    "t0": 1.14075,
+    "t1": 2.716291
+   },
+   {
+    "display": "Baki",
+    "spoken": "Baki",
+    "style": null,
+    "t0": 3.166291,
+    "t1": 3.5569160000000006
+   },
+   {
+    "display": "loan",
+    "spoken": "loan",
+    "style": "red",
+    "t0": 3.6220000000000003,
+    "t1": 3.817333
+   },
+   {
+    "display": "8",
+    "spoken": "lapan",
+    "style": "red",
+    "t0": 3.817333,
+    "t1": 4.155874
+   },
+   {
+    "display": "tahun",
+    "spoken": "tahun",
+    "style": "red",
+    "t0": 4.181916,
+    "t1": 4.533499
+   },
+   {
+    "display": "7",
+    "spoken": "tujuh",
+    "style": "red",
+    "t0": 4.572541,
+    "t1": 4.872041
+   },
+   {
+    "display": "bulan.",
+    "spoken": "bulan.",
+    "style": "red",
+    "t0": 4.885041,
+    "t1": 5.392874
+   }
+  ],
+  "duration": 5.612875
+ },
+ {
+  "tokens": [
+   {
+    "display": "Yang",
+    "spoken": "Yang",
+    "style": null,
+    "t0": 0.06,
+    "t1": 0.28137500000000004
+   },
+   {
+    "display": "bestnya,",
+    "spoken": "bestnya,",
+    "style": null,
+    "t0": 0.307417,
+    "t1": 0.906375
+   },
+   {
+    "display": "agreement",
+    "spoken": "agreement",
+    "style": "silver",
+    "t0": 1.023542,
+    "t1": 1.6095
+   },
+   {
+    "display": "terus",
+    "spoken": "terus",
+    "style": "red",
+    "t0": 1.6355419999999998,
+    "t1": 1.987125
+   },
+   {
+    "display": "dengan",
+    "spoken": "dengan",
+    "style": "red",
+    "t0": 2.000125,
+    "t1": 2.260541
+   },
+   {
+    "display": "owner.",
+    "spoken": "owner.",
+    "style": "red",
+    "t0": 2.273542,
+    "t1": 2.7553330000000003
+   },
+   {
+    "display": "Roadtax",
+    "spoken": "road tax",
+    "style": "red",
+    "t0": 3.2053330000000004,
+    "t1": 3.9344990000000006
+   },
+   {
+    "display": "dan",
+    "spoken": "dan",
+    "style": null,
+    "t0": 3.973541,
+    "t1": 4.1818740000000005
+   },
+   {
+    "display": "insurans",
+    "spoken": "insurans",
+    "style": "red",
+    "t0": 4.1818740000000005,
+    "t1": 4.7287490000000005
+   },
+   {
+    "display": "pun",
+    "spoken": "pun",
+    "style": null,
+    "t0": 4.754791,
+    "t1": 4.989166
+   },
+   {
+    "display": "dah",
+    "spoken": "dah",
+    "style": null,
+    "t0": 5.002208,
+    "t1": 5.1974990000000005
+   },
+   {
+    "display": "siap,",
+    "spoken": "siap,",
+    "style": null,
+    "t0": 5.1974990000000005,
+    "t1": 5.601165
+   },
+   {
+    "display": "sampai",
+    "spoken": "sampai",
+    "style": null,
+    "t0": 5.861583,
+    "t1": 6.2392080000000005
+   },
+   {
+    "display": "Jun",
+    "spoken": "Jun",
+    "style": "red",
+    "t0": 6.304291,
+    "t1": 6.577749000000001
+   },
+   {
+    "display": "2027.",
+    "spoken": "dua ribu dua puluh tujuh.",
+    "style": "red",
+    "t0": 6.616791,
+    "t1": 8.023041
+   }
+  ],
+  "duration": 8.243020833333333
+ },
+ {
+  "tokens": [
+   {
+    "display": "Mileage",
+    "spoken": "Mileage",
+    "style": null,
+    "t0": 0.06,
+    "t1": 0.502708
+   },
+   {
+    "display": "111,000",
+    "spoken": "seratus sebelas ribu",
+    "style": "red",
+    "t0": 0.51575,
+    "t1": 1.7266659999999998
+   },
+   {
+    "display": "kilometer,",
+    "spoken": "kilometer,",
+    "style": null,
+    "t0": 1.76575,
+    "t1": 2.351708
+   },
+   {
+    "display": "kereta",
+    "spoken": "kereta",
+    "style": null,
+    "t0": 2.507917,
+    "t1": 2.8595
+   },
+   {
+    "display": "ada",
+    "spoken": "ada",
+    "style": null,
+    "t0": 2.8595,
+    "t1": 3.1459580000000003
+   },
+   {
+    "display": "di",
+    "spoken": "di",
+    "style": null,
+    "t0": 3.185,
+    "t1": 3.3022080000000003
+   },
+   {
+    "display": "Kuala",
+    "spoken": "Kuala",
+    "style": "red",
+    "t0": 3.32825,
+    "t1": 3.575666
+   },
+   {
+    "display": "Lumpur.",
+    "spoken": "Lumpur.",
+    "style": "red",
+    "t0": 3.601667,
+    "t1": 4.0443750000000005
+   }
+  ],
+  "duration": 4.264375
+ },
+ {
+  "tokens": [
+   {
+    "display": "Tengoklah",
+    "spoken": "Tengoklah",
+    "style": null,
+    "t0": 0.06,
+    "t1": 0.580833
+   },
+   {
+    "display": "interior",
+    "spoken": "interior",
+    "style": null,
+    "t0": 0.580833,
+    "t1": 1.166791
+   },
+   {
+    "display": "dia.",
+    "spoken": "dia.",
+    "style": null,
+    "t0": 1.179792,
+    "t1": 1.531375
+   },
+   {
+    "display": "Kemas,",
+    "spoken": "Kemas,",
+    "style": null,
+    "t0": 1.9813750000000003,
+    "t1": 2.5282500000000003
+   },
+   {
+    "display": "selesa,",
+    "spoken": "selesa,",
+    "style": "silver",
+    "t0": 2.749625,
+    "t1": 3.2835
+   },
+   {
+    "display": "ada",
+    "spoken": "ada",
+    "style": null,
+    "t0": 3.491792,
+    "t1": 3.739208
+   },
+   {
+    "display": "tiga",
+    "spoken": "tiga",
+    "style": "silver",
+    "t0": 3.7782500000000003,
+    "t1": 4.038666
+   },
+   {
+    "display": "baris",
+    "spoken": "baris",
+    "style": null,
+    "t0": 4.064709,
+    "t1": 4.40325
+   },
+   {
+    "display": "tempat",
+    "spoken": "tempat",
+    "style": null,
+    "t0": 4.40325,
+    "t1": 4.70275
+   },
+   {
+    "display": "duduk.",
+    "spoken": "duduk.",
+    "style": null,
+    "t0": 4.728791999999999,
+    "t1": 5.1585
+   },
+   {
+    "display": "Memang",
+    "spoken": "Memang",
+    "style": null,
+    "t0": 5.608499999999999,
+    "t1": 5.9861249999999995
+   },
+   {
+    "display": "ngam",
+    "spoken": "ngam",
+    "style": null,
+    "t0": 6.025166999999999,
+    "t1": 6.298582999999999
+   },
+   {
+    "display": "untuk",
+    "spoken": "untuk",
+    "style": null,
+    "t0": 6.298583999999999,
+    "t1": 6.598083999999999
+   },
+   {
+    "display": "bawa",
+    "spoken": "bawa",
+    "style": null,
+    "t0": 6.611083999999999,
+    "t1": 6.910583999999999
+   },
+   {
+    "display": "family.",
+    "spoken": "family.",
+    "style": "silver",
+    "t0": 6.9366249999999985,
+    "t1": 7.444457999999998
+   }
+  ],
+  "duration": 7.664458333333333
+ },
+ {
+  "tokens": [
+   {
+    "display": "Berminat",
+    "spoken": "Berminat",
+    "style": null,
+    "t0": 0.06,
+    "t1": 0.567833
+   },
+   {
+    "display": "dengan",
+    "spoken": "dengan",
+    "style": null,
+    "t0": 0.567833,
+    "t1": 0.789208
+   },
+   {
+    "display": "kereta",
+    "spoken": "kereta",
+    "style": null,
+    "t0": 0.84125,
+    "t1": 1.1797909999999998
+   },
+   {
+    "display": "ni?",
+    "spoken": "ni?",
+    "style": null,
+    "t0": 1.218875,
+    "t1": 1.4402499999999998
+   }
+  ],
+  "duration": 1.66025
+ },
+ {
+  "tokens": [
+   {
+    "display": "WhatsApp",
+    "spoken": "WhatsApp",
+    "style": "red",
+    "t0": 0.06,
+    "t1": 0.567833
+   },
+   {
+    "display": "sekarang.",
+    "spoken": "sekarang.",
+    "style": null,
+    "t0": 0.580833,
+    "t1": 1.127708
+   },
+   {
+    "display": "017-203",
+    "spoken": "kosong satu tujuh, dua kosong tiga,",
+    "style": "red",
+    "t0": 1.5777080000000003,
+    "t1": 4.103791
+   },
+   {
+    "display": "6099.",
+    "spoken": "enam kosong sembilan sembilan.",
+    "style": "red",
+    "t0": 4.273041,
+    "t1": 6.291249
+   },
+   {
+    "display": "Jangan",
+    "spoken": "Jangan",
+    "style": null,
+    "t0": 6.741248999999999,
+    "t1": 7.118873999999999
+   },
+   {
+    "display": "tunggu",
+    "spoken": "tunggu",
+    "style": null,
+    "t0": 7.157914999999998,
+    "t1": 7.418330999999999
+   },
+   {
+    "display": "lama.",
+    "spoken": "lama.",
+    "style": null,
+    "t0": 7.457373999999999,
+    "t1": 7.808956999999999
+   }
+  ],
+  "duration": 8.0289375
+ }
+]

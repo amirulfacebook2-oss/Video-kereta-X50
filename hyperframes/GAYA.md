@@ -55,7 +55,7 @@ selepas skrip diubah.
 
 ## Sarikata
 
-- Di bawah tengah: baris terakhir berakhir pada y 1320 (jalur sarikata TikTok). Saiz 48 px. Frasa penuh (maksimum 5 perkataan, 2 baris seimbang), muncul sekali gus.
+- Di bawah tengah, di bawah kereta: baris terakhir berakhir pada y 1540. Gambar kereta penuh (`fit_width`) dinaikkan (bermula y 110) supaya sarikata duduk di bawah kereta. Saiz 48 px. Frasa penuh (maksimum 5 perkataan, 2 baris seimbang), muncul sekali gus.
 - Latar gelap lembut mengikut setiap baris. Pecah ikut ayat dan koma, dan tiada perkataan tinggal seorang.
 - Di TikTok, butang di sebelah kanan mungkin menindih sedikit hujung baris yang panjang. Kedudukan bawah tengah adalah pilihan klien.
 

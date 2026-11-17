@@ -322,7 +322,8 @@ def chunks(words, max_n=5, max_chars=24):
     # never leave a lonely single word if it can join the previous phrase
     merged = []
     for g in out:
-        if merged and len(g) == 1 and len(merged[-1]) < max_n and merged[-1][-1]["display"][-1] not in ".!?":
+        if (merged and len(g) == 1 and len(merged[-1]) <= max_n and merged[-1][-1]["display"][-1] not in ".!?"
+                and len(" ".join(x["display"] for x in merged[-1] + g)) <= max_chars + 4):
             merged[-1] = merged[-1] + g
         else:
             merged.append(g)
@@ -371,7 +372,7 @@ def make_html(scenes, total):
             portrait = is_portrait(ph)
             card_cls = "full" if portrait else {"cta": "card cta-card", "recap": "card card-low"}.get(cfg["move"], "card")
             if ph in FIT_W:
-                card_cls = "contain"
+                card_cls = "contain hi"
             inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
             inner.append(f'<div id="s{i}kb" class="kb"><img class="{card_cls}" src="assets/photos/{ph}" alt="" /></div>')
             if cfg["move"] in ("rise", "cta"):
@@ -466,8 +467,8 @@ def make_html(scenes, total):
       .tag span { filter: none; }
       #bug { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
     </style>""", 1)
-    if STYLE["captions"] == "bottom":  # bottom-centre, last line ends at y 1320 (TikTok caption band)
-        page = page.replace("</style>", """      .grp, .grp.cta-pos { top: auto; bottom: 600px; }
+    if STYLE["captions"] == "bottom":  # bottom-centre: last line ends at y 1520, below the car
+        page = page.replace("</style>", """      .grp, .grp.cta-pos { top: auto; bottom: 380px; }
     </style>""", 1)
     page = page.replace("%%TOTAL%%", f"{total}").replace("%%BODY%%", "\n      ".join(body)).replace("%%JS%%", "\n      ".join(js))
     (HF / "index.html").write_text(page)
@@ -517,7 +518,7 @@ def recap_html(i, cfg):
     return f'''<div class="cta">
           <div class="ctaq">{q.strip()}</div>
           <div id="r{i}rule" class="rule"></div>
-          <div id="r{i}panel" class="checks">{rows}</div>
+          <div id="r{i}panel" class="checks{' many' if len(rows_txt) > 5 else ''}">{rows}</div>
         </div>'''
 
 
@@ -600,6 +601,7 @@ TEMPLATE = r"""<!doctype html>
       .cta-card { left: 20px; top: 640px; width: 1040px; height: 780px; }
       .card-low { top: 640px; }
       .contain { position: absolute; left: 0; top: 240px; width: 1080px; height: 1440px; object-fit: contain; }
+      .contain.hi { top: 110px; }
       .shade { position: absolute; inset: 0; z-index: 5;
                background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,
                            rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%); }
@@ -644,10 +646,11 @@ TEMPLATE = r"""<!doctype html>
       .ctas { position: absolute; top: 412px; left: 120px; width: 840px; }
       .ctas.label { font-size: 38px; letter-spacing: .2em; }
       .ctaq2 { position: absolute; top: 296px; left: 120px; width: 840px; }
-      .checks { position: absolute; left: 200px; top: 418px; width: 680px; text-align: left; padding: 16px 34px; border-radius: 28px;
+      .checks { position: absolute; left: 50%; transform: translateX(-50%); top: 418px; width: max-content; max-width: 840px; white-space: nowrap; text-align: left; padding: 16px 34px; border-radius: 28px;
                 background: rgba(11,13,18,.74); border: 2px solid rgba(255,255,255,.14); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
       .crow { display: flex; align-items: center; gap: 22px; height: 70px; font-weight: 700; font-size: 42px; color: #fff;
               filter: drop-shadow(0 4px 12px rgba(0,0,0,.7)); }
+      .checks.many .crow { height: 60px; font-size: 38px; }
       .ck { flex: 0 0 48px; height: 48px; border-radius: 24px; background: var(--red); display: flex; align-items: center; justify-content: center; }
       .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
                display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
