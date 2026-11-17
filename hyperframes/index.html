@@ -25,7 +25,7 @@
       .card { position: absolute; left: -22px; top: 430px; width: 1124px; height: 843px; object-fit: cover;
               -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
                       mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%); }
-      .cta-card { left: 170px; top: 500px; width: 740px; height: 480px; }
+      .cta-card { left: 20px; top: 640px; width: 1040px; height: 780px; }
       .shade { position: absolute; inset: 0;
                background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,
                            rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%); }
@@ -40,10 +40,9 @@
       .tag span { font-weight: 700; font-size: 38px; letter-spacing: .06em; padding: 8px 26px; border-radius: 40px; background: var(--red); color: #fff; filter: none; box-shadow: 0 6px 18px rgba(0,0,0,.45); }
       .price { font-weight: 800; font-size: 176px; letter-spacing: -0.01em; line-height: 1.05; }
       .label { font-family: var(--font-label); font-weight: 700; font-size: 38px; letter-spacing: 0.1em; margin: 6px 0; }
-      .pearl { color: var(--pearl); }
-      .silver { background: var(--silver-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .red { color: var(--red); }
-      .price .red { text-shadow: 0 0 34px rgba(226,35,45,.55); }
+      .pearl { color: #fff; }
+      .silver, .red { color: #fff; }
+      .price .red { text-shadow: 0 6px 30px rgba(0,0,0,.55); }
       #captions { position: absolute; inset: 0; pointer-events: none; }
       .grp { position: absolute; left: 120px; top: 1096px; width: 660px; text-align: center;
              font-weight: 700; font-size: 48px; line-height: 1.42; color: #fff; opacity: 0; visibility: hidden; }
@@ -53,8 +52,7 @@
               -webkit-box-decoration-break: clone; box-decoration-break: clone;
               text-shadow: 0 2px 6px rgba(0,0,0,.6); }
       .grp .w { display: inline; }
-      .grp .red { color: #ff4a52; }
-      .grp .silver { background: none; color: #d6dce4; }
+      .grp .red, .grp .silver { color: #fff; }
       #bug { position: absolute; left: 64px; top: 186px; display: flex; align-items: center; gap: 14px; }
       #bug .bar { width: 8px; height: 38px; background: var(--red); }
       #bug .bt { font-weight: 700; font-size: 34px; letter-spacing: .12em; color: var(--pearl); }
@@ -63,188 +61,207 @@
       #flash { background: #fff; }
       #dip { background: var(--ground); }
       .cta { position: absolute; inset: 0; text-align: center; }
-      .ctaq { position: absolute; top: 300px; left: 120px; width: 840px; }
-      .ctas { position: absolute; top: 400px; left: 120px; width: 840px; }
-      .ctas.label { font-size: 44px; letter-spacing: .16em; }
-      .btn { position: absolute; overflow: hidden; left: 125px; top: 1000px; width: 650px; height: 116px; border-radius: 58px;
-             background: var(--red); display: flex; align-items: center; justify-content: center; gap: 22px;
-             box-shadow: 0 0 44px rgba(226,35,45,.55), 0 10px 26px rgba(0,0,0,.5);
-             font-weight: 800; font-size: 58px; color: #fff; letter-spacing: .01em; }
-      .glint { position: absolute; left: 0; top: -20px; width: 90px; height: 160px; transform: rotate(18deg);
+      .ctaq { position: absolute; top: 290px; left: 120px; width: 840px; font-weight: 800; font-size: 84px; line-height: 1.1; color: #fff; white-space: nowrap; }
+      .qw { display: inline-block; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+      .rule { position: absolute; top: 396px; left: 470px; width: 140px; height: 6px; background: var(--red); }
+      .ctas { position: absolute; top: 412px; left: 120px; width: 840px; }
+      .ctas.label { font-size: 38px; letter-spacing: .2em; }
+      .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
+               display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
+               background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18);
+               box-shadow: 0 18px 40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.12); }
+      .cicon { position: relative; flex: 0 0 104px; height: 104px; border-radius: 52px; background: var(--red);
+               display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(226,35,45,.5); }
+      .ring { position: absolute; inset: 0; border-radius: 52px; border: 4px solid rgba(226,35,45,.9); }
+      .nw { display: inline-block; }
+      .cnum { font-weight: 800; font-size: 72px; line-height: 1.05; color: #fff; letter-spacing: .01em; white-space: nowrap; }
+      .cmeta { margin-top: 8px; font-weight: 600; font-size: 30px; color: #fff; opacity: .85; white-space: nowrap; }
+      .glint { position: absolute; left: 0; top: -40px; width: 90px; height: 260px; transform: rotate(18deg);
                background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="39.915" data-width="1080" data-height="1920" data-fps="30" data-motion-blur="on">
-      <div id="s0" class="scene clip" data-start="0.000" data-duration="6.027" data-track-index="1" data-track-kind="graphics" style="z-index:10"><div id="s0cam" class="cam"><img id="s0bg" class="bg" src="assets/photos/bg_01_hitam_depan34.jpg" alt="" /><div id="s0kb" class="kb"><img class="card" src="assets/photos/01_hitam_depan34.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h0_0" class="pearl">SAMBUNG BAYAR</span></div><div class="line label"><span id="h0_1" class="silver">LEASE TO OWN</span></div></div></div></div>
-      <div id="s1" class="scene clip" data-start="5.667" data-duration="6.282" data-track-index="2" data-track-kind="graphics" style="z-index:11"><div id="s1cam" class="cam"><img id="s1bg" class="bg" src="assets/photos/bg_02_hitam_depan.jpg" alt="" /><div id="s1kb" class="kb"><img class="full" src="assets/photos/02_hitam_depan.jpg" alt="" /></div><div id="s1sw" class="sweep"></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h1_0" class="silver">PROTON X50</span></div><div class="line label"><span id="h1_1" class="pearl">EXECUTIVE FACELIFT 2026</span></div></div></div></div>
-      <div id="s2" class="scene clip" data-start="11.949" data-duration="2.723" data-track-index="1" data-track-kind="graphics" style="z-index:12"><div id="s2cam" class="cam"><img id="s2bg" class="bg" src="assets/photos/bg_03_hitam_belakang34.jpg" alt="" /><div id="s2kb" class="kb"><img class="card" src="assets/photos/03_hitam_belakang34.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h2_0" class="silver">DEPOSIT</span></div><div class="line price"><span id="h2_1" class="red">RM13,000</span></div></div></div></div>
-      <div id="s3" class="scene clip" data-start="14.312" data-duration="4.956" data-track-index="2" data-track-kind="graphics" style="z-index:13"><div id="s3cam" class="cam"><img id="s3bg" class="bg" src="assets/photos/bg_04_hitam_badge.jpg" alt="" /><div id="s3kb" class="kb"><img class="card" src="assets/photos/04_hitam_badge.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h3_0" class="silver">BULANAN</span></div><div class="line price"><span id="h3_1" class="red">RM1,300</span></div><div class="line tag"><span id="h3_2" class="pearl">LOAN 9 TAHUN</span></div></div></div></div>
-      <div id="s4" class="scene clip" data-start="18.868" data-duration="5.719" data-track-index="1" data-track-kind="graphics" style="z-index:14"><div id="s4cam" class="cam"><img id="s4bg" class="bg" src="assets/photos/bg_05_hitam_belakang.jpg" alt="" /><div id="s4kb" class="kb"><img class="full" src="assets/photos/05_hitam_belakang.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h4_0" class="silver">AGREEMENT</span></div><div class="line hero"><span id="h4_1" class="pearl">DIRECT OWNER</span></div><div class="line tag"><span id="h4_2" class="pearl">PROSES MUDAH &amp; PANTAS</span></div></div></div></div>
-      <div id="s5" class="scene clip" data-start="24.227" data-duration="6.281" data-track-index="2" data-track-kind="graphics" style="z-index:15"><div id="s5cam" class="cam"><div id="s5m0" class="sub clip" data-start="24.227" data-duration="1.705" data-track-index="10"><div id="s5m0kb" class="kb"><img class="full" src="assets/photos/06_stereng.jpg" alt="" /></div></div><div id="s5m1" class="sub clip" data-start="25.932" data-duration="1.525" data-track-index="11"><div id="s5m1kb" class="kb"><img class="full" src="assets/photos/07_tempat_duduk_depan.jpg" alt="" /></div></div><div id="s5m2" class="sub clip" data-start="27.458" data-duration="3.050" data-track-index="12"><div id="s5m2kb" class="kb"><img class="full" src="assets/photos/08_tempat_duduk_belakang.jpg" alt="" /></div></div><div class="shade"></div><div class="heads"><div class="line hero-s"><span id="h5_0" class="pearl">MODERN INTERIOR</span></div><div class="line label"><span id="h5_1" class="silver">COMFORTABLE FAMILY SUV</span></div></div></div></div>
-      <div id="s6" class="scene clip" data-start="30.508" data-duration="9.407" data-track-index="1" data-track-kind="graphics" style="z-index:16"><div id="s6cam" class="cam"><img id="s6bg" class="bg" src="assets/photos/bg_01_hitam_depan34.jpg" alt="" /><div id="s6kb" class="kb"><img class="card cta-card" src="assets/photos/01_hitam_depan34.jpg" alt="" /></div><div id="s6sw" class="sweep"></div><div class="shade"></div><div class="cta">
-          <div class="line hero-s ctaq"><span id="ct_q" class="pearl">NAK VIEW KERETA?</span></div>
-          <div class="line label ctas"><span id="ct_sub" class="silver">WHATSAPP SEKARANG</span></div>
-          <div id="ct_btn" class="btn"><svg viewBox="0 0 48 48" width="58" height="58" aria-hidden="true"><circle cx="24" cy="23" r="17" fill="none" stroke="#fff" stroke-width="4"/><path d="M10 40 L13 31 L19 36 Z" fill="#fff"/><rect x="18" y="15" width="12" height="16" rx="4" fill="none" stroke="#fff" stroke-width="3.5"/></svg><span>017-203 6099</span><div id="ct_glint" class="glint"></div></div>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="42.203" data-width="1080" data-height="1920" data-fps="30" data-motion-blur="on">
+      <div id="s0" class="scene clip" data-start="0.000" data-duration="6.282" data-track-index="1" data-track-kind="graphics" style="z-index:10"><div id="s0cam" class="cam"><img id="s0bg" class="bg" src="assets/photos/bg_01_hitam_depan34.jpg" alt="" /><div id="s0kb" class="kb"><img class="card" src="assets/photos/01_hitam_depan34.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h0_0" class="pearl">SAMBUNG BAYAR</span></div><div class="line label"><span id="h0_1" class="silver">LEASE TO OWN</span></div></div></div></div>
+      <div id="s1" class="scene clip" data-start="5.922" data-duration="6.790" data-track-index="2" data-track-kind="graphics" style="z-index:11"><div id="s1cam" class="cam"><img id="s1bg" class="bg" src="assets/photos/bg_02_hitam_depan.jpg" alt="" /><div id="s1kb" class="kb"><img class="full" src="assets/photos/02_hitam_depan.jpg" alt="" /></div><div id="s1sw" class="sweep"></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h1_0" class="silver">PROTON X50</span></div><div class="line label"><span id="h1_1" class="pearl">EXECUTIVE FACELIFT 2026</span></div></div></div></div>
+      <div id="s2" class="scene clip" data-start="12.712" data-duration="2.976" data-track-index="1" data-track-kind="graphics" style="z-index:12"><div id="s2cam" class="cam"><img id="s2bg" class="bg" src="assets/photos/bg_03_hitam_belakang34.jpg" alt="" /><div id="s2kb" class="kb"><img class="card" src="assets/photos/03_hitam_belakang34.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h2_0" class="silver">DEPOSIT</span></div><div class="line price"><span id="h2_1" class="red">RM13,000</span></div></div></div></div>
+      <div id="s3" class="scene clip" data-start="15.328" data-duration="4.957" data-track-index="2" data-track-kind="graphics" style="z-index:13"><div id="s3cam" class="cam"><img id="s3bg" class="bg" src="assets/photos/bg_04_hitam_badge.jpg" alt="" /><div id="s3kb" class="kb"><img class="card" src="assets/photos/04_hitam_badge.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h3_0" class="silver">BULANAN</span></div><div class="line price"><span id="h3_1" class="red">RM1,300</span></div><div class="line tag"><span id="h3_2" class="pearl">LOAN 9 TAHUN</span></div></div></div></div>
+      <div id="s4" class="scene clip" data-start="19.885" data-duration="5.973" data-track-index="1" data-track-kind="graphics" style="z-index:14"><div id="s4cam" class="cam"><img id="s4bg" class="bg" src="assets/photos/bg_05_hitam_belakang.jpg" alt="" /><div id="s4kb" class="kb"><img class="full" src="assets/photos/05_hitam_belakang.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h4_0" class="silver">AGREEMENT</span></div><div class="line hero"><span id="h4_1" class="pearl">DIRECT OWNER</span></div><div class="line tag"><span id="h4_2" class="pearl">PROSES MUDAH &amp; PANTAS</span></div></div></div></div>
+      <div id="s5" class="scene clip" data-start="25.498" data-duration="6.790" data-track-index="2" data-track-kind="graphics" style="z-index:15"><div id="s5cam" class="cam"><div id="s5m0" class="sub clip" data-start="25.498" data-duration="1.705" data-track-index="10"><div id="s5m0kb" class="kb"><img class="full" src="assets/photos/06_stereng.jpg" alt="" /></div></div><div id="s5m1" class="sub clip" data-start="27.203" data-duration="1.525" data-track-index="11"><div id="s5m1kb" class="kb"><img class="full" src="assets/photos/07_tempat_duduk_depan.jpg" alt="" /></div></div><div id="s5m2" class="sub clip" data-start="28.729" data-duration="3.559" data-track-index="12"><div id="s5m2kb" class="kb"><img class="full" src="assets/photos/08_tempat_duduk_belakang.jpg" alt="" /></div></div><div class="shade"></div><div class="heads"><div class="line hero-s"><span id="h5_0" class="pearl">MODERN INTERIOR</span></div><div class="line label"><span id="h5_1" class="silver">COMFORTABLE FAMILY SUV</span></div></div></div></div>
+      <div id="s6" class="scene clip" data-start="32.288" data-duration="9.915" data-track-index="1" data-track-kind="graphics" style="z-index:16"><div id="s6cam" class="cam"><img id="s6bg" class="bg" src="assets/photos/bg_01_hitam_depan34.jpg" alt="" /><div id="s6kb" class="kb"><img class="card cta-card" src="assets/photos/01_hitam_depan34.jpg" alt="" /></div><div id="s6sw" class="sweep"></div><div class="shade"></div><div class="cta">
+          <div class="ctaq"><span id="ct_q0" class="qw">NAK</span> <span id="ct_q1" class="qw">VIEW</span> <span id="ct_q2" class="qw">KERETA?</span></div>
+          <div id="ct_rule" class="rule"></div>
+          <div class="line label ctas"><span id="ct_sub" class="pearl">WHATSAPP SEKARANG</span></div>
+          <div id="ct_card" class="ccard">
+            <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div></div>
+            <div class="ctext">
+              <div class="cnum"><span id="ct_n1" class="nw">017-203</span> <span id="ct_n2" class="nw">6099</span></div>
+              <div id="ct_meta" class="cmeta">Deposit RM13,000 &nbsp;·&nbsp; Bulanan RM1,300</div>
+            </div>
+            <div id="ct_glint" class="glint"></div>
+          </div>
         </div></div></div>
-      <div id="captions" class="clip" data-start="0" data-duration="39.915" data-track-index="5" data-track-kind="captions" style="z-index:40"><div id="c0" class="grp"><span id="c0p" class="pill"><span class="w ">Ada</span> <span class="w ">satu</span> <span class="w ">unit</span> <span class="w silver">Proton</span> <span class="w silver">X50</span></span></div><div id="c1" class="grp"><span id="c1p" class="pill"><span class="w silver">Executive</span> <span class="w silver">Spec</span> <span class="w ">nak</span></span></div><div id="c2" class="grp"><span id="c2p" class="pill"><span class="w ">dijual</span> <span class="w ">secara</span> <span class="w red">sambung</span></span></div><div id="c3" class="grp"><span id="c3p" class="pill"><span class="w red">bayar</span> <span class="w red">berdeposit.</span></span></div><div id="c4" class="grp"><span id="c4p" class="pill"><span class="w silver">Proton</span> <span class="w silver">X50</span> <span class="w silver">Executive</span></span></div><div id="c5" class="grp"><span id="c5p" class="pill"><span class="w silver">Facelift</span> <span class="w silver">2026!</span></span></div><div id="c6" class="grp"><span id="c6p" class="pill"><span class="w ">Kereta</span> <span class="w ">baru,</span></span></div><div id="c7" class="grp"><span id="c7p" class="pill"><span class="w ">puas</span> <span class="w ">hati</span> <span class="w ">kereta</span> <span class="w ">baru!</span></span></div><div id="c8" class="grp"><span id="c8p" class="pill"><span class="w red">Deposit?</span></span></div><div id="c9" class="grp"><span id="c9p" class="pill"><span class="w red">RM13,000.</span></span></div><div id="c10" class="grp"><span id="c10p" class="pill"><span class="w red">Bulanan</span> <span class="w ">pula,</span></span></div><div id="c11" class="grp"><span id="c11p" class="pill"><span class="w red">RM1,300</span> <span class="w ">je.</span></span></div><div id="c12" class="grp"><span id="c12p" class="pill"><span class="w red">Loan</span> <span class="w red">9</span> <span class="w red">tahun!</span></span></div><div id="c13" class="grp"><span id="c13p" class="pill"><span class="w ">Yang</span> <span class="w ">bestnya,</span></span></div><div id="c14" class="grp"><span id="c14p" class="pill"><span class="w silver">agreement</span> <span class="w red">terus</span> <span class="w red">dengan</span> <span class="w red">owner.</span></span></div><div id="c15" class="grp"><span id="c15p" class="pill"><span class="w ">Semua</span> <span class="w ">urusan</span> <span class="w ">kita</span> <span class="w ">bantu</span></span></div><div id="c16" class="grp"><span id="c16p" class="pill"><span class="w ">sampai</span> <span class="w ">selesai!</span></span></div><div id="c17" class="grp"><span id="c17p" class="pill"><span class="w ">Tengoklah</span> <span class="w ">interior</span> <span class="w ">dia.</span></span></div><div id="c18" class="grp"><span id="c18p" class="pill"><span class="w silver">Moden,</span> <span class="w silver">selesa,</span></span></div><div id="c19" class="grp"><span id="c19p" class="pill"><span class="w ">ruang</span> <span class="w ">pun</span> <span class="w silver">luas.</span></span></div><div id="c20" class="grp"><span id="c20p" class="pill"><span class="w ">Memang</span> <span class="w ">ngam</span> <span class="w ">untuk</span> <span class="w ">bawa</span> <span class="w silver">family!</span></span></div><div id="c21" class="grp cta-pos"><span id="c21p" class="pill"><span class="w ">Berminat</span> <span class="w ">dengan</span> <span class="w ">kereta?</span></span></div><div id="c22" class="grp cta-pos"><span id="c22p" class="pill"><span class="w red">WhatsApp</span> <span class="w ">je</span> <span class="w ">sekarang!</span></span></div><div id="c23" class="grp cta-pos"><span id="c23p" class="pill"><span class="w red">017-203</span> <span class="w red">6099.</span></span></div><div id="c24" class="grp cta-pos"><span id="c24p" class="pill"><span class="w ">Jangan</span> <span class="w ">tunggu</span> <span class="w ">lama!</span></span></div></div>
-      <div id="bug" class="clip" data-start="0" data-duration="39.915" data-track-index="6" data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>
-      <div id="fx" class="clip" data-start="0" data-duration="39.915" data-track-index="7" data-track-kind="graphics" style="z-index:42"><div id="flash"></div><div id="dip"></div></div>
-      <audio id="music" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="39.915" data-track-index="8"></audio>
-      <audio id="sfx" class="clip" src="assets/audio/sfx.wav" data-start="0" data-duration="39.915" data-track-index="9"></audio>
-      <audio id="vo" class="clip" src="assets/audio/vo.wav" data-start="0" data-duration="39.915" data-track-index="4"></audio>
+      <div id="captions" class="clip" data-start="0" data-duration="42.203" data-track-index="5" data-track-kind="captions" style="z-index:40"><div id="c0" class="grp"><span id="c0p" class="pill"><span class="w ">Ada</span> <span class="w ">satu</span> <span class="w ">unit</span> <span class="w silver">Proton</span> <span class="w silver">X50</span></span></div><div id="c1" class="grp"><span id="c1p" class="pill"><span class="w silver">Executive</span> <span class="w silver">Spec</span> <span class="w ">nak</span></span></div><div id="c2" class="grp"><span id="c2p" class="pill"><span class="w ">dijual</span> <span class="w ">secara</span> <span class="w red">sambung</span></span></div><div id="c3" class="grp"><span id="c3p" class="pill"><span class="w red">bayar</span> <span class="w red">berdeposit.</span></span></div><div id="c4" class="grp"><span id="c4p" class="pill"><span class="w silver">Proton</span> <span class="w silver">X50</span> <span class="w silver">Executive</span></span></div><div id="c5" class="grp"><span id="c5p" class="pill"><span class="w silver">Facelift</span> <span class="w silver">2026.</span></span></div><div id="c6" class="grp"><span id="c6p" class="pill"><span class="w ">Kereta</span> <span class="w ">baru,</span></span></div><div id="c7" class="grp"><span id="c7p" class="pill"><span class="w ">puas</span> <span class="w ">hati</span> <span class="w ">kereta</span> <span class="w ">baru.</span></span></div><div id="c8" class="grp"><span id="c8p" class="pill"><span class="w red">Deposit?</span></span></div><div id="c9" class="grp"><span id="c9p" class="pill"><span class="w red">RM13,000.</span></span></div><div id="c10" class="grp"><span id="c10p" class="pill"><span class="w red">Bulanan</span> <span class="w ">pula,</span> <span class="w red">RM1,300.</span></span></div><div id="c11" class="grp"><span id="c11p" class="pill"><span class="w red">Loan</span> <span class="w red">9</span> <span class="w red">tahun.</span></span></div><div id="c12" class="grp"><span id="c12p" class="pill"><span class="w ">Yang</span> <span class="w ">bestnya,</span></span></div><div id="c13" class="grp"><span id="c13p" class="pill"><span class="w silver">agreement</span> <span class="w red">terus</span> <span class="w red">dengan</span> <span class="w red">owner.</span></span></div><div id="c14" class="grp"><span id="c14p" class="pill"><span class="w ">Semua</span> <span class="w ">urusan</span> <span class="w ">kita</span> <span class="w ">bantu</span></span></div><div id="c15" class="grp"><span id="c15p" class="pill"><span class="w ">sampai</span> <span class="w ">selesai.</span></span></div><div id="c16" class="grp"><span id="c16p" class="pill"><span class="w ">Tengoklah</span> <span class="w ">interior</span> <span class="w ">dia.</span></span></div><div id="c17" class="grp"><span id="c17p" class="pill"><span class="w silver">Moden,</span> <span class="w silver">selesa,</span></span></div><div id="c18" class="grp"><span id="c18p" class="pill"><span class="w ">ruang</span> <span class="w ">pun</span> <span class="w silver">luas.</span></span></div><div id="c19" class="grp"><span id="c19p" class="pill"><span class="w ">Memang</span> <span class="w ">ngam</span> <span class="w ">untuk</span> <span class="w ">bawa</span> <span class="w silver">family.</span></span></div><div id="c20" class="grp cta-pos"><span id="c20p" class="pill"><span class="w ">Berminat</span> <span class="w ">dengan</span> <span class="w ">kereta?</span></span></div><div id="c21" class="grp cta-pos"><span id="c21p" class="pill"><span class="w red">WhatsApp</span> <span class="w ">sekarang.</span></span></div><div id="c22" class="grp cta-pos"><span id="c22p" class="pill"><span class="w red">017-203</span> <span class="w red">6099.</span></span></div><div id="c23" class="grp cta-pos"><span id="c23p" class="pill"><span class="w ">Jangan</span> <span class="w ">tunggu</span> <span class="w ">lama.</span></span></div></div>
+      <div id="bug" class="clip" data-start="0" data-duration="42.203" data-track-index="6" data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>
+      <div id="fx" class="clip" data-start="0" data-duration="42.203" data-track-index="7" data-track-kind="graphics" style="z-index:42"><div id="flash"></div><div id="dip"></div></div>
+      <audio id="music" class="clip" src="assets/audio/music.wav" data-start="0" data-duration="42.203" data-track-index="8"></audio>
+      <audio id="sfx" class="clip" src="assets/audio/sfx.wav" data-start="0" data-duration="42.203" data-track-index="9"></audio>
+      <audio id="vo" class="clip" src="assets/audio/vo.wav" data-start="0" data-duration="42.203" data-track-index="4"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#s0kb",{scale:1.0},{...{scale:1.12},duration:6.027,ease:"power1.out"},0.000);
-      tl.fromTo("#s0bg",{scale:1.0},{scale:1.05,duration:6.027,ease:"none"},0.000);
+      tl.fromTo("#s0kb",{scale:1.0},{...{scale:1.12},duration:6.282,ease:"power1.out"},0.000);
+      tl.fromTo("#s0bg",{scale:1.0},{scale:1.05,duration:6.282,ease:"none"},0.000);
       tl.fromTo("#h0_0",{scale:1.08},{scale:1,duration:0.35,ease:"power3.out"},0);
       tl.fromTo("#h0_1",{scale:1.08},{scale:1,duration:0.35,ease:"power3.out"},0);
-      tl.fromTo("#s1kb",{scale:1.08,y:40},{...{scale:1.08,y:-40},duration:6.282,ease:"sine.inOut"},5.667);
-      tl.fromTo("#s1bg",{scale:1.0},{scale:1.05,duration:6.282,ease:"none"},5.667);
-      tl.fromTo("#s1sw",{x:-1300},{x:1300,duration:1.3,ease:"power1.inOut"},6.247);
-      tl.fromTo("#h1_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},5.997);
-      tl.fromTo("#h1_1",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},6.137);
-      tl.fromTo("#s0cam",{x:0},{x:-1080,duration:0.36,ease:"power2.inOut"},5.667);
-      tl.fromTo("#s1cam",{x:1080},{x:0,duration:0.36,ease:"power2.inOut"},5.667);
-      tl.fromTo("#s2kb",{scale:1.16},{...{scale:1.03},duration:2.723,ease:"sine.inOut"},11.949);
-      tl.fromTo("#s2bg",{scale:1.0},{scale:1.05,duration:2.723,ease:"none"},11.949);
-      tl.fromTo("#h2_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},12.099);
-      tl.fromTo("#h2_1",{yPercent:110,scale:0.9},{yPercent:0,scale:1,duration:0.5,ease:"back.out(1.5)"},12.607);
-      tl.fromTo("#flash",{opacity:0},{opacity:0.85,duration:0.1,ease:"power2.in"},11.849);
-      tl.to("#flash",{opacity:0,duration:0.3,ease:"power2.out"},11.949);
-      tl.fromTo("#s2cam",{scale:1.06},{scale:1,duration:0.4,ease:"power3.out"},11.949);
-      tl.fromTo("#s3kb",{scale:1.0},{...{scale:1.12},duration:4.956,ease:"power1.out"},14.312);
-      tl.fromTo("#s3bg",{scale:1.0},{scale:1.05,duration:4.956,ease:"none"},14.312);
-      tl.fromTo("#h3_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},14.642);
-      tl.fromTo("#h3_1",{yPercent:110,scale:0.9},{yPercent:0,scale:1,duration:0.5,ease:"back.out(1.5)"},15.150);
-      tl.fromTo("#h3_2",{opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out"},15.500);
-      tl.fromTo("#s2cam",{y:0},{y:-1920,duration:0.36,ease:"power2.inOut"},14.312);
-      tl.fromTo("#s3cam",{y:1920},{y:0,duration:0.36,ease:"power2.inOut"},14.312);
-      tl.fromTo("#s4kb",{scale:1.1,x:60},{...{scale:1.1,x:-60},duration:5.719,ease:"sine.inOut"},18.868);
-      tl.fromTo("#s4bg",{scale:1.0},{scale:1.05,duration:5.719,ease:"none"},18.868);
-      tl.fromTo("#h4_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},19.218);
-      tl.fromTo("#h4_1",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},19.358);
-      tl.fromTo("#h4_2",{opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out"},19.698);
-      tl.fromTo("#s3cam",{scale:1,opacity:1},{scale:1.6,opacity:0,duration:0.4,ease:"power2.in"},18.868);
-      tl.fromTo("#s4cam",{scale:1.18,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"power2.out"},18.868);
-      tl.set("#s3cam",{zIndex:2},18.868);
-      tl.fromTo("#s5m0kb",{scale:1.12,x:30},{scale:1.03,x:-30,duration:1.705,ease:"none"},24.227);
-      tl.fromTo("#s5m1kb",{scale:1.12,x:-30},{scale:1.03,x:30,duration:1.525,ease:"none"},25.932);
-      tl.fromTo("#s5m2kb",{scale:1.12,x:30},{scale:1.03,x:-30,duration:3.050,ease:"none"},27.458);
-      tl.fromTo("#h5_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},24.557);
-      tl.fromTo("#h5_1",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},24.697);
-      tl.fromTo("#s4cam",{x:0},{x:-1080,duration:0.36,ease:"power2.inOut"},24.227);
-      tl.fromTo("#s5cam",{x:1080},{x:0,duration:0.36,ease:"power2.inOut"},24.227);
-      tl.fromTo("#s6kb",{scale:1.0},{...{scale:1.05},duration:9.407,ease:"sine.inOut"},30.508);
-      tl.fromTo("#s6bg",{scale:1.0},{scale:1.05,duration:9.407,ease:"none"},30.508);
-      tl.fromTo("#s6sw",{x:-1300},{x:1300,duration:1.3,ease:"power1.inOut"},31.908);
-      tl.fromTo("#ct_q",{yPercent:110},{yPercent:0,duration:0.55,ease:"power3.out"},30.608);
-      tl.fromTo("#ct_sub",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},30.808);
-      tl.fromTo("#ct_btn",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.5,ease:"back.out(1.7)"},31.708);
-      tl.fromTo("#ct_glint",{x:-200},{x:760,duration:0.7,ease:"power2.inOut"},35.667);
-      tl.fromTo("#dip",{opacity:0},{opacity:1,duration:0.25,ease:"power2.in"},30.258);
-      tl.to("#dip",{opacity:0,duration:0.4,ease:"power2.out"},30.508);
+      tl.fromTo("#s1kb",{scale:1.08,y:40},{...{scale:1.08,y:-40},duration:6.790,ease:"sine.inOut"},5.922);
+      tl.fromTo("#s1bg",{scale:1.0},{scale:1.05,duration:6.790,ease:"none"},5.922);
+      tl.fromTo("#s1sw",{x:-1300},{x:1300,duration:1.3,ease:"power1.inOut"},6.502);
+      tl.fromTo("#h1_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},6.252);
+      tl.fromTo("#h1_1",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},6.392);
+      tl.fromTo("#s0cam",{x:0},{x:-1080,duration:0.36,ease:"power2.inOut"},5.922);
+      tl.fromTo("#s1cam",{x:1080},{x:0,duration:0.36,ease:"power2.inOut"},5.922);
+      tl.fromTo("#s2kb",{scale:1.16},{...{scale:1.03},duration:2.976,ease:"sine.inOut"},12.712);
+      tl.fromTo("#s2bg",{scale:1.0},{scale:1.05,duration:2.976,ease:"none"},12.712);
+      tl.fromTo("#h2_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},12.862);
+      tl.fromTo("#h2_1",{yPercent:110,scale:0.9},{yPercent:0,scale:1,duration:0.5,ease:"back.out(1.5)"},13.370);
+      tl.fromTo("#flash",{opacity:0},{opacity:0.85,duration:0.1,ease:"power2.in"},12.612);
+      tl.to("#flash",{opacity:0,duration:0.3,ease:"power2.out"},12.712);
+      tl.fromTo("#s2cam",{scale:1.06},{scale:1,duration:0.4,ease:"power3.out"},12.712);
+      tl.fromTo("#s3kb",{scale:1.0},{...{scale:1.12},duration:4.957,ease:"power1.out"},15.328);
+      tl.fromTo("#s3bg",{scale:1.0},{scale:1.05,duration:4.957,ease:"none"},15.328);
+      tl.fromTo("#h3_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},15.658);
+      tl.fromTo("#h3_1",{yPercent:110,scale:0.9},{yPercent:0,scale:1,duration:0.5,ease:"back.out(1.5)"},16.166);
+      tl.fromTo("#h3_2",{opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out"},16.516);
+      tl.fromTo("#s2cam",{y:0},{y:-1920,duration:0.36,ease:"power2.inOut"},15.328);
+      tl.fromTo("#s3cam",{y:1920},{y:0,duration:0.36,ease:"power2.inOut"},15.328);
+      tl.fromTo("#s4kb",{scale:1.1,x:60},{...{scale:1.1,x:-60},duration:5.973,ease:"sine.inOut"},19.885);
+      tl.fromTo("#s4bg",{scale:1.0},{scale:1.05,duration:5.973,ease:"none"},19.885);
+      tl.fromTo("#h4_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},20.235);
+      tl.fromTo("#h4_1",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},20.375);
+      tl.fromTo("#h4_2",{opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out"},20.715);
+      tl.fromTo("#s3cam",{scale:1,opacity:1},{scale:1.6,opacity:0,duration:0.4,ease:"power2.in"},19.885);
+      tl.fromTo("#s4cam",{scale:1.18,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"power2.out"},19.885);
+      tl.set("#s3cam",{zIndex:2},19.885);
+      tl.fromTo("#s5m0kb",{scale:1.12,x:30},{scale:1.03,x:-30,duration:1.705,ease:"none"},25.498);
+      tl.fromTo("#s5m1kb",{scale:1.12,x:-30},{scale:1.03,x:30,duration:1.525,ease:"none"},27.203);
+      tl.fromTo("#s5m2kb",{scale:1.12,x:30},{scale:1.03,x:-30,duration:3.559,ease:"none"},28.729);
+      tl.fromTo("#h5_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},25.828);
+      tl.fromTo("#h5_1",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},25.968);
+      tl.fromTo("#s4cam",{x:0},{x:-1080,duration:0.36,ease:"power2.inOut"},25.498);
+      tl.fromTo("#s5cam",{x:1080},{x:0,duration:0.36,ease:"power2.inOut"},25.498);
+      tl.fromTo("#s6kb",{scale:1.0},{...{scale:1.05},duration:9.915,ease:"sine.inOut"},32.288);
+      tl.fromTo("#s6bg",{scale:1.0},{scale:1.05,duration:9.915,ease:"none"},32.288);
+      tl.fromTo("#s6sw",{x:-1300},{x:1300,duration:1.3,ease:"power1.inOut"},33.688);
+      tl.fromTo("#ct_q0",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},32.438);
+      tl.fromTo("#ct_q1",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},32.558);
+      tl.fromTo("#ct_q2",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},32.678);
+      tl.fromTo("#ct_rule",{scaleX:0},{scaleX:1,duration:0.5,ease:"power3.out"},32.838);
+      tl.fromTo("#ct_sub",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},32.938);
+      tl.fromTo("#ct_card",{opacity:0,y:60},{opacity:1,y:0,duration:0.6,ease:"power3.out"},33.588);
+      tl.fromTo("#ct_n1",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},35.058);
+      tl.fromTo("#ct_n2",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},37.499);
+      tl.fromTo("#ct_ring",{scale:1,opacity:0.8},{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"},35.058);
+      tl.fromTo("#ct_meta",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},38.149);
+      tl.fromTo("#ct_glint",{x:-220},{x:860,duration:0.8,ease:"power2.inOut"},38.749);
+      tl.fromTo("#dip",{opacity:0},{opacity:1,duration:0.25,ease:"power2.in"},32.038);
+      tl.to("#dip",{opacity:0,duration:0.4,ease:"power2.out"},32.288);
       tl.set("#c0",{opacity:1,visibility:"visible"},0.100);
       tl.fromTo("#c0p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},0.100);
-      tl.to("#c0",{opacity:0,duration:0.1,ease:"power2.in"},1.766);
-      tl.set("#c0",{opacity:0,visibility:"hidden"},1.866);
-      tl.set("#c1",{opacity:1,visibility:"visible"},1.886);
-      tl.fromTo("#c1p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},1.886);
-      tl.to("#c1",{opacity:0,duration:0.1,ease:"power2.in"},2.938);
-      tl.set("#c1",{opacity:0,visibility:"hidden"},3.038);
-      tl.set("#c2",{opacity:1,visibility:"visible"},3.058);
-      tl.fromTo("#c2p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},3.058);
-      tl.to("#c2",{opacity:0,duration:0.1,ease:"power2.in"},4.054);
-      tl.set("#c2",{opacity:0,visibility:"hidden"},4.154);
-      tl.set("#c3",{opacity:1,visibility:"visible"},4.174);
-      tl.fromTo("#c3p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},4.174);
-      tl.to("#c3",{opacity:0,duration:0.1,ease:"power2.in"},5.827);
-      tl.set("#c3",{opacity:0,visibility:"hidden"},5.927);
-      tl.set("#c4",{opacity:1,visibility:"visible"},5.947);
-      tl.fromTo("#c4p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},5.947);
-      tl.to("#c4",{opacity:0,duration:0.1,ease:"power2.in"},7.423);
-      tl.set("#c4",{opacity:0,visibility:"hidden"},7.523);
-      tl.set("#c5",{opacity:1,visibility:"visible"},7.543);
-      tl.fromTo("#c5p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},7.543);
-      tl.to("#c5",{opacity:0,duration:0.1,ease:"power2.in"},9.460);
-      tl.set("#c5",{opacity:0,visibility:"hidden"},9.560);
-      tl.set("#c6",{opacity:1,visibility:"visible"},9.580);
-      tl.fromTo("#c6p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},9.580);
-      tl.to("#c6",{opacity:0,duration:0.1,ease:"power2.in"},10.219);
-      tl.set("#c6",{opacity:0,visibility:"hidden"},10.319);
-      tl.set("#c7",{opacity:1,visibility:"visible"},10.339);
-      tl.fromTo("#c7p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},10.339);
-      tl.to("#c7",{opacity:0,duration:0.1,ease:"power2.in"},11.929);
-      tl.set("#c7",{opacity:0,visibility:"hidden"},12.029);
-      tl.set("#c8",{opacity:1,visibility:"visible"},12.049);
-      tl.fromTo("#c8p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},12.049);
-      tl.to("#c8",{opacity:0,duration:0.1,ease:"power2.in"},12.694);
-      tl.set("#c8",{opacity:0,visibility:"hidden"},12.794);
-      tl.set("#c9",{opacity:1,visibility:"visible"},12.814);
-      tl.fromTo("#c9p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},12.814);
-      tl.to("#c9",{opacity:0,duration:0.1,ease:"power2.in"},14.472);
-      tl.set("#c9",{opacity:0,visibility:"hidden"},14.572);
-      tl.set("#c10",{opacity:1,visibility:"visible"},14.592);
-      tl.fromTo("#c10p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},14.592);
-      tl.to("#c10",{opacity:0,duration:0.1,ease:"power2.in"},15.409);
-      tl.set("#c10",{opacity:0,visibility:"hidden"},15.509);
-      tl.set("#c11",{opacity:1,visibility:"visible"},15.529);
-      tl.fromTo("#c11p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},15.529);
-      tl.to("#c11",{opacity:0,duration:0.1,ease:"power2.in"},17.267);
-      tl.set("#c11",{opacity:0,visibility:"hidden"},17.367);
-      tl.set("#c12",{opacity:1,visibility:"visible"},17.387);
-      tl.fromTo("#c12p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},17.387);
-      tl.to("#c12",{opacity:0,duration:0.1,ease:"power2.in"},19.048);
-      tl.set("#c12",{opacity:0,visibility:"hidden"},19.148);
-      tl.set("#c13",{opacity:1,visibility:"visible"},19.168);
-      tl.fromTo("#c13p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},19.168);
-      tl.to("#c13",{opacity:0,duration:0.1,ease:"power2.in"},19.874);
-      tl.set("#c13",{opacity:0,visibility:"hidden"},19.974);
-      tl.set("#c14",{opacity:1,visibility:"visible"},19.994);
-      tl.fromTo("#c14p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},19.994);
-      tl.to("#c14",{opacity:0,duration:0.1,ease:"power2.in"},21.598);
-      tl.set("#c14",{opacity:0,visibility:"hidden"},21.698);
-      tl.set("#c15",{opacity:1,visibility:"visible"},21.718);
-      tl.fromTo("#c15p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},21.718);
-      tl.to("#c15",{opacity:0,duration:0.1,ease:"power2.in"},22.859);
-      tl.set("#c15",{opacity:0,visibility:"hidden"},22.959);
-      tl.set("#c16",{opacity:1,visibility:"visible"},22.979);
-      tl.fromTo("#c16p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},22.979);
-      tl.to("#c16",{opacity:0,duration:0.1,ease:"power2.in"},24.387);
-      tl.set("#c16",{opacity:0,visibility:"hidden"},24.487);
-      tl.set("#c17",{opacity:1,visibility:"visible"},24.507);
-      tl.fromTo("#c17p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},24.507);
-      tl.to("#c17",{opacity:0,duration:0.1,ease:"power2.in"},25.888);
-      tl.set("#c17",{opacity:0,visibility:"hidden"},25.988);
-      tl.set("#c18",{opacity:1,visibility:"visible"},26.008);
-      tl.fromTo("#c18p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},26.008);
-      tl.to("#c18",{opacity:0,duration:0.1,ease:"power2.in"},27.294);
-      tl.set("#c18",{opacity:0,visibility:"hidden"},27.394);
-      tl.set("#c19",{opacity:1,visibility:"visible"},27.414);
-      tl.fromTo("#c19p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},27.414);
-      tl.to("#c19",{opacity:0,duration:0.1,ease:"power2.in"},28.472);
-      tl.set("#c19",{opacity:0,visibility:"hidden"},28.572);
-      tl.set("#c20",{opacity:1,visibility:"visible"},28.592);
-      tl.fromTo("#c20p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},28.592);
-      tl.to("#c20",{opacity:0,duration:0.1,ease:"power2.in"},30.488);
-      tl.set("#c20",{opacity:0,visibility:"hidden"},30.588);
-      tl.set("#c21",{opacity:1,visibility:"visible"},30.608);
-      tl.fromTo("#c21p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},30.608);
-      tl.to("#c21",{opacity:0,duration:0.1,ease:"power2.in"},31.744);
-      tl.set("#c21",{opacity:0,visibility:"hidden"},31.844);
-      tl.set("#c22",{opacity:1,visibility:"visible"},31.864);
-      tl.fromTo("#c22p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},31.864);
-      tl.to("#c22",{opacity:0,duration:0.1,ease:"power2.in"},33.067);
-      tl.set("#c22",{opacity:0,visibility:"hidden"},33.167);
-      tl.set("#c23",{opacity:1,visibility:"visible"},33.187);
-      tl.fromTo("#c23p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},33.187);
-      tl.to("#c23",{opacity:0,duration:0.1,ease:"power2.in"},37.347);
-      tl.set("#c23",{opacity:0,visibility:"hidden"},37.447);
-      tl.set("#c24",{opacity:1,visibility:"visible"},37.467);
-      tl.fromTo("#c24p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},37.467);
-      tl.to("#c24",{opacity:0,duration:0.1,ease:"power2.in"},39.151);
-      tl.set("#c24",{opacity:0,visibility:"hidden"},39.251);
+      tl.to("#c0",{opacity:0,duration:0.1,ease:"power2.in"},1.867);
+      tl.set("#c0",{opacity:0,visibility:"hidden"},1.967);
+      tl.set("#c1",{opacity:1,visibility:"visible"},1.987);
+      tl.fromTo("#c1p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},1.987);
+      tl.to("#c1",{opacity:0,duration:0.1,ease:"power2.in"},3.105);
+      tl.set("#c1",{opacity:0,visibility:"hidden"},3.205);
+      tl.set("#c2",{opacity:1,visibility:"visible"},3.225);
+      tl.fromTo("#c2p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},3.225);
+      tl.to("#c2",{opacity:0,duration:0.1,ease:"power2.in"},4.284);
+      tl.set("#c2",{opacity:0,visibility:"hidden"},4.384);
+      tl.set("#c3",{opacity:1,visibility:"visible"},4.404);
+      tl.fromTo("#c3p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},4.404);
+      tl.to("#c3",{opacity:0,duration:0.1,ease:"power2.in"},6.082);
+      tl.set("#c3",{opacity:0,visibility:"hidden"},6.182);
+      tl.set("#c4",{opacity:1,visibility:"visible"},6.202);
+      tl.fromTo("#c4p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},6.202);
+      tl.to("#c4",{opacity:0,duration:0.1,ease:"power2.in"},7.851);
+      tl.set("#c4",{opacity:0,visibility:"hidden"},7.951);
+      tl.set("#c5",{opacity:1,visibility:"visible"},7.971);
+      tl.fromTo("#c5p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},7.971);
+      tl.to("#c5",{opacity:0,duration:0.1,ease:"power2.in"},10.238);
+      tl.set("#c5",{opacity:0,visibility:"hidden"},10.338);
+      tl.set("#c6",{opacity:1,visibility:"visible"},10.358);
+      tl.fromTo("#c6p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},10.358);
+      tl.to("#c6",{opacity:0,duration:0.1,ease:"power2.in"},11.040);
+      tl.set("#c6",{opacity:0,visibility:"hidden"},11.140);
+      tl.set("#c7",{opacity:1,visibility:"visible"},11.160);
+      tl.fromTo("#c7p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},11.160);
+      tl.to("#c7",{opacity:0,duration:0.1,ease:"power2.in"},12.692);
+      tl.set("#c7",{opacity:0,visibility:"hidden"},12.792);
+      tl.set("#c8",{opacity:1,visibility:"visible"},12.812);
+      tl.fromTo("#c8p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},12.812);
+      tl.to("#c8",{opacity:0,duration:0.1,ease:"power2.in"},13.546);
+      tl.set("#c8",{opacity:0,visibility:"hidden"},13.646);
+      tl.set("#c9",{opacity:1,visibility:"visible"},13.666);
+      tl.fromTo("#c9p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},13.666);
+      tl.to("#c9",{opacity:0,duration:0.1,ease:"power2.in"},15.488);
+      tl.set("#c9",{opacity:0,visibility:"hidden"},15.588);
+      tl.set("#c10",{opacity:1,visibility:"visible"},15.608);
+      tl.fromTo("#c10p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},15.608);
+      tl.to("#c10",{opacity:0,duration:0.1,ease:"power2.in"},18.230);
+      tl.set("#c10",{opacity:0,visibility:"hidden"},18.330);
+      tl.set("#c11",{opacity:1,visibility:"visible"},18.350);
+      tl.fromTo("#c11p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},18.350);
+      tl.to("#c11",{opacity:0,duration:0.1,ease:"power2.in"},20.065);
+      tl.set("#c11",{opacity:0,visibility:"hidden"},20.165);
+      tl.set("#c12",{opacity:1,visibility:"visible"},20.185);
+      tl.fromTo("#c12p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},20.185);
+      tl.to("#c12",{opacity:0,duration:0.1,ease:"power2.in"},20.937);
+      tl.set("#c12",{opacity:0,visibility:"hidden"},21.037);
+      tl.set("#c13",{opacity:1,visibility:"visible"},21.057);
+      tl.fromTo("#c13p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},21.057);
+      tl.to("#c13",{opacity:0,duration:0.1,ease:"power2.in"},22.806);
+      tl.set("#c13",{opacity:0,visibility:"hidden"},22.906);
+      tl.set("#c14",{opacity:1,visibility:"visible"},22.926);
+      tl.fromTo("#c14p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},22.926);
+      tl.to("#c14",{opacity:0,duration:0.1,ease:"power2.in"},24.174);
+      tl.set("#c14",{opacity:0,visibility:"hidden"},24.274);
+      tl.set("#c15",{opacity:1,visibility:"visible"},24.294);
+      tl.fromTo("#c15p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},24.294);
+      tl.to("#c15",{opacity:0,duration:0.1,ease:"power2.in"},25.658);
+      tl.set("#c15",{opacity:0,visibility:"hidden"},25.758);
+      tl.set("#c16",{opacity:1,visibility:"visible"},25.778);
+      tl.fromTo("#c16p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},25.778);
+      tl.to("#c16",{opacity:0,duration:0.1,ease:"power2.in"},27.291);
+      tl.set("#c16",{opacity:0,visibility:"hidden"},27.391);
+      tl.set("#c17",{opacity:1,visibility:"visible"},27.411);
+      tl.fromTo("#c17p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},27.411);
+      tl.to("#c17",{opacity:0,duration:0.1,ease:"power2.in"},28.776);
+      tl.set("#c17",{opacity:0,visibility:"hidden"},28.876);
+      tl.set("#c18",{opacity:1,visibility:"visible"},28.896);
+      tl.fromTo("#c18p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},28.896);
+      tl.to("#c18",{opacity:0,duration:0.1,ease:"power2.in"},30.067);
+      tl.set("#c18",{opacity:0,visibility:"hidden"},30.167);
+      tl.set("#c19",{opacity:1,visibility:"visible"},30.187);
+      tl.fromTo("#c19p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},30.187);
+      tl.to("#c19",{opacity:0,duration:0.1,ease:"power2.in"},32.268);
+      tl.set("#c19",{opacity:0,visibility:"hidden"},32.368);
+      tl.set("#c20",{opacity:1,visibility:"visible"},32.388);
+      tl.fromTo("#c20p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},32.388);
+      tl.to("#c20",{opacity:0,duration:0.1,ease:"power2.in"},33.641);
+      tl.set("#c20",{opacity:0,visibility:"hidden"},33.741);
+      tl.set("#c21",{opacity:1,visibility:"visible"},33.761);
+      tl.fromTo("#c21p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},33.761);
+      tl.to("#c21",{opacity:0,duration:0.1,ease:"power2.in"},34.908);
+      tl.set("#c21",{opacity:0,visibility:"hidden"},35.008);
+      tl.set("#c22",{opacity:1,visibility:"visible"},35.028);
+      tl.fromTo("#c22p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},35.028);
+      tl.to("#c22",{opacity:0,duration:0.1,ease:"power2.in"},39.477);
+      tl.set("#c22",{opacity:0,visibility:"hidden"},39.577);
+      tl.set("#c23",{opacity:1,visibility:"visible"},39.597);
+      tl.fromTo("#c23p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},39.597);
+      tl.to("#c23",{opacity:0,duration:0.1,ease:"power2.in"},41.344);
+      tl.set("#c23",{opacity:0,visibility:"hidden"},41.444);
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>

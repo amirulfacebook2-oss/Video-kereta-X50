@@ -26,13 +26,13 @@ import edge_tts  # noqa: E402
 import tts as _tts  # noqa: E402
 from tts import PROXY, norm, parse_tokens, tighten  # noqa: E402
 
-_tts.MAX_GAP, _tts.KEEP_GAP = 0.34, 0.24   # snappier sentence pauses
+_tts.MAX_GAP, _tts.KEEP_GAP = 0.40, 0.30   # snappier sentence pauses
 
 ASSETS = HF / "assets"
 AUD = ASSETS / "audio"
 PH = ASSETS / "photos"
 
-VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "+12%", "+0Hz"   # "Suara B"
+VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "+6%", "-4Hz"   # "Suara B", calmer: slower, lower, no "!"
 BPM = 118
 BEAT = 60 / BPM
 SR = 48000
@@ -44,7 +44,7 @@ SCRIPT = [
         head=[("SAMBUNG BAYAR", "hero", "pearl"), ("LEASE TO OWN", "label", "silver")],
         photos=["01_hitam_depan34.jpg"], move="push", trans=None, min_beats=0),
     dict(  # 2 MODEL
-        vo="^Proton ^X50|X-fifty ^Executive ^Facelift ^2026!|dua-ribu-dua-puluh-enam! Kereta baru, puas hati kereta baru!",
+        vo="^Proton ^X50|X-fifty ^Executive ^Facelift ^2026.|dua-ribu-dua-puluh-enam. Kereta baru, puas hati kereta baru.",
         head=[("PROTON X50", "hero", "silver"), ("EXECUTIVE FACELIFT 2026", "label", "pearl")],
         photos=["02_hitam_depan.jpg"], move="rise", trans="whip-left", min_beats=8),
     dict(  # 3 DEPOSIT
@@ -52,20 +52,20 @@ SCRIPT = [
         head=[("DEPOSIT", "label", "silver"), ("RM13,000", "price", "red")],
         photos=["03_hitam_belakang34.jpg"], move="pull", trans="flash", min_beats=6),
     dict(  # 4 BULANAN
-        vo="*Bulanan pula, *RM1,300|seribu-tiga-ratus-ringgit je. *Loan *9|sembilan *tahun!",
+        vo="*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
         head=[("BULANAN", "label", "silver"), ("RM1,300", "price", "red"), ("LOAN 9 TAHUN", "tag", "pearl")],
         photos=["04_hitam_badge.jpg"], move="push", trans="whip-up", min_beats=6),
     dict(  # 5 AGREEMENT
-        vo="Yang bestnya, ^agreement *terus *dengan *owner. Semua urusan kita bantu sampai selesai!",
+        vo="Yang bestnya, ^agreement *terus *dengan *owner. Semua urusan kita bantu sampai selesai.",
         head=[("AGREEMENT", "label", "silver"), ("DIRECT OWNER", "hero", "pearl"), ("PROSES MUDAH & PANTAS", "tag", "pearl")],
         photos=["05_hitam_belakang.jpg"], move="track", trans="zoom", min_beats=8),
     dict(  # 6 INTERIOR MONTAGE
-        vo="Tengoklah interior dia. ^Moden, ^selesa, ruang pun ^luas. Memang ngam untuk bawa ^family!",
+        vo="Tengoklah interior dia. ^Moden, ^selesa, ruang pun ^luas. Memang ngam untuk bawa ^family.",
         head=[("MODERN INTERIOR", "hero-s", "pearl"), ("COMFORTABLE FAMILY SUV", "label", "silver")],
         photos=["06_stereng.jpg", "07_tempat_duduk_depan.jpg", "08_tempat_duduk_belakang.jpg"],
         move="montage", trans="whip-left", min_beats=8),
     dict(  # 7 CLOSING & CTA
-        vo="Berminat dengan kereta? *WhatsApp je sekarang! *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama!",
+        vo="Berminat dengan kereta? *WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
         head="cta",
         photos=["01_hitam_depan34.jpg"], move="cta", trans="dip", min_beats=0),
 ]
@@ -370,20 +370,37 @@ def transition_js(J, scenes, s):
 
 def cta_html(i):
     c = CTA
+    q = "".join(f'<span id="ct_q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(c["q"].split()))
     return f'''<div class="cta">
-          <div class="line hero-s ctaq"><span id="ct_q" class="pearl">{esc(c["q"])}</span></div>
-          <div class="line label ctas"><span id="ct_sub" class="silver">{esc(c["sub"])}</span></div>
-          <div id="ct_btn" class="btn"><svg viewBox="0 0 48 48" width="58" height="58" aria-hidden="true"><circle cx="24" cy="23" r="17" fill="none" stroke="#fff" stroke-width="4"/><path d="M10 40 L13 31 L19 36 Z" fill="#fff"/><rect x="18" y="15" width="12" height="16" rx="4" fill="none" stroke="#fff" stroke-width="3.5"/></svg><span>{esc(c["phone"])}</span><div id="ct_glint" class="glint"></div></div>
+          <div class="ctaq">{q.strip()}</div>
+          <div id="ct_rule" class="rule"></div>
+          <div class="line label ctas"><span id="ct_sub" class="pearl">{esc(c["sub"])}</span></div>
+          <div id="ct_card" class="ccard">
+            <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div></div>
+            <div class="ctext">
+              <div class="cnum"><span id="ct_n1" class="nw">017-203</span> <span id="ct_n2" class="nw">6099</span></div>
+              <div id="ct_meta" class="cmeta">Deposit RM13,000 &nbsp;·&nbsp; Bulanan RM1,300</div>
+            </div>
+            <div id="ct_glint" class="glint"></div>
+          </div>
         </div>'''
 
 
 def cta_js(J, s):
     b = s["start"]
-    ph = [w for w in s["words"] if w["display"].startswith("017")][0]["t0"]
-    J(f'tl.fromTo("#ct_q",{{yPercent:110}},{{yPercent:0,duration:0.55,ease:"power3.out"}},{b + 0.1:.3f});')
-    J(f'tl.fromTo("#ct_sub",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.3:.3f});')
-    J(f'tl.fromTo("#ct_btn",{{opacity:0,scale:0.6}},{{opacity:1,scale:1,duration:0.5,ease:"back.out(1.7)"}},{min(b + 1.2, ph - 0.35):.3f});')
-    J(f'tl.fromTo("#ct_glint",{{x:-200}},{{x:760,duration:0.7,ease:"power2.inOut"}},{ph + 2.4:.3f});')
+    w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
+    n1, n2 = w["017-203"], w["6099"]
+    for k in range(len(CTA["q"].split())):
+        J(f'tl.fromTo("#ct_q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.15 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#ct_rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.55:.3f});')
+    J(f'tl.fromTo("#ct_sub",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.65:.3f});')
+    J(f'tl.fromTo("#ct_card",{{opacity:0,y:60}},{{opacity:1,y:0,duration:0.6,ease:"power3.out"}},{min(b + 1.3, n1 - 0.6):.3f});')
+    # the number lands as it is spoken
+    J(f'tl.fromTo("#ct_n1",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.3,ease:"power3.out"}},{n1 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_n2",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.3,ease:"power3.out"}},{n2 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_ring",{{scale:1,opacity:0.8}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n1 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_meta",{{opacity:0}},{{opacity:1,duration:0.5,ease:"power2.out"}},{n2 + 0.6:.3f});')
+    J(f'tl.fromTo("#ct_glint",{{x:-220}},{{x:860,duration:0.8,ease:"power2.inOut"}},{n2 + 1.2:.3f});')
 
 
 TEMPLATE = r"""<!doctype html>
@@ -413,7 +430,7 @@ TEMPLATE = r"""<!doctype html>
       .card { position: absolute; left: -22px; top: 430px; width: 1124px; height: 843px; object-fit: cover;
               -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
                       mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%); }
-      .cta-card { left: 170px; top: 500px; width: 740px; height: 480px; }
+      .cta-card { left: 20px; top: 640px; width: 1040px; height: 780px; }
       .shade { position: absolute; inset: 0;
                background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,
                            rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%); }
@@ -428,10 +445,9 @@ TEMPLATE = r"""<!doctype html>
       .tag span { font-weight: 700; font-size: 38px; letter-spacing: .06em; padding: 8px 26px; border-radius: 40px; background: var(--red); color: #fff; filter: none; box-shadow: 0 6px 18px rgba(0,0,0,.45); }
       .price { font-weight: 800; font-size: 176px; letter-spacing: -0.01em; line-height: 1.05; }
       .label { font-family: var(--font-label); font-weight: 700; font-size: 38px; letter-spacing: 0.1em; margin: 6px 0; }
-      .pearl { color: var(--pearl); }
-      .silver { background: var(--silver-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .red { color: var(--red); }
-      .price .red { text-shadow: 0 0 34px rgba(226,35,45,.55); }
+      .pearl { color: #fff; }
+      .silver, .red { color: #fff; }
+      .price .red { text-shadow: 0 6px 30px rgba(0,0,0,.55); }
       #captions { position: absolute; inset: 0; pointer-events: none; }
       .grp { position: absolute; left: 120px; top: 1096px; width: 660px; text-align: center;
              font-weight: 700; font-size: 48px; line-height: 1.42; color: #fff; opacity: 0; visibility: hidden; }
@@ -441,8 +457,7 @@ TEMPLATE = r"""<!doctype html>
               -webkit-box-decoration-break: clone; box-decoration-break: clone;
               text-shadow: 0 2px 6px rgba(0,0,0,.6); }
       .grp .w { display: inline; }
-      .grp .red { color: #ff4a52; }
-      .grp .silver { background: none; color: #d6dce4; }
+      .grp .red, .grp .silver { color: #fff; }
       #bug { position: absolute; left: 64px; top: 186px; display: flex; align-items: center; gap: 14px; }
       #bug .bar { width: 8px; height: 38px; background: var(--red); }
       #bug .bt { font-weight: 700; font-size: 34px; letter-spacing: .12em; color: var(--pearl); }
@@ -451,14 +466,22 @@ TEMPLATE = r"""<!doctype html>
       #flash { background: #fff; }
       #dip { background: var(--ground); }
       .cta { position: absolute; inset: 0; text-align: center; }
-      .ctaq { position: absolute; top: 300px; left: 120px; width: 840px; }
-      .ctas { position: absolute; top: 400px; left: 120px; width: 840px; }
-      .ctas.label { font-size: 44px; letter-spacing: .16em; }
-      .btn { position: absolute; overflow: hidden; left: 125px; top: 1000px; width: 650px; height: 116px; border-radius: 58px;
-             background: var(--red); display: flex; align-items: center; justify-content: center; gap: 22px;
-             box-shadow: 0 0 44px rgba(226,35,45,.55), 0 10px 26px rgba(0,0,0,.5);
-             font-weight: 800; font-size: 58px; color: #fff; letter-spacing: .01em; }
-      .glint { position: absolute; left: 0; top: -20px; width: 90px; height: 160px; transform: rotate(18deg);
+      .ctaq { position: absolute; top: 290px; left: 120px; width: 840px; font-weight: 800; font-size: 84px; line-height: 1.1; color: #fff; white-space: nowrap; }
+      .qw { display: inline-block; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+      .rule { position: absolute; top: 396px; left: 470px; width: 140px; height: 6px; background: var(--red); }
+      .ctas { position: absolute; top: 412px; left: 120px; width: 840px; }
+      .ctas.label { font-size: 38px; letter-spacing: .2em; }
+      .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
+               display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
+               background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18);
+               box-shadow: 0 18px 40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.12); }
+      .cicon { position: relative; flex: 0 0 104px; height: 104px; border-radius: 52px; background: var(--red);
+               display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(226,35,45,.5); }
+      .ring { position: absolute; inset: 0; border-radius: 52px; border: 4px solid rgba(226,35,45,.9); }
+      .nw { display: inline-block; }
+      .cnum { font-weight: 800; font-size: 72px; line-height: 1.05; color: #fff; letter-spacing: .01em; white-space: nowrap; }
+      .cmeta { margin-top: 8px; font-weight: 600; font-size: 30px; color: #fff; opacity: .85; white-space: nowrap; }
+      .glint { position: absolute; left: 0; top: -40px; width: 90px; height: 260px; transform: rotate(18deg);
                background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); }
     </style>
   </head>
