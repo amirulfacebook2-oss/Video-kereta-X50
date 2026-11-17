@@ -95,6 +95,7 @@ STYLES = {
                photo_bright=1.0, bg_bright=0.45, captions="middle"),
     "v2": dict(music="groove", countup=True, bump=True, montage="slide", shade="v2",
                photo_bright=1.07, bg_bright=0.72, captions="bottom",   # brighter look, captions bottom-centre
+               sfx_plus=True, wa_green=True,                           # ka-ching / pops / ding; green WhatsApp icon
                trans={5: "leak"},                       # light-leak into the interior
                moves={0: "reveal", 2: "orbit", 4: "track", 6: "drift"}),
 }
@@ -196,6 +197,62 @@ async def synth(i, line):
     return dict(tokens=toks, duration=dur)
 
 
+def make_voice_files(src_dir):
+    """Use pre-generated per-scene voice files (e.g. ElevenLabs el_<i>.mp3). Word timings are estimated:
+    speech regions are found from the audio energy and each token gets a share of the speech time
+    proportional to its length, so captions follow the real pauses."""
+    AUD.mkdir(parents=True, exist_ok=True)
+    res = []
+    for i, sc in enumerate(SCRIPT):
+        toks = parse_tokens(sc["vo"])
+        wav = AUD / f"vo_{i}.wav"
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(src_dir / f"el_{i}.mp3"), "-ar", str(SR), "-ac", "1", str(wav)], check=True)
+        sr, x = _tts.read_wav(wav)
+        hop = int(0.01 * sr)
+        rms = np.array([np.sqrt(np.mean(x[k:k + hop] ** 2) + 1e-12) for k in range(0, len(x) - hop, hop)])
+        db = 20 * np.log10(rms / (rms.max() + 1e-12))
+        on = db > -38
+        regions, k = [], 0
+        while k < len(on):
+            if on[k]:
+                j = k
+                while j < len(on) and on[j]:
+                    j += 1
+                regions.append([k * 0.01, j * 0.01])
+                k = j
+            else:
+                k += 1
+        merged = []
+        for r in regions:  # bridge gaps shorter than 0.12 s (consonants, breaths)
+            if merged and r[0] - merged[-1][1] < 0.12:
+                merged[-1][1] = r[1]
+            else:
+                merged.append(r)
+        regions = [r for r in merged if r[1] - r[0] > 0.04]
+        t_start, t_end = regions[0][0], regions[-1][1]
+        lead = max(0.0, t_start - 0.05)
+        y = x[int(lead * sr):int(min(len(x) / sr, t_end + 0.2) * sr)]
+        _tts.write_wav(wav, sr, y)
+        speech = sum(r[1] - r[0] for r in regions)
+        w = [len(t["spoken"].replace(" ", "")) + 1.5 for t in toks]
+        tot, acc = sum(w), 0.0
+
+        def to_time(u):  # position along concatenated speech -> real time
+            for r in regions:
+                d = r[1] - r[0]
+                if u <= d:
+                    return r[0] + u
+                u -= d
+            return regions[-1][1]
+        for t, wt in zip(toks, w):
+            t["t0"] = round(to_time(acc / tot * speech) - lead, 3)
+            acc += wt
+            t["t1"] = round(to_time(acc / tot * speech) - lead, 3)
+        res.append(dict(tokens=toks, duration=len(y) / sr))
+    (AUD / "vo_timings.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
+    return res
+
+
 def make_voice():
     AUD.mkdir(parents=True, exist_ok=True)
 
@@ -240,6 +297,8 @@ def make_audio(scenes, total):
     else:
         mus, _ = A.music(total, scenes)
     fx = A.sfx(total, scenes)
+    if STYLE.get("sfx_plus"):
+        fx = fx + extra_sfx(total, scenes)
     from scipy.signal import lfilter
     rel = np.exp(-1 / (0.35 * SR))
     env = lfilter([1 - rel], [1, -rel], np.abs(vo))
@@ -267,6 +326,72 @@ def make_audio(scenes, total):
                         "-c:a", "pcm_s16le", str(AUD / f"{name}.wav")], check=True)
         p.unlink()
     print(f"audio stems: gain {20 * math.log10(g):+.1f} dB, mix in {float(meas['input_i']):.1f} LUFS")
+
+
+# --------------------------------------------------------------------- extra sound design (style v2)
+def _env(n, a, d):
+    t = np.arange(n) / SR
+    return (1 - np.exp(-t / a)) * np.exp(-t / d)
+
+
+def sfx_ching():
+    """Cash-register style 'ka-ching' for prices: short click then two bright bell partials."""
+    n = int(0.9 * SR)
+    t = np.arange(n) / SR
+    click = A.hp(np.random.default_rng(3).standard_normal(n), 3000) * np.exp(-t / 0.006) * 0.4
+    bell = np.zeros(n)
+    for f0, dl, g in ((2093, 0.06, 0.5), (2637, 0.11, 0.45), (3136, 0.11, 0.3)):
+        k = int(dl * SR)
+        tt = t[: n - k]
+        bell[k:] += g * np.sin(2 * np.pi * f0 * tt) * np.exp(-tt / 0.28) * (1 + 0.3 * np.sin(2 * np.pi * 6 * tt))
+    return A.reverb(click + bell, 1.2, 0.25) * 0.55
+
+
+def sfx_pop(pitch=1.0):
+    """Bubbly UI pop for checklist ticks."""
+    n = int(0.12 * SR)
+    t = np.arange(n) / SR
+    f = (900 + 1600 * np.exp(-t / 0.02)) * pitch
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * _env(n, 0.002, 0.035) * 0.45
+
+
+def sfx_ding():
+    """Message-notification ding for the WhatsApp number."""
+    n = int(1.0 * SR)
+    t = np.arange(n) / SR
+    s = 0.6 * np.sin(2 * np.pi * 1568 * t) + 0.35 * np.sin(2 * np.pi * 2349 * t) * (t > 0.09)
+    return A.reverb(s * _env(n, 0.003, 0.25), 1.0, 0.2) * 0.5
+
+
+def sfx_sweep(length=0.5):
+    """Airy shimmer swoosh used under the end-card glint."""
+    n = int(length * SR)
+    t = np.linspace(0, 1, n)
+    s = A.hp(np.random.default_rng(5).standard_normal(n), 6000) * np.sin(np.pi * t) ** 2
+    return s / (np.abs(s).max() + 1e-9) * 0.25
+
+
+def extra_sfx(total, scenes):
+    out = np.zeros(int(total * SR) + 3 * SR)
+    for s in scenes:
+        cfg, b = s["cfg"], s["start"]
+        if isinstance(cfg["head"], list):
+            for j, h in enumerate(cfg["head"]):
+                if h[1] == "price":  # count-up lands -> ka-ching
+                    A.place(out, sfx_ching(), b + 0.15 + BEAT + 0.85, 0.9)
+                if h[1] == "tag" and s["i"] > 0:
+                    A.place(out, sfx_pop(1.3), b + 0.15 + 0.14 * j + 0.2 + (BEAT + 0.2 if any(x[1] == "price" for x in cfg["head"]) else 0), 0.6)
+        if cfg["head"] in ("recap", "specs"):
+            rows = cfg.get("checks", CTA["checks"])
+            step = min(0.42, (s["end"] - b - 1.6) / max(1, len(rows)))
+            for k in range(len(rows)):
+                A.place(out, sfx_pop(1 + 0.08 * k), b + 0.8 + step * k + 0.12, 0.7)
+        if cfg["head"] == "cta":
+            w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
+            A.place(out, sfx_ding(), w["017-203"] - 0.05, 0.8)
+            A.place(out, sfx_ding(), w["6099"] - 0.05, 0.6)
+            A.place(out, sfx_sweep(0.8), w["6099"] + 1.2, 0.8)
+    return out[: int(total * SR)]
 
 
 # --------------------------------------------------------------------- photos
@@ -411,8 +536,9 @@ def make_html(scenes, total):
                     at = s["start"] + 0.15 + BEAT + 0.35
                 elif style == "tag":
                     at = s["start"] + 0.15 + 0.14 * j + 0.2
-                if i == 0:  # frame 0 is the thumbnail: hook title already on screen
-                    J(f'tl.fromTo("#h{i}_{j}",{{scale:1.08}},{{scale:1,duration:0.35,ease:"power3.out"}},0);')
+                if i == 0:  # frame 0 is the thumbnail: hook title already on screen (only the big line punches in)
+                    if style.startswith("hero"):
+                        J(f'tl.fromTo("#h{i}_{j}",{{scale:1.08}},{{scale:1,duration:0.35,ease:"power3.out"}},0);')
                 elif style == "tag":
                     J(f'tl.fromTo("#h{i}_{j}",{{opacity:0,y:18}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{at:.3f});')
                 elif style == "price":
@@ -466,6 +592,10 @@ def make_html(scenes, total):
         page = page.replace("</style>", """      .line span, .qw { filter: drop-shadow(0 3px 4px rgba(0,0,0,.55)) drop-shadow(0 8px 22px rgba(0,0,0,.6)); }
       .tag span { filter: none; }
       #bug { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
+    </style>""", 1)
+    if STYLE.get("wa_green"):
+        page = page.replace("</style>", """      .cicon { background: #25D366; box-shadow: 0 0 30px rgba(37,211,102,.55); }
+      .ring { border-color: rgba(37,211,102,.9); }
     </style>""", 1)
     if STYLE["captions"] == "bottom":  # bottom-centre: last line ends at y 1520, below the car
         page = page.replace("</style>", """      .grp, .grp.cta-pos { top: auto; bottom: 380px; }
@@ -690,7 +820,9 @@ def main():
         vo = json.loads((AUD / "vo_timings.json").read_text())
     else:
         make_photos()
-        if src:  # same script: reuse the approved voice take
+        if VIDEOS[name].get("voice") == "elevenlabs":
+            vo = make_voice_files(ASSETS / "audio" / VIDEOS[name]["voice_dir"])
+        elif src:  # same script: reuse the approved voice take
             import shutil
             AUD.mkdir(parents=True, exist_ok=True)
             for f in (ASSETS / "audio" / src).glob("vo_*"):

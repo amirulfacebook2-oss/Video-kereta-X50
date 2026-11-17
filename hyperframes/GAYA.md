@@ -24,7 +24,7 @@ owner, plate, roadtax/insurans, lokasi, warranty, agreement direct owner.
 
 | # | Babak | Gambar | Gerakan kamera | Masuk dengan |
 |---|---|---|---|---|
-| 1 | Hook: SAMBUNG BAYAR / LEASE TO OWN | depan 3/4 | *reveal*: tarik ke belakang, kemudian perlahan | (frame 0 = thumbnail, tajuk sudah ada) |
+| 1 | Hook: tawaran utama (cth DEPOSIT BAWAH RM7K) + SAMBUNG BAYAR / LEASE TO OWN + tag (cth SUV 7 SEATER). Suara buka dengan ayat hook dahulu | depan 3/4 | *reveal*: tarik ke belakang, kemudian perlahan | (frame 0 = thumbnail, tajuk sudah ada) |
 | 2 | MODEL / VARIAN TAHUN | depan | naik perlahan + kilauan cahaya | whip ke kiri |
 | 3 | DEPOSIT RMx (dikira naik) | belakang 3/4 | *orbit*: pusing perlahan | kilat putih |
 | 4 | BULANAN RMx + tag LOAN x TAHUN x BULAN | belakang / badge | tolak masuk | whip ke atas |
@@ -47,7 +47,8 @@ owner, plate, roadtax/insurans, lokasi, warranty, agreement direct owner.
 
 ## Identiti visual
 
-- **Tulisan:** semua putih. Merah `#E2232D` hanya untuk elemen hiasan: garisan, tag, tanda ✓, ikon WhatsApp, bar logo.
+- **Tulisan:** semua putih. Merah `#E2232D` hanya untuk elemen hiasan: garisan, tag, tanda ✓, bar logo.
+- **Ikon WhatsApp:** hijau WhatsApp `#25D366`.
 - **Fon:** Poppins ExtraBold untuk tajuk dan harga, Montserrat Bold untuk label berjarak, Poppins Bold untuk sarikata.
 - **Logo:** "KL AUTO SB" di penjuru kiri atas, dengan bar merah di sebelahnya, sepanjang video.
 - **Cerah:** gambar dicerahkan 7%, dan latar kabur hanya sedikit gelap. Lapisan gelap tipis di atas dan ringan di bawah. Tulisan putih bergantung pada bayangnya sendiri (drop-shadow) untuk kekal jelas.
@@ -60,6 +61,13 @@ owner, plate, roadtax/insurans, lokasi, warranty, agreement direct owner.
 - **Frasa:** maksimum 5 perkataan dan 2 baris seimbang, muncul sekali gus. Pecah ikut ayat dan koma, dan tiada perkataan tinggal seorang.
 
 ## Suara
+
+**Lalai baharu: ElevenLabs "Ashraf - Smooth, Casual and Expressive"** (voice id `NHFTLozDZneDWyQjRGAO`, model `eleven_v4`).
+Jana satu klip bagi setiap babak (teks = bahagian sebutan skrip, nombor dieja penuh), simpan sebagai
+`assets/audio/NAMA_el/el_<babak>.mp3`, kemudian dalam `videos/NAMA.json` letak `"voice": "elevenlabs", "voice_dir": "NAMA_el"`.
+Masa sarikata dianggar daripada jeda dalam audio. Contoh: `videos/aruz2021.json`.
+
+Suara lama (cadangan sandaran, percuma):
 
 - Microsoft `ms-MY-OsmanNeural`, kelajuan −4%, nada −1 Hz. Gaya rileks dan santai. Jeda antara ayat sekitar 0.45 saat.
 - Skrip guna "." (bukan "!") supaya intonasi tenang. Elakkan "je".
@@ -87,7 +95,7 @@ owner, plate, roadtax/insurans, lokasi, warranty, agreement direct owner.
   - Recap dan penutup: riser dan snare roll, kemudian drop kedua.
   - Akhir: kord penutup dengan hentakan.
 - Muzik direndahkan setiap kali suara bercakap.
-- **Bunyi kesan:** whoosh pada setiap potongan, hentakan lembut pada harga, riser sebelum penutup.
+- **Bunyi kesan:** whoosh pada setiap potongan, hentakan pada pembukaan, *ka-ching* bila harga mendarat, *pop* pada setiap tanda ✓ dan tag, *ding* notifikasi bila nombor WhatsApp disebut, kilauan di hujung, riser sebelum penutup.
 
 ## Video yang sudah dibuat
 

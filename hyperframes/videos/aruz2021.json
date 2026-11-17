@@ -3,48 +3,205 @@
   "src": "aruz2021",
   "style": "v2",
   "photos": [
-    ["a21_01_depan34.jpg"],
-    ["a21_02_depan.jpg"],
-    ["a21_03_belakang34.jpg"],
-    ["a21_04_belakang.jpg"],
-    ["a21_05_stereng.jpg"],
-    ["a21_06_kabin.jpg"],
-    ["a21_07_dashboard.jpg", "a21_08_baris2.jpg", "a21_09_baris3.jpg", "a21_10_but.jpg"],
-    ["a21_03_belakang34.jpg"],
-    ["a21_01_depan34.jpg"]
+    [
+      "a21_01_depan34.jpg"
+    ],
+    [
+      "a21_02_depan.jpg"
+    ],
+    [
+      "a21_03_belakang34.jpg"
+    ],
+    [
+      "a21_04_belakang.jpg"
+    ],
+    [
+      "a21_05_stereng.jpg"
+    ],
+    [
+      "a21_06_kabin.jpg"
+    ],
+    [
+      "a21_07_dashboard.jpg",
+      "a21_08_baris2.jpg",
+      "a21_09_baris3.jpg",
+      "a21_10_but.jpg"
+    ],
+    [
+      "a21_03_belakang34.jpg"
+    ],
+    [
+      "a21_01_depan34.jpg"
+    ]
   ],
-  "fit_width": ["a21_01_depan34.jpg", "a21_02_depan.jpg", "a21_03_belakang34.jpg"],
-  "cues": [null, "Kemas", "ada", "Memang"],
+  "fit_width": [
+    "a21_01_depan34.jpg",
+    "a21_02_depan.jpg",
+    "a21_03_belakang34.jpg"
+  ],
+  "cues": [
+    null,
+    "Kemas",
+    "ada",
+    "Memang"
+  ],
   "script": [
-    {"vo": "Ada satu unit ^Perodua ^Aruz ^Advance nak dijual secara *sambung *bayar *berdeposit.",
-     "head": [["SAMBUNG BAYAR", "hero", "pearl"], ["LEASE TO OWN", "label", "silver"]],
-     "move": "reveal", "trans": null},
-    {"vo": "^Perodua ^Aruz ^Advance, tahun *2021.|dua-ribu-dua-puluh-satu. SUV tujuh tempat duduk, memang selesa untuk keluarga.",
-     "head": [["PERODUA ARUZ", "hero", "silver"], ["ADVANCE 2021", "label", "pearl"]],
-     "move": "rise", "trans": "whip-left"},
-    {"vo": "*Deposit? *RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.",
-     "head": [["DEPOSIT", "label", "silver"], ["RM6,988", "price", "red"]],
-     "move": "orbit", "trans": "flash"},
-    {"vo": "*Bulanan pula, *RM1,017.|seribu-tujuh-belas-ringgit. Baki *loan *8|lapan *tahun *7|tujuh *bulan.",
-     "head": [["BULANAN", "label", "silver"], ["RM1,017", "price", "red"], ["LOAN 8 TAHUN 7 BULAN", "tag", "pearl"]],
-     "move": "push", "trans": "whip-up"},
-    {"vo": "Yang bestnya,|besnya, ^agreement *terus *dengan *owner. *Roadtax|road-tax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
-     "head": [["AGREEMENT", "label", "silver"], ["DIRECT OWNER", "hero", "pearl"], ["ROADTAX & INSURANS JUN 2027", "tag", "pearl"]],
-     "move": "track", "trans": "zoom"},
-    {"vo": "Mileage|mailej *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
-     "head": "specs", "title": "BUTIRAN KERETA",
-     "checks": ["Tahun 2021", "Mileage 111K KM", "Owner Melayu", "Plate S** 4197", "Due date 1hb", "Lokasi Kuala Lumpur"],
-     "move": "recap", "trans": "whip-left", "min_beats": 10},
-    {"vo": "Tengoklah interior dia. Kemas, ^selesa, ada ^tiga baris tempat duduk. Memang ngam untuk bawa ^family.",
-     "head": [["INTERIOR KEMAS", "hero-s", "pearl"], ["7 TEMPAT DUDUK", "label", "silver"]],
-     "move": "montage", "trans": "leak"},
-    {"vo": "Berminat dengan kereta ni?",
-     "head": "recap", "move": "recap", "trans": "dip", "min_beats": 8},
-    {"vo": "*WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
-     "head": "cta", "move": "cta", "trans": "zoom"}
+    {
+      "vo": "*Deposit bawah *RM7K,|tujuh-ribu, dah boleh bawa balik SUV *7|tujuh seater! Ada satu unit ^Perodua ^Aruz ^Advance, *sambung *bayar *berdeposit.",
+      "head": [
+        [
+          "DEPOSIT BAWAH RM7K",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "SAMBUNG BAYAR / LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "SUV 7 SEATER",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "reveal",
+      "trans": null
+    },
+    {
+      "vo": "^Perodua ^Aruz ^Advance, tahun *2021.|dua-ribu-dua-puluh-satu. SUV tujuh tempat duduk, memang selesa untuk keluarga.",
+      "head": [
+        [
+          "PERODUA ARUZ",
+          "hero",
+          "silver"
+        ],
+        [
+          "ADVANCE 2021",
+          "label",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left"
+    },
+    {
+      "vo": "*Deposit? *RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM6,988",
+          "price",
+          "red"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,017.|seribu-tujuh-belas-ringgit. Baki *loan *8|lapan *tahun *7|tujuh *bulan.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,017",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 8 TAHUN 7 BULAN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Yang bestnya, ^agreement *terus *dengan *owner. *Roadtax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
+      "head": [
+        [
+          "AGREEMENT",
+          "label",
+          "silver"
+        ],
+        [
+          "DIRECT OWNER",
+          "hero",
+          "pearl"
+        ],
+        [
+          "ROADTAX & INSURANS JUN 2027",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "track",
+      "trans": "zoom"
+    },
+    {
+      "vo": "Mileage *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
+      "head": "specs",
+      "title": "BUTIRAN KERETA",
+      "checks": [
+        "Tahun 2021",
+        "Mileage 111K KM",
+        "Owner Melayu",
+        "Plate S** 4197",
+        "Due date 1hb",
+        "Lokasi Kuala Lumpur"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 10
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, ada ^tiga baris tempat duduk. Memang ngam untuk bawa ^family.",
+      "head": [
+        [
+          "INTERIOR KEMAS",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "7 TEMPAT DUDUK",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Berminat dengan kereta ni?",
+      "head": "recap",
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 8
+    },
+    {
+      "vo": "*WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
+      "head": "cta",
+      "move": "cta",
+      "trans": "zoom"
+    }
   ],
   "cta": {
     "meta": "Perodua Aruz Advance 2021",
-    "checks": ["Deposit RM6,988", "Bulanan RM1,017", "Roadtax & insurans Jun 2027", "Agreement direct owner"]
-  }
+    "checks": [
+      "Deposit RM6,988",
+      "Bulanan RM1,017",
+      "Roadtax & insurans Jun 2027",
+      "Agreement direct owner"
+    ]
+  },
+  "voice": "elevenlabs",
+  "voice_dir": "aruz2021_el"
 }
