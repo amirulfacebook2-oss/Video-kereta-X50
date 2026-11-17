@@ -578,6 +578,10 @@ def make_html(scenes, total):
         page = page.replace("</style>", """      .line span, .qw { filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)) drop-shadow(0 4px 10px rgba(0,0,0,.45)); }
       .line { padding: 0 24px 14px; margin-bottom: -14px; }
       .tag span { filter: none; }
+      #s0 .line { overflow: visible; }
+      .cta::before { content: ""; position: absolute; left: 0; right: 0; top: 150px; height: 620px; z-index: -1;
+                     background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(11,13,18,.6), rgba(11,13,18,0) 80%); }
+      .dlab { background: rgba(11,13,18,.72); padding: 8px 16px; border-radius: 30px; }
       .heads::before { content: ""; position: absolute; left: -200px; right: -200px; top: -70px; bottom: -60px; z-index: -1;
                        background: radial-gradient(ellipse 55% 60% at 50% 50%, rgba(11,13,18,.55), rgba(11,13,18,0) 75%); }
       #bug { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
