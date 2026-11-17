@@ -29,8 +29,8 @@
       .card-low { top: 640px; }
       .contain { position: absolute; left: 0; top: 240px; width: 1080px; height: 1440px; object-fit: contain; }
       .shade { position: absolute; inset: 0; z-index: 5;
-               background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,
-                           rgba(11,13,18,0) 52%, rgba(11,13,18,.3) 60%, rgba(11,13,18,.3) 66%, rgba(11,13,18,.1) 80%, rgba(11,13,18,.5) 100%); }
+               background: linear-gradient(180deg, rgba(11,13,18,.62) 0%, rgba(11,13,18,.46) 15%, rgba(11,13,18,.2) 27%, rgba(11,13,18,0) 35%,
+                           rgba(11,13,18,0) 58%, rgba(11,13,18,.16) 66%, rgba(11,13,18,.2) 72%, rgba(11,13,18,.32) 100%); }
       .sweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
                background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.16) 50%, transparent 58%); }
       .heads { position: absolute; left: 120px; top: 290px; width: 840px; text-align: center; z-index: 6; }
@@ -89,6 +89,10 @@
       .cmeta { margin-top: 8px; font-weight: 600; font-size: 30px; color: #fff; opacity: .85; white-space: nowrap; }
       .glint { position: absolute; left: 0; top: -40px; width: 90px; height: 260px; transform: rotate(18deg);
                background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); }
+          .line span, .qw { filter: drop-shadow(0 3px 4px rgba(0,0,0,.55)) drop-shadow(0 8px 22px rgba(0,0,0,.6)); }
+      .tag span { filter: none; }
+      #bug { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
+          .grp, .grp.cta-pos { top: auto; bottom: 600px; }
     </style>
   </head>
   <body>

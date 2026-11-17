@@ -31,7 +31,7 @@ selepas skrip diubah.
 - **Tulisan:** semua putih. Merah `#E2232D` hanya untuk elemen hiasan: garisan, tag, ikon WhatsApp, bar logo.
 - **Fon:** Poppins ExtraBold untuk tajuk dan harga, Montserrat Bold untuk label berjarak, Poppins Bold untuk sarikata.
 - **Logo:** "KL AUTO SB" di penjuru kiri atas, dengan bar merah di sebelahnya, sepanjang video.
-- **Bayang:** gelap di bahagian atas untuk tajuk. Bahagian bawah lebih ringan supaya kereta putih kekal terang.
+- **Cerah:** gambar dicerahkan 7%, dan latar kabur hanya sedikit gelap. Lapisan gelap tipis di atas dan ringan di bawah, jadi tulisan putih bergantung pada bayangnya sendiri (drop-shadow) untuk kekal jelas.
 - **Zon selamat:** semua teks antara y 269 dan 1248 (TikTok/Reels). Tajuk di bahagian atas (y 290).
 
 ## Babak (8)
@@ -55,9 +55,9 @@ selepas skrip diubah.
 
 ## Sarikata
 
-- Di tengah, y 1096, saiz 48 px. Frasa penuh (maksimum 5 perkataan, 2 baris seimbang), muncul sekali gus.
+- Di bawah tengah: baris terakhir berakhir pada y 1320 (jalur sarikata TikTok). Saiz 48 px. Frasa penuh (maksimum 5 perkataan, 2 baris seimbang), muncul sekali gus.
 - Latar gelap lembut mengikut setiap baris. Pecah ikut ayat dan koma, dan tiada perkataan tinggal seorang.
-- Di TikTok, butang di sebelah kanan mungkin menindih sedikit hujung baris yang panjang. Sarikata di tengah adalah pilihan klien.
+- Di TikTok, butang di sebelah kanan mungkin menindih sedikit hujung baris yang panjang. Kedudukan bawah tengah adalah pilihan klien.
 
 ## Suara
 

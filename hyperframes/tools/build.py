@@ -86,8 +86,10 @@ VIDEOS = {
         fit_width=["putih_01_depan34.jpg", "putih_02_depan.jpg", "putih_03_belakang34.jpg"]),
 }
 STYLES = {
-    "v1": dict(music="classic", countup=False, bump=False, montage="fade", trans={}, moves={}, shade="v1"),
+    "v1": dict(music="classic", countup=False, bump=False, montage="fade", trans={}, moves={}, shade="v1",
+               photo_bright=1.0, bg_bright=0.45, captions="middle"),
     "v2": dict(music="groove", countup=True, bump=True, montage="slide", shade="v2",
+               photo_bright=1.07, bg_bright=0.72, captions="bottom",   # brighter look, captions bottom-centre
                trans={5: "leak"},                       # light-leak into the interior
                moves={0: "reveal", 2: "orbit", 4: "track", 6: "drift"}),
 }
@@ -267,13 +269,15 @@ def make_photos():
     for name in sorted({p for s in SCRIPT for p in s["photos"]}):
         im = ImageOps.exif_transpose(Image.open(PHOTO_SRC / name)).convert("RGB")
         im = ImageEnhance.Contrast(im).enhance(1.05)
+        if STYLE["photo_bright"] != 1.0:
+            im = ImageEnhance.Brightness(im).enhance(STYLE["photo_bright"])
         fg = im.copy()
         fg.thumbnail((2400, 2400), Image.LANCZOS)
         fg.save(PH / name, quality=90)
         sc = max(1080 / im.width, 1920 / im.height) * 1.2
         bg = im.resize((int(im.width * sc / 4), int(im.height * sc / 4)), Image.BILINEAR)
         bg = bg.filter(ImageFilter.GaussianBlur(14))
-        bg = ImageEnhance.Color(ImageEnhance.Brightness(bg).enhance(0.45)).enhance(0.8)
+        bg = ImageEnhance.Color(ImageEnhance.Brightness(bg).enhance(STYLE["bg_bright"])).enhance(0.85)
         bg.resize((int(im.width * sc / 2), int(im.height * sc / 2)), Image.BILINEAR).save(PH / f"bg_{name}", quality=85)
 
 
@@ -447,9 +451,18 @@ def make_html(scenes, total):
         body.append(f'<audio id="{name}" class="clip" src="assets/audio/{VIDEO}/{name}.wav" data-start="0" data-duration="{total}" data-track-index="{idx}"></audio>')
 
     page = TEMPLATE
-    if STYLE["shade"] == "v2":
+    if STYLE["shade"] == "v2":  # lighter overall: thin top shade, light bottom; text carries its own shadow
+        page = page.replace("background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,",
+                            "background: linear-gradient(180deg, rgba(11,13,18,.62) 0%, rgba(11,13,18,.46) 15%, rgba(11,13,18,.2) 27%, rgba(11,13,18,0) 35%,")
         page = page.replace("rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%",
-                            "rgba(11,13,18,0) 52%, rgba(11,13,18,.3) 60%, rgba(11,13,18,.3) 66%, rgba(11,13,18,.1) 80%, rgba(11,13,18,.5) 100%")
+                            "rgba(11,13,18,0) 58%, rgba(11,13,18,.16) 66%, rgba(11,13,18,.2) 72%, rgba(11,13,18,.32) 100%")
+        page = page.replace("</style>", """      .line span, .qw { filter: drop-shadow(0 3px 4px rgba(0,0,0,.55)) drop-shadow(0 8px 22px rgba(0,0,0,.6)); }
+      .tag span { filter: none; }
+      #bug { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
+    </style>""", 1)
+    if STYLE["captions"] == "bottom":  # bottom-centre, last line ends at y 1320 (TikTok caption band)
+        page = page.replace("</style>", """      .grp, .grp.cta-pos { top: auto; bottom: 600px; }
+    </style>""", 1)
     page = page.replace("%%TOTAL%%", f"{total}").replace("%%BODY%%", "\n      ".join(body)).replace("%%JS%%", "\n      ".join(js))
     (HF / "index.html").write_text(page)
     print(f"index.html [{VIDEO}, style {VIDEOS[VIDEO]['style']}]: {len(scenes)} scenes, {len(groups)} caption groups, {total:.2f}s")
