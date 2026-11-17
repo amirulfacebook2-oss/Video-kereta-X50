@@ -1,0 +1,49 @@
+{
+  "_unit": "Perodua Aruz Advance 2019 - sambung bayar / lease to own",
+  "src": "aruz",
+  "style": "v2",
+  "photos": [
+    ["aruz_01_depan34.jpg"],
+    ["aruz_02_depan.jpg"],
+    ["aruz_04_belakang34.jpg"],
+    ["aruz_05_belakang.jpg"],
+    ["aruz_03_sisi.jpg"],
+    ["aruz_10_odometer.jpg"],
+    ["aruz_09_dashboard.jpg", "aruz_08_baris2.jpg", "aruz_07_baris3.jpg", "aruz_06_but.jpg"],
+    ["aruz_04_belakang34.jpg"],
+    ["aruz_01_depan34.jpg"]
+  ],
+  "cues": [null, "selesa", "tiga", "Memang"],
+  "script": [
+    {"vo": "Ada satu unit ^Perodua ^Aruz ^Advance nak dijual secara *sambung *bayar *berdeposit.",
+     "head": [["SAMBUNG BAYAR", "hero", "pearl"], ["LEASE TO OWN", "label", "silver"]],
+     "move": "reveal", "trans": null},
+    {"vo": "^Perodua ^Aruz ^Advance, tahun *2019.|dua-ribu-sembilan-belas. SUV tujuh tempat duduk, memang selesa untuk keluarga.",
+     "head": [["PERODUA ARUZ", "hero", "silver"], ["ADVANCE 2019", "label", "pearl"]],
+     "move": "rise", "trans": "whip-left"},
+    {"vo": "*Deposit? *RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.",
+     "head": [["DEPOSIT", "label", "silver"], ["RM6,988", "price", "red"]],
+     "move": "orbit", "trans": "flash"},
+    {"vo": "*Bulanan pula, *RM747.|tujuh-ratus-empat-puluh-tujuh-ringgit. Baki *loan *8|lapan *tahun *11|sebelas *bulan.",
+     "head": [["BULANAN", "label", "silver"], ["RM747", "price", "red"], ["LOAN 8 TAHUN 11 BULAN", "tag", "pearl"]],
+     "move": "push", "trans": "whip-up"},
+    {"vo": "Yang bestnya, ^agreement *terus *dengan *owner. Siap ada *Smart *Warranty *5|lima *tahun.",
+     "head": [["AGREEMENT", "label", "silver"], ["DIRECT OWNER", "hero", "pearl"], ["SMART WARRANTY 5 TAHUN", "tag", "pearl"]],
+     "move": "track", "trans": "zoom"},
+    {"vo": "Mileage baru *100,000|seratus-ribu kilometer, kereta ada di *Kuala *Lumpur.",
+     "head": "specs", "title": "BUTIRAN KERETA",
+     "checks": ["Tahun 2019", "Mileage 100K KM", "Owner Melayu", "Plate V** 7470", "Lokasi Kuala Lumpur"],
+     "move": "recap", "trans": "whip-left", "min_beats": 10},
+    {"vo": "Tengoklah interior dia. Kemas, ^selesa, ada ^tiga baris tempat duduk. Memang ngam untuk bawa ^family.",
+     "head": [["INTERIOR KEMAS", "hero-s", "pearl"], ["7 TEMPAT DUDUK", "label", "silver"]],
+     "move": "montage", "trans": "leak"},
+    {"vo": "Berminat dengan kereta ni?",
+     "head": "recap", "move": "recap", "trans": "dip", "min_beats": 8},
+    {"vo": "*WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
+     "head": "cta", "move": "cta", "trans": "zoom"}
+  ],
+  "cta": {
+    "meta": "Perodua Aruz Advance 2019",
+    "checks": ["Deposit RM6,988", "Bulanan RM747", "Smart Warranty 5 tahun", "Agreement direct owner"]
+  }
+}

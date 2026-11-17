@@ -50,15 +50,20 @@ PHOTO_SRC = ROOT / "photos"
 
 def configure(name):
     """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
-    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W
+    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA
     v = VIDEOS[name] = load_video(name)
+    if "script" in v:  # a different car: its own lines, headlines, moves and transitions
+        SCRIPT = [dict(sc, photos=sc.get("photos", []), base_move=sc["move"], base_trans=sc.get("trans"),
+                       trans=sc.get("trans"), min_beats=sc.get("min_beats", 0)) for sc in v["script"]]
+        CTA = dict(CTA, **v.get("cta", {}))
     VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
     AUD = ASSETS / "audio" / name
     PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
+    custom = "script" in v
     for i, sc in enumerate(SCRIPT):
         sc["photos"] = v["photos"][i]
-        sc["move"] = STYLE["moves"].get(i, sc["base_move"])
-        sc["trans"] = STYLE["trans"].get(i, sc["base_trans"])
+        sc["move"] = sc["base_move"] if custom else STYLE["moves"].get(i, sc["base_move"])
+        sc["trans"] = sc["base_trans"] if custom else STYLE["trans"].get(i, sc["base_trans"])
 
 VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "-4%", "-1Hz"   # "Suara B", calmer: slower, lower, no "!"
 BPM = 118
@@ -107,7 +112,8 @@ def load_video(name):
     v = json.loads(f.read_text())
     v = {k: val for k, val in v.items() if not k.startswith("_")}
     v.setdefault("style", DEFAULT_STYLE)
-    v.setdefault("voice_from", "hitam")
+    if "script" not in v:          # same words as the X50 film -> reuse the approved voice take
+        v.setdefault("voice_from", "hitam")
     return v
 
 # --------------------------------------------------------------------- script
@@ -206,7 +212,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] == "recap") else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -392,9 +398,9 @@ def make_html(scenes, total):
         if cfg["head"] == "cta":
             inner.append(cta_html(i))
             cta_js(J, s)
-        elif cfg["head"] == "recap":
-            inner.append(recap_html(i))
-            recap_js(J, s)
+        elif cfg["head"] in ("recap", "specs"):
+            inner.append(recap_html(i, cfg))
+            recap_js(J, s, cfg)
         elif cfg["head"]:
             inner.append(head_html(i, cfg["head"]))
             pidx = next((k for k, h in enumerate(cfg["head"]) if h[1] == "price"), None)
@@ -414,7 +420,7 @@ def make_html(scenes, total):
                         val = int("".join(ch for ch in txt if ch.isdigit()))
                         J(f'(()=>{{const el=document.getElementById("h{i}_{j}"),o={{v:0}};'
                           f'tl.fromTo(o,{{v:0}},{{v:{val},duration:0.9,ease:"power2.out",onUpdate:()=>{{'
-                          f'el.textContent="RM"+(Math.round(o.v/10)*10).toLocaleString("en-US");}}}},{at:.3f});}})();')
+                          f'el.textContent="RM"+Math.round(o.v).toLocaleString("en-US");}}}},{at:.3f});}})();')
                     if STYLE["bump"]:
                         J(f'tl.fromTo("#s{i}cam",{{scale:1.035}},{{scale:1,duration:0.4,ease:"power3.out"}},{at + 0.9:.3f});')
                 else:
@@ -501,28 +507,33 @@ CHECK_SVG = ('<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"
              'fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 
-def recap_html(i):
-    c = CTA
-    q = "".join(f'<span id="rq{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(c["q"].split()))
-    rows = "".join(f'<div id="rc{k}" class="crow"><span id="rk{k}" class="ck">{CHECK_SVG}</span><span>{esc(t)}</span></div>'
-                   for k, t in enumerate(c["checks"]))
+def recap_html(i, cfg):
+    """Checklist card: 'recap' (NAK VIEW KERETA?) or 'specs' (car details) - title + ticked rows."""
+    title = cfg.get("title", CTA["q"])
+    rows_txt = cfg.get("checks", CTA["checks"])
+    q = "".join(f'<span id="r{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(title.split()))
+    rows = "".join(f'<div id="r{i}c{k}" class="crow"><span id="r{i}k{k}" class="ck">{CHECK_SVG}</span><span>{esc(t)}</span></div>'
+                   for k, t in enumerate(rows_txt))
     return f'''<div class="cta">
           <div class="ctaq">{q.strip()}</div>
-          <div id="rq_rule" class="rule"></div>
-          <div id="rpanel" class="checks">{rows}</div>
+          <div id="r{i}rule" class="rule"></div>
+          <div id="r{i}panel" class="checks">{rows}</div>
         </div>'''
 
 
-def recap_js(J, s):
-    b = s["start"]
-    for k in range(len(CTA["q"].split())):
-        J(f'tl.fromTo("#rq{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
-    J(f'tl.fromTo("#rq_rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
-    J(f'tl.fromTo("#rpanel",{{opacity:0}},{{opacity:1,duration:0.35,ease:"power2.out"}},{b + 0.55:.3f});')
-    for k in range(len(CTA["checks"])):
-        t = b + 0.8 + 0.42 * k
-        J(f'tl.fromTo("#rc{k}",{{opacity:0,x:-40}},{{opacity:1,x:0,duration:0.4,ease:"power3.out"}},{t:.3f});')
-        J(f'tl.fromTo("#rk{k}",{{scale:0}},{{scale:1,duration:0.35,ease:"back.out(2.2)"}},{t + 0.12:.3f});')
+def recap_js(J, s, cfg):
+    b, i = s["start"], s["i"]
+    title = cfg.get("title", CTA["q"])
+    rows_txt = cfg.get("checks", CTA["checks"])
+    for k in range(len(title.split())):
+        J(f'tl.fromTo("#r{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#r{i}rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
+    J(f'tl.fromTo("#r{i}panel",{{opacity:0}},{{opacity:1,duration:0.35,ease:"power2.out"}},{b + 0.55:.3f});')
+    step = min(0.42, (s["end"] - b - 1.6) / max(1, len(rows_txt)))
+    for k in range(len(rows_txt)):
+        t = b + 0.8 + step * k
+        J(f'tl.fromTo("#r{i}c{k}",{{opacity:0,x:-40}},{{opacity:1,x:0,duration:0.4,ease:"power3.out"}},{t:.3f});')
+        J(f'tl.fromTo("#r{i}k{k}",{{scale:0}},{{scale:1,duration:0.35,ease:"back.out(2.2)"}},{t + 0.12:.3f});')
 
 
 def cta_html(i):
