@@ -1,13 +1,13 @@
-# Gaya KL AUTO SB (v2)
+# Gaya KL AUTO SB (v2, versi 17 Nov 2026)
 
-Gaya rumah untuk video promosi kereta *sambung bayar* KL AUTO SB, seperti dalam video Proton X50 putih
-(`renders/KLAUTOSB_X50_Putih_v1.mp4`). Semua video baharu guna gaya ini secara lalai (`DEFAULT_STYLE = "v2"`
-dalam `tools/build.py`).
+Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. Versi rasmi ialah video
+**Perodua Aruz Advance 2021** (`renders/KLAUTOSB_Aruz_2021_v3.mp4`, `videos/aruz2021.json`). Semua video baharu
+guna gaya ini secara lalai (`DEFAULT_STYLE = "v2"` dalam `tools/build.py`). Templatnya ialah `videos/contoh.json`.
 
-## Buat video unit baharu
+## Buat video kereta baharu
 
-1. Letak gambar dalam `../photos/NAMA/` (gambar menegak dari telefon pun boleh).
-2. Salin `videos/contoh.json` kepada `videos/NAMA.json`, kemudian isi nama gambar mengikut babak.
+1. Letak gambar dalam `../photos/NAMA/` (gambar menegak atau melintang dari telefon pun boleh).
+2. Salin `videos/contoh.json` kepada `videos/NAMA.json`. Tukar `src`, nama gambar, skrip dan butiran kereta.
 3. Jana dan render:
    ```bash
    cd hyperframes
@@ -17,66 +17,83 @@ dalam `tools/build.py`).
    ```
    Pratonton dan edit di pelayar: `./hf.sh preview`.
 
-Skrip, suara, harga dan nombor telefon dikongsi oleh semua video (`SCRIPT` dan `CTA` dalam `tools/build.py`).
-`voice_from: "hitam"` guna semula suara yang sudah diluluskan. Buang medan itu untuk jana suara baharu
-selepas skrip diubah.
+Butiran yang biasanya diberi untuk setiap kereta: model, tahun, deposit, bulanan, baki loan, due date, mileage,
+owner, plate, roadtax/insurans, lokasi, warranty, agreement direct owner.
+
+## Babak (9)
+
+| # | Babak | Gambar | Gerakan kamera | Masuk dengan |
+|---|---|---|---|---|
+| 1 | Hook: SAMBUNG BAYAR / LEASE TO OWN | depan 3/4 | *reveal*: tarik ke belakang, kemudian perlahan | (frame 0 = thumbnail, tajuk sudah ada) |
+| 2 | MODEL / VARIAN TAHUN | depan | naik perlahan + kilauan cahaya | whip ke kiri |
+| 3 | DEPOSIT RMx (dikira naik) | belakang 3/4 | *orbit*: pusing perlahan | kilat putih |
+| 4 | BULANAN RMx + tag LOAN x TAHUN x BULAN | belakang / badge | tolak masuk | whip ke atas |
+| 5 | AGREEMENT / DIRECT OWNER + tag (cth ROADTAX & INSURANS / SMART WARRANTY) | stereng / sisi | gerak sisi | zoom-through |
+| 6 | BUTIRAN KERETA: senarai bertanda (tahun, mileage, owner, plate, due date, lokasi) | kabin / odometer | serong perlahan | whip ke kiri |
+| 7 | INTERIOR KEMAS / 7 TEMPAT DUDUK | 2–5 gambar: dashboard, baris 2, baris 3, but | **tiada zoom**; gambar meluncur masuk ikut perkataan yang disebut | cahaya hangat (*light leak*) |
+| 8 | NAK VIEW KERETA? + senarai 4 perkara | belakang 3/4 | serong perlahan | gelap sekejap |
+| 9 | WHATSAPP SEKARANG / SAMBUNG BAYAR BERDEPOSIT + kad 017-203 6099 | depan 3/4 | tolak masuk perlahan + kilauan | zoom-through |
+
+- **Kereta penuh dalam bingkai:** gambar dalam `fit_width` (depan 3/4, depan, belakang 3/4) dipapar penuh lebar, bermula y 110, dengan latar kabur.
+- **Harga:** angka dikira naik dari RM0 (0.9 saat) hingga angka tepat, dengan sedikit hentakan kamera bila angka mendarat.
+- **Senarai bertanda:** setiap baris muncul satu demi satu dengan tanda ✓ merah. Panel ikut lebar teks, dan baris tidak terbalut. Jika lebih 5 baris, baris dirapatkan.
+- **Nombor WhatsApp:** muncul bahagian demi bahagian tepat bila disebut, dengan riak pada ikon dan kilauan di hujung.
+- Gerakan laju menggunakan *motion blur* Hyperframes.
 
 ## Format
 
 - 1080×1920 (9:16), 30 fps, H.264, audio AAC, kenyaringan sekitar −14 LUFS (standard TikTok/Reels).
-- Panjang sekitar 54 saat, ikut suara. Potongan babak jatuh pada grid ketukan 118 BPM.
+- Panjang sekitar 60–65 saat, ikut suara. Potongan babak jatuh pada grid ketukan 118 BPM.
 
 ## Identiti visual
 
-- **Tulisan:** semua putih. Merah `#E2232D` hanya untuk elemen hiasan: garisan, tag, ikon WhatsApp, bar logo.
+- **Tulisan:** semua putih. Merah `#E2232D` hanya untuk elemen hiasan: garisan, tag, tanda ✓, ikon WhatsApp, bar logo.
 - **Fon:** Poppins ExtraBold untuk tajuk dan harga, Montserrat Bold untuk label berjarak, Poppins Bold untuk sarikata.
 - **Logo:** "KL AUTO SB" di penjuru kiri atas, dengan bar merah di sebelahnya, sepanjang video.
-- **Cerah:** gambar dicerahkan 7%, dan latar kabur hanya sedikit gelap. Lapisan gelap tipis di atas dan ringan di bawah, jadi tulisan putih bergantung pada bayangnya sendiri (drop-shadow) untuk kekal jelas.
-- **Zon selamat:** semua teks antara y 269 dan 1248 (TikTok/Reels). Tajuk di bahagian atas (y 290).
-
-## Babak (8)
-
-| # | Babak | Gambar | Gerakan kamera | Masuk dengan |
-|---|---|---|---|---|
-| 1 | Hook: SAMBUNG BAYAR / LEASE TO OWN | depan 3/4 | *reveal*: tarik ke belakang laju, kemudian perlahan | (frame 0 = thumbnail, tajuk sudah ada) |
-| 2 | PROTON X50 / EXECUTIVE FACELIFT 2026 | depan | naik perlahan + kilauan cahaya | whip ke kiri |
-| 3 | DEPOSIT RM13,000 | belakang 3/4 | *orbit*: pusing perlahan | kilat putih |
-| 4 | BULANAN RM1,300 + tag LOAN 9 TAHUN | close-up badge | tolak masuk | whip ke atas |
-| 5 | AGREEMENT / DIRECT OWNER + tag PROSES MUDAH & PANTAS | belakang | gerak sisi | zoom-through |
-| 6 | MODERN INTERIOR / COMFORTABLE FAMILY SUV | 2–5 gambar interior/but | **tiada zoom**; gambar meluncur masuk ikut perkataan yang disebut | cahaya hangat (*light leak*) |
-| 7 | NAK VIEW KERETA? + senarai bertanda (4 perkara) | mana-mana gambar luar | serong perlahan | gelap sekejap |
-| 8 | WHATSAPP SEKARANG + kad nombor | depan 3/4 | tolak masuk perlahan + kilauan | zoom-through |
-
-- **Kereta penuh dalam bingkai:** gambar dalam `fit_width` dipapar penuh lebar, dengan latar kabur di atas dan bawah, supaya kereta tak terpotong.
-- **Harga:** angka dikira naik dari RM0 (0.9 saat), dengan sedikit hentakan kamera bila angka mendarat.
-- **Senarai bertanda:** setiap baris muncul satu demi satu, dengan tanda ✓ merah yang melantun.
-- **Nombor WhatsApp:** muncul bahagian demi bahagian tepat bila disebut, dengan riak pada ikon dan kilauan di hujung.
-- Gerakan laju menggunakan *motion blur* Hyperframes.
+- **Cerah:** gambar dicerahkan 7%, dan latar kabur hanya sedikit gelap. Lapisan gelap tipis di atas dan ringan di bawah. Tulisan putih bergantung pada bayangnya sendiri (drop-shadow) untuk kekal jelas.
+- **Kedudukan:** tajuk di bahagian atas (y 290), dalam zon selamat TikTok/Reels.
 
 ## Sarikata
 
-- Di bawah tengah, di bawah kereta: baris terakhir berakhir pada y 1540. Gambar kereta penuh (`fit_width`) dinaikkan (bermula y 110) supaya sarikata duduk di bawah kereta. Saiz 48 px. Frasa penuh (maksimum 5 perkataan, 2 baris seimbang), muncul sekali gus.
-- Latar gelap lembut mengikut setiap baris. Pecah ikut ayat dan koma, dan tiada perkataan tinggal seorang.
-- Di TikTok, butang di sebelah kanan mungkin menindih sedikit hujung baris yang panjang. Kedudukan bawah tengah adalah pilihan klien.
+- **Kedudukan:** di bawah tengah, **di bawah kereta**, bukan di tengah gambar. Baris terakhir berakhir pada y 1540.
+- **Rupa:** saiz 48 px, semua putih, latar gelap lembut mengikut setiap baris.
+- **Frasa:** maksimum 5 perkataan dan 2 baris seimbang, muncul sekali gus. Pecah ikut ayat dan koma, dan tiada perkataan tinggal seorang.
 
 ## Suara
 
-- Microsoft `ms-MY-OsmanNeural`, kelajuan −4%, nada −1 Hz. Gaya rileks dan santai.
-- Skrip guna tanda "." (bukan "!") supaya intonasi tenang. Elakkan "je".
-- Jeda antara ayat sekitar 0.45 saat.
+- Microsoft `ms-MY-OsmanNeural`, kelajuan −4%, nada −1 Hz. Gaya rileks dan santai. Jeda antara ayat sekitar 0.45 saat.
+- Skrip guna "." (bukan "!") supaya intonasi tenang. Elakkan "je".
+- **Sebutan tetap.** Di skrin kekal ejaan biasa; selepas `|` ialah cara suara menyebutnya:
+
+  | Di skrin | Sebutan dalam skrip |
+  |---|---|
+  | Mileage | `Mileage\|mailej` (mai-lej) |
+  | bestnya | `bestnya,\|besnya,` (bes-nya) |
+  | X50 | `X50\|X-fifty` |
+  | Roadtax | `Roadtax\|road-tax` |
+  | KL / SB | `KL\|K-L`, `SB\|S-B` |
+  | Harga & tahun | dieja penuh, cth `RM6,988.\|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.`, `2021.\|dua-ribu-dua-puluh-satu.` |
+  | 017-203 6099 | `017-203\|kosong-satu-tujuh,-dua-kosong-tiga,` `6099.\|enam-kosong-sembilan-sembilan.` |
+
+  Bila ada perkataan lain yang disebut pelik, tambah ejaan sebutannya di sini.
 
 ## Muzik (groove, `tools/music.py`)
 
 - House ceria dalam nada major (C, G, Am, F), 118 BPM. Disintesis sendiri, jadi bebas royalti.
 - **Bahagian ikut babak:**
   - Hook: intro yang "terbuka" perlahan.
-  - Model hingga agreement: drop penuh (kick, clap, hi-hat, shaker swing, bass house, stab kord, motif loceng).
+  - Model hingga butiran: drop penuh.
   - Interior: rehat tanpa kick.
-  - Senarai dan penutup: riser dan snare roll, kemudian drop kedua.
+  - Recap dan penutup: riser dan snare roll, kemudian drop kedua.
   - Akhir: kord penutup dengan hentakan.
 - Muzik direndahkan setiap kali suara bercakap.
-- **Bunyi kesan:** whoosh pada setiap potongan, hentakan lembut pada harga, riser sebelum kad WhatsApp.
+- **Bunyi kesan:** whoosh pada setiap potongan, hentakan lembut pada harga, riser sebelum penutup.
 
-## Gaya lain yang disimpan
+## Video yang sudah dibuat
 
-- **v1** (`--video hitam`): rupa v6 unit hitam. Interior bertukar dengan crossfade, muzik minor yang lebih ringkas, harga muncul tanpa kiraan naik.
+| Video | Fail | Nota |
+|---|---|---|
+| Perodua Aruz Advance 2021 | `videos/aruz2021.json` | **versi rasmi templat** |
+| Perodua Aruz Advance 2019 | `videos/aruz.json` | |
+| Proton X50 putih | `--video putih` | skrip X50 (8 babak) |
+| Proton X50 hitam | `--video hitam` | gaya v1: interior crossfade, muzik minor, harga tanpa kiraan naik |

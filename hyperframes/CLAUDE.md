@@ -112,3 +112,10 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 4. A video with sound keeps it on the `<video>` (`data-has-audio="true"`, no `muted`). Use a separate `<audio>` for music, voiceover, replacement audio, J/L cuts, or audio detached in Studio. Silent footage and b-roll: `muted`.
 5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
 6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+
+## KL AUTO SB: video sambung bayar (baca dulu)
+
+Projek ini menghasilkan video promosi kereta KL AUTO SB. Gaya rasmi dan cara buat video kereta baharu ada dalam
+**`GAYA.md`**. Templat: `videos/contoh.json` (versi rasmi = `videos/aruz2021.json`).
+Bina: `python3 tools/build.py --video NAMA`, kemudian `./hf.sh check` dan `./hf.sh render --quality delivery -o renders/NAMA.mp4`.
+Ikut jadual "Sebutan tetap" dalam GAYA.md semasa menulis skrip.
