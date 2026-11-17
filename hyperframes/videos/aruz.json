@@ -30,7 +30,7 @@
     {"vo": "Yang bestnya, ^agreement *terus *dengan *owner. Siap ada *Smart *Warranty *5|lima *tahun.",
      "head": [["AGREEMENT", "label", "silver"], ["DIRECT OWNER", "hero", "pearl"], ["SMART WARRANTY 5 TAHUN", "tag", "pearl"]],
      "move": "track", "trans": "zoom"},
-    {"vo": "Mileage baru *100,000|seratus-ribu kilometer, kereta ada di *Kuala *Lumpur.",
+    {"vo": "Mileage|mailej baru *100,000|seratus-ribu kilometer, kereta ada di *Kuala *Lumpur.",
      "head": "specs", "title": "BUTIRAN KERETA",
      "checks": ["Tahun 2019", "Mileage 100K KM", "Owner Melayu", "Plate V** 7470", "Lokasi Kuala Lumpur"],
      "move": "recap", "trans": "whip-left", "min_beats": 10},

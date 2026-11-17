@@ -364,69 +364,69 @@
   "tokens": [
    {
     "display": "Mileage",
-    "spoken": "Mileage",
+    "spoken": "mailej",
     "style": null,
     "t0": 0.06,
-    "t1": 0.48970800000000003
+    "t1": 0.541791
    },
    {
     "display": "baru",
     "spoken": "baru",
     "style": null,
-    "t0": 0.502708,
-    "t1": 0.776166
+    "t0": 0.567833,
+    "t1": 0.854291
    },
    {
     "display": "100,000",
     "spoken": "seratus ribu",
     "style": "red",
-    "t0": 0.802208,
-    "t1": 1.6485409999999998
+    "t0": 0.880333,
+    "t1": 1.713666
    },
    {
     "display": "kilometer,",
     "spoken": "kilometer,",
     "style": null,
-    "t0": 1.687625,
-    "t1": 2.2865830000000003
+    "t0": 1.752708,
+    "t1": 2.3647080000000003
    },
    {
     "display": "kereta",
     "spoken": "kereta",
     "style": null,
-    "t0": 2.4428330000000003,
-    "t1": 2.807416
+    "t0": 2.5209580000000003,
+    "t1": 2.885541
    },
    {
     "display": "ada",
     "spoken": "ada",
     "style": null,
-    "t0": 2.807417,
-    "t1": 3.106917
+    "t0": 2.885542,
+    "t1": 3.185042
    },
    {
     "display": "di",
     "spoken": "di",
     "style": null,
-    "t0": 3.1459580000000003,
-    "t1": 3.263166
+    "t0": 3.2240830000000003,
+    "t1": 3.341291
    },
    {
     "display": "Kuala",
     "spoken": "Kuala",
     "style": "red",
-    "t0": 3.289167,
-    "t1": 3.549583
+    "t0": 3.367292,
+    "t1": 3.627708
    },
    {
     "display": "Lumpur.",
     "spoken": "Lumpur.",
     "style": "red",
-    "t0": 3.575625,
-    "t1": 4.018333
+    "t0": 3.666792,
+    "t1": 4.1095
    }
   ],
-  "duration": 4.238333333333333
+  "duration": 4.3295
  },
  {
   "tokens": [

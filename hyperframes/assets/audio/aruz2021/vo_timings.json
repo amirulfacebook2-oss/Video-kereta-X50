@@ -385,62 +385,62 @@
   "tokens": [
    {
     "display": "Mileage",
-    "spoken": "Mileage",
+    "spoken": "mailej",
     "style": null,
     "t0": 0.06,
-    "t1": 0.502708
+    "t1": 0.48970800000000003
    },
    {
     "display": "111,000",
     "spoken": "seratus sebelas ribu",
     "style": "red",
-    "t0": 0.51575,
-    "t1": 1.7266659999999998
+    "t0": 0.502708,
+    "t1": 1.778749
    },
    {
     "display": "kilometer,",
     "spoken": "kilometer,",
     "style": null,
-    "t0": 1.76575,
-    "t1": 2.351708
+    "t0": 1.8178329999999998,
+    "t1": 2.416791
    },
    {
     "display": "kereta",
     "spoken": "kereta",
     "style": null,
-    "t0": 2.507917,
-    "t1": 2.8595
+    "t0": 2.586042,
+    "t1": 2.937625
    },
    {
     "display": "ada",
     "spoken": "ada",
     "style": null,
-    "t0": 2.8595,
-    "t1": 3.1459580000000003
+    "t0": 2.937625,
+    "t1": 3.2371250000000003
    },
    {
     "display": "di",
     "spoken": "di",
     "style": null,
-    "t0": 3.185,
-    "t1": 3.3022080000000003
+    "t0": 3.276167,
+    "t1": 3.3933750000000003
    },
    {
     "display": "Kuala",
     "spoken": "Kuala",
     "style": "red",
-    "t0": 3.32825,
-    "t1": 3.575666
+    "t0": 3.419375,
+    "t1": 3.6797910000000003
    },
    {
     "display": "Lumpur.",
     "spoken": "Lumpur.",
     "style": "red",
-    "t0": 3.601667,
-    "t1": 4.0443750000000005
+    "t0": 3.718875,
+    "t1": 4.161583
    }
   ],
-  "duration": 4.264375
+  "duration": 4.381583333333333
  },
  {
   "tokens": [

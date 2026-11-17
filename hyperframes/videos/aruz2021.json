@@ -31,7 +31,7 @@
     {"vo": "Yang bestnya, ^agreement *terus *dengan *owner. *Roadtax|road-tax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
      "head": [["AGREEMENT", "label", "silver"], ["DIRECT OWNER", "hero", "pearl"], ["ROADTAX & INSURANS JUN 2027", "tag", "pearl"]],
      "move": "track", "trans": "zoom"},
-    {"vo": "Mileage *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
+    {"vo": "Mileage|mailej *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
      "head": "specs", "title": "BUTIRAN KERETA",
      "checks": ["Tahun 2021", "Mileage 111K KM", "Owner Melayu", "Plate S** 4197", "Due date 1hb", "Lokasi Kuala Lumpur"],
      "move": "recap", "trans": "whip-left", "min_beats": 10},
