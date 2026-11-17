@@ -278,41 +278,41 @@
     "spoken": "Yang",
     "style": null,
     "t0": 0.06,
-    "t1": 0.28137500000000004
+    "t1": 0.32041600000000003
    },
    {
     "display": "bestnya,",
-    "spoken": "bestnya,",
+    "spoken": "besnya,",
     "style": null,
-    "t0": 0.307417,
-    "t1": 0.906375
+    "t0": 0.35950000000000004,
+    "t1": 0.893375
    },
    {
     "display": "agreement",
     "spoken": "agreement",
     "style": "silver",
-    "t0": 1.023542,
-    "t1": 1.6095
+    "t0": 0.9974999999999999,
+    "t1": 1.596458
    },
    {
     "display": "terus",
     "spoken": "terus",
     "style": "red",
-    "t0": 1.6355419999999998,
-    "t1": 1.987125
+    "t0": 1.6224999999999998,
+    "t1": 1.961041
    },
    {
     "display": "dengan",
     "spoken": "dengan",
     "style": "red",
-    "t0": 2.000125,
-    "t1": 2.260541
+    "t0": 1.974083,
+    "t1": 2.234499
    },
    {
     "display": "owner.",
     "spoken": "owner.",
     "style": "red",
-    "t0": 2.273542,
+    "t0": 2.2475,
     "t1": 2.7553330000000003
    },
    {

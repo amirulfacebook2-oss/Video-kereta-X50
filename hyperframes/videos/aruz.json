@@ -27,7 +27,7 @@
     {"vo": "*Bulanan pula, *RM747.|tujuh-ratus-empat-puluh-tujuh-ringgit. Baki *loan *8|lapan *tahun *11|sebelas *bulan.",
      "head": [["BULANAN", "label", "silver"], ["RM747", "price", "red"], ["LOAN 8 TAHUN 11 BULAN", "tag", "pearl"]],
      "move": "push", "trans": "whip-up"},
-    {"vo": "Yang bestnya, ^agreement *terus *dengan *owner. Siap ada *Smart *Warranty *5|lima *tahun.",
+    {"vo": "Yang bestnya,|besnya, ^agreement *terus *dengan *owner. Siap ada *Smart *Warranty *5|lima *tahun.",
      "head": [["AGREEMENT", "label", "silver"], ["DIRECT OWNER", "hero", "pearl"], ["SMART WARRANTY 5 TAHUN", "tag", "pearl"]],
      "move": "track", "trans": "zoom"},
     {"vo": "Mileage|mailej baru *100,000|seratus-ribu kilometer, kereta ada di *Kuala *Lumpur.",

@@ -135,7 +135,7 @@ SCRIPT = [
         head=[("BULANAN", "label", "silver"), ("RM1,300", "price", "red"), ("LOAN 9 TAHUN", "tag", "pearl")],
         photos=["04_hitam_badge.jpg"], move="push", trans="whip-up", min_beats=6),
     dict(  # 5 AGREEMENT
-        vo="Yang bestnya, ^agreement *terus *dengan *owner. Semua urusan kita bantu sampai selesai.",
+        vo="Yang bestnya,|besnya, ^agreement *terus *dengan *owner. Semua urusan kita bantu sampai selesai.",
         head=[("AGREEMENT", "label", "silver"), ("DIRECT OWNER", "hero", "pearl"), ("PROSES MUDAH & PANTAS", "tag", "pearl")],
         photos=["05_hitam_belakang.jpg"], move="track", trans="zoom", min_beats=8),
     dict(  # 6 INTERIOR MONTAGE

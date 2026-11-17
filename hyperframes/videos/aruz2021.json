@@ -28,7 +28,7 @@
     {"vo": "*Bulanan pula, *RM1,017.|seribu-tujuh-belas-ringgit. Baki *loan *8|lapan *tahun *7|tujuh *bulan.",
      "head": [["BULANAN", "label", "silver"], ["RM1,017", "price", "red"], ["LOAN 8 TAHUN 7 BULAN", "tag", "pearl"]],
      "move": "push", "trans": "whip-up"},
-    {"vo": "Yang bestnya, ^agreement *terus *dengan *owner. *Roadtax|road-tax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
+    {"vo": "Yang bestnya,|besnya, ^agreement *terus *dengan *owner. *Roadtax|road-tax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
      "head": [["AGREEMENT", "label", "silver"], ["DIRECT OWNER", "hero", "pearl"], ["ROADTAX & INSURANS JUN 2027", "tag", "pearl"]],
      "move": "track", "trans": "zoom"},
     {"vo": "Mileage|mailej *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
