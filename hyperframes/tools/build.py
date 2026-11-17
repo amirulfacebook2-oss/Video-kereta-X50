@@ -244,7 +244,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -361,7 +361,12 @@ def extra_sfx(total, scenes):
             step = min(0.42, (s["end"] - b - 1.6) / max(1, len(rows)))
             for k in range(len(rows)):
                 A.place(out, sfx_pop(1 + 0.08 * k), b + 0.8 + step * k + 0.12, 0.7)
-        if cfg["head"] == "cta":
+        if cfg["head"] == "process":
+            for t in step_times(s, cfg):
+                A.place(out, sfx_pop(1.1), t + 0.12, 0.75)
+        if cfg["head"] == "cta2":
+            A.place(out, sfx_ching(), b + 0.45 + 0.85, 0.9)
+        if cfg["head"] in ("cta", "cta2"):
             w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
             A.place(out, sfx_ding(), w["017-203"] - 0.05, 0.8)
             A.place(out, sfx_ding(), w["6099"] - 0.05, 0.6)
@@ -499,6 +504,12 @@ def make_html(scenes, total):
         if cfg["head"] == "cta":
             inner.append(cta_html(i))
             cta_js(J, s)
+        elif cfg["head"] == "process":
+            inner.append(process_html(i, cfg))
+            process_js(J, s, cfg)
+        elif cfg["head"] == "cta2":
+            inner.append(cta2_html(i, cfg))
+            cta2_js(J, s, cfg)
         elif cfg["head"] in ("recap", "specs"):
             inner.append(recap_html(i, cfg))
             recap_js(J, s, cfg)
@@ -564,8 +575,11 @@ def make_html(scenes, total):
                             "background: linear-gradient(180deg, rgba(11,13,18,.62) 0%, rgba(11,13,18,.46) 15%, rgba(11,13,18,.2) 27%, rgba(11,13,18,0) 35%,")
         page = page.replace("rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%",
                             "rgba(11,13,18,0) 58%, rgba(11,13,18,.16) 66%, rgba(11,13,18,.2) 72%, rgba(11,13,18,.32) 100%")
-        page = page.replace("</style>", """      .line span, .qw { filter: drop-shadow(0 3px 4px rgba(0,0,0,.55)) drop-shadow(0 8px 22px rgba(0,0,0,.6)); }
+        page = page.replace("</style>", """      .line span, .qw { filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)) drop-shadow(0 4px 10px rgba(0,0,0,.45)); }
+      .line { padding: 0 24px 14px; margin-bottom: -14px; }
       .tag span { filter: none; }
+      .heads::before { content: ""; position: absolute; left: -200px; right: -200px; top: -70px; bottom: -60px; z-index: -1;
+                       background: radial-gradient(ellipse 55% 60% at 50% 50%, rgba(11,13,18,.55), rgba(11,13,18,0) 75%); }
       #bug { filter: drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
     </style>""", 1)
     if STYLE.get("wa_green"):
@@ -640,6 +654,87 @@ def recap_js(J, s, cfg):
         t = b + 0.8 + step * k
         J(f'tl.fromTo("#r{i}c{k}",{{opacity:0,x:-40}},{{opacity:1,x:0,duration:0.4,ease:"power3.out"}},{t:.3f});')
         J(f'tl.fromTo("#r{i}k{k}",{{scale:0}},{{scale:1,duration:0.35,ease:"back.out(2.2)"}},{t + 0.12:.3f});')
+
+
+def step_times(s, cfg):
+    """Each process step lands on its cue word (falls back to an even spread)."""
+    wt = {}
+    for w in s["words"]:
+        wt.setdefault(w["display"].strip(".,?!").lower(), w["t0"])
+    out = []
+    for k, (_, cue) in enumerate(cfg["steps"]):
+        t = wt.get((cue or "").lower())
+        out.append(t - 0.1 if t is not None else s["start"] + 0.9 + 0.6 * k)
+    return out
+
+
+def process_html(i, cfg):
+    """Ending variant A: numbered process steps, joined by a line that fills as each step is spoken."""
+    title = cfg.get("title", "PROSES MUDAH")
+    q = "".join(f'<span id="p{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(title.split()))
+    rows = "".join(f'<div id="p{i}r{k}" class="srow"><span id="p{i}n{k}" class="sn">{k + 1}</span><span class="st">{esc(t)}</span></div>'
+                   for k, (t, _) in enumerate(cfg["steps"]))
+    return f'''<div class="cta">
+          <div class="ctaq">{q.strip()}</div>
+          <div id="p{i}rule" class="rule"></div>
+          <div id="p{i}panel" class="steps"><div class="sline"><div id="p{i}fill" class="sfill"></div></div>{rows}</div>
+        </div>'''
+
+
+def process_js(J, s, cfg):
+    b, i = s["start"], s["i"]
+    title = cfg.get("title", "PROSES MUDAH")
+    for k in range(len(title.split())):
+        J(f'tl.fromTo("#p{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#p{i}rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
+    J(f'tl.fromTo("#p{i}panel",{{opacity:0}},{{opacity:1,duration:0.4,ease:"power2.out"}},{b + 0.4:.3f});')
+    ts = step_times(s, cfg)
+    n = len(ts)
+    for k, t in enumerate(ts):
+        J(f'tl.fromTo("#p{i}r{k}",{{opacity:0.25,x:-30}},{{opacity:1,x:0,duration:0.35,ease:"power3.out"}},{t:.3f});')
+        J(f'tl.fromTo("#p{i}n{k}",{{scale:0.6,backgroundColor:"rgba(255,255,255,.15)"}},{{scale:1,backgroundColor:"{"#25D366" if k == n - 1 else "#e2232d"}",duration:0.35,ease:"back.out(2.2)"}},{t + 0.05:.3f});')
+        if k:
+            J(f'tl.to("#p{i}fill",{{scaleY:{k / (n - 1):.3f},duration:0.3,ease:"power2.out"}},{t - 0.05:.3f});')
+    J(f'tl.set("#p{i}fill",{{scaleY:0}},{b:.3f});')
+
+
+def cta2_html(i, cfg):
+    """Ending variant B: promo deposit + documents + WhatsApp card."""
+    docs = "".join(f'<span id="d{i}c{k}" class="dchip">{esc(d)}</span>' for k, d in enumerate(cfg["docs"]))
+    return f'''<div class="cta">
+          <div class="line label c2lab"><span id="c2lab" class="pearl">{esc(cfg["promo_label"])}</span></div>
+          <div class="line price c2price"><span id="c2price" class="red">{esc(cfg["promo_price"])}</span></div>
+          <div id="c2docs" class="c2docs"><span class="dlab">DOKUMEN:</span>{docs}</div>
+          <div id="ct_card" class="ccard c2card">
+            <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div><div id="ct_ring2" class="ring"></div></div>
+            <div class="ctext">
+              <div class="cnum"><span id="ct_n1" class="nw">017-203</span> <span id="ct_n2" class="nw">6099</span></div>
+              <div id="ct_meta" class="cmeta">{esc(CTA["meta"])}</div>
+            </div>
+            <div id="ct_glint" class="glint"></div>
+          </div>
+        </div>'''
+
+
+def cta2_js(J, s, cfg):
+    b = s["start"]
+    w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
+    n1, n2 = w["017-203"], w["6099"]
+    val = int("".join(ch for ch in cfg["promo_price"] if ch.isdigit()))
+    J(f'tl.fromTo("#c2lab",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.1:.3f});')
+    J(f'tl.fromTo("#c2price",{{yPercent:110,scale:0.9,opacity:0}},{{yPercent:0,scale:1,opacity:1,duration:0.5,ease:"back.out(1.5)"}},{b + 0.45:.3f});')
+    J(f'(()=>{{const el=document.getElementById("c2price"),o={{v:0}};tl.fromTo(o,{{v:0}},{{v:{val},duration:0.9,ease:"power2.out",onUpdate:()=>{{el.textContent="RM"+Math.round(o.v).toLocaleString("en-US");}}}},{b + 0.45:.3f});}})();')
+    J(f'tl.fromTo("#s{s["i"]}cam",{{scale:1.035}},{{scale:1,duration:0.4,ease:"power3.out"}},{b + 1.35:.3f});')
+    J(f'tl.fromTo("#c2docs",{{opacity:0}},{{opacity:1,duration:0.3}},{b + 1.4:.3f});')
+    for k in range(len(cfg["docs"])):
+        J(f'tl.fromTo("#d{s["i"]}c{k}",{{opacity:0,y:20,scale:0.8}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2)"}},{b + 1.5 + 0.25 * k:.3f});')
+    J(f'tl.fromTo("#ct_card",{{opacity:0,y:50,scale:0.94}},{{opacity:1,y:0,scale:1,duration:0.6,ease:"back.out(1.4)"}},{min(b + 2.2, n1 - 0.6):.3f});')
+    J(f'tl.fromTo("#ct_n1",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.3,ease:"power3.out"}},{n1 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_n2",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.3,ease:"power3.out"}},{n2 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_ring",{{scale:1,opacity:0.85}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n1 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_ring2",{{scale:1,opacity:0.85}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n2 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_meta",{{opacity:0}},{{opacity:1,duration:0.5,ease:"power2.out"}},{n2 + 0.6:.3f});')
+    J(f'tl.fromTo("#ct_glint",{{x:-220}},{{x:1000,duration:0.8,ease:"power2.inOut"}},{n2 + 1.2:.3f});')
 
 
 def cta_html(i):
@@ -757,6 +852,22 @@ TEMPLATE = r"""<!doctype html>
               filter: drop-shadow(0 4px 12px rgba(0,0,0,.7)); }
       .checks.many .crow { height: 60px; font-size: 38px; }
       .ck { flex: 0 0 48px; height: 48px; border-radius: 24px; background: var(--red); display: flex; align-items: center; justify-content: center; }
+      .steps { position: absolute; left: 50%; transform: translateX(-50%); top: 420px; width: max-content; max-width: 840px; white-space: nowrap;
+               text-align: left; padding: 18px 36px 18px 30px; border-radius: 28px; background: rgba(11,13,18,.78);
+               border: 2px solid rgba(255,255,255,.14); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
+      .sline { position: absolute; left: 55px; top: 52px; bottom: 52px; width: 4px; background: rgba(255,255,255,.18); border-radius: 2px; }
+      .sfill { position: absolute; inset: 0; background: #e2232d; transform-origin: 50% 0; }
+      .srow { position: relative; display: flex; align-items: center; gap: 22px; height: 74px; font-weight: 700; font-size: 38px; color: #fff; }
+      .sn { flex: 0 0 52px; height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 28px; color: #fff; background: rgba(255,255,255,.15); }
+      .c2lab { position: absolute; top: 280px; left: 120px; width: 840px; }
+      .c2lab.label { font-size: 42px; letter-spacing: .2em; }
+      .c2price { position: absolute; top: 330px; left: 120px; width: 840px; }
+      .c2price.price { font-size: 150px; }
+      .c2docs { position: absolute; top: 548px; left: 120px; width: 840px; display: flex; gap: 14px; justify-content: center; align-items: center; }
+      .dlab { font-family: var(--font-label); font-weight: 700; font-size: 26px; letter-spacing: .12em; color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.7)); }
+      .dchip { font-weight: 700; font-size: 30px; color: #fff; padding: 8px 22px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
+      .ccard.c2card { top: 640px; }
       .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
                display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
                background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18);

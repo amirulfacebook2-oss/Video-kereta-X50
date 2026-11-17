@@ -74,7 +74,7 @@ def groove(total, scenes, beat):
 
     hook_end = scenes[1]["start"]
     mont = next(s for s in scenes if s["cfg"]["move"] == "montage")
-    recap = next(s for s in scenes if s["cfg"]["head"] == "recap")
+    recap = next((s for s in scenes if s["cfg"]["head"] in ("recap", "process")), scenes[-1])  # second drop starts at the ending
     bd_start, bd_end = mont["start"], recap["start"]
     final_t = scenes[-1]["words"][-1]["t1"] + 0.35
     final_beat = int(np.ceil(final_t / beat))

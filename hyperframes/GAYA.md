@@ -83,6 +83,13 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 - Muzik direndahkan setiap kali suara bercakap.
 - **Bunyi kesan:** whoosh pada setiap potongan, hentakan pada pembukaan, *ka-ching* bila harga mendarat, *pop* pada setiap tanda ✓ dan tag, *ding* notifikasi bila nombor WhatsApp disebut, kilauan di hujung, riser sebelum penutup.
 
+## Penutup alternatif (supaya setiap video berbeza)
+
+- **`"head": "process"`**: langkah PROSES bernombor (`steps`: [teks, perkataan cue]); setiap langkah menyala bila disebut, garisan merah mengisi, langkah terakhir hijau. Bunyi *pop* pada setiap langkah.
+- **`"head": "cta2"`**: DEPOSIT PROMO (`promo_label`, `promo_price` dikira naik + *ka-ching*), chip DOKUMEN (`docs`), kemudian kad WhatsApp.
+- Hook boleh mula dengan harga bulanan, deposit, atau ciri utama (cth "SEDAN TURBO"). Contoh: `videos/s70.json`.
+- Jangan sebut atau paparkan bangsa pemilik ("Owner Melayu") dalam video.
+
 ## Video yang sudah dibuat
 
 | Video | Fail |
@@ -90,3 +97,4 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2021 | `videos/aruz2021.json` (**versi rasmi templat**) |
 | Perodua Aruz Advance 2019 | `videos/aruz.json` |
 | Proton X50 Executive Facelift 2026 (putih) | `videos/x50.json` |
+| Proton S70 Premium Facelift 2026 (merah) | `videos/s70.json` (penutup PROSES + Deposit Promo) |
