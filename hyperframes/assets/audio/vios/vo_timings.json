@@ -312,102 +312,81 @@
     "display": "Lebih",
     "spoken": "Lebih",
     "style": null,
-    "t0": 0.04,
-    "t1": 0.376
+    "t0": 0.03,
+    "t1": 0.38
    },
    {
     "display": "menarik,",
     "spoken": "menarik,",
     "style": null,
-    "t0": 0.376,
-    "t1": 1.266
+    "t0": 0.38,
+    "t1": 1.222
    },
    {
-    "display": "urusan",
-    "spoken": "urusan",
-    "style": null,
-    "t0": 1.266,
-    "t1": 1.653
+    "display": "agreement",
+    "spoken": "agreement",
+    "style": "silver",
+    "t0": 1.222,
+    "t1": 1.788
+   },
+   {
+    "display": "direct",
+    "spoken": "direct",
+    "style": "red",
+    "t0": 1.788,
+    "t1": 2.392
    },
    {
     "display": "terus",
     "spoken": "terus",
     "style": "red",
-    "t0": 1.653,
-    "t1": 1.989
+    "t0": 2.392,
+    "t1": 2.743
    },
    {
     "display": "dengan",
     "spoken": "dengan",
-    "style": null,
-    "t0": 1.989,
-    "t1": 2.376
-   },
-   {
-    "display": "pemilik",
-    "spoken": "pemilik",
     "style": "red",
-    "t0": 2.376,
-    "t1": 2.815
+    "t0": 2.743,
+    "t1": 3.147
    },
    {
-    "display": "kereta,",
-    "spoken": "kereta,",
-    "style": null,
-    "t0": 2.815,
-    "t1": 3.564
-   },
-   {
-    "display": "tanpa",
-    "spoken": "tanpa",
-    "style": null,
-    "t0": 3.564,
-    "t1": 3.9
-   },
-   {
-    "display": "orang",
-    "spoken": "orang",
-    "style": null,
-    "t0": 3.9,
-    "t1": 4.235
-   },
-   {
-    "display": "tengah.",
-    "spoken": "tengah.",
-    "style": null,
-    "t0": 4.235,
-    "t1": 5.064
+    "display": "owner.",
+    "spoken": "owner.",
+    "style": "red",
+    "t0": 3.147,
+    "t1": 3.871
    },
    {
     "display": "Siap",
     "spoken": "Siap",
     "style": null,
-    "t0": 5.064,
-    "t1": 5.348
+    "t0": 3.871,
+    "t1": 4.167
    },
    {
     "display": "ada",
     "spoken": "ada",
     "style": null,
-    "t0": 5.348,
-    "t1": 5.581
+    "t0": 4.167,
+    "t1": 4.41
    },
    {
     "display": "warranty",
     "spoken": "warranty",
     "style": "red",
-    "t0": 5.581,
-    "t1": 6.071
+    "t0": 4.41,
+    "t1": 4.922
    },
    {
     "display": "Toyota.",
     "spoken": "Toyota.",
     "style": "silver",
-    "t0": 6.071,
-    "t1": 6.51
+    "t0": 4.922,
+    "t1": 5.38
    }
   ],
-  "duration": 6.64
+  "duration": 5.52
  },
  {
   "tokens": [
