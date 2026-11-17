@@ -45,7 +45,7 @@
   ],
   "script": [
     {
-      "vo": "*Sambung *bayar, *lease *to *own! Nak bawa balik sedan turbo baru? Deposit *promo *RM12,000|dua-belas-ribu-ringgit sahaja, untuk ^Proton ^S70|S-seventy ^Premium ^Facelift.",
+      "vo": "*Sambung *bayar, *lease *to *own! Nak bawa balik sedan turbo baru, tanpa pening *loan *bank? Ada satu unit ^Proton ^S70|S-seventy ^Premium ^Facelift untuk anda.",
       "head": [
         [
           "SAMBUNG BAYAR",
@@ -58,7 +58,7 @@
           "silver"
         ],
         [
-          "DEPOSIT PROMO RM12K",
+          "SEDAN TURBO BARU",
           "tag",
           "pearl"
         ]

@@ -405,7 +405,8 @@ def esc(s):
 def head_html(i, head):
     out = []
     for j, (txt, style, color) in enumerate(head):
-        out.append(f'<div class="line {style}"><span id="h{i}_{j}" class="{color}">{esc(txt)}</span></div>')
+        fit = ' style="margin:0 -100px"' if style == "price" and len(txt) >= 8 else ""  # long prices keep full size: widen the line
+        out.append(f'<div class="line {style}"{fit}><span id="h{i}_{j}" class="{color}">{esc(txt)}</span></div>')
     return f'<div class="heads">{"".join(out)}</div>'
 
 
