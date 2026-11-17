@@ -325,7 +325,7 @@ def make_html(scenes, total):
         spans = " ".join(f'<span class="w {w["style"] or ""}">{esc(w["display"])}</span>' for w in g)
         caps.append(f'<div id="c{g_i}" class="{cls}"><span id="c{g_i}p" class="pill">{spans}</span></div>')
         J(f'tl.set("#c{g_i}",{{opacity:1,visibility:"visible"}},{start:.3f});')
-        J(f'tl.fromTo("#c{g_i}p",{{opacity:0,y:12}},{{opacity:1,y:0,duration:0.14,ease:"power2.out"}},{start:.3f});')
+        J(f'tl.fromTo("#c{g_i}p",{{opacity:0}},{{opacity:1,duration:0.14,ease:"power2.out"}},{start:.3f});')
         J(f'tl.to("#c{g_i}",{{opacity:0,duration:0.1,ease:"power2.in"}},{end - 0.1:.3f});')
         J(f'tl.set("#c{g_i}",{{opacity:0,visibility:"hidden"}},{end:.3f});')
     body.append(f'<div id="captions" class="clip" data-start="0" data-duration="{total}" data-track-index="5" '
@@ -436,7 +436,9 @@ TEMPLATE = r"""<!doctype html>
       .grp { position: absolute; left: 120px; top: 1096px; width: 660px; text-align: center;
              font-weight: 700; font-size: 48px; line-height: 1.42; color: #fff; opacity: 0; visibility: hidden; }
       .grp.cta-pos { top: 1140px; }
-      .pill { display: inline-block; padding: 4px 22px 8px; border-radius: 18px; background: rgba(11,13,18,.62);
+      .grp { text-wrap: balance; }
+      .pill { display: inline; padding: 4px 20px 8px; border-radius: 16px; background: rgba(11,13,18,.62);
+              -webkit-box-decoration-break: clone; box-decoration-break: clone;
               text-shadow: 0 2px 6px rgba(0,0,0,.6); }
       .grp .w { display: inline; }
       .grp .red { color: #ff4a52; }
