@@ -849,7 +849,7 @@ TEMPLATE = r"""<!doctype html>
       .qw { display: inline-block; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
       .rule { position: absolute; top: 396px; left: 470px; width: 140px; height: 6px; background: var(--red); }
       .ctas { position: absolute; top: 412px; left: 120px; width: 840px; }
-      .ctas.label { font-size: 38px; letter-spacing: .2em; }
+      .ctas.label { font-size: 36px; letter-spacing: .16em; white-space: nowrap; }
       .ctaq2 { position: absolute; top: 296px; left: 120px; width: 840px; }
       .checks { position: absolute; left: 50%; transform: translateX(-50%); top: 418px; width: max-content; max-width: 840px; white-space: nowrap; text-align: left; padding: 16px 34px; border-radius: 28px;
                 background: rgba(11,13,18,.74); border: 2px solid rgba(255,255,255,.14); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
