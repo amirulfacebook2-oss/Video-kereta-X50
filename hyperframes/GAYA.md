@@ -101,3 +101,8 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
+
+### Sebutan tambahan
+
+  | Plat V | `V,|huruf-vi,` (bukan "lima") |
+  | boot (but kereta) | tulis `boot`, bukan `but` |

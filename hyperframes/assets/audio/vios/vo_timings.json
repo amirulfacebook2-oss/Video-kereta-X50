@@ -309,173 +309,159 @@
  {
   "tokens": [
    {
-    "display": "Yang",
-    "spoken": "Yang",
+    "display": "Lebih",
+    "spoken": "Lebih",
     "style": null,
     "t0": 0.04,
-    "t1": 0.336
+    "t1": 0.376
    },
    {
-    "display": "bestnya,",
-    "spoken": "bestnya,",
+    "display": "menarik,",
+    "spoken": "menarik,",
     "style": null,
-    "t0": 0.336,
-    "t1": 0.846
+    "t0": 0.376,
+    "t1": 1.266
    },
    {
-    "display": "agreement",
-    "spoken": "agreement",
-    "style": "silver",
-    "t0": 0.846,
-    "t1": 1.721
+    "display": "urusan",
+    "spoken": "urusan",
+    "style": null,
+    "t0": 1.266,
+    "t1": 1.653
    },
    {
     "display": "terus",
     "spoken": "terus",
     "style": "red",
-    "t0": 1.721,
-    "t1": 2.07
+    "t0": 1.653,
+    "t1": 1.989
    },
    {
     "display": "dengan",
     "spoken": "dengan",
+    "style": null,
+    "t0": 1.989,
+    "t1": 2.376
+   },
+   {
+    "display": "pemilik",
+    "spoken": "pemilik",
     "style": "red",
-    "t0": 2.07,
-    "t1": 2.473
+    "t0": 2.376,
+    "t1": 2.815
    },
    {
-    "display": "owner.",
-    "spoken": "owner.",
-    "style": "red",
-    "t0": 2.473,
-    "t1": 3.287
-   },
-   {
-    "display": "Insurans",
-    "spoken": "Insurans",
+    "display": "kereta,",
+    "spoken": "kereta,",
     "style": null,
-    "t0": 3.287,
-    "t1": 3.797
+    "t0": 2.815,
+    "t1": 3.564
    },
    {
-    "display": "dan",
-    "spoken": "dan",
+    "display": "tanpa",
+    "spoken": "tanpa",
     "style": null,
-    "t0": 3.797,
-    "t1": 4.039
+    "t0": 3.564,
+    "t1": 3.9
    },
    {
-    "display": "roadtax",
-    "spoken": "roadtax",
+    "display": "orang",
+    "spoken": "orang",
     "style": null,
-    "t0": 4.039,
-    "t1": 4.496
+    "t0": 3.9,
+    "t1": 4.235
    },
    {
-    "display": "pun",
-    "spoken": "pun",
+    "display": "tengah.",
+    "spoken": "tengah.",
     "style": null,
-    "t0": 4.496,
-    "t1": 4.738
+    "t0": 4.235,
+    "t1": 5.064
    },
    {
-    "display": "baharu,",
-    "spoken": "baharu,",
+    "display": "Siap",
+    "spoken": "Siap",
     "style": null,
-    "t0": 4.738,
-    "t1": 5.415
-   },
-   {
-    "display": "siap",
-    "spoken": "siap",
-    "style": null,
-    "t0": 5.415,
-    "t1": 5.71
+    "t0": 5.064,
+    "t1": 5.348
    },
    {
     "display": "ada",
     "spoken": "ada",
     "style": null,
-    "t0": 5.71,
-    "t1": 5.952
+    "t0": 5.348,
+    "t1": 5.581
    },
    {
     "display": "warranty",
     "spoken": "warranty",
     "style": "red",
-    "t0": 5.952,
-    "t1": 6.463
+    "t0": 5.581,
+    "t1": 6.071
    },
    {
     "display": "Toyota.",
     "spoken": "Toyota.",
     "style": "silver",
-    "t0": 6.463,
-    "t1": 6.92
+    "t0": 6.071,
+    "t1": 6.51
    }
   ],
-  "duration": 7.04
+  "duration": 6.64
  },
  {
   "tokens": [
    {
     "display": "Plat",
     "spoken": "Plat",
-    "style": null,
+    "style": "red",
     "t0": 0.05,
-    "t1": 0.382
+    "t1": 0.38
    },
    {
     "display": "V,",
-    "spoken": "V,",
-    "style": null,
-    "t0": 0.382,
-    "t1": 0.594
-   },
-   {
-    "display": "due",
-    "spoken": "due",
-    "style": null,
-    "t0": 0.594,
-    "t1": 1.226
-   },
-   {
-    "display": "date",
-    "spoken": "date",
-    "style": null,
-    "t0": 1.226,
-    "t1": 1.558
-   },
-   {
-    "display": "setiap",
-    "spoken": "setiap",
-    "style": null,
-    "t0": 1.558,
-    "t1": 2.012
-   },
-   {
-    "display": "3",
-    "spoken": "tiga",
+    "spoken": "huruf vi,",
     "style": "red",
-    "t0": 2.012,
-    "t1": 2.344
+    "t0": 0.38,
+    "t1": 0.95
    },
    {
-    "display": "hari",
-    "spoken": "hari",
+    "display": "insurans",
+    "spoken": "insurans",
     "style": null,
-    "t0": 2.344,
-    "t1": 2.677
+    "t0": 0.95,
+    "t1": 1.87
    },
    {
-    "display": "bulan.",
-    "spoken": "bulan.",
+    "display": "dan",
+    "spoken": "dan",
     "style": null,
-    "t0": 2.677,
-    "t1": 3.13
+    "t0": 1.87,
+    "t1": 2.14
+   },
+   {
+    "display": "roadtax",
+    "spoken": "roadtax",
+    "style": null,
+    "t0": 2.14,
+    "t1": 2.77
+   },
+   {
+    "display": "pun",
+    "spoken": "pun",
+    "style": null,
+    "t0": 2.77,
+    "t1": 3.04
+   },
+   {
+    "display": "baharu.",
+    "spoken": "baharu.",
+    "style": null,
+    "t0": 3.04,
+    "t1": 3.55
    }
   ],
-  "duration": 3.3200208333333334
+  "duration": 3.73
  },
  {
   "tokens": [
@@ -484,80 +470,80 @@
     "spoken": "Tengoklah",
     "style": null,
     "t0": 0.05,
-    "t1": 0.705
+    "t1": 0.704
    },
    {
     "display": "interior",
     "spoken": "interior",
     "style": null,
-    "t0": 0.705,
-    "t1": 1.298
+    "t0": 0.704,
+    "t1": 1.295
    },
    {
     "display": "dia.",
     "spoken": "dia.",
     "style": null,
-    "t0": 1.298,
-    "t1": 1.942
+    "t0": 1.295,
+    "t1": 2.008
    },
    {
     "display": "Kemas,",
     "spoken": "Kemas,",
     "style": null,
-    "t0": 1.942,
-    "t1": 2.41
+    "t0": 2.008,
+    "t1": 2.475
    },
    {
     "display": "selesa,",
     "spoken": "selesa,",
     "style": "silver",
-    "t0": 2.41,
-    "t1": 2.94
+    "t0": 2.475,
+    "t1": 3.004
    },
    {
     "display": "belakang",
     "spoken": "belakang",
     "style": null,
-    "t0": 2.94,
-    "t1": 3.783
+    "t0": 3.004,
+    "t1": 3.805
    },
    {
     "display": "pun",
     "spoken": "pun",
     "style": null,
-    "t0": 3.783,
-    "t1": 4.064
+    "t0": 3.805,
+    "t1": 4.086
    },
    {
     "display": "luas,",
     "spoken": "luas,",
     "style": "silver",
-    "t0": 4.064,
-    "t1": 4.75
+    "t0": 4.086,
+    "t1": 4.49
    },
    {
-    "display": "but",
-    "spoken": "but",
+    "display": "boot",
+    "spoken": "boot",
     "style": null,
-    "t0": 4.75,
-    "t1": 5.031
+    "t0": 4.49,
+    "t1": 5.063
    },
    {
     "display": "pun",
     "spoken": "pun",
     "style": null,
-    "t0": 5.031,
-    "t1": 5.312
+    "t0": 5.063,
+    "t1": 5.343
    },
    {
     "display": "besar.",
     "spoken": "besar.",
     "style": null,
-    "t0": 5.312,
-    "t1": 5.78
+    "t0": 5.343,
+    "t1": 5.81
    }
   ],
-  "duration": 5.92
+  "duration": 5.95
  },
  {
   "tokens": [

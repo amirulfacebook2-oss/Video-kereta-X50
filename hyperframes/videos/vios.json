@@ -39,7 +39,7 @@
   "cues": [
     null,
     "belakang",
-    "but"
+    "boot"
   ],
   "script": [
     {
@@ -126,7 +126,7 @@
       "trans": "whip-up"
     },
     {
-      "vo": "Yang bestnya, ^agreement *terus *dengan *owner. Insurans dan roadtax pun baharu, siap ada *warranty ^Toyota.",
+      "vo": "Lebih menarik, urusan *terus dengan *pemilik kereta, tanpa orang tengah. Siap ada *warranty ^Toyota.",
       "head": [
         [
           "AGREEMENT",
@@ -148,7 +148,7 @@
       "trans": "zoom"
     },
     {
-      "vo": "Plat V, due date setiap *3|tiga hari bulan.",
+      "vo": "*Plat *V,|huruf-vi, insurans dan roadtax pun baharu.",
       "head": "specs",
       "title": "BUTIRAN KERETA",
       "checks": [
@@ -156,15 +156,14 @@
         "Warna putih",
         "Loan 9 tahun (koyak plastik)",
         "Insurans & roadtax baharu",
-        "Plat V",
-        "Due date 3hb"
+        "Plat V"
       ],
       "move": "recap",
       "trans": "whip-left",
       "min_beats": 12
     },
     {
-      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, but pun besar.",
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
       "head": [
         [
           "INTERIOR PREMIUM",
