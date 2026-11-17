@@ -1,9 +1,14 @@
-"""Build the KL AUTO SB Proton X50 promo as a HyperFrames project.
+"""Build a KL AUTO SB Proton X50 promo as a HyperFrames project.
 
-    python3 tools/build.py          # voice + music + photos + index.html
-    python3 tools/build.py --html   # only regenerate index.html (keeps audio)
+    python3 tools/build.py --video putih          # photos + voice + music + index.html
+    python3 tools/build.py --video putih --html   # only regenerate index.html (keeps audio)
+    python3 tools/build.py --video hitam          # the saved v6 style (black unit)
 
-Then:  ./hf.sh check  ->  ./hf.sh preview  ->  ./hf.sh render
+Each video in VIDEOS picks its photos (one list per scene) and a style from STYLES
+("v1" = the approved black-unit look, "v2" = same look with richer motion and the groove bed).
+To make another unit: add a VIDEOS entry pointing at a folder in ../photos/, then build it.
+
+Then:  ./hf.sh check  ->  ./hf.sh preview  ->  ./hf.sh render -o renders/<name>.mp4
 Script (casual Malaysian Malay), prices and phone number live in SCRIPT / CTA below.
 Token syntax:  word | DISPLAY|spoken-words | *red | ^silver
 """
@@ -37,13 +42,55 @@ from tts import PROXY, norm, parse_tokens, tighten  # noqa: E402
 _tts.MAX_GAP, _tts.KEEP_GAP = 0.60, 0.45   # snappier sentence pauses
 
 ASSETS = HF / "assets"
-AUD = ASSETS / "audio"
+AUD = ASSETS / "audio" / "hitam"
 PH = ASSETS / "photos"
+PHOTO_SRC = ROOT / "photos"
+
+
+def configure(name):
+    """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
+    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W
+    v = VIDEOS[name]
+    VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
+    AUD = ASSETS / "audio" / name
+    PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
+    for i, sc in enumerate(SCRIPT):
+        sc["photos"] = v["photos"][i]
+        sc["move"] = STYLE["moves"].get(i, sc["base_move"])
+        sc["trans"] = STYLE["trans"].get(i, sc["base_trans"])
 
 VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "-4%", "-1Hz"   # "Suara B", calmer: slower, lower, no "!"
 BPM = 118
 BEAT = 60 / BPM
 SR = 48000
+
+# --------------------------------------------------------------------- videos & styles
+VIDEOS = {
+    "hitam": dict(  # approved v6 (black unit)
+        src="", style="v1",
+        photos=[["01_hitam_depan34.jpg"], ["02_hitam_depan.jpg"], ["03_hitam_belakang34.jpg"],
+                ["04_hitam_badge.jpg"], ["05_hitam_belakang.jpg"],
+                ["06_stereng.jpg", "07_tempat_duduk_depan.jpg", "08_tempat_duduk_belakang.jpg"],
+                ["03_hitam_belakang34.jpg"], ["01_hitam_depan34.jpg"]]),
+    "putih": dict(  # white unit, style v2
+        src="putih", style="v2", voice_from="hitam",
+        photos=[["putih_01_depan34.jpg"], ["putih_02_depan.jpg"], ["putih_03_belakang34.jpg"],
+                ["putih_04_badge.jpg"], ["putih_05_belakang.jpg"],
+                ["putih_06_dashboard.jpg", "putih_07_stereng.jpg", "putih_08_tempat_duduk_depan.jpg",
+                 "putih_09_tempat_duduk_belakang.jpg", "putih_10_but.jpg"],
+                ["putih_03_belakang34.jpg"], ["putih_01_depan34.jpg"]],
+        # interior shots change on these spoken words
+        cues=[None, "Moden", "selesa", "ruang", "Memang"],
+        # wide cars in portrait photos: show the whole photo at full width (blurred fill above/below)
+        fit_width=["putih_01_depan34.jpg", "putih_02_depan.jpg", "putih_03_belakang34.jpg"]),
+}
+STYLES = {
+    "v1": dict(music="classic", countup=False, bump=False, montage="fade", trans={}, moves={}, shade="v1"),
+    "v2": dict(music="groove", countup=True, bump=True, montage="slide", shade="v2",
+               trans={5: "leak"},                       # light-leak into the interior
+               moves={0: "reveal", 2: "orbit", 4: "track", 6: "drift"}),
+}
+VIDEO, STYLE, CUES, FIT_W = "hitam", STYLES["v1"], None, set()
 
 # --------------------------------------------------------------------- script
 SCRIPT = [
@@ -81,6 +128,8 @@ SCRIPT = [
         head="cta",
         photos=["01_hitam_depan34.jpg"], move="cta", trans="zoom", min_beats=0),
 ]
+for _s in SCRIPT:
+    _s["base_move"], _s["base_trans"] = _s["move"], _s["trans"]
 CTA = dict(q="NAK VIEW KERETA?", sub="WHATSAPP SEKARANG", phone="017-203 6099",
            title="SAMBUNG BAYAR BERDEPOSIT", meta="Proton X50 Executive Facelift 2026",
            checks=["Deposit RM13,000", "Bulanan RM1,300", "Loan 9 tahun", "Agreement direct owner"])
@@ -161,7 +210,11 @@ def make_audio(scenes, total):
         A.place(vo, np.fromfile(raw, dtype=np.float32).astype(np.float64), s["vo_start"])
         raw.unlink()
     # audio.py expects cfg["head"] on scenes; give it our scenes as-is
-    mus, _ = A.music(total, scenes)
+    if STYLE["music"] == "groove":
+        import music as M
+        mus = M.groove(total, scenes, BEAT)
+    else:
+        mus, _ = A.music(total, scenes)
     fx = A.sfx(total, scenes)
     from scipy.signal import lfilter
     rel = np.exp(-1 / (0.35 * SR))
@@ -196,7 +249,7 @@ def make_audio(scenes, total):
 def make_photos():
     PH.mkdir(parents=True, exist_ok=True)
     for name in sorted({p for s in SCRIPT for p in s["photos"]}):
-        im = ImageOps.exif_transpose(Image.open(ROOT / "photos" / name)).convert("RGB")
+        im = ImageOps.exif_transpose(Image.open(PHOTO_SRC / name)).convert("RGB")
         im = ImageEnhance.Contrast(im).enhance(1.05)
         fg = im.copy()
         fg.thumbnail((2400, 2400), Image.LANCZOS)
@@ -250,8 +303,8 @@ def chunks(words, max_n=5, max_chars=24):
     return merged
 
 
-PRE = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0, None: 0.0}
-POST = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0, None: 0.0}
+PRE = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0, "leak": 0.35, None: 0.0}
+POST = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0, "leak": 0.35, None: 0.0}
 
 
 def make_html(scenes, total):
@@ -268,20 +321,31 @@ def make_html(scenes, total):
         if cfg["move"] == "montage":
             n = len(cfg["photos"])
             seg = (s["end"] - s["start"]) / n
-            XF = 0.45  # crossfade between interior shots
+            slide = STYLE["montage"] == "slide"
+            XF = 0.55 if slide else 0.45  # slide / crossfade between interior shots
+            cuts = [s["start"] + k * seg for k in range(n)]
+            if CUES:  # cut on the spoken word
+                wt = {w["display"].strip(".,?!"): w["t0"] for w in s["words"]}
+                cuts = [s["start"] if c is None else wt[c] - 0.12 for c in CUES]
+            cuts.append(s["end"])
             for k, ph in enumerate(cfg["photos"]):
-                a = c0 if k == 0 else s["start"] + k * seg - XF
-                b = c0 + dur if k == n - 1 else s["start"] + (k + 1) * seg
+                a = c0 if k == 0 else cuts[k] - XF
+                b = c0 + dur if k == n - 1 else cuts[k + 1]
                 inner.append(
                     f'<div id="s{i}m{k}" class="sub clip" data-start="{a:.3f}" data-duration="{b - a:.3f}" data-track-index="{10 + k}" style="z-index:{k + 1}">'
                     f'<div id="s{i}m{k}kb" class="kb"><img class="bg" src="assets/photos/bg_{ph}" alt="" />'
                     f'<img class="contain" src="assets/photos/{ph}" alt="" /></div></div>')
-                if k:
+                if k and slide:  # no zoom: the next shot slides in, the last one drifts back (parallax)
+                    J(f'tl.fromTo("#s{i}m{k}kb",{{x:1080}},{{x:0,duration:{XF},ease:"power3.inOut"}},{a:.3f});')
+                    J(f'tl.fromTo("#s{i}m{k - 1}kb",{{x:0,opacity:1}},{{x:-320,opacity:0.4,duration:{XF},ease:"power3.inOut"}},{a:.3f});')
+                elif k:
                     J(f'tl.fromTo("#s{i}m{k}kb",{{opacity:0}},{{opacity:1,duration:{XF},ease:"sine.inOut"}},{a:.3f});')
         else:
             ph = cfg["photos"][0]
             portrait = is_portrait(ph)
             card_cls = "full" if portrait else {"cta": "card cta-card", "recap": "card card-low"}.get(cfg["move"], "card")
+            if ph in FIT_W:
+                card_cls = "contain"
             inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
             inner.append(f'<div id="s{i}kb" class="kb"><img class="{card_cls}" src="assets/photos/{ph}" alt="" /></div>')
             if cfg["move"] in ("rise", "cta"):
@@ -295,6 +359,9 @@ def make_html(scenes, total):
                 "track": ("{scale:1.1,x:60}", "{scale:1.1,x:-60}", "sine.inOut"),
                 "cta": ("{scale:1.0}", "{scale:1.05}", "sine.inOut"),
                 "recap": ("{scale:1.02,x:30}", "{scale:1.08,x:-30}", "sine.inOut"),
+                "reveal": ("{scale:1.08}", "{scale:1.0}", "expo.out"),            # fast pull-back, then settle
+                "orbit": ("{scale:1.14,x:80,rotation:0.8}", "{scale:1.14,x:-80,rotation:-0.8}", "sine.inOut"),
+                "drift": ("{scale:1.1,x:-50,y:30}", "{scale:1.16,x:40,y:-20}", "sine.inOut"),
             }[cfg["move"]]
             J(f'tl.fromTo("#s{i}kb",{mv[0]},{{...{mv[1]},duration:{d + PRE[cfg["trans"]]:.3f},ease:"{mv[2]}"}},{t0:.3f});')
             J(f'tl.fromTo("#s{i}bg",{{scale:1.0}},{{scale:1.05,duration:{d + PRE[cfg["trans"]]:.3f},ease:"none"}},{t0:.3f});')
@@ -323,6 +390,13 @@ def make_html(scenes, total):
                     J(f'tl.fromTo("#h{i}_{j}",{{opacity:0,y:18}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{at:.3f});')
                 elif style == "price":
                     J(f'tl.fromTo("#h{i}_{j}",{{yPercent:110,scale:0.9,opacity:0}},{{yPercent:0,scale:1,opacity:1,duration:0.5,ease:"back.out(1.5)"}},{at:.3f});')
+                    if STYLE["countup"]:
+                        val = int("".join(ch for ch in txt if ch.isdigit()))
+                        J(f'(()=>{{const el=document.getElementById("h{i}_{j}"),o={{v:0}};'
+                          f'tl.fromTo(o,{{v:0}},{{v:{val},duration:0.9,ease:"power2.out",onUpdate:()=>{{'
+                          f'el.textContent="RM"+(Math.round(o.v/10)*10).toLocaleString("en-US");}}}},{at:.3f});}})();')
+                    if STYLE["bump"]:
+                        J(f'tl.fromTo("#s{i}cam",{{scale:1.035}},{{scale:1,duration:0.4,ease:"power3.out"}},{at + 0.9:.3f});')
                 else:
                     J(f'tl.fromTo("#h{i}_{j}",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{at:.3f});')
         body.append(
@@ -352,13 +426,17 @@ def make_html(scenes, total):
     body.append(f'<div id="bug" class="clip" data-start="0" data-duration="{total}" data-track-index="6" '
                 f'data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>')
     body.append(f'<div id="fx" class="clip" data-start="0" data-duration="{total}" data-track-index="7" data-track-kind="graphics" style="z-index:42">'
-                f'<div id="flash"></div><div id="dip"></div></div>')
+                f'<div id="flash"></div><div id="dip"></div><div id="leak"></div></div>')
     for k, (name, idx) in enumerate((("music", 8), ("sfx", 9), ("vo", 4))):
-        body.append(f'<audio id="{name}" class="clip" src="assets/audio/{name}.wav" data-start="0" data-duration="{total}" data-track-index="{idx}"></audio>')
+        body.append(f'<audio id="{name}" class="clip" src="assets/audio/{VIDEO}/{name}.wav" data-start="0" data-duration="{total}" data-track-index="{idx}"></audio>')
 
-    page = TEMPLATE.replace("%%TOTAL%%", f"{total}").replace("%%BODY%%", "\n      ".join(body)).replace("%%JS%%", "\n      ".join(js))
+    page = TEMPLATE
+    if STYLE["shade"] == "v2":
+        page = page.replace("rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%",
+                            "rgba(11,13,18,0) 52%, rgba(11,13,18,.3) 60%, rgba(11,13,18,.3) 66%, rgba(11,13,18,.1) 80%, rgba(11,13,18,.5) 100%")
+    page = page.replace("%%TOTAL%%", f"{total}").replace("%%BODY%%", "\n      ".join(body)).replace("%%JS%%", "\n      ".join(js))
     (HF / "index.html").write_text(page)
-    print(f"index.html: {len(scenes)} scenes, {len(groups)} caption groups, {total:.2f}s")
+    print(f"index.html [{VIDEO}, style {VIDEOS[VIDEO]['style']}]: {len(scenes)} scenes, {len(groups)} caption groups, {total:.2f}s")
 
 
 def transition_js(J, scenes, s):
@@ -381,6 +459,10 @@ def transition_js(J, scenes, s):
         J(f'tl.fromTo("#flash",{{opacity:0}},{{opacity:0.85,duration:0.12,ease:"power2.in"}},{b - 0.2:.3f});')
         J(f'tl.to("#flash",{{opacity:0,duration:0.22,ease:"power2.out"}},{b - 0.08:.3f});')
         J(f'tl.fromTo("{cur}",{{scale:1.06}},{{scale:1,duration:0.4,ease:"power3.out"}},{b:.3f});')
+    elif kind == "leak":  # warm light leak sweeps across while the scenes cross-dissolve
+        J(f'tl.fromTo("{cur}",{{opacity:0}},{{opacity:1,duration:0.6,ease:"sine.inOut"}},{b - 0.3:.3f});')
+        J(f'tl.fromTo("#leak",{{opacity:0,x:-900}},{{opacity:0.95,x:-100,duration:0.4,ease:"power2.out"}},{b - 0.4:.3f});')
+        J(f'tl.to("#leak",{{opacity:0,x:600,duration:0.55,ease:"power2.in"}},{b:.3f});')
     elif kind == "dip":
         J(f'tl.fromTo("#dip",{{opacity:0}},{{opacity:1,duration:0.25,ease:"power2.in"}},{b - 0.25:.3f});')
         J(f'tl.to("#dip",{{opacity:0,duration:0.4,ease:"power2.out"}},{b:.3f});')
@@ -490,7 +572,7 @@ TEMPLATE = r"""<!doctype html>
       .hero-s { font-weight: 800; font-size: 66px; letter-spacing: -0.01em; white-space: nowrap; }
       .line.tag { margin-top: 16px; overflow: visible; }
       .tag span { font-weight: 700; font-size: 38px; letter-spacing: .06em; padding: 8px 26px; border-radius: 40px; background: var(--red); color: #fff; filter: none; box-shadow: 0 6px 18px rgba(0,0,0,.45); }
-      .price { font-weight: 800; font-size: 176px; letter-spacing: -0.01em; line-height: 1.05; }
+      .price { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 176px; letter-spacing: -0.01em; line-height: 1.05; }
       .label { font-family: var(--font-label); font-weight: 700; font-size: 38px; letter-spacing: 0.1em; margin: 6px 0; }
       .pearl { color: #fff; }
       .silver, .red { color: #fff; }
@@ -511,6 +593,9 @@ TEMPLATE = r"""<!doctype html>
       #fx { position: absolute; inset: 0; pointer-events: none; }
       #flash, #dip { position: absolute; inset: 0; opacity: 0; }
       #flash { background: #fff; }
+      #leak { position: absolute; left: -500px; top: 0; width: 2080px; height: 1920px; opacity: 0; mix-blend-mode: screen;
+              background: radial-gradient(ellipse 520px 900px at 40% 45%, rgba(255,176,96,.85), transparent 70%),
+                          radial-gradient(ellipse 420px 700px at 62% 60%, rgba(255,96,120,.55), transparent 70%); }
       #dip { background: var(--ground); }
       .cta { position: absolute; inset: 0; text-align: center; z-index: 6; }
       .ctaq { position: absolute; top: 290px; left: 120px; width: 840px; font-weight: 800; font-size: 84px; line-height: 1.1; color: #fff; white-space: nowrap; }
@@ -555,11 +640,21 @@ TEMPLATE = r"""<!doctype html>
 
 def main():
     html_only = "--html" in sys.argv
+    name = sys.argv[sys.argv.index("--video") + 1] if "--video" in sys.argv else "hitam"
+    configure(name)
+    src = VIDEOS[name].get("voice_from")
     if html_only:
         vo = json.loads((AUD / "vo_timings.json").read_text())
     else:
         make_photos()
-        vo = make_voice()
+        if src:  # same script: reuse the approved voice take
+            import shutil
+            AUD.mkdir(parents=True, exist_ok=True)
+            for f in (ASSETS / "audio" / src).glob("vo_*"):
+                shutil.copy(f, AUD / f.name)
+            vo = json.loads((AUD / "vo_timings.json").read_text())
+        else:
+            vo = make_voice()
     scenes, total = timeline(vo)
     for s in scenes:
         print(f"  scene {s['i']}: {s['start']:6.2f}-{s['end']:6.2f}  " + " ".join(w["display"] for w in s["words"]))
