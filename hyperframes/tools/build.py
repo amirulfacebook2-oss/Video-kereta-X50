@@ -22,17 +22,25 @@ HF = Path(__file__).resolve().parents[1]
 ROOT = HF.parent
 sys.path.insert(0, str(ROOT / "src"))
 import audio as A  # noqa: E402  (music + sfx synth, reused read-only)
+
+# Brighter, "happening" bed: major-key I-V-vi-IV (Cadd9, G6, Am7, Fmaj7) instead of the minor default.
+A.CHORDS = [
+    ([60, 64, 67, 69, 74], 36),
+    ([59, 62, 67, 69, 71], 31),
+    ([57, 60, 64, 67, 72], 33),
+    ([57, 60, 64, 65, 69], 29),
+]
 import edge_tts  # noqa: E402
 import tts as _tts  # noqa: E402
 from tts import PROXY, norm, parse_tokens, tighten  # noqa: E402
 
-_tts.MAX_GAP, _tts.KEEP_GAP = 0.40, 0.30   # snappier sentence pauses
+_tts.MAX_GAP, _tts.KEEP_GAP = 0.60, 0.45   # snappier sentence pauses
 
 ASSETS = HF / "assets"
 AUD = ASSETS / "audio"
 PH = ASSETS / "photos"
 
-VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "+6%", "-4Hz"   # "Suara B", calmer: slower, lower, no "!"
+VOICE, RATE, PITCH = "ms-MY-OsmanNeural", "-4%", "-1Hz"   # "Suara B", calmer: slower, lower, no "!"
 BPM = 118
 BEAT = 60 / BPM
 SR = 48000
@@ -44,7 +52,7 @@ SCRIPT = [
         head=[("SAMBUNG BAYAR", "hero", "pearl"), ("LEASE TO OWN", "label", "silver")],
         photos=["01_hitam_depan34.jpg"], move="push", trans=None, min_beats=0),
     dict(  # 2 MODEL
-        vo="^Proton ^X50|X-fifty ^Executive ^Facelift ^2026.|dua-ribu-dua-puluh-enam. Kereta baru, puas hati kereta baru.",
+        vo="^Proton ^X50|X-fifty ^Executive ^Facelift ^2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
         head=[("PROTON X50", "hero", "silver"), ("EXECUTIVE FACELIFT 2026", "label", "pearl")],
         photos=["02_hitam_depan.jpg"], move="rise", trans="whip-left", min_beats=8),
     dict(  # 3 DEPOSIT
@@ -64,16 +72,22 @@ SCRIPT = [
         head=[("MODERN INTERIOR", "hero-s", "pearl"), ("COMFORTABLE FAMILY SUV", "label", "silver")],
         photos=["06_stereng.jpg", "07_tempat_duduk_depan.jpg", "08_tempat_duduk_belakang.jpg"],
         move="montage", trans="whip-left", min_beats=8),
-    dict(  # 7 CLOSING & CTA
-        vo="Berminat dengan kereta? *WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
+    dict(  # 7a RECAP
+        vo="Berminat dengan kereta?",
+        head="recap",
+        photos=["03_hitam_belakang34.jpg"], move="recap", trans="dip", min_beats=8),
+    dict(  # 7b CONTACT END CARD
+        vo="*WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
         head="cta",
-        photos=["01_hitam_depan34.jpg"], move="cta", trans="dip", min_beats=0),
+        photos=["01_hitam_depan34.jpg"], move="cta", trans="zoom", min_beats=0),
 ]
-CTA = dict(q="NAK VIEW KERETA?", sub="WHATSAPP SEKARANG", phone="017-203 6099")
+CTA = dict(q="NAK VIEW KERETA?", sub="WHATSAPP SEKARANG", phone="017-203 6099",
+           title="SAMBUNG BAYAR BERDEPOSIT", meta="Proton X50 Executive Facelift 2026",
+           checks=["Deposit RM13,000", "Bulanan RM1,300", "Loan 9 tahun", "Agreement direct owner"])
 
-VO_LEAD = 0.12
-TAIL_PAD = 0.12
-CTA_HOLD = 1.1
+VO_LEAD = 0.25
+TAIL_PAD = 0.45
+CTA_HOLD = 2.8
 
 
 # --------------------------------------------------------------------- voice
@@ -125,7 +139,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if i in (0, len(SCRIPT) - 1) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] == "recap") else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -154,7 +168,7 @@ def make_audio(scenes, total):
     env = lfilter([1 - rel], [1, -rel], np.abs(vo))
     env = np.minimum(1, env / (np.percentile(env, 95) + 1e-9))
     duck = 1 - 0.5 * env
-    mus = mus / (np.abs(mus).max() + 1e-9) * 0.30 * duck
+    mus = mus / (np.abs(mus).max() + 1e-9) * 0.34 * duck
     fx = fx * 0.55
     fade = int(0.6 * SR)
     mus[:, -fade:] *= np.linspace(1, 0, fade)
@@ -253,21 +267,21 @@ def make_html(scenes, total):
         inner = []
         if cfg["move"] == "montage":
             n = len(cfg["photos"])
-            cuts = [0, 3, 6, s["beats"]]
+            seg = (s["end"] - s["start"]) / n
+            XF = 0.45  # crossfade between interior shots
             for k, ph in enumerate(cfg["photos"]):
-                a, b = s["start"] + cuts[k] * BEAT, s["start"] + cuts[k + 1] * BEAT
-                if k == 0:
-                    a = c0
-                if k == n - 1:
-                    b = c0 + dur
+                a = c0 if k == 0 else s["start"] + k * seg - XF
+                b = c0 + dur if k == n - 1 else s["start"] + (k + 1) * seg
                 inner.append(
-                    f'<div id="s{i}m{k}" class="sub clip" data-start="{a:.3f}" data-duration="{b - a:.3f}" data-track-index="{10 + k}">'
-                    f'<div id="s{i}m{k}kb" class="kb"><img class="full" src="assets/photos/{ph}" alt="" /></div></div>')
-                J(f'tl.fromTo("#s{i}m{k}kb",{{scale:1.12,x:{-30 if k % 2 else 30}}},{{scale:1.03,x:{30 if k % 2 else -30},duration:{b - a:.3f},ease:"none"}},{a:.3f});')
+                    f'<div id="s{i}m{k}" class="sub clip" data-start="{a:.3f}" data-duration="{b - a:.3f}" data-track-index="{10 + k}" style="z-index:{k + 1}">'
+                    f'<div id="s{i}m{k}kb" class="kb"><img class="bg" src="assets/photos/bg_{ph}" alt="" />'
+                    f'<img class="contain" src="assets/photos/{ph}" alt="" /></div></div>')
+                if k:
+                    J(f'tl.fromTo("#s{i}m{k}kb",{{opacity:0}},{{opacity:1,duration:{XF},ease:"sine.inOut"}},{a:.3f});')
         else:
             ph = cfg["photos"][0]
             portrait = is_portrait(ph)
-            card_cls = "full" if portrait else ("card cta-card" if cfg["move"] == "cta" else "card")
+            card_cls = "full" if portrait else {"cta": "card cta-card", "recap": "card card-low"}.get(cfg["move"], "card")
             inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
             inner.append(f'<div id="s{i}kb" class="kb"><img class="{card_cls}" src="assets/photos/{ph}" alt="" /></div>')
             if cfg["move"] in ("rise", "cta"):
@@ -280,6 +294,7 @@ def make_html(scenes, total):
                 "rise": ("{scale:1.08,y:40}", "{scale:1.08,y:-40}", "sine.inOut"),
                 "track": ("{scale:1.1,x:60}", "{scale:1.1,x:-60}", "sine.inOut"),
                 "cta": ("{scale:1.0}", "{scale:1.05}", "sine.inOut"),
+                "recap": ("{scale:1.02,x:30}", "{scale:1.08,x:-30}", "sine.inOut"),
             }[cfg["move"]]
             J(f'tl.fromTo("#s{i}kb",{mv[0]},{{...{mv[1]},duration:{d + PRE[cfg["trans"]]:.3f},ease:"{mv[2]}"}},{t0:.3f});')
             J(f'tl.fromTo("#s{i}bg",{{scale:1.0}},{{scale:1.05,duration:{d + PRE[cfg["trans"]]:.3f},ease:"none"}},{t0:.3f});')
@@ -290,6 +305,9 @@ def make_html(scenes, total):
         if cfg["head"] == "cta":
             inner.append(cta_html(i))
             cta_js(J, s)
+        elif cfg["head"] == "recap":
+            inner.append(recap_html(i))
+            recap_js(J, s)
         elif cfg["head"]:
             inner.append(head_html(i, cfg["head"]))
             pidx = next((k for k, h in enumerate(cfg["head"]) if h[1] == "price"), None)
@@ -304,7 +322,7 @@ def make_html(scenes, total):
                 elif style == "tag":
                     J(f'tl.fromTo("#h{i}_{j}",{{opacity:0,y:18}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{at:.3f});')
                 elif style == "price":
-                    J(f'tl.fromTo("#h{i}_{j}",{{yPercent:110,scale:0.9}},{{yPercent:0,scale:1,duration:0.5,ease:"back.out(1.5)"}},{at:.3f});')
+                    J(f'tl.fromTo("#h{i}_{j}",{{yPercent:110,scale:0.9,opacity:0}},{{yPercent:0,scale:1,opacity:1,duration:0.5,ease:"back.out(1.5)"}},{at:.3f});')
                 else:
                     J(f'tl.fromTo("#h{i}_{j}",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{at:.3f});')
         body.append(
@@ -329,7 +347,7 @@ def make_html(scenes, total):
         J(f'tl.to("#c{g_i}",{{opacity:0,duration:0.1,ease:"power2.in"}},{end - 0.1:.3f});')
         J(f'tl.set("#c{g_i}",{{opacity:0,visibility:"hidden"}},{end:.3f});')
     body.append(f'<div id="captions" class="clip" data-start="0" data-duration="{total}" data-track-index="5" '
-                f'data-track-kind="captions" style="z-index:40">{"".join(caps)}</div>')
+                f'data-track-kind="captions" data-layout-allow-safe-zone style="z-index:40">{"".join(caps)}</div>')
     # brand bug (hidden on the end card, which carries the brand itself)
     body.append(f'<div id="bug" class="clip" data-start="0" data-duration="{total}" data-track-index="6" '
                 f'data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>')
@@ -360,26 +378,53 @@ def transition_js(J, scenes, s):
         J(f'tl.fromTo("{cur}",{{scale:1.18,opacity:0}},{{scale:1,opacity:1,duration:0.45,ease:"power2.out"}},{b - 0.2:.3f});')
         J(f'tl.set("{prev}",{{zIndex:2}},{b - 0.2:.3f});')
     elif kind == "flash":
-        J(f'tl.fromTo("#flash",{{opacity:0}},{{opacity:0.85,duration:0.1,ease:"power2.in"}},{b - 0.1:.3f});')
-        J(f'tl.to("#flash",{{opacity:0,duration:0.3,ease:"power2.out"}},{b:.3f});')
+        J(f'tl.fromTo("#flash",{{opacity:0}},{{opacity:0.85,duration:0.12,ease:"power2.in"}},{b - 0.2:.3f});')
+        J(f'tl.to("#flash",{{opacity:0,duration:0.22,ease:"power2.out"}},{b - 0.08:.3f});')
         J(f'tl.fromTo("{cur}",{{scale:1.06}},{{scale:1,duration:0.4,ease:"power3.out"}},{b:.3f});')
     elif kind == "dip":
         J(f'tl.fromTo("#dip",{{opacity:0}},{{opacity:1,duration:0.25,ease:"power2.in"}},{b - 0.25:.3f});')
         J(f'tl.to("#dip",{{opacity:0,duration:0.4,ease:"power2.out"}},{b:.3f});')
 
 
-def cta_html(i):
+CHECK_SVG = ('<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" '
+             'fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+
+def recap_html(i):
     c = CTA
-    q = "".join(f'<span id="ct_q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(c["q"].split()))
+    q = "".join(f'<span id="rq{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(c["q"].split()))
+    rows = "".join(f'<div id="rc{k}" class="crow"><span id="rk{k}" class="ck">{CHECK_SVG}</span><span>{esc(t)}</span></div>'
+                   for k, t in enumerate(c["checks"]))
     return f'''<div class="cta">
           <div class="ctaq">{q.strip()}</div>
+          <div id="rq_rule" class="rule"></div>
+          <div id="rpanel" class="checks">{rows}</div>
+        </div>'''
+
+
+def recap_js(J, s):
+    b = s["start"]
+    for k in range(len(CTA["q"].split())):
+        J(f'tl.fromTo("#rq{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#rq_rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
+    J(f'tl.fromTo("#rpanel",{{opacity:0}},{{opacity:1,duration:0.35,ease:"power2.out"}},{b + 0.55:.3f});')
+    for k in range(len(CTA["checks"])):
+        t = b + 0.8 + 0.42 * k
+        J(f'tl.fromTo("#rc{k}",{{opacity:0,x:-40}},{{opacity:1,x:0,duration:0.4,ease:"power3.out"}},{t:.3f});')
+        J(f'tl.fromTo("#rk{k}",{{scale:0}},{{scale:1,duration:0.35,ease:"back.out(2.2)"}},{t + 0.12:.3f});')
+
+
+def cta_html(i):
+    c = CTA
+    return f'''<div class="cta">
+          <div class="line hero-s ctaq2"><span id="ct_q" class="pearl">{esc(c["sub"])}</span></div>
           <div id="ct_rule" class="rule"></div>
-          <div class="line label ctas"><span id="ct_sub" class="pearl">{esc(c["sub"])}</span></div>
+          <div class="line label ctas"><span id="ct_sub" class="pearl">{esc(c["title"])}</span></div>
           <div id="ct_card" class="ccard">
-            <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div></div>
+            <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div><div id="ct_ring2" class="ring"></div></div>
             <div class="ctext">
               <div class="cnum"><span id="ct_n1" class="nw">017-203</span> <span id="ct_n2" class="nw">6099</span></div>
-              <div id="ct_meta" class="cmeta">Deposit RM13,000 &nbsp;·&nbsp; Bulanan RM1,300</div>
+              <div id="ct_meta" class="cmeta">{esc(c["meta"])}</div>
             </div>
             <div id="ct_glint" class="glint"></div>
           </div>
@@ -390,17 +435,17 @@ def cta_js(J, s):
     b = s["start"]
     w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
     n1, n2 = w["017-203"], w["6099"]
-    for k in range(len(CTA["q"].split())):
-        J(f'tl.fromTo("#ct_q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.15 + 0.12 * k:.3f});')
-    J(f'tl.fromTo("#ct_rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.55:.3f});')
-    J(f'tl.fromTo("#ct_sub",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.65:.3f});')
-    J(f'tl.fromTo("#ct_card",{{opacity:0,y:60}},{{opacity:1,y:0,duration:0.6,ease:"power3.out"}},{min(b + 1.3, n1 - 0.6):.3f});')
-    # the number lands as it is spoken
+    J(f'tl.fromTo("#ct_q",{{yPercent:110}},{{yPercent:0,duration:0.55,ease:"power3.out"}},{b + 0.1:.3f});')
+    J(f'tl.fromTo("#ct_rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.4:.3f});')
+    J(f'tl.fromTo("#ct_sub",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
+    J(f'tl.fromTo("#ct_card",{{opacity:0,y:50,scale:0.94}},{{opacity:1,y:0,scale:1,duration:0.6,ease:"back.out(1.4)"}},{min(b + 0.8, n1 - 0.6):.3f});')
     J(f'tl.fromTo("#ct_n1",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.3,ease:"power3.out"}},{n1 - 0.05:.3f});')
     J(f'tl.fromTo("#ct_n2",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.3,ease:"power3.out"}},{n2 - 0.05:.3f});')
-    J(f'tl.fromTo("#ct_ring",{{scale:1,opacity:0.8}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n1 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_ring",{{scale:1,opacity:0.85}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n1 - 0.05:.3f});')
+    J(f'tl.fromTo("#ct_ring2",{{scale:1,opacity:0.85}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n2 - 0.05:.3f});')
     J(f'tl.fromTo("#ct_meta",{{opacity:0}},{{opacity:1,duration:0.5,ease:"power2.out"}},{n2 + 0.6:.3f});')
-    J(f'tl.fromTo("#ct_glint",{{x:-220}},{{x:860,duration:0.8,ease:"power2.inOut"}},{n2 + 1.2:.3f});')
+    J(f'tl.fromTo("#ct_glint",{{x:-220}},{{x:1000,duration:0.8,ease:"power2.inOut"}},{n2 + 1.2:.3f});')
+    J(f'tl.fromTo("#ct_icon",{{scale:1}},{{scale:1.12,duration:0.18,ease:"power2.out",yoyo:true,repeat:1}},{n2 + 1.2:.3f});')
 
 
 TEMPLATE = r"""<!doctype html>
@@ -431,12 +476,14 @@ TEMPLATE = r"""<!doctype html>
               -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%);
                       mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 86%, transparent 100%); }
       .cta-card { left: 20px; top: 640px; width: 1040px; height: 780px; }
-      .shade { position: absolute; inset: 0;
+      .card-low { top: 640px; }
+      .contain { position: absolute; left: 0; top: 240px; width: 1080px; height: 1440px; object-fit: contain; }
+      .shade { position: absolute; inset: 0; z-index: 5;
                background: linear-gradient(180deg, rgba(11,13,18,.9) 0%, rgba(11,13,18,.78) 16%, rgba(11,13,18,.5) 26%, rgba(11,13,18,0) 36%,
                            rgba(11,13,18,0) 54%, rgba(11,13,18,.62) 63%, rgba(11,13,18,.72) 72%, rgba(11,13,18,.45) 100%); }
       .sweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
                background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.16) 50%, transparent 58%); }
-      .heads { position: absolute; left: 120px; top: 290px; width: 840px; text-align: center; }
+      .heads { position: absolute; left: 120px; top: 290px; width: 840px; text-align: center; z-index: 6; }
       .line { overflow: hidden; line-height: 1.12; }
       .line span { display: inline-block; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
       .hero { font-weight: 800; font-size: 90px; letter-spacing: -0.01em; white-space: nowrap; }
@@ -449,7 +496,7 @@ TEMPLATE = r"""<!doctype html>
       .silver, .red { color: #fff; }
       .price .red { text-shadow: 0 6px 30px rgba(0,0,0,.55); }
       #captions { position: absolute; inset: 0; pointer-events: none; }
-      .grp { position: absolute; left: 120px; top: 1096px; width: 660px; text-align: center;
+      .grp { position: absolute; left: 0; top: 1096px; width: 1080px; padding: 0 170px; text-align: center;
              font-weight: 700; font-size: 48px; line-height: 1.42; color: #fff; opacity: 0; visibility: hidden; }
       .grp.cta-pos { top: 1140px; }
       .grp { text-wrap: balance; }
@@ -465,12 +512,18 @@ TEMPLATE = r"""<!doctype html>
       #flash, #dip { position: absolute; inset: 0; opacity: 0; }
       #flash { background: #fff; }
       #dip { background: var(--ground); }
-      .cta { position: absolute; inset: 0; text-align: center; }
+      .cta { position: absolute; inset: 0; text-align: center; z-index: 6; }
       .ctaq { position: absolute; top: 290px; left: 120px; width: 840px; font-weight: 800; font-size: 84px; line-height: 1.1; color: #fff; white-space: nowrap; }
       .qw { display: inline-block; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
       .rule { position: absolute; top: 396px; left: 470px; width: 140px; height: 6px; background: var(--red); }
       .ctas { position: absolute; top: 412px; left: 120px; width: 840px; }
       .ctas.label { font-size: 38px; letter-spacing: .2em; }
+      .ctaq2 { position: absolute; top: 296px; left: 120px; width: 840px; }
+      .checks { position: absolute; left: 200px; top: 418px; width: 680px; text-align: left; padding: 16px 34px; border-radius: 28px;
+                background: rgba(11,13,18,.74); border: 2px solid rgba(255,255,255,.14); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
+      .crow { display: flex; align-items: center; gap: 22px; height: 70px; font-weight: 700; font-size: 42px; color: #fff;
+              filter: drop-shadow(0 4px 12px rgba(0,0,0,.7)); }
+      .ck { flex: 0 0 48px; height: 48px; border-radius: 24px; background: var(--red); display: flex; align-items: center; justify-content: center; }
       .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
                display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
                background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18);
