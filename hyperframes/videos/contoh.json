@@ -1,0 +1,21 @@
+{
+  "_cara_guna": "Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, kemudian: python3 tools/build.py --video NAMA && ./hf.sh render -o renders/NAMA.mp4",
+  "_babak": "photos: satu senarai bagi setiap babak, ikut urutan: 1 hook (depan 3/4), 2 model (depan), 3 deposit (belakang 3/4), 4 bulanan (close-up badge), 5 agreement (belakang), 6 interior (2-5 gambar), 7 recap (mana-mana gambar luar), 8 penutup WhatsApp (depan 3/4)",
+  "_fit_width": "gambar menegak yang keretanya lebar (3/4 atau depan) - dipapar penuh supaya kereta tidak terpotong",
+  "_cues": "perkataan yang disebut untuk menukar gambar interior (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
+  "src": "contoh",
+  "style": "v2",
+  "voice_from": "hitam",
+  "photos": [
+    ["01_depan34.jpg"],
+    ["02_depan.jpg"],
+    ["03_belakang34.jpg"],
+    ["04_badge.jpg"],
+    ["05_belakang.jpg"],
+    ["06_dashboard.jpg", "07_stereng.jpg", "08_tempat_duduk_depan.jpg", "09_tempat_duduk_belakang.jpg", "10_but.jpg"],
+    ["03_belakang34.jpg"],
+    ["01_depan34.jpg"]
+  ],
+  "fit_width": ["01_depan34.jpg", "02_depan.jpg", "03_belakang34.jpg"],
+  "cues": [null, "Moden", "selesa", "ruang", "Memang"]
+}

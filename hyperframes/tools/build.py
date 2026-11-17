@@ -2,7 +2,8 @@
 
     python3 tools/build.py --video putih          # photos + voice + music + index.html
     python3 tools/build.py --video putih --html   # only regenerate index.html (keeps audio)
-    python3 tools/build.py --video hitam          # the saved v6 style (black unit)
+    python3 tools/build.py --video hitam          # the v6 look (black unit)
+    python3 tools/build.py --video NAMA           # any unit described in videos/NAMA.json (style v2 by default)
 
 Each video in VIDEOS picks its photos (one list per scene) and a style from STYLES
 ("v1" = the approved black-unit look, "v2" = same look with richer motion and the groove bed).
@@ -50,7 +51,7 @@ PHOTO_SRC = ROOT / "photos"
 def configure(name):
     """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
     global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W
-    v = VIDEOS[name]
+    v = VIDEOS[name] = load_video(name)
     VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
     AUD = ASSETS / "audio" / name
     PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
@@ -72,7 +73,7 @@ VIDEOS = {
                 ["04_hitam_badge.jpg"], ["05_hitam_belakang.jpg"],
                 ["06_stereng.jpg", "07_tempat_duduk_depan.jpg", "08_tempat_duduk_belakang.jpg"],
                 ["03_hitam_belakang34.jpg"], ["01_hitam_depan34.jpg"]]),
-    "putih": dict(  # white unit, style v2
+    "putih": dict(  # white unit, style v2 (the saved house style)
         src="putih", style="v2", voice_from="hitam",
         photos=[["putih_01_depan34.jpg"], ["putih_02_depan.jpg"], ["putih_03_belakang34.jpg"],
                 ["putih_04_badge.jpg"], ["putih_05_belakang.jpg"],
@@ -90,7 +91,22 @@ STYLES = {
                trans={5: "leak"},                       # light-leak into the interior
                moves={0: "reveal", 2: "orbit", 4: "track", 6: "drift"}),
 }
+DEFAULT_STYLE = "v2"   # "Gaya KL AUTO SB" - the saved house style for every new video (see GAYA.md)
 VIDEO, STYLE, CUES, FIT_W = "hitam", STYLES["v1"], None, set()
+
+
+def load_video(name):
+    """A video is either built in (VIDEOS) or a JSON file in videos/<name>.json (see videos/contoh.json)."""
+    if name in VIDEOS:
+        return VIDEOS[name]
+    f = HF / "videos" / f"{name}.json"
+    if not f.exists():
+        raise SystemExit(f"Tiada video '{name}': tambah videos/{name}.json (salin videos/contoh.json)")
+    v = json.loads(f.read_text())
+    v = {k: val for k, val in v.items() if not k.startswith("_")}
+    v.setdefault("style", DEFAULT_STYLE)
+    v.setdefault("voice_from", "hitam")
+    return v
 
 # --------------------------------------------------------------------- script
 SCRIPT = [
