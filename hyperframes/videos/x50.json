@@ -1,0 +1,190 @@
+{
+  "_unit": "Proton X50 Executive Facelift 2026 (putih) - sambung bayar / lease to own",
+  "src": "putih",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "x50_el",
+  "photos": [
+    [
+      "putih_01_depan34.jpg"
+    ],
+    [
+      "putih_02_depan.jpg"
+    ],
+    [
+      "putih_03_belakang34.jpg"
+    ],
+    [
+      "putih_04_badge.jpg"
+    ],
+    [
+      "putih_05_belakang.jpg"
+    ],
+    [
+      "putih_06_dashboard.jpg",
+      "putih_07_stereng.jpg",
+      "putih_08_tempat_duduk_depan.jpg",
+      "putih_09_tempat_duduk_belakang.jpg",
+      "putih_10_but.jpg"
+    ],
+    [
+      "putih_03_belakang34.jpg"
+    ],
+    [
+      "putih_01_depan34.jpg"
+    ]
+  ],
+  "fit_width": [
+    "putih_01_depan34.jpg",
+    "putih_02_depan.jpg",
+    "putih_03_belakang34.jpg"
+  ],
+  "cues": [
+    null,
+    "Moden",
+    "selesa",
+    "ruang",
+    "Memang"
+  ],
+  "script": [
+    {
+      "vo": "Nak pakai *SUV *baru, tanpa pening *loan *bank? Ada satu unit ^Proton ^X50|X-fifty ^Executive ^Facelift, *sambung *bayar *berdeposit.",
+      "head": [
+        [
+          "KERETA BARU",
+          "hero",
+          "pearl"
+        ],
+        [
+          "SAMBUNG BAYAR / LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "TANPA LOAN BANK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "reveal",
+      "trans": null
+    },
+    {
+      "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "PROTON X50",
+          "hero",
+          "silver"
+        ],
+        [
+          "EXECUTIVE FACELIFT 2026",
+          "label",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left"
+    },
+    {
+      "vo": "*Deposit? *RM13,000.|tiga-belas-ribu-ringgit.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM13,000",
+          "price",
+          "red"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,300",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Yang bestnya, ^agreement *terus *dengan *owner. Semua urusan kita bantu sampai selesai.",
+      "head": [
+        [
+          "AGREEMENT",
+          "label",
+          "silver"
+        ],
+        [
+          "DIRECT OWNER",
+          "hero",
+          "pearl"
+        ],
+        [
+          "PROSES MUDAH & PANTAS",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "track",
+      "trans": "zoom"
+    },
+    {
+      "vo": "Tengoklah interior dia. ^Moden, ^selesa, ruang pun ^luas. Memang ngam untuk bawa ^family.",
+      "head": [
+        [
+          "MODERN INTERIOR",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "COMFORTABLE FAMILY SUV",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Berminat dengan kereta ni?",
+      "head": "recap",
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 8
+    },
+    {
+      "vo": "*WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
+      "head": "cta",
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Proton X50 Executive Facelift 2026",
+    "checks": [
+      "Deposit RM13,000",
+      "Bulanan RM1,300",
+      "Loan 9 tahun",
+      "Agreement direct owner"
+    ]
+  }
+}

@@ -3,9 +3,10 @@
   "_babak": "9 babak ikut urutan 'photos' dan 'script': 1 hook (depan 3/4), 2 model (depan), 3 deposit (belakang 3/4), 4 bulanan (belakang / badge), 5 agreement (stereng / sisi), 6 butiran kereta (kabin / odometer), 7 interior (2-5 gambar: dashboard, baris 2, baris 3, but), 8 recap NAK VIEW KERETA? (belakang 3/4), 9 penutup WhatsApp (depan 3/4)",
   "_fit_width": "gambar menegak yang keretanya lebar (depan 3/4, depan, belakang 3/4): dipapar penuh dan dinaikkan supaya kereta tidak terpotong dan sarikata duduk di bawah kereta",
   "_cues": "perkataan dalam skrip interior yang menukar gambar (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
-  "_skrip": "Token: perkataan biasa | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Sebutan tetap: Mileage|mailej, bestnya,|besnya, X50|X-fifty, Roadtax|road-tax, nombor dieja penuh. Guna '.' bukan '!', elakkan 'je'.",
+  "_skrip": "Token: perkataan | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Nombor, harga, tahun dan telefon dieja penuh dalam sebutan. Babak 1 buka dengan ayat hook (tawaran utama). Guna '.' bukan '!' kecuali hook; elakkan 'je'.",
   "_head": "jenis tajuk: hero (besar), hero-s (sederhana), label (kecil berjarak), price (harga dikira naik), tag (pil merah). 'specs' = senarai butiran kereta (title + checks), 'recap' = NAK VIEW KERETA? (guna cta.checks), 'cta' = kad WhatsApp.",
   "_unit": "Contoh: Perodua Aruz Advance 2021 (putih)",
+  "_suara": "Suara: ElevenLabs Ashraf (voice id NHFTLozDZneDWyQjRGAO, model eleven_v4). Jana satu klip bagi setiap babak dan simpan sebagai assets/audio/<voice_dir>/el_<babak>.mp3. Klip yang ayatnya sama boleh disalin dari video lain.",
   "src": "aruz2021",
   "style": "v2",
   "photos": [
@@ -53,17 +54,22 @@
   ],
   "script": [
     {
-      "vo": "Ada satu unit ^Perodua ^Aruz ^Advance nak dijual secara *sambung *bayar *berdeposit.",
+      "vo": "*Deposit bawah *RM7K,|tujuh-ribu, dah boleh bawa balik SUV *7|tujuh seater! Ada satu unit ^Perodua ^Aruz ^Advance, *sambung *bayar *berdeposit.",
       "head": [
         [
-          "SAMBUNG BAYAR",
-          "hero",
+          "DEPOSIT BAWAH RM7K",
+          "hero-s",
           "pearl"
         ],
         [
-          "LEASE TO OWN",
+          "SAMBUNG BAYAR / LEASE TO OWN",
           "label",
           "silver"
+        ],
+        [
+          "SUV 7 SEATER",
+          "tag",
+          "pearl"
         ]
       ],
       "move": "reveal",
@@ -126,7 +132,7 @@
       "trans": "whip-up"
     },
     {
-      "vo": "Yang bestnya,|besnya, ^agreement *terus *dengan *owner. *Roadtax|road-tax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
+      "vo": "Yang bestnya, ^agreement *terus *dengan *owner. *Roadtax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
       "head": [
         [
           "AGREEMENT",
@@ -148,7 +154,7 @@
       "trans": "zoom"
     },
     {
-      "vo": "Mileage|mailej *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
+      "vo": "Mileage *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
       "head": "specs",
       "title": "BUTIRAN KERETA",
       "checks": [
@@ -202,5 +208,7 @@
       "Roadtax & insurans Jun 2027",
       "Agreement direct owner"
     ]
-  }
+  },
+  "voice": "elevenlabs",
+  "voice_dir": "aruz2021_el"
 }

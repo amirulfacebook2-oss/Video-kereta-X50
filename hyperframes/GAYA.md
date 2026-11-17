@@ -1,7 +1,8 @@
-# Gaya KL AUTO SB (v2, versi 17 Nov 2026)
+# Gaya KL AUTO SB (satu-satunya gaya, versi 17 Nov 2026)
 
 Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. Versi rasmi ialah video
-**Perodua Aruz Advance 2021** (`renders/KLAUTOSB_Aruz_2021_v3.mp4`, `videos/aruz2021.json`). Semua video baharu
+**Perodua Aruz Advance 2021 dengan suara Ashraf** (`renders/KLAUTOSB_Aruz_2021_Ashraf.mp4`, `videos/aruz2021.json`).
+Gaya lama (v1 hitam, suara Microsoft) telah dipadam. Semua video baharu
 guna gaya ini secara lalai (`DEFAULT_STYLE = "v2"` dalam `tools/build.py`). Templatnya ialah `videos/contoh.json`.
 
 ## Buat video kereta baharu
@@ -67,23 +68,8 @@ Jana satu klip bagi setiap babak (teks = bahagian sebutan skrip, nombor dieja pe
 `assets/audio/NAMA_el/el_<babak>.mp3`, kemudian dalam `videos/NAMA.json` letak `"voice": "elevenlabs", "voice_dir": "NAMA_el"`.
 Masa sarikata dianggar daripada jeda dalam audio. Contoh: `videos/aruz2021.json`.
 
-Suara lama (cadangan sandaran, percuma):
-
-- Microsoft `ms-MY-OsmanNeural`, kelajuan −4%, nada −1 Hz. Gaya rileks dan santai. Jeda antara ayat sekitar 0.45 saat.
-- Skrip guna "." (bukan "!") supaya intonasi tenang. Elakkan "je".
-- **Sebutan tetap.** Di skrin kekal ejaan biasa; selepas `|` ialah cara suara menyebutnya:
-
-  | Di skrin | Sebutan dalam skrip |
-  |---|---|
-  | Mileage | `Mileage\|mailej` (mai-lej) |
-  | bestnya | `bestnya,\|besnya,` (bes-nya) |
-  | X50 | `X50\|X-fifty` |
-  | Roadtax | `Roadtax\|road-tax` |
-  | KL / SB | `KL\|K-L`, `SB\|S-B` |
-  | Harga & tahun | dieja penuh, cth `RM6,988.\|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.`, `2021.\|dua-ribu-dua-puluh-satu.` |
-  | 017-203 6099 | `017-203\|kosong-satu-tujuh,-dua-kosong-tiga,` `6099.\|enam-kosong-sembilan-sembilan.` |
-
-  Bila ada perkataan lain yang disebut pelik, tambah ejaan sebutannya di sini.
+Sebutan tetap: nombor, harga, tahun dan nombor telefon dieja penuh dalam bahagian sebutan skrip. `X50|X-fifty`.
+Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 
 ## Muzik (groove, `tools/music.py`)
 
@@ -99,9 +85,8 @@ Suara lama (cadangan sandaran, percuma):
 
 ## Video yang sudah dibuat
 
-| Video | Fail | Nota |
-|---|---|---|
-| Perodua Aruz Advance 2021 | `videos/aruz2021.json` | **versi rasmi templat** |
-| Perodua Aruz Advance 2019 | `videos/aruz.json` | |
-| Proton X50 putih | `--video putih` | skrip X50 (8 babak) |
-| Proton X50 hitam | `--video hitam` | gaya v1: interior crossfade, muzik minor, harga tanpa kiraan naik |
+| Video | Fail |
+|---|---|
+| Perodua Aruz Advance 2021 | `videos/aruz2021.json` (**versi rasmi templat**) |
+| Perodua Aruz Advance 2019 | `videos/aruz.json` |
+| Proton X50 Executive Facelift 2026 (putih) | `videos/x50.json` |

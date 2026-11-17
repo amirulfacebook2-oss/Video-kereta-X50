@@ -1,13 +1,10 @@
 """Build a KL AUTO SB Proton X50 promo as a HyperFrames project.
 
-    python3 tools/build.py --video putih          # photos + voice + music + index.html
-    python3 tools/build.py --video putih --html   # only regenerate index.html (keeps audio)
-    python3 tools/build.py --video hitam          # the v6 look (black unit)
-    python3 tools/build.py --video NAMA           # any unit described in videos/NAMA.json (style v2 by default)
+    python3 tools/build.py --video NAMA           # photos + voice + music + index.html for videos/NAMA.json
+    python3 tools/build.py --video NAMA --html    # only regenerate index.html (keeps audio)
 
-Each video in VIDEOS picks its photos (one list per scene) and a style from STYLES
-("v1" = the approved black-unit look, "v2" = same look with richer motion and the groove bed).
-To make another unit: add a VIDEOS entry pointing at a folder in ../photos/, then build it.
+One house style (STYLES["v2"], see GAYA.md): ElevenLabs "Ashraf" voice, hook, ka-ching/pop/ding SFX,
+green WhatsApp icon, captions under the car. To make another unit: copy videos/contoh.json.
 
 Then:  ./hf.sh check  ->  ./hf.sh preview  ->  ./hf.sh render -o renders/<name>.mp4
 Script (casual Malaysian Malay), prices and phone number live in SCRIPT / CTA below.
@@ -71,28 +68,8 @@ BEAT = 60 / BPM
 SR = 48000
 
 # --------------------------------------------------------------------- videos & styles
-VIDEOS = {
-    "hitam": dict(  # approved v6 (black unit)
-        src="", style="v1",
-        photos=[["01_hitam_depan34.jpg"], ["02_hitam_depan.jpg"], ["03_hitam_belakang34.jpg"],
-                ["04_hitam_badge.jpg"], ["05_hitam_belakang.jpg"],
-                ["06_stereng.jpg", "07_tempat_duduk_depan.jpg", "08_tempat_duduk_belakang.jpg"],
-                ["03_hitam_belakang34.jpg"], ["01_hitam_depan34.jpg"]]),
-    "putih": dict(  # white unit, style v2 (the saved house style)
-        src="putih", style="v2", voice_from="hitam",
-        photos=[["putih_01_depan34.jpg"], ["putih_02_depan.jpg"], ["putih_03_belakang34.jpg"],
-                ["putih_04_badge.jpg"], ["putih_05_belakang.jpg"],
-                ["putih_06_dashboard.jpg", "putih_07_stereng.jpg", "putih_08_tempat_duduk_depan.jpg",
-                 "putih_09_tempat_duduk_belakang.jpg", "putih_10_but.jpg"],
-                ["putih_03_belakang34.jpg"], ["putih_01_depan34.jpg"]],
-        # interior shots change on these spoken words
-        cues=[None, "Moden", "selesa", "ruang", "Memang"],
-        # wide cars in portrait photos: show the whole photo at full width (blurred fill above/below)
-        fit_width=["putih_01_depan34.jpg", "putih_02_depan.jpg", "putih_03_belakang34.jpg"]),
-}
+VIDEOS = {}   # every video lives in videos/<name>.json (template: videos/contoh.json)
 STYLES = {
-    "v1": dict(music="classic", countup=False, bump=False, montage="fade", trans={}, moves={}, shade="v1",
-               photo_bright=1.0, bg_bright=0.45, captions="middle"),
     "v2": dict(music="groove", countup=True, bump=True, montage="slide", shade="v2",
                photo_bright=1.07, bg_bright=0.72, captions="bottom",   # brighter look, captions bottom-centre
                sfx_plus=True, wa_green=True,                           # ka-ching / pops / ding; green WhatsApp icon
@@ -100,7 +77,7 @@ STYLES = {
                moves={0: "reveal", 2: "orbit", 4: "track", 6: "drift"}),
 }
 DEFAULT_STYLE = "v2"   # "Gaya KL AUTO SB" - the saved house style for every new video (see GAYA.md)
-VIDEO, STYLE, CUES, FIT_W = "hitam", STYLES["v1"], None, set()
+VIDEO, STYLE, CUES, FIT_W = None, STYLES["v2"], None, set()
 
 
 def load_video(name):
@@ -113,8 +90,6 @@ def load_video(name):
     v = json.loads(f.read_text())
     v = {k: val for k, val in v.items() if not k.startswith("_")}
     v.setdefault("style", DEFAULT_STYLE)
-    if "script" not in v:          # same words as the X50 film -> reuse the approved voice take
-        v.setdefault("voice_from", "hitam")
     return v
 
 # --------------------------------------------------------------------- script
@@ -813,7 +788,7 @@ TEMPLATE = r"""<!doctype html>
 
 def main():
     html_only = "--html" in sys.argv
-    name = sys.argv[sys.argv.index("--video") + 1] if "--video" in sys.argv else "hitam"
+    name = sys.argv[sys.argv.index("--video") + 1]
     configure(name)
     src = VIDEOS[name].get("voice_from")
     if html_only:
