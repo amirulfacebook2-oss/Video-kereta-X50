@@ -99,4 +99,5 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Proton X50 Executive Facelift 2026 (putih) | `videos/x50.json` |
 | Proton S70 Premium Facelift 2026 (merah) | `videos/s70.json` (penutup PROSES + Deposit Promo) |
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
+| Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |

@@ -1,0 +1,230 @@
+{
+  "_unit": "Toyota Vios G 2026 (putih) - sambung bayar / lease to own",
+  "src": "vios",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "vios_el",
+  "photos": [
+    [
+      "v_02_depan34.jpg"
+    ],
+    [
+      "v_01_depan.jpg"
+    ],
+    [
+      "v_03_belakang34.jpg"
+    ],
+    [
+      "v_05_belakang.jpg"
+    ],
+    [
+      "v_04_sisi.jpg"
+    ],
+    [
+      "v_09_dashboard.jpg"
+    ],
+    [
+      "v_07_belakang_sisi.jpg",
+      "v_08_belakang_depan.jpg",
+      "v_06_but.jpg"
+    ],
+    [
+      "v_03_belakang34.jpg"
+    ],
+    [
+      "v_02_depan34.jpg"
+    ]
+  ],
+  "fit_width": [],
+  "cues": [
+    null,
+    "belakang",
+    "but"
+  ],
+  "script": [
+    {
+      "vo": "*Sambung *bayar, *lease *to *own! Toyota baru, masih koyak plastik, terus boleh bawa balik. Jom tengok ^Toyota ^Vios|Vi-os ^G ni.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "TOYOTA KOYAK PLASTIK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "reveal",
+      "trans": null
+    },
+    {
+      "vo": "^Toyota ^Vios|Vi-os ^G ^2026,|dua-ribu-dua-puluh-enam, warna putih. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "TOYOTA VIOS",
+          "hero",
+          "silver"
+        ],
+        [
+          "G 2026",
+          "label",
+          "pearl"
+        ],
+        [
+          "KOYAK PLASTIK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left"
+    },
+    {
+      "vo": "*Deposit *promo? *RM14,000|empat-belas-ribu-ringgit sahaja.",
+      "head": [
+        [
+          "DEPOSIT PROMO",
+          "label",
+          "silver"
+        ],
+        [
+          "RM14,000",
+          "price",
+          "red"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,088.|seribu-lapan-puluh-lapan-ringgit. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,088",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Yang bestnya, ^agreement *terus *dengan *owner. Insurans dan roadtax pun baharu, siap ada *warranty ^Toyota.",
+      "head": [
+        [
+          "AGREEMENT",
+          "label",
+          "silver"
+        ],
+        [
+          "DIRECT OWNER",
+          "hero",
+          "pearl"
+        ],
+        [
+          "WARRANTY TOYOTA",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "track",
+      "trans": "zoom"
+    },
+    {
+      "vo": "Plat V, due date setiap *3|tiga hari bulan.",
+      "head": "specs",
+      "title": "BUTIRAN KERETA",
+      "checks": [
+        "Toyota Vios G 2026",
+        "Warna putih",
+        "Loan 9 tahun (koyak plastik)",
+        "Insurans & roadtax baharu",
+        "Plat V",
+        "Due date 3hb"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 12
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, but pun besar.",
+      "head": [
+        [
+          "INTERIOR PREMIUM",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "KERUSI KULIT",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Prosesnya mudah. Semak dokumen, tengok kereta, tandatangan perjanjian, bayar deposit, terus bawa balik!",
+      "head": "process",
+      "title": "PROSES MUDAH",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Lihat & periksa kereta",
+          "tengok"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa pulang!",
+          "terus"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 10
+    },
+    {
+      "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT PROMO",
+      "promo_price": "RM14,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Toyota Vios G 2026"
+  }
+}
