@@ -291,12 +291,19 @@ def make_audio(scenes, total):
     (AUD / "_mix.raw").unlink()
     meas = json.loads(out[out.rindex("{"):])
     g = 10 ** ((-14 - float(meas["input_i"])) / 20)
-    peak = np.abs(mix).max() * g
-    if peak > 0.89:  # keep ~-1 dBTP headroom
-        g *= 0.89 / peak
+
+    def soft_limit(x, ceil, knee=0.75):
+        """Transparent below knee*ceil; peaks above are rounded off smoothly up to ceil."""
+        k = knee * ceil
+        ax = np.abs(x)
+        over = ax > k
+        y = x.copy()
+        y[over] = np.sign(x[over]) * (k + (ceil - k) * np.tanh((ax[over] - k) / (ceil - k)))
+        return y
+    ceilings = {"music": 0.3, "sfx": 0.4, "vo": 0.56}   # sums stay under ~-1 dBFS together
     for name, data in (("music", mus.T), ("sfx", np.stack([fx, fx]).T), ("vo", np.stack([vo, vo]).T)):
         p = AUD / f"{name}.raw"
-        (data * g).astype(np.float32).tofile(p)
+        soft_limit(data * g, ceilings[name]).astype(np.float32).tofile(p)
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", str(p),
                         "-c:a", "pcm_s16le", str(AUD / f"{name}.wav")], check=True)
         p.unlink()
@@ -373,7 +380,7 @@ def sfx_intro():
 
 def extra_sfx(total, scenes):
     out = np.zeros(int(total * SR) + 3 * SR)
-    A.place(out, sfx_intro(), 0.0, 0.85)                                   # opening sting
+    A.place(out, np.tanh(1.6 * sfx_intro()) * 0.38, 0.0)                    # opening sting (soft-clipped so it does not limit the mix)
     for s in scenes:
         cfg, b = s["cfg"], s["start"]
         if isinstance(cfg["head"], list):
