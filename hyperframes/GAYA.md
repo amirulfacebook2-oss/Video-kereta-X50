@@ -91,6 +91,11 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 - Hook boleh mula dengan harga bulanan, deposit, atau ciri utama (cth "SEDAN TURBO"). Contoh: `videos/s70.json`.
 - Jangan sebut atau paparkan bangsa pemilik ("Owner Melayu") dalam video.
 
+## Babak khas (pilihan)
+
+- **Studio (`"studio": "gambar.jpg"` pada babak deposit):** kereta sebenar dipotong (rembg, piksel kereta tidak diubah) dan diletak atas pentas studio gelap: lampu sorot, lantai berkilat, pantulan, bayang, kilauan cahaya. Kereta masuk dari kanan.
+- **Animasi 3 langkah (`"head": "journey"`):** (1) pen menulis tandatangan + cop SAH, (2) CASH atau TRANSFER online + ✓ BERJAYA, (3) kereta sebenar (`car_side`) bergerak pulang ke rumah + TAHNIAH. Setiap langkah menyala ikut perkataan yang disebut; bunyi pop, ka-ching dan whoosh. Contoh: `videos/ccross.json`.
+
 ## Video yang sudah dibuat
 
 | Video | Fail |

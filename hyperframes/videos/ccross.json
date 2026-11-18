@@ -101,7 +101,8 @@
         ]
       ],
       "move": "orbit",
-      "trans": "flash"
+      "trans": "flash",
+      "studio": "cc_02_depan34.jpg"
     },
     {
       "vo": "*Bulanan pula, *RM1,512.|seribu-lima-ratus-dua-belas-ringgit. *Loan *9|sembilan *tahun.",
@@ -182,34 +183,28 @@
       "trans": "leak"
     },
     {
-      "vo": "Prosesnya mudah. Semak dokumen, tengok kereta, tandatangan perjanjian, bayar deposit, terus bawa balik!",
-      "head": "process",
-      "title": "PROSES MUDAH",
+      "vo": "Caranya senang. *Tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "3 LANGKAH MUDAH",
+      "amount": "RM18,000",
+      "car_side": "cc_04_sisi.jpg",
       "steps": [
         [
-          "Semakan dokumen",
-          "Semak"
-        ],
-        [
-          "Lihat & periksa kereta",
-          "tengok"
-        ],
-        [
           "Tandatangan perjanjian",
-          "tandatangan"
+          "Tandatangan"
         ],
         [
           "Bayar deposit",
           "bayar"
         ],
         [
-          "Terus bawa pulang!",
-          "terus"
+          "Terus bawa balik kereta!",
+          "bawa"
         ]
       ],
       "move": "recap",
       "trans": "dip",
-      "min_beats": 10
+      "min_beats": 16
     },
     {
       "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",

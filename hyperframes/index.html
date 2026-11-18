@@ -95,6 +95,34 @@
       .dlab { font-family: var(--font-label); font-weight: 700; font-size: 26px; letter-spacing: .12em; color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.7)); }
       .dchip { font-weight: 700; font-size: 30px; color: #fff; padding: 8px 22px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
       .ccard.c2card { top: 640px; }
+      .studio { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 42% at 50% 40%, #4a5262 0%, #232833 45%, #0b0d12 100%); }
+      .spot { position: absolute; left: 140px; top: -120px; width: 800px; height: 1400px; mix-blend-mode: screen;
+              background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,0) 85%);
+              clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); }
+      .sfloor { position: absolute; left: 0; right: 0; top: 1150px; bottom: 0;
+                background: linear-gradient(180deg, #2c313b 0%, #171a21 35%, #0b0d12 100%); border-top: 2px solid rgba(255,255,255,.08); }
+      .pool { position: absolute; left: 90px; top: 1080px; width: 900px; height: 260px;
+              background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,.18), rgba(255,255,255,0) 70%); }
+      .scar { position: absolute; left: 40px; width: 1000px; transform-origin: 50% 50%; }
+      .cimg, .crefl { position: absolute; left: 0; width: 1000px; }
+      .cimg { top: 0; }
+      .crefl { transform: scaleY(-1); opacity: .22;
+               -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,.9), transparent 45%); mask-image: linear-gradient(0deg, rgba(0,0,0,.9), transparent 45%); }
+      .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
+                 background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
+      .ssweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
+                background: linear-gradient(105deg, transparent 44%, rgba(255,255,255,.14) 50%, transparent 56%); }
+      .jstage { position: absolute; left: 60px; top: 400px; width: 960px; height: 760px; border-radius: 36px; overflow: hidden;
+                background: rgba(11,13,18,.82); border: 2px solid rgba(255,255,255,.14); box-shadow: 0 18px 40px rgba(0,0,0,.55); }
+      .jtrack { position: absolute; left: 160px; top: 62px; width: 600px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.18); }
+      .jfill { position: absolute; inset: 0; background: #e2232d; transform-origin: 0 50%; }
+      .jdot { position: absolute; top: 36px; width: 58px; height: 58px; margin-left: 11px; border-radius: 29px; display: flex; align-items: center;
+              justify-content: center; font-weight: 800; font-size: 28px; color: #fff; background: rgba(255,255,255,.15); }
+      .jstep { position: absolute; left: 60px; top: 120px; width: 840px; height: 520px; }
+      .jcar { position: absolute; left: 300px; top: 205px; width: 520px; }
+      .jyay { position: absolute; left: 0; top: 40px; width: 840px; text-align: center; font-weight: 800; font-size: 56px; color: #fff; }
+      .jlab { position: absolute; left: 0; bottom: 34px; width: 960px; height: 70px; }
+      .jl { position: absolute; left: 0; width: 960px; text-align: center; font-weight: 800; font-size: 46px; color: #fff; letter-spacing: .02em; }
       .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
                display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
                background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18);
@@ -126,7 +154,7 @@
     <div id="root" data-composition-id="main" data-start="0" data-duration="74.237" data-width="1080" data-height="1920" data-fps="30" data-motion-blur="on">
       <div id="s0" class="scene clip" data-start="0.000" data-duration="9.841" data-track-index="1" data-track-kind="graphics" style="z-index:10"><div id="s0cam" class="cam"><img id="s0bg" class="bg" src="assets/photos/bg_cc_02_depan34.jpg" alt="" /><div id="s0kb" class="kb"><img class="card" src="assets/photos/cc_02_depan34.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h0_0" class="pearl">SAMBUNG BAYAR</span></div><div class="line label"><span id="h0_1" class="silver">LEASE TO OWN</span></div><div class="line tag"><span id="h0_2" class="pearl">SUV TOYOTA KOYAK PLASTIK</span></div></div></div></div>
       <div id="s1" class="scene clip" data-start="9.481" data-duration="7.553" data-track-index="2" data-track-kind="graphics" style="z-index:11"><div id="s1cam" class="cam"><img id="s1bg" class="bg" src="assets/photos/bg_cc_01_depan.jpg" alt="" /><div id="s1kb" class="kb"><img class="card" src="assets/photos/cc_01_depan.jpg" alt="" /></div><div id="s1sw" class="sweep"></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h1_0" class="silver">COROLLA CROSS</span></div><div class="line label"><span id="h1_1" class="pearl">TOYOTA 1.8 V</span></div><div class="line tag"><span id="h1_2" class="pearl">KOYAK PLASTIK</span></div></div></div></div>
-      <div id="s2" class="scene clip" data-start="17.034" data-duration="3.993" data-track-index="1" data-track-kind="graphics" style="z-index:12"><div id="s2cam" class="cam"><img id="s2bg" class="bg" src="assets/photos/bg_cc_03_belakang34.jpg" alt="" /><div id="s2kb" class="kb"><img class="card" src="assets/photos/cc_03_belakang34.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h2_0" class="silver">DEPOSIT</span></div><div class="line price" style="margin:0 -100px"><span id="h2_1" class="red">RM18,000</span></div></div></div></div>
+      <div id="s2" class="scene clip" data-start="17.034" data-duration="3.993" data-track-index="1" data-track-kind="graphics" style="z-index:12"><div id="s2cam" class="cam"><div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div><div id="s2car" class="scar" style="top:615px;height:1140px"><div class="cshadow" style="top:530px"></div><img class="cimg" src="assets/photos/cut_cc_02_depan34.png" style="height:570px" alt="" /><img class="crefl" src="assets/photos/cut_cc_02_depan34.png" style="top:570px;height:570px" alt="" /></div><div id="s2ssw" class="ssweep"></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h2_0" class="silver">DEPOSIT</span></div><div class="line price" style="margin:0 -100px"><span id="h2_1" class="red">RM18,000</span></div></div></div></div>
       <div id="s3" class="scene clip" data-start="20.667" data-duration="6.228" data-track-index="2" data-track-kind="graphics" style="z-index:13"><div id="s3cam" class="cam"><img id="s3bg" class="bg" src="assets/photos/bg_cc_05_belakang.jpg" alt="" /><div id="s3kb" class="kb"><img class="card" src="assets/photos/cc_05_belakang.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h3_0" class="silver">BULANAN</span></div><div class="line price"><span id="h3_1" class="red">RM1,512</span></div><div class="line tag"><span id="h3_2" class="pearl">LOAN 9 TAHUN</span></div></div></div></div>
       <div id="s4" class="scene clip" data-start="26.495" data-duration="9.787" data-track-index="1" data-track-kind="graphics" style="z-index:14"><div id="s4cam" class="cam"><img id="s4bg" class="bg" src="assets/photos/bg_cc_04_sisi.jpg" alt="" /><div id="s4kb" class="kb"><img class="card" src="assets/photos/cc_04_sisi.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h4_0" class="silver">AGREEMENT</span></div><div class="line hero"><span id="h4_1" class="pearl">DIRECT OWNER</span></div><div class="line tag"><span id="h4_2" class="pearl">WARRANTY TOYOTA</span></div></div></div></div>
       <div id="s5" class="scene clip" data-start="35.922" data-duration="9.682" data-track-index="2" data-track-kind="graphics" style="z-index:15"><div id="s5cam" class="cam"><img id="s5bg" class="bg" src="assets/photos/bg_cc_10_dashboard.jpg" alt="" /><div id="s5kb" class="kb"><img class="card card-low" src="assets/photos/cc_10_dashboard.jpg" alt="" /></div><div class="shade"></div><div class="cta">
@@ -136,9 +164,57 @@
         </div></div></div>
       <div id="s6" class="scene clip" data-start="44.904" data-duration="7.215" data-track-index="1" data-track-kind="graphics" style="z-index:16"><div id="s6cam" class="cam"><div id="s6m0" class="sub clip" data-start="44.904" data-duration="3.484" data-track-index="10" style="z-index:1"><div id="s6m0kb" class="kb"><img class="bg" src="assets/photos/bg_cc_09_kerusi_depan.jpg" alt="" /><img class="contain" src="assets/photos/cc_09_kerusi_depan.jpg" alt="" /></div></div><div id="s6m1" class="sub clip" data-start="47.838" data-duration="2.036" data-track-index="11" style="z-index:2"><div id="s6m1kb" class="kb"><img class="bg" src="assets/photos/bg_cc_07_belakang_depan.jpg" alt="" /><img class="contain" src="assets/photos/cc_07_belakang_depan.jpg" alt="" /></div></div><div id="s6m2" class="sub clip" data-start="49.324" data-duration="2.795" data-track-index="12" style="z-index:3"><div id="s6m2kb" class="kb"><img class="bg" src="assets/photos/bg_cc_06_boot.jpg" alt="" /><img class="contain" src="assets/photos/cc_06_boot.jpg" alt="" /></div></div><div class="shade"></div><div class="heads"><div class="line hero-s"><span id="h6_0" class="pearl">INTERIOR PREMIUM</span></div><div class="line label"><span id="h6_1" class="silver">KERUSI KULIT</span></div></div></div></div>
       <div id="s7" class="scene clip" data-start="52.119" data-duration="8.335" data-track-index="2" data-track-kind="graphics" style="z-index:17"><div id="s7cam" class="cam"><img id="s7bg" class="bg" src="assets/photos/bg_cc_03_belakang34.jpg" alt="" /><div id="s7kb" class="kb"><img class="card card-low" src="assets/photos/cc_03_belakang34.jpg" alt="" /></div><div class="shade"></div><div class="cta">
-          <div class="ctaq"><span id="p7q0" class="qw">PROSES</span> <span id="p7q1" class="qw">MUDAH</span></div>
-          <div id="p7rule" class="rule"></div>
-          <div id="p7panel" class="steps"><div class="sline"><div id="p7fill" class="sfill"></div></div><div id="p7r0" class="srow"><span id="p7n0" class="sn">1</span><span class="st">Semakan dokumen</span></div><div id="p7r1" class="srow"><span id="p7n1" class="sn">2</span><span class="st">Lihat &amp; periksa kereta</span></div><div id="p7r2" class="srow"><span id="p7n2" class="sn">3</span><span class="st">Tandatangan perjanjian</span></div><div id="p7r3" class="srow"><span id="p7n3" class="sn">4</span><span class="st">Bayar deposit</span></div><div id="p7r4" class="srow"><span id="p7n4" class="sn">5</span><span class="st">Terus bawa pulang!</span></div></div>
+          <div class="ctaq"><span id="j7q0" class="qw">3</span> <span id="j7q1" class="qw">LANGKAH</span> <span id="j7q2" class="qw">MUDAH</span></div>
+          <div id="j7stage" class="jstage">
+            <div class="jtrack"><div id="j7fill" class="jfill"></div></div><div id="j7d0" class="jdot" style="left:120px">1</div><div id="j7d1" class="jdot" style="left:420px">2</div><div id="j7d2" class="jdot" style="left:720px">3</div>
+            <div id="j7s0" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <rect x="240" y="20" width="360" height="460" rx="18" fill="#f6f5f1"/>
+                <text x="420" y="78" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#0b0d12">PERJANJIAN</text>
+                <rect x="280" y="110" width="280" height="10" rx="5" fill="#c9ced5"/><rect x="280" y="140" width="250" height="10" rx="5" fill="#c9ced5"/>
+                <rect x="280" y="170" width="270" height="10" rx="5" fill="#c9ced5"/><rect x="280" y="200" width="220" height="10" rx="5" fill="#c9ced5"/>
+                <rect x="280" y="230" width="260" height="10" rx="5" fill="#c9ced5"/><rect x="280" y="260" width="200" height="10" rx="5" fill="#c9ced5"/>
+                <line x1="290" y1="425" x2="560" y2="425" stroke="#9aa0a9" stroke-width="3"/>
+                <path id="j7sig" d="M300 412 C 320 360, 345 450, 368 398 S 410 360, 432 410 S 488 436, 505 392 S 540 396, 560 404" fill="none" stroke="#1d3c94" stroke-width="7" stroke-linecap="round" stroke-dasharray="520" stroke-dashoffset="520"/>
+                <g id="j7pen"><g transform="translate(300 412) rotate(-35)">
+                  <rect x="-6" y="-120" width="22" height="104" rx="6" fill="#e2232d"/><polygon points="-6,-16 16,-16 5,8" fill="#2a2f3a"/><rect x="-6" y="-130" width="22" height="14" rx="4" fill="#0b0d12"/></g></g>
+                <g id="j7stamp" transform="translate(520 300)"><g transform="rotate(-14)">
+                  <circle r="62" fill="none" stroke="#25D366" stroke-width="8"/>
+                  <text y="14" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="40" fill="#25D366">SAH</text></g></g>
+              </svg>
+            </div>
+            <div id="j7s1" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <g id="j7cash">
+                  <g transform="translate(70 170) rotate(-10)"><rect width="270" height="140" rx="12" fill="#3f8f5a"/><rect x="10" y="10" width="250" height="120" rx="8" fill="none" stroke="#bfe6c9" stroke-width="3"/><circle cx="135" cy="70" r="34" fill="#bfe6c9"/><text x="135" y="82" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#3f8f5a">RM</text></g>
+                  <g transform="translate(90 200) rotate(-3)"><rect width="270" height="140" rx="12" fill="#4aa368"/><rect x="10" y="10" width="250" height="120" rx="8" fill="none" stroke="#d3f0db" stroke-width="3"/><circle cx="135" cy="70" r="34" fill="#d3f0db"/><text x="135" y="82" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#4aa368">RM</text></g>
+                  <text x="225" y="420" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="34" fill="#fff">CASH</text>
+                </g>
+                <text id="j7atau" x="420" y="275" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="30" fill="#c9ced5">atau</text>
+                <g id="j7phone">
+                  <rect x="520" y="70" width="200" height="330" rx="30" fill="#2a2f3a" stroke="#6b7280" stroke-width="4"/>
+                  <rect x="536" y="100" width="168" height="270" rx="14" fill="#f6f5f1"/>
+                  <text x="620" y="140" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="20" fill="#0b0d12">TRANSFER</text>
+                  <g id="j7arrow"><circle cx="620" cy="215" r="44" fill="#1d6fe0"/><path d="M596 205 h40 l-12 -12 M644 225 h-40 l12 12" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+                  <text id="j7amt" x="620" y="300" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="26" fill="#0b0d12">RM18,000</text>
+                  <text x="620" y="440" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="34" fill="#fff">ONLINE</text>
+                </g>
+                <g id="j7ok"><circle cx="420" cy="250" r="96" fill="#25D366"/><path d="M372 250 l32 32 l60 -66" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="300" y="360" width="240" height="56" rx="28" fill="#25D366"/><text x="420" y="399" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#fff">BERJAYA</text></g>
+              </svg>
+            </div>
+            <div id="j7s2" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <g id="j7home"><polygon points="60,250 170,160 280,250" fill="#e2232d"/><rect x="85" y="250" width="170" height="150" fill="#f6f5f1"/>
+                  <rect x="150" y="320" width="45" height="80" fill="#2a2f3a"/><rect x="100" y="275" width="40" height="36" fill="#9fc3ff"/><rect x="200" y="275" width="40" height="36" fill="#9fc3ff"/></g>
+                <rect x="0" y="400" width="840" height="70" fill="#2a2f3a"/>
+                <g id="j7dash" fill="#f6f5f1"><rect x="0" y="432" width="60" height="8" rx="4"/><rect x="120" y="432" width="60" height="8" rx="4"/><rect x="240" y="432" width="60" height="8" rx="4"/><rect x="360" y="432" width="60" height="8" rx="4"/><rect x="480" y="432" width="60" height="8" rx="4"/><rect x="600" y="432" width="60" height="8" rx="4"/><rect x="720" y="432" width="60" height="8" rx="4"/><rect x="840" y="432" width="60" height="8" rx="4"/><rect x="960" y="432" width="60" height="8" rx="4"/><rect x="1080" y="432" width="60" height="8" rx="4"/><rect x="1200" y="432" width="60" height="8" rx="4"/><rect x="1320" y="432" width="60" height="8" rx="4"/><rect x="1440" y="432" width="60" height="8" rx="4"/><rect x="1560" y="432" width="60" height="8" rx="4"/><rect x="1680" y="432" width="60" height="8" rx="4"/><rect x="1800" y="432" width="60" height="8" rx="4"/></g>
+              </svg>
+              <img id="j7car" class="jcar" src="assets/photos/cut_cc_04_sisi.png" alt="" />
+              <div id="j7yay" class="jyay">TAHNIAH! 🎉</div>
+            </div>
+            <div id="j7lab" class="jlab"><span id="j7l0" class="jl">Tandatangan perjanjian</span><span id="j7l1" class="jl">Bayar deposit</span><span id="j7l2" class="jl">Terus bawa balik kereta!</span></div>
+          </div>
         </div></div></div>
       <div id="s8" class="scene clip" data-start="60.054" data-duration="14.183" data-track-index="1" data-track-kind="graphics" style="z-index:18"><div id="s8cam" class="cam"><img id="s8bg" class="bg" src="assets/photos/bg_cc_02_depan34.jpg" alt="" /><div id="s8kb" class="kb"><img class="card cta-card" src="assets/photos/cc_02_depan34.jpg" alt="" /></div><div id="s8sw" class="sweep"></div><div class="shade"></div><div class="cta">
           <div class="line label c2lab"><span id="c2lab" class="pearl">DEPOSIT</span></div>
@@ -153,7 +229,7 @@
             <div id="ct_glint" class="glint"></div>
           </div>
         </div></div></div>
-      <div id="captions" class="clip" data-start="0" data-duration="74.237" data-track-index="5" data-track-kind="captions" data-layout-allow-safe-zone style="z-index:40"><div id="c0" class="grp"><span id="c0p" class="pill"><span class="w red">Sambung</span> <span class="w red">bayar,</span></span></div><div id="c1" class="grp"><span id="c1p" class="pill"><span class="w red">lease</span> <span class="w red">to</span> <span class="w red">own!</span></span></div><div id="c2" class="grp"><span id="c2p" class="pill"><span class="w ">Teringin</span> <span class="w ">SUV</span> <span class="w ">Toyota</span></span></div><div id="c3" class="grp"><span id="c3p" class="pill"><span class="w ">penuh</span> <span class="w ">teknologi?</span></span></div><div id="c4" class="grp"><span id="c4p" class="pill"><span class="w silver">Corolla</span> <span class="w silver">Cross</span> <span class="w red">1.8</span> <span class="w red">V,</span></span></div><div id="c5" class="grp"><span id="c5p" class="pill"><span class="w ">masih</span> <span class="w ">koyak</span> <span class="w ">plastik!</span></span></div><div id="c6" class="grp"><span id="c6p" class="pill"><span class="w silver">Toyota</span> <span class="w silver">Corolla</span> <span class="w silver">Cross</span> <span class="w red">1.8</span></span></div><div id="c7" class="grp"><span id="c7p" class="pill"><span class="w red">V,</span> <span class="w ">warna</span> <span class="w ">putih.</span></span></div><div id="c8" class="grp"><span id="c8p" class="pill"><span class="w ">Kereta</span> <span class="w ">baru,</span></span></div><div id="c9" class="grp"><span id="c9p" class="pill"><span class="w ">jualan</span> <span class="w ">koyak</span> <span class="w ">plastik.</span></span></div><div id="c10" class="grp"><span id="c10p" class="pill"><span class="w red">Deposit?</span></span></div><div id="c11" class="grp"><span id="c11p" class="pill"><span class="w red">RM18,000</span> <span class="w ">sahaja.</span></span></div><div id="c12" class="grp"><span id="c12p" class="pill"><span class="w red">Bulanan</span> <span class="w ">pula,</span> <span class="w red">RM1,512.</span></span></div><div id="c13" class="grp"><span id="c13p" class="pill"><span class="w red">Loan</span> <span class="w red">9</span> <span class="w red">tahun.</span></span></div><div id="c14" class="grp"><span id="c14p" class="pill"><span class="w ">Lebih</span> <span class="w ">menarik,</span></span></div><div id="c15" class="grp"><span id="c15p" class="pill"><span class="w silver">agreement</span> <span class="w red">direct</span> <span class="w red">terus</span></span></div><div id="c16" class="grp"><span id="c16p" class="pill"><span class="w red">dengan</span> <span class="w red">owner.</span></span></div><div id="c17" class="grp"><span id="c17p" class="pill"><span class="w ">Insurans,</span> <span class="w ">roadtax</span></span></div><div id="c18" class="grp"><span id="c18p" class="pill"><span class="w ">baharu,</span> <span class="w red">plat</span> <span class="w red">V,</span></span></div><div id="c19" class="grp"><span id="c19p" class="pill"><span class="w ">siap</span> <span class="w red">warranty</span> <span class="w silver">Toyota.</span></span></div><div id="c20" class="grp"><span id="c20p" class="pill"><span class="w ">Enjin</span> <span class="w red">1.8</span> <span class="w ">power</span> <span class="w ">back</span></span></div><div id="c21" class="grp"><span id="c21p" class="pill"><span class="w ">door,</span> <span class="w ">kerusi</span> <span class="w ">kulit,</span></span></div><div id="c22" class="grp"><span id="c22p" class="pill"><span class="w silver">Toyota</span> <span class="w silver">Safety</span> <span class="w silver">Sense,</span></span></div><div id="c23" class="grp"><span id="c23p" class="pill"><span class="w ">siap</span> <span class="w ">kamera</span> <span class="w red">360.</span></span></div><div id="c24" class="grp"><span id="c24p" class="pill"><span class="w ">Tengoklah</span> <span class="w ">interior</span> <span class="w ">dia.</span></span></div><div id="c25" class="grp"><span id="c25p" class="pill"><span class="w ">Kemas,</span> <span class="w silver">selesa,</span></span></div><div id="c26" class="grp"><span id="c26p" class="pill"><span class="w ">belakang</span> <span class="w ">pun</span> <span class="w silver">luas,</span></span></div><div id="c27" class="grp"><span id="c27p" class="pill"><span class="w ">boot</span> <span class="w ">pun</span> <span class="w ">besar.</span></span></div><div id="c28" class="grp"><span id="c28p" class="pill"><span class="w ">Prosesnya</span> <span class="w ">mudah.</span></span></div><div id="c29" class="grp"><span id="c29p" class="pill"><span class="w ">Semak</span> <span class="w ">dokumen,</span></span></div><div id="c30" class="grp"><span id="c30p" class="pill"><span class="w ">tengok</span> <span class="w ">kereta,</span></span></div><div id="c31" class="grp"><span id="c31p" class="pill"><span class="w ">tandatangan</span> <span class="w ">perjanjian,</span></span></div><div id="c32" class="grp"><span id="c32p" class="pill"><span class="w ">bayar</span> <span class="w ">deposit,</span></span></div><div id="c33" class="grp"><span id="c33p" class="pill"><span class="w ">terus</span> <span class="w ">bawa</span> <span class="w ">balik!</span></span></div><div id="c34" class="grp cta-pos"><span id="c34p" class="pill"><span class="w ">Sediakan</span> <span class="w ">IC,</span></span></div><div id="c35" class="grp cta-pos"><span id="c35p" class="pill"><span class="w ">lesen</span> <span class="w ">dan</span> <span class="w ">bil</span> <span class="w ">air</span> <span class="w ">atau</span> <span class="w ">api.</span></span></div><div id="c36" class="grp cta-pos"><span id="c36p" class="pill"><span class="w red">WhatsApp</span> <span class="w ">sekarang,</span></span></div><div id="c37" class="grp cta-pos"><span id="c37p" class="pill"><span class="w red">017-203</span> <span class="w red">6099.</span></span></div><div id="c38" class="grp cta-pos"><span id="c38p" class="pill"><span class="w ">Siapa</span> <span class="w ">cepat,</span></span></div><div id="c39" class="grp cta-pos"><span id="c39p" class="pill"><span class="w ">dia</span> <span class="w ">dapat!</span></span></div></div>
+      <div id="captions" class="clip" data-start="0" data-duration="74.237" data-track-index="5" data-track-kind="captions" data-layout-allow-safe-zone style="z-index:40"><div id="c0" class="grp"><span id="c0p" class="pill"><span class="w red">Sambung</span> <span class="w red">bayar,</span></span></div><div id="c1" class="grp"><span id="c1p" class="pill"><span class="w red">lease</span> <span class="w red">to</span> <span class="w red">own!</span></span></div><div id="c2" class="grp"><span id="c2p" class="pill"><span class="w ">Teringin</span> <span class="w ">SUV</span> <span class="w ">Toyota</span></span></div><div id="c3" class="grp"><span id="c3p" class="pill"><span class="w ">penuh</span> <span class="w ">teknologi?</span></span></div><div id="c4" class="grp"><span id="c4p" class="pill"><span class="w silver">Corolla</span> <span class="w silver">Cross</span> <span class="w red">1.8</span> <span class="w red">V,</span></span></div><div id="c5" class="grp"><span id="c5p" class="pill"><span class="w ">masih</span> <span class="w ">koyak</span> <span class="w ">plastik!</span></span></div><div id="c6" class="grp"><span id="c6p" class="pill"><span class="w silver">Toyota</span> <span class="w silver">Corolla</span> <span class="w silver">Cross</span> <span class="w red">1.8</span></span></div><div id="c7" class="grp"><span id="c7p" class="pill"><span class="w red">V,</span> <span class="w ">warna</span> <span class="w ">putih.</span></span></div><div id="c8" class="grp"><span id="c8p" class="pill"><span class="w ">Kereta</span> <span class="w ">baru,</span></span></div><div id="c9" class="grp"><span id="c9p" class="pill"><span class="w ">jualan</span> <span class="w ">koyak</span> <span class="w ">plastik.</span></span></div><div id="c10" class="grp"><span id="c10p" class="pill"><span class="w red">Deposit?</span></span></div><div id="c11" class="grp"><span id="c11p" class="pill"><span class="w red">RM18,000</span> <span class="w ">sahaja.</span></span></div><div id="c12" class="grp"><span id="c12p" class="pill"><span class="w red">Bulanan</span> <span class="w ">pula,</span> <span class="w red">RM1,512.</span></span></div><div id="c13" class="grp"><span id="c13p" class="pill"><span class="w red">Loan</span> <span class="w red">9</span> <span class="w red">tahun.</span></span></div><div id="c14" class="grp"><span id="c14p" class="pill"><span class="w ">Lebih</span> <span class="w ">menarik,</span></span></div><div id="c15" class="grp"><span id="c15p" class="pill"><span class="w silver">agreement</span> <span class="w red">direct</span> <span class="w red">terus</span></span></div><div id="c16" class="grp"><span id="c16p" class="pill"><span class="w red">dengan</span> <span class="w red">owner.</span></span></div><div id="c17" class="grp"><span id="c17p" class="pill"><span class="w ">Insurans,</span> <span class="w ">roadtax</span></span></div><div id="c18" class="grp"><span id="c18p" class="pill"><span class="w ">baharu,</span> <span class="w red">plat</span> <span class="w red">V,</span></span></div><div id="c19" class="grp"><span id="c19p" class="pill"><span class="w ">siap</span> <span class="w red">warranty</span> <span class="w silver">Toyota.</span></span></div><div id="c20" class="grp"><span id="c20p" class="pill"><span class="w ">Enjin</span> <span class="w red">1.8</span> <span class="w ">power</span> <span class="w ">back</span></span></div><div id="c21" class="grp"><span id="c21p" class="pill"><span class="w ">door,</span> <span class="w ">kerusi</span> <span class="w ">kulit,</span></span></div><div id="c22" class="grp"><span id="c22p" class="pill"><span class="w silver">Toyota</span> <span class="w silver">Safety</span> <span class="w silver">Sense,</span></span></div><div id="c23" class="grp"><span id="c23p" class="pill"><span class="w ">siap</span> <span class="w ">kamera</span> <span class="w red">360.</span></span></div><div id="c24" class="grp"><span id="c24p" class="pill"><span class="w ">Tengoklah</span> <span class="w ">interior</span> <span class="w ">dia.</span></span></div><div id="c25" class="grp"><span id="c25p" class="pill"><span class="w ">Kemas,</span> <span class="w silver">selesa,</span></span></div><div id="c26" class="grp"><span id="c26p" class="pill"><span class="w ">belakang</span> <span class="w ">pun</span> <span class="w silver">luas,</span></span></div><div id="c27" class="grp"><span id="c27p" class="pill"><span class="w ">boot</span> <span class="w ">pun</span> <span class="w ">besar.</span></span></div><div id="c28" class="grp"><span id="c28p" class="pill"><span class="w ">Caranya</span> <span class="w ">senang.</span></span></div><div id="c29" class="grp"><span id="c29p" class="pill"><span class="w red">Tandatangan</span> <span class="w ">perjanjian,</span></span></div><div id="c30" class="grp"><span id="c30p" class="pill"><span class="w red">bayar</span> <span class="w ">deposit,</span></span></div><div id="c31" class="grp"><span id="c31p" class="pill"><span class="w ">dan</span> <span class="w ">terus</span> <span class="w ">boleh</span> <span class="w red">bawa</span></span></div><div id="c32" class="grp"><span id="c32p" class="pill"><span class="w ">balik</span> <span class="w ">kereta!</span></span></div><div id="c33" class="grp cta-pos"><span id="c33p" class="pill"><span class="w ">Sediakan</span> <span class="w ">IC,</span></span></div><div id="c34" class="grp cta-pos"><span id="c34p" class="pill"><span class="w ">lesen</span> <span class="w ">dan</span> <span class="w ">bil</span> <span class="w ">air</span> <span class="w ">atau</span> <span class="w ">api.</span></span></div><div id="c35" class="grp cta-pos"><span id="c35p" class="pill"><span class="w red">WhatsApp</span> <span class="w ">sekarang,</span></span></div><div id="c36" class="grp cta-pos"><span id="c36p" class="pill"><span class="w red">017-203</span> <span class="w red">6099.</span></span></div><div id="c37" class="grp cta-pos"><span id="c37p" class="pill"><span class="w ">Siapa</span> <span class="w ">cepat,</span></span></div><div id="c38" class="grp cta-pos"><span id="c38p" class="pill"><span class="w ">dia</span> <span class="w ">dapat!</span></span></div></div>
       <div id="bug" class="clip" data-start="0" data-duration="74.237" data-track-index="6" data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>
       <div id="fx" class="clip" data-start="0" data-duration="74.237" data-track-index="7" data-track-kind="graphics" style="z-index:42"><div id="flash"></div><div id="dip"></div><div id="leak"></div></div>
       <audio id="music" class="clip" src="assets/audio/ccross/music.wav" data-start="0" data-duration="74.237" data-track-index="8"></audio>
@@ -173,8 +249,9 @@
       tl.fromTo("#h1_2",{opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out"},10.291);
       tl.fromTo("#s0cam",{x:0},{x:-1080,duration:0.36,ease:"power2.inOut"},9.481);
       tl.fromTo("#s1cam",{x:1080},{x:0,duration:0.36,ease:"power2.inOut"},9.481);
-      tl.fromTo("#s2kb",{scale:1.14,x:80,rotation:0.8},{...{scale:1.14,x:-80,rotation:-0.8},duration:3.993,ease:"sine.inOut"},17.034);
-      tl.fromTo("#s2bg",{scale:1.0},{scale:1.05,duration:3.993,ease:"none"},17.034);
+      tl.fromTo("#s2car",{x:420,opacity:0},{x:0,opacity:1,duration:0.9,ease:"power3.out"},17.084);
+      tl.fromTo("#s2car",{scale:1},{scale:1.05,duration:2.813,ease:"none"},17.984);
+      tl.fromTo("#s2ssw",{x:-1300},{x:1300,duration:1.2,ease:"power1.inOut"},18.034);
       tl.fromTo("#h2_0",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},17.184);
       tl.fromTo("#h2_1",{yPercent:110,scale:0.9,opacity:0},{yPercent:0,scale:1,opacity:1,duration:0.5,ease:"back.out(1.5)"},17.692);
       (()=>{const el=document.getElementById("h2_1"),o={v:0};tl.fromTo(o,{v:0},{v:18000,duration:0.9,ease:"power2.out",onUpdate:()=>{el.textContent="RM"+Math.round(o.v).toLocaleString("en-US");}},17.692);})();
@@ -231,25 +308,42 @@
       tl.to("#leak",{opacity:0,x:600,duration:0.55,ease:"power2.in"},45.254);
       tl.fromTo("#s7kb",{scale:1.02,x:30},{...{scale:1.08,x:-30},duration:8.335,ease:"sine.inOut"},52.119);
       tl.fromTo("#s7bg",{scale:1.0},{scale:1.05,duration:8.335,ease:"none"},52.119);
-      tl.fromTo("#p7q0",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},52.219);
-      tl.fromTo("#p7q1",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},52.339);
-      tl.fromTo("#p7rule",{scaleX:0},{scaleX:1,duration:0.5,ease:"power3.out"},52.619);
-      tl.fromTo("#p7panel",{opacity:0},{opacity:1,duration:0.4,ease:"power2.out"},52.519);
-      tl.fromTo("#p7r0",{opacity:0.25,x:-30},{opacity:1,x:0,duration:0.35,ease:"power3.out"},53.223);
-      tl.fromTo("#p7n0",{scale:0.6,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#e2232d",duration:0.35,ease:"back.out(2.2)"},53.273);
-      tl.fromTo("#p7r1",{opacity:0.25,x:-30},{opacity:1,x:0,duration:0.35,ease:"power3.out"},54.427);
-      tl.fromTo("#p7n1",{scale:0.6,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#e2232d",duration:0.35,ease:"back.out(2.2)"},54.477);
-      tl.to("#p7fill",{scaleY:0.250,duration:0.3,ease:"power2.out"},54.377);
-      tl.fromTo("#p7r2",{opacity:0.25,x:-30},{opacity:1,x:0,duration:0.35,ease:"power3.out"},55.540);
-      tl.fromTo("#p7n2",{scale:0.6,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#e2232d",duration:0.35,ease:"back.out(2.2)"},55.590);
-      tl.to("#p7fill",{scaleY:0.500,duration:0.3,ease:"power2.out"},55.490);
-      tl.fromTo("#p7r3",{opacity:0.25,x:-30},{opacity:1,x:0,duration:0.35,ease:"power3.out"},57.156);
-      tl.fromTo("#p7n3",{scale:0.6,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#e2232d",duration:0.35,ease:"back.out(2.2)"},57.206);
-      tl.to("#p7fill",{scaleY:0.750,duration:0.3,ease:"power2.out"},57.106);
-      tl.fromTo("#p7r4",{opacity:0.25,x:-30},{opacity:1,x:0,duration:0.35,ease:"power3.out"},58.150);
-      tl.fromTo("#p7n4",{scale:0.6,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#25D366",duration:0.35,ease:"back.out(2.2)"},58.200);
-      tl.to("#p7fill",{scaleY:1.000,duration:0.3,ease:"power2.out"},58.100);
-      tl.set("#p7fill",{scaleY:0},52.119);
+      tl.fromTo("#j7q0",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},52.219);
+      tl.fromTo("#j7q1",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},52.339);
+      tl.fromTo("#j7q2",{opacity:0,y:40,scale:1.1},{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"},52.459);
+      tl.fromTo("#j7stage",{opacity:0,y:40},{opacity:1,y:0,duration:0.5,ease:"power3.out"},52.419);
+      tl.fromTo("#j7s0",{opacity:0,x:120},{opacity:1,x:0,duration:0.45,ease:"power3.out"},53.099);
+      tl.fromTo("#j7l0",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},53.199);
+      tl.fromTo("#j7d0",{scale:0.7,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#e2232d",duration:0.35,ease:"back.out(2.2)"},53.199);
+      tl.to("#j7s0",{opacity:0,x:-120,duration:0.35,ease:"power2.in"},54.613);
+      tl.to("#j7l0",{opacity:0,y:-20,duration:0.25,ease:"power2.in"},54.663);
+      tl.fromTo("#j7s1",{opacity:0,x:120},{opacity:1,x:0,duration:0.45,ease:"power3.out"},54.763);
+      tl.fromTo("#j7l1",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},54.863);
+      tl.fromTo("#j7d1",{scale:0.7,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#e2232d",duration:0.35,ease:"back.out(2.2)"},54.863);
+      tl.to("#j7s1",{opacity:0,x:-120,duration:0.35,ease:"power2.in"},57.068);
+      tl.to("#j7l1",{opacity:0,y:-20,duration:0.25,ease:"power2.in"},57.118);
+      tl.fromTo("#j7s2",{opacity:0,x:120},{opacity:1,x:0,duration:0.45,ease:"power3.out"},57.218);
+      tl.fromTo("#j7l2",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},57.318);
+      tl.fromTo("#j7d2",{scale:0.7,backgroundColor:"rgba(255,255,255,.15)"},{scale:1,backgroundColor:"#25D366",duration:0.35,ease:"back.out(2.2)"},57.318);
+      tl.set(["#j7s0","#j7s1","#j7s2","#j7l0","#j7l1","#j7l2"],{opacity:0},52.119);
+      tl.set("#j7fill",{scaleX:0},52.119);
+      tl.to("#j7fill",{scaleX:0.5,duration:0.4,ease:"power2.out"},54.863);
+      tl.to("#j7fill",{scaleX:1,duration:0.4,ease:"power2.out"},57.318);
+      tl.fromTo("#j7sig",{strokeDashoffset:520},{strokeDashoffset:0,duration:1.1,ease:"power1.inOut"},53.449);
+      tl.fromTo("#j7pen",{x:0,y:0},{x:260,y:-8,duration:1.1,ease:"power1.inOut"},53.449);
+      tl.to("#j7pen",{opacity:0,duration:0.2},54.599);
+      tl.fromTo("#j7stamp",{opacity:0,scale:2.2,transformOrigin:"50% 50%"},{opacity:1,scale:1,duration:0.35,ease:"back.out(1.6)"},54.649);
+      tl.fromTo("#j7cash",{x:-300,opacity:0},{x:0,opacity:1,duration:0.55,ease:"power3.out"},54.913);
+      tl.fromTo("#j7atau",{opacity:0},{opacity:1,duration:0.3},55.213);
+      tl.fromTo("#j7phone",{x:300,opacity:0},{x:0,opacity:1,duration:0.55,ease:"power3.out"},55.163);
+      tl.fromTo("#j7arrow",{scale:1,transformOrigin:"620px 215px"},{scale:1.15,duration:0.2,ease:"sine.inOut",yoyo:true,repeat:1},55.713);
+      tl.to(["#j7cash","#j7phone","#j7atau"],{opacity:0.15,duration:0.25},56.063);
+      tl.set("#j7ok",{opacity:0},52.119);
+      tl.fromTo("#j7ok",{opacity:0,scale:0.3,transformOrigin:"420px 300px"},{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"},56.063);
+      tl.fromTo("#j7dash",{x:0},{x:-240,duration:1.4,ease:"power2.out"},57.418);
+      tl.fromTo("#j7car",{x:620},{x:0,duration:1.4,ease:"power2.out"},57.418);
+      tl.fromTo("#j7car",{y:0},{y:-4,duration:0.18,ease:"sine.inOut",yoyo:true,repeat:5},57.418);
+      tl.fromTo("#j7yay",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"},58.818);
       tl.fromTo("#dip",{opacity:0},{opacity:1,duration:0.25,ease:"power2.in"},51.869);
       tl.to("#dip",{opacity:0,duration:0.4,ease:"power2.out"},52.119);
       tl.fromTo("#s8kb",{scale:1.0},{...{scale:1.05},duration:14.183,ease:"sine.inOut"},60.054);
@@ -387,52 +481,48 @@
       tl.set("#c27",{opacity:0,visibility:"hidden"},52.214);
       tl.set("#c28",{opacity:1,visibility:"visible"},52.339);
       tl.fromTo("#c28p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},52.339);
-      tl.to("#c28",{opacity:0,duration:0.1,ease:"power2.in"},53.123);
-      tl.set("#c28",{opacity:0,visibility:"hidden"},53.223);
-      tl.set("#c29",{opacity:1,visibility:"visible"},53.243);
-      tl.fromTo("#c29p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},53.243);
-      tl.to("#c29",{opacity:0,duration:0.1,ease:"power2.in"},54.327);
-      tl.set("#c29",{opacity:0,visibility:"hidden"},54.427);
-      tl.set("#c30",{opacity:1,visibility:"visible"},54.447);
-      tl.fromTo("#c30p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},54.447);
-      tl.to("#c30",{opacity:0,duration:0.1,ease:"power2.in"},55.440);
-      tl.set("#c30",{opacity:0,visibility:"hidden"},55.540);
-      tl.set("#c31",{opacity:1,visibility:"visible"},55.560);
-      tl.fromTo("#c31p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},55.560);
-      tl.to("#c31",{opacity:0,duration:0.1,ease:"power2.in"},57.056);
-      tl.set("#c31",{opacity:0,visibility:"hidden"},57.156);
-      tl.set("#c32",{opacity:1,visibility:"visible"},57.176);
-      tl.fromTo("#c32p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},57.176);
-      tl.to("#c32",{opacity:0,duration:0.1,ease:"power2.in"},58.050);
-      tl.set("#c32",{opacity:0,visibility:"hidden"},58.150);
-      tl.set("#c33",{opacity:1,visibility:"visible"},58.170);
-      tl.fromTo("#c33p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},58.170);
-      tl.to("#c33",{opacity:0,duration:0.1,ease:"power2.in"},60.319);
-      tl.set("#c33",{opacity:0,visibility:"hidden"},60.419);
-      tl.set("#c34",{opacity:1,visibility:"visible"},60.464);
-      tl.fromTo("#c34p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},60.464);
-      tl.to("#c34",{opacity:0,duration:0.1,ease:"power2.in"},61.164);
-      tl.set("#c34",{opacity:0,visibility:"hidden"},61.264);
-      tl.set("#c35",{opacity:1,visibility:"visible"},61.284);
-      tl.fromTo("#c35p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},61.284);
-      tl.to("#c35",{opacity:0,duration:0.1,ease:"power2.in"},63.188);
-      tl.set("#c35",{opacity:0,visibility:"hidden"},63.288);
-      tl.set("#c36",{opacity:1,visibility:"visible"},63.308);
-      tl.fromTo("#c36p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},63.308);
-      tl.to("#c36",{opacity:0,duration:0.1,ease:"power2.in"},64.789);
-      tl.set("#c36",{opacity:0,visibility:"hidden"},64.889);
-      tl.set("#c37",{opacity:1,visibility:"visible"},64.909);
-      tl.fromTo("#c37p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},64.909);
-      tl.to("#c37",{opacity:0,duration:0.1,ease:"power2.in"},68.892);
-      tl.set("#c37",{opacity:0,visibility:"hidden"},68.992);
-      tl.set("#c38",{opacity:1,visibility:"visible"},69.012);
-      tl.fromTo("#c38p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},69.012);
-      tl.to("#c38",{opacity:0,duration:0.1,ease:"power2.in"},70.061);
-      tl.set("#c38",{opacity:0,visibility:"hidden"},70.161);
-      tl.set("#c39",{opacity:1,visibility:"visible"},70.181);
-      tl.fromTo("#c39p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},70.181);
-      tl.to("#c39",{opacity:0,duration:0.1,ease:"power2.in"},71.864);
-      tl.set("#c39",{opacity:0,visibility:"hidden"},71.964);
+      tl.to("#c28",{opacity:0,duration:0.1,ease:"power2.in"},53.099);
+      tl.set("#c28",{opacity:0,visibility:"hidden"},53.199);
+      tl.set("#c29",{opacity:1,visibility:"visible"},53.219);
+      tl.fromTo("#c29p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},53.219);
+      tl.to("#c29",{opacity:0,duration:0.1,ease:"power2.in"},54.763);
+      tl.set("#c29",{opacity:0,visibility:"hidden"},54.863);
+      tl.set("#c30",{opacity:1,visibility:"visible"},54.883);
+      tl.fromTo("#c30p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},54.883);
+      tl.to("#c30",{opacity:0,duration:0.1,ease:"power2.in"},55.942);
+      tl.set("#c30",{opacity:0,visibility:"hidden"},56.042);
+      tl.set("#c31",{opacity:1,visibility:"visible"},56.062);
+      tl.fromTo("#c31p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},56.062);
+      tl.to("#c31",{opacity:0,duration:0.1,ease:"power2.in"},57.502);
+      tl.set("#c31",{opacity:0,visibility:"hidden"},57.602);
+      tl.set("#c32",{opacity:1,visibility:"visible"},57.622);
+      tl.fromTo("#c32p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},57.622);
+      tl.to("#c32",{opacity:0,duration:0.1,ease:"power2.in"},59.279);
+      tl.set("#c32",{opacity:0,visibility:"hidden"},59.379);
+      tl.set("#c33",{opacity:1,visibility:"visible"},60.464);
+      tl.fromTo("#c33p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},60.464);
+      tl.to("#c33",{opacity:0,duration:0.1,ease:"power2.in"},61.164);
+      tl.set("#c33",{opacity:0,visibility:"hidden"},61.264);
+      tl.set("#c34",{opacity:1,visibility:"visible"},61.284);
+      tl.fromTo("#c34p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},61.284);
+      tl.to("#c34",{opacity:0,duration:0.1,ease:"power2.in"},63.188);
+      tl.set("#c34",{opacity:0,visibility:"hidden"},63.288);
+      tl.set("#c35",{opacity:1,visibility:"visible"},63.308);
+      tl.fromTo("#c35p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},63.308);
+      tl.to("#c35",{opacity:0,duration:0.1,ease:"power2.in"},64.789);
+      tl.set("#c35",{opacity:0,visibility:"hidden"},64.889);
+      tl.set("#c36",{opacity:1,visibility:"visible"},64.909);
+      tl.fromTo("#c36p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},64.909);
+      tl.to("#c36",{opacity:0,duration:0.1,ease:"power2.in"},68.892);
+      tl.set("#c36",{opacity:0,visibility:"hidden"},68.992);
+      tl.set("#c37",{opacity:1,visibility:"visible"},69.012);
+      tl.fromTo("#c37p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},69.012);
+      tl.to("#c37",{opacity:0,duration:0.1,ease:"power2.in"},70.061);
+      tl.set("#c37",{opacity:0,visibility:"hidden"},70.161);
+      tl.set("#c38",{opacity:1,visibility:"visible"},70.181);
+      tl.fromTo("#c38p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},70.181);
+      tl.to("#c38",{opacity:0,duration:0.1,ease:"power2.in"},71.864);
+      tl.set("#c38",{opacity:0,visibility:"hidden"},71.964);
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>

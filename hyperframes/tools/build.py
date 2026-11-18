@@ -244,7 +244,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -394,6 +394,13 @@ def extra_sfx(total, scenes):
             step = min(0.42, (s["end"] - b - 1.6) / max(1, len(rows)))
             for k in range(len(rows)):
                 A.place(out, sfx_pop(1 + 0.08 * k), b + 0.8 + step * k + 0.12, 0.7)
+        if cfg["head"] == "journey":
+            ts = step_times(s, cfg)
+            for t in ts:
+                A.place(out, sfx_pop(1.0), t, 0.7)
+            A.place(out, sfx_ching(), ts[1] + 1.25, 0.8)               # payment success
+            A.place(out, A.whoosh(1.0, up=False), ts[2] + 0.2, 0.5)     # car drives home
+            A.place(out, sfx_ding(), ts[2] + 1.5, 0.6)
         if cfg["head"] == "process":
             for t in step_times(s, cfg):
                 A.place(out, sfx_pop(1.1), t + 0.12, 0.75)
@@ -423,6 +430,34 @@ def make_photos():
         bg = bg.filter(ImageFilter.GaussianBlur(14))
         bg = ImageEnhance.Color(ImageEnhance.Brightness(bg).enhance(STYLE["bg_bright"])).enhance(0.85)
         bg.resize((int(im.width * sc / 2), int(im.height * sc / 2)), Image.BILINEAR).save(PH / f"bg_{name}", quality=85)
+
+
+def make_cutouts():
+    """Real-car cutouts (background removed, car pixels untouched) for studio / journey scenes."""
+    need = set()
+    for sc in SCRIPT:
+        for k in ("studio", "car_side"):
+            if sc.get(k):
+                need.add(sc[k])
+    if not need:
+        return
+    from rembg import new_session, remove
+    sess = None
+    for name in sorted(need):
+        out = PH / f"cut_{name.rsplit('.', 1)[0]}.png"
+        if out.exists():
+            continue
+        sess = sess or new_session("isnet-general-use")
+        im = ImageOps.exif_transpose(Image.open(PHOTO_SRC / name)).convert("RGB")
+        im = ImageEnhance.Contrast(im).enhance(1.05)
+        cut = remove(im, session=sess, post_process_mask=True)
+        cut = cut.crop(cut.getbbox())
+        cut.thumbnail((1600, 1600), Image.LANCZOS)
+        cut.save(out)
+
+
+def cut_path(name):
+    return f"assets/photos/cut_{name.rsplit('.', 1)[0]}.png"
 
 
 def is_portrait(name):
@@ -484,7 +519,24 @@ def make_html(scenes, total):
         dur = round(c1 - c0, 3)
         s["clip"] = (round(c0, 3), dur)
         inner = []
-        if cfg["move"] == "montage":
+        if cfg.get("studio"):
+            cp = cut_path(cfg["studio"])
+            cw, ch = Image.open(HF / cp).size
+            w = 1000
+            h = int(w * ch / cw)
+            top = 1185 - h
+            inner.append(
+                f'<div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div>'
+                f'<div id="s{i}car" class="scar" style="top:{top}px;height:{h * 2}px">'
+                f'<div class="cshadow" style="top:{h - 40}px"></div>'
+                f'<img class="cimg" src="{cp}" style="height:{h}px" alt="" />'
+                f'<img class="crefl" src="{cp}" style="top:{h}px;height:{h}px" alt="" /></div>'
+                f'<div id="s{i}ssw" class="ssweep"></div>')
+            b0 = s["start"]
+            J(f'tl.fromTo("#s{i}car",{{x:420,opacity:0}},{{x:0,opacity:1,duration:0.9,ease:"power3.out"}},{b0 + 0.05:.3f});')
+            J(f'tl.fromTo("#s{i}car",{{scale:1}},{{scale:1.05,duration:{max(1.0, s["end"] - b0 - 1.0):.3f},ease:"none"}},{b0 + 0.95:.3f});')
+            J(f'tl.fromTo("#s{i}ssw",{{x:-1300}},{{x:1300,duration:1.2,ease:"power1.inOut"}},{b0 + 1.0:.3f});')
+        elif cfg["move"] == "montage":
             n = len(cfg["photos"])
             seg = (s["end"] - s["start"]) / n
             slide = STYLE["montage"] == "slide"
@@ -538,6 +590,9 @@ def make_html(scenes, total):
         if cfg["head"] == "cta":
             inner.append(cta_html(i))
             cta_js(J, s)
+        elif cfg["head"] == "journey":
+            inner.append(journey_html(i, cfg))
+            journey_js(J, s, cfg)
         elif cfg["head"] == "process":
             inner.append(process_html(i, cfg))
             process_js(J, s, cfg)
@@ -704,6 +759,109 @@ def step_times(s, cfg):
         t = wt.get((cue or "").lower())
         out.append(t - 0.1 if t is not None else s["start"] + 0.9 + 0.6 * k)
     return out
+
+
+def journey_html(i, cfg):
+    """Animated 3-step explainer: sign the agreement -> pay the deposit -> drive the car home."""
+    amount = esc(cfg.get("amount", ""))
+    title = cfg.get("title", "3 LANGKAH MUDAH")
+    q = "".join(f'<span id="j{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(title.split()))
+    labels = [esc(t) for t, _ in cfg["steps"]]
+    dots = "".join(f'<div id="j{i}d{k}" class="jdot" style="left:{120 + k * 300}px">{k + 1}</div>' for k in range(3))
+    car = (f'<img id="j{i}car" class="jcar" src="{cut_path(cfg["car_side"])}" alt="" />' if cfg.get("car_side") else "")
+    return f'''<div class="cta">
+          <div class="ctaq">{q.strip()}</div>
+          <div id="j{i}stage" class="jstage">
+            <div class="jtrack"><div id="j{i}fill" class="jfill"></div></div>{dots}
+            <div id="j{i}s0" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <rect x="240" y="20" width="360" height="460" rx="18" fill="#f6f5f1"/>
+                <text x="420" y="78" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#0b0d12">PERJANJIAN</text>
+                <rect x="280" y="110" width="280" height="10" rx="5" fill="#c9ced5"/><rect x="280" y="140" width="250" height="10" rx="5" fill="#c9ced5"/>
+                <rect x="280" y="170" width="270" height="10" rx="5" fill="#c9ced5"/><rect x="280" y="200" width="220" height="10" rx="5" fill="#c9ced5"/>
+                <rect x="280" y="230" width="260" height="10" rx="5" fill="#c9ced5"/><rect x="280" y="260" width="200" height="10" rx="5" fill="#c9ced5"/>
+                <line x1="290" y1="425" x2="560" y2="425" stroke="#9aa0a9" stroke-width="3"/>
+                <path id="j{i}sig" d="M300 412 C 320 360, 345 450, 368 398 S 410 360, 432 410 S 488 436, 505 392 S 540 396, 560 404" fill="none" stroke="#1d3c94" stroke-width="7" stroke-linecap="round" stroke-dasharray="520" stroke-dashoffset="520"/>
+                <g id="j{i}pen"><g transform="translate(300 412) rotate(-35)">
+                  <rect x="-6" y="-120" width="22" height="104" rx="6" fill="#e2232d"/><polygon points="-6,-16 16,-16 5,8" fill="#2a2f3a"/><rect x="-6" y="-130" width="22" height="14" rx="4" fill="#0b0d12"/></g></g>
+                <g id="j{i}stamp" transform="translate(520 300)"><g transform="rotate(-14)">
+                  <circle r="62" fill="none" stroke="#25D366" stroke-width="8"/>
+                  <text y="14" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="40" fill="#25D366">SAH</text></g></g>
+              </svg>
+            </div>
+            <div id="j{i}s1" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <g id="j{i}cash">
+                  <g transform="translate(70 170) rotate(-10)"><rect width="270" height="140" rx="12" fill="#3f8f5a"/><rect x="10" y="10" width="250" height="120" rx="8" fill="none" stroke="#bfe6c9" stroke-width="3"/><circle cx="135" cy="70" r="34" fill="#bfe6c9"/><text x="135" y="82" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#3f8f5a">RM</text></g>
+                  <g transform="translate(90 200) rotate(-3)"><rect width="270" height="140" rx="12" fill="#4aa368"/><rect x="10" y="10" width="250" height="120" rx="8" fill="none" stroke="#d3f0db" stroke-width="3"/><circle cx="135" cy="70" r="34" fill="#d3f0db"/><text x="135" y="82" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#4aa368">RM</text></g>
+                  <text x="225" y="420" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="34" fill="#fff">CASH</text>
+                </g>
+                <text id="j{i}atau" x="420" y="275" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="30" fill="#c9ced5">atau</text>
+                <g id="j{i}phone">
+                  <rect x="520" y="70" width="200" height="330" rx="30" fill="#2a2f3a" stroke="#6b7280" stroke-width="4"/>
+                  <rect x="536" y="100" width="168" height="270" rx="14" fill="#f6f5f1"/>
+                  <text x="620" y="140" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="20" fill="#0b0d12">TRANSFER</text>
+                  <g id="j{i}arrow"><circle cx="620" cy="215" r="44" fill="#1d6fe0"/><path d="M596 205 h40 l-12 -12 M644 225 h-40 l12 12" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+                  <text id="j{i}amt" x="620" y="300" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="26" fill="#0b0d12">{amount}</text>
+                  <text x="620" y="440" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="34" fill="#fff">ONLINE</text>
+                </g>
+                <g id="j{i}ok"><circle cx="420" cy="250" r="96" fill="#25D366"/><path d="M372 250 l32 32 l60 -66" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="300" y="360" width="240" height="56" rx="28" fill="#25D366"/><text x="420" y="399" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#fff">BERJAYA</text></g>
+              </svg>
+            </div>
+            <div id="j{i}s2" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <g id="j{i}home"><polygon points="60,250 170,160 280,250" fill="#e2232d"/><rect x="85" y="250" width="170" height="150" fill="#f6f5f1"/>
+                  <rect x="150" y="320" width="45" height="80" fill="#2a2f3a"/><rect x="100" y="275" width="40" height="36" fill="#9fc3ff"/><rect x="200" y="275" width="40" height="36" fill="#9fc3ff"/></g>
+                <rect x="0" y="400" width="840" height="70" fill="#2a2f3a"/>
+                <g id="j{i}dash" fill="#f6f5f1">{''.join(f'<rect x="{k * 120}" y="432" width="60" height="8" rx="4"/>' for k in range(16))}</g>
+              </svg>
+              {car}
+              <div id="j{i}yay" class="jyay">TAHNIAH! 🎉</div>
+            </div>
+            <div id="j{i}lab" class="jlab">{"".join(f'<span id="j{i}l{k}" class="jl">{labels[k]}</span>' for k in range(3))}</div>
+          </div>
+        </div>'''
+
+
+def journey_js(J, s, cfg):
+    b, i = s["start"], s["i"]
+    title = cfg.get("title", "3 LANGKAH MUDAH")
+    for k in range(len(title.split())):
+        J(f'tl.fromTo("#j{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#j{i}stage",{{opacity:0,y:40}},{{opacity:1,y:0,duration:0.5,ease:"power3.out"}},{b + 0.3:.3f});')
+    t0, t1, t2 = step_times(s, cfg)
+    ends = [t1, t2, s["end"] + 1]
+    for k, t in enumerate((t0, t1, t2)):
+        J(f'tl.fromTo("#j{i}s{k}",{{opacity:0,x:120}},{{opacity:1,x:0,duration:0.45,ease:"power3.out"}},{t - 0.1:.3f});')
+        J(f'tl.fromTo("#j{i}l{k}",{{opacity:0,y:30}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{t:.3f});')
+        J(f'tl.fromTo("#j{i}d{k}",{{scale:0.7,backgroundColor:"rgba(255,255,255,.15)"}},{{scale:1,backgroundColor:"{"#25D366" if k == 2 else "#e2232d"}",duration:0.35,ease:"back.out(2.2)"}},{t:.3f});')
+        if k < 2:
+            J(f'tl.to("#j{i}s{k}",{{opacity:0,x:-120,duration:0.35,ease:"power2.in"}},{ends[k] - 0.25:.3f});')
+            J(f'tl.to("#j{i}l{k}",{{opacity:0,y:-20,duration:0.25,ease:"power2.in"}},{ends[k] - 0.2:.3f});')
+    J(f'tl.set(["#j{i}s0","#j{i}s1","#j{i}s2","#j{i}l0","#j{i}l1","#j{i}l2"],{{opacity:0}},{b:.3f});')
+    J(f'tl.set("#j{i}fill",{{scaleX:0}},{b:.3f});')
+    J(f'tl.to("#j{i}fill",{{scaleX:0.5,duration:0.4,ease:"power2.out"}},{t1:.3f});')
+    J(f'tl.to("#j{i}fill",{{scaleX:1,duration:0.4,ease:"power2.out"}},{t2:.3f});')
+    # step 1: signature draws while the pen follows, then the stamp lands
+    J(f'tl.fromTo("#j{i}sig",{{strokeDashoffset:520}},{{strokeDashoffset:0,duration:1.1,ease:"power1.inOut"}},{t0 + 0.25:.3f});')
+    J(f'tl.fromTo("#j{i}pen",{{x:0,y:0}},{{x:260,y:-8,duration:1.1,ease:"power1.inOut"}},{t0 + 0.25:.3f});')
+    J(f'tl.to("#j{i}pen",{{opacity:0,duration:0.2}},{t0 + 1.4:.3f});')
+    J(f'tl.fromTo("#j{i}stamp",{{opacity:0,scale:2.2,transformOrigin:"50% 50%"}},{{opacity:1,scale:1,duration:0.35,ease:"back.out(1.6)"}},{t0 + 1.45:.3f});')
+    # step 2: cash or online transfer -> BERJAYA
+    J(f'tl.fromTo("#j{i}cash",{{x:-300,opacity:0}},{{x:0,opacity:1,duration:0.55,ease:"power3.out"}},{t1 + 0.05:.3f});')
+    J(f'tl.fromTo("#j{i}atau",{{opacity:0}},{{opacity:1,duration:0.3}},{t1 + 0.35:.3f});')
+    J(f'tl.fromTo("#j{i}phone",{{x:300,opacity:0}},{{x:0,opacity:1,duration:0.55,ease:"power3.out"}},{t1 + 0.3:.3f});')
+    J(f'tl.fromTo("#j{i}arrow",{{scale:1,transformOrigin:"620px 215px"}},{{scale:1.15,duration:0.2,ease:"sine.inOut",yoyo:true,repeat:1}},{t1 + 0.85:.3f});')
+    J(f'tl.to(["#j{i}cash","#j{i}phone","#j{i}atau"],{{opacity:0.15,duration:0.25}},{t1 + 1.2:.3f});')
+    J(f'tl.set("#j{i}ok",{{opacity:0}},{b:.3f});')
+    J(f'tl.fromTo("#j{i}ok",{{opacity:0,scale:0.3,transformOrigin:"420px 300px"}},{{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"}},{t1 + 1.2:.3f});')
+    # step 3: the real car drives home (right -> left), road dashes stream past
+    J(f'tl.fromTo("#j{i}dash",{{x:0}},{{x:-240,duration:1.4,ease:"power2.out"}},{t2 + 0.1:.3f});')
+    if cfg.get("car_side"):
+        J(f'tl.fromTo("#j{i}car",{{x:620}},{{x:0,duration:1.4,ease:"power2.out"}},{t2 + 0.1:.3f});')
+        J(f'tl.fromTo("#j{i}car",{{y:0}},{{y:-4,duration:0.18,ease:"sine.inOut",yoyo:true,repeat:5}},{t2 + 0.1:.3f});')
+    J(f'tl.fromTo("#j{i}yay",{{opacity:0,scale:0.6}},{{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"}},{t2 + 1.5:.3f});')
 
 
 def process_html(i, cfg):
@@ -906,6 +1064,34 @@ TEMPLATE = r"""<!doctype html>
       .dlab { font-family: var(--font-label); font-weight: 700; font-size: 26px; letter-spacing: .12em; color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.7)); }
       .dchip { font-weight: 700; font-size: 30px; color: #fff; padding: 8px 22px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
       .ccard.c2card { top: 640px; }
+      .studio { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 42% at 50% 40%, #4a5262 0%, #232833 45%, #0b0d12 100%); }
+      .spot { position: absolute; left: 140px; top: -120px; width: 800px; height: 1400px; mix-blend-mode: screen;
+              background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,0) 85%);
+              clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); }
+      .sfloor { position: absolute; left: 0; right: 0; top: 1150px; bottom: 0;
+                background: linear-gradient(180deg, #2c313b 0%, #171a21 35%, #0b0d12 100%); border-top: 2px solid rgba(255,255,255,.08); }
+      .pool { position: absolute; left: 90px; top: 1080px; width: 900px; height: 260px;
+              background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,.18), rgba(255,255,255,0) 70%); }
+      .scar { position: absolute; left: 40px; width: 1000px; transform-origin: 50% 50%; }
+      .cimg, .crefl { position: absolute; left: 0; width: 1000px; }
+      .cimg { top: 0; }
+      .crefl { transform: scaleY(-1); opacity: .22;
+               -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,.9), transparent 45%); mask-image: linear-gradient(0deg, rgba(0,0,0,.9), transparent 45%); }
+      .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
+                 background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
+      .ssweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
+                background: linear-gradient(105deg, transparent 44%, rgba(255,255,255,.14) 50%, transparent 56%); }
+      .jstage { position: absolute; left: 60px; top: 400px; width: 960px; height: 760px; border-radius: 36px; overflow: hidden;
+                background: rgba(11,13,18,.82); border: 2px solid rgba(255,255,255,.14); box-shadow: 0 18px 40px rgba(0,0,0,.55); }
+      .jtrack { position: absolute; left: 160px; top: 62px; width: 600px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.18); }
+      .jfill { position: absolute; inset: 0; background: #e2232d; transform-origin: 0 50%; }
+      .jdot { position: absolute; top: 36px; width: 58px; height: 58px; margin-left: 11px; border-radius: 29px; display: flex; align-items: center;
+              justify-content: center; font-weight: 800; font-size: 28px; color: #fff; background: rgba(255,255,255,.15); }
+      .jstep { position: absolute; left: 60px; top: 120px; width: 840px; height: 520px; }
+      .jcar { position: absolute; left: 300px; top: 205px; width: 520px; }
+      .jyay { position: absolute; left: 0; top: 40px; width: 840px; text-align: center; font-weight: 800; font-size: 56px; color: #fff; }
+      .jlab { position: absolute; left: 0; bottom: 34px; width: 960px; height: 70px; }
+      .jl { position: absolute; left: 0; width: 960px; text-align: center; font-weight: 800; font-size: 46px; color: #fff; letter-spacing: .02em; }
       .ccard { position: absolute; overflow: hidden; left: 120px; top: 488px; width: 840px; height: 180px; border-radius: 30px;
                display: flex; align-items: center; gap: 26px; padding: 0 30px; text-align: left;
                background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18);
@@ -944,6 +1130,7 @@ def main():
         vo = json.loads((AUD / "vo_timings.json").read_text())
     else:
         make_photos()
+        make_cutouts()
         if VIDEOS[name].get("voice") == "elevenlabs":
             vo = make_voice_files(ASSETS / "audio" / VIDEOS[name]["voice_dir"])
         elif src:  # same script: reuse the approved voice take
