@@ -346,8 +346,34 @@ def sfx_sweep(length=0.5):
     return s / (np.abs(s).max() + 1e-9) * 0.25
 
 
+def sfx_intro():
+    """Opening sting: engine-rev sweep + deep hit + camera shutter + sparkle tail."""
+    n = int(1.6 * SR)
+    t = np.arange(n) / SR
+    f = 55 + 140 * (1 - np.exp(-t / 0.35))                       # rev 55 -> 195 Hz
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    rev = (np.tanh(2.2 * (np.sin(ph) + 0.5 * np.sin(2 * ph) + 0.3 * np.sin(3.1 * ph))) *
+           np.minimum(1, t / 0.03) * np.exp(-t / 0.55) * 0.45)
+    rev = A.lp(rev, 1800)
+    hit = np.zeros(n)
+    imp = A.impact(True)[:n]
+    hit[: len(imp)] = imp * 0.9
+    shutter = np.zeros(n)
+    for d in (0.0, 0.07):
+        k = int(d * SR)
+        m = int(0.03 * SR)
+        shutter[k:k + m] += A.hp(np.random.default_rng(9).standard_normal(m), 2500) * np.exp(-np.arange(m) / SR / 0.006) * 0.35
+    sparkle = np.zeros(n)
+    for j, fr in enumerate((2637, 3136, 3951, 4699)):
+        k = int((0.15 + 0.07 * j) * SR)
+        tt = np.arange(n - k) / SR
+        sparkle[k:] += 0.12 * np.sin(2 * np.pi * fr * tt) * np.exp(-tt / 0.35)
+    return A.reverb(rev + hit + shutter + sparkle, 1.6, 0.25)
+
+
 def extra_sfx(total, scenes):
     out = np.zeros(int(total * SR) + 3 * SR)
+    A.place(out, sfx_intro(), 0.0, 0.85)                                   # opening sting
     for s in scenes:
         cfg, b = s["cfg"], s["start"]
         if isinstance(cfg["head"], list):

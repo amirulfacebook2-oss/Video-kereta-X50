@@ -81,6 +81,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
   - Recap dan penutup: riser dan snare roll, kemudian drop kedua.
   - Akhir: kord penutup dengan hentakan.
 - Muzik direndahkan setiap kali suara bercakap.
+- **Bunyi pembukaan (semua video):** rev enjin + hentakan + shutter kamera + kilauan pada saat 0.
 - **Bunyi kesan:** whoosh pada setiap potongan, hentakan pada pembukaan, *ka-ching* bila harga mendarat, *pop* pada setiap tanda ✓ dan tag, *ding* notifikasi bila nombor WhatsApp disebut, kilauan di hujung, riser sebelum penutup.
 
 ## Penutup alternatif (supaya setiap video berbeza)
@@ -100,6 +101,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Proton S70 Premium Facelift 2026 (merah) | `videos/s70.json` (penutup PROSES + Deposit Promo) |
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
+| Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (hook soalan + bunyi pembukaan) |
 | Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
 
 ### Sebutan tambahan

@@ -1,0 +1,231 @@
+{
+  "_unit": "Toyota Corolla Cross 1.8 V (putih) - sambung bayar / lease to own",
+  "src": "ccross",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "ccross_el",
+  "photos": [
+    [
+      "cc_02_depan34.jpg"
+    ],
+    [
+      "cc_01_depan.jpg"
+    ],
+    [
+      "cc_03_belakang34.jpg"
+    ],
+    [
+      "cc_05_belakang.jpg"
+    ],
+    [
+      "cc_04_sisi.jpg"
+    ],
+    [
+      "cc_10_dashboard.jpg"
+    ],
+    [
+      "cc_09_kerusi_depan.jpg",
+      "cc_07_belakang_depan.jpg",
+      "cc_06_boot.jpg"
+    ],
+    [
+      "cc_03_belakang34.jpg"
+    ],
+    [
+      "cc_02_depan34.jpg"
+    ]
+  ],
+  "fit_width": [],
+  "cues": [
+    null,
+    "belakang",
+    "boot"
+  ],
+  "script": [
+    {
+      "vo": "*Sambung *bayar, *lease *to *own! Teringin SUV Toyota penuh teknologi? ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, masih koyak plastik!",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "SUV TOYOTA KOYAK PLASTIK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "reveal",
+      "trans": null
+    },
+    {
+      "vo": "^Toyota ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, warna putih. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "COROLLA CROSS",
+          "hero",
+          "silver"
+        ],
+        [
+          "TOYOTA 1.8 V",
+          "label",
+          "pearl"
+        ],
+        [
+          "KOYAK PLASTIK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left"
+    },
+    {
+      "vo": "*Deposit? *RM18,000|lapan-belas-ribu-ringgit sahaja.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM18,000",
+          "price",
+          "red"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,512.|seribu-lima-ratus-dua-belas-ringgit. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,512",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Toyota.",
+      "head": [
+        [
+          "AGREEMENT",
+          "label",
+          "silver"
+        ],
+        [
+          "DIRECT OWNER",
+          "hero",
+          "pearl"
+        ],
+        [
+          "WARRANTY TOYOTA",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "track",
+      "trans": "zoom"
+    },
+    {
+      "vo": "Enjin *1.8|satu-poin-lapan, power back door, kerusi kulit, ^Toyota ^Safety ^Sense, siap kamera *360.|tiga-ratus-enam-puluh-darjah.",
+      "head": "specs",
+      "title": "SPESIFIKASI",
+      "checks": [
+        "Enjin 1.8L, lancar & selesa",
+        "Electric power back door",
+        "Kerusi kulit premium",
+        "Kerusi pemandu elektrik",
+        "Skrin sentuh infotainment",
+        "Toyota Safety Sense (ADAS)",
+        "Kamera 360°"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 14
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
+      "head": [
+        [
+          "INTERIOR PREMIUM",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "KERUSI KULIT",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Prosesnya mudah. Semak dokumen, tengok kereta, tandatangan perjanjian, bayar deposit, terus bawa balik!",
+      "head": "process",
+      "title": "PROSES MUDAH",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Lihat & periksa kereta",
+          "tengok"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa pulang!",
+          "terus"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 10
+    },
+    {
+      "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM18,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Toyota Corolla Cross 1.8 V"
+  }
+}
