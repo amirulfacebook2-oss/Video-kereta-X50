@@ -1,0 +1,235 @@
+{
+  "src": "x50hitam",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "x50hitam_el",
+  "photos": [
+    [
+      "xh_02_depan34.jpg"
+    ],
+    [
+      "xh_01_depan.jpg"
+    ],
+    [
+      "xh_03_belakang34.jpg"
+    ],
+    [
+      "xh_04_belakang.jpg"
+    ],
+    [
+      "xh_06_badge.jpg"
+    ],
+    [
+      "xh_10_dashboard.jpg"
+    ],
+    [
+      "xh_08_kerusi_depan.jpg",
+      "xh_09_belakang_sisi.jpg",
+      "xh_05_boot.jpg"
+    ],
+    [
+      "xh_03_belakang34.jpg"
+    ],
+    [
+      "xh_02_depan34.jpg"
+    ]
+  ],
+  "fit_width": [],
+  "cues": [
+    null,
+    "belakang",
+    "boot"
+  ],
+  "script": [
+    {
+      "vo": "Jangan *scroll dulu! ^Proton ^X50|X-fifty ^Quartz ^Black ni, untuk dijual secara *sambung *bayar.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "X50 QUARTZ BLACK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "studio": "xh_02_depan34.jpg",
+      "move": "reveal",
+      "trans": null
+    },
+    {
+      "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "X50 EXECUTIVE",
+          "hero",
+          "silver"
+        ],
+        [
+          "FACELIFT 2026",
+          "label",
+          "pearl"
+        ],
+        [
+          "KOYAK PLASTIK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left"
+    },
+    {
+      "vo": "*Deposit? *RM13,000|tiga-belas-ribu-ringgit sahaja. Ini *bawah *harga *pasaran, biasanya deposit macam ni untuk kereta second hand.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM13,000",
+          "price",
+          "red"
+        ],
+        [
+          "BAWAH HARGA PASARAN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,300",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Proton.",
+      "head": [
+        [
+          "AGREEMENT",
+          "label",
+          "silver"
+        ],
+        [
+          "DIRECT OWNER",
+          "hero",
+          "pearl"
+        ],
+        [
+          "WARRANTY PROTON",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "track",
+      "trans": "zoom"
+    },
+    {
+      "vo": "Enjin *1.5|satu-poin-lima *turbo, skrin besar, meter digital, siap kawalan suara ^Hi ^Proton.",
+      "head": "specs",
+      "title": "SPESIFIKASI",
+      "checks": [
+        "Enjin 1.5L Turbo",
+        "Skrin infotainment besar",
+        "Meter digital penuh",
+        "Kawalan suara \"Hi Proton\"",
+        "Lampu LED depan & belakang",
+        "Sensor parkir belakang"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 14
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
+      "head": [
+        [
+          "INTERIOR KEMAS",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "RUANG LUAS",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "4 LANGKAH MUDAH",
+      "amount": "RM13,000",
+      "car_side": "xh_02_depan34.jpg",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 20,
+      "car_flip": true
+    },
+    {
+      "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM13,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Toyota Corolla Cross 1.8 V"
+  },
+  "_unit": "Proton X50 Executive Facelift 2026 Quartz Black"
+}

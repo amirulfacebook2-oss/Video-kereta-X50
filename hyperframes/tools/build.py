@@ -398,6 +398,11 @@ def extra_sfx(total, scenes):
             ts = step_times(s, cfg)
             for t in ts:
                 A.place(out, sfx_pop(1.0), t, 0.7)
+            if len(ts) == 4:  # document check: a tick per card
+                g = max(0.18, min(0.45, (ts[1] - ts[0] - 0.75) / 3.2))
+                for k in range(3):
+                    A.place(out, sfx_pop(1.2 + 0.1 * k), ts[0] + 0.05 + g * (k + 0.8), 0.55)
+            ts = ts[-3:]
             A.place(out, sfx_ching(), ts[1] + 1.25, 0.8)               # payment success
             A.place(out, A.whoosh(1.0, up=False), ts[2] + 0.2, 0.5)     # car drives home
             A.place(out, sfx_ding(), ts[2] + 1.5, 0.6)
@@ -784,13 +789,18 @@ def journey_html(i, cfg):
     title = cfg.get("title", "3 LANGKAH MUDAH")
     q = "".join(f'<span id="j{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(title.split()))
     labels = [esc(t) for t, _ in cfg["steps"]]
-    dots = "".join(f'<div id="j{i}d{k}" class="jdot" style="left:{120 + k * 300}px">{k + 1}</div>' for k in range(3))
-    car = (f'<img id="j{i}car" class="jcar" src="{cut_path(cfg["car_side"])}" alt="" />' if cfg.get("car_side") else "")
+    n = len(cfg["steps"])
+    off = n - 3  # 1 when a document-check step comes first
+    dots = "".join(f'<div id="j{i}d{k}" class="jdot" style="left:{120 + k * 600 / (n - 1):.0f}px">{k + 1}</div>' for k in range(n))
+    car = ""
+    if cfg.get("car_side"):  # car_flip mirrors a right-facing car so it drives home (to the left) nose first
+        car = (f'<div id="j{i}car" class="jcar"><img src="{cut_path(cfg["car_side"])}" alt="" style="width:100%;transform:scaleX(-1)" /></div>'
+               if cfg.get("car_flip") else f'<img id="j{i}car" class="jcar" src="{cut_path(cfg["car_side"])}" alt="" />')
     return f'''<div class="cta">
           <div class="ctaq">{q.strip()}</div>
           <div id="j{i}stage" class="jstage">
-            <div class="jtrack"><div id="j{i}fill" class="jfill"></div></div>{dots}
-            <div id="j{i}s0" class="jstep">
+            <div class="jtrack"><div id="j{i}fill" class="jfill"></div></div>{dots}{docs_step(i) if off else ""}
+            <div id="j{i}s{off}" class="jstep">
               <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
                 <rect x="240" y="20" width="360" height="460" rx="18" fill="#f6f5f1"/>
                 <text x="420" y="78" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#0b0d12">PERJANJIAN</text>
@@ -806,7 +816,7 @@ def journey_html(i, cfg):
                   <text y="14" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="40" fill="#25D366">SAH</text></g></g>
               </svg>
             </div>
-            <div id="j{i}s1" class="jstep">
+            <div id="j{i}s{off + 1}" class="jstep">
               <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
                 <g id="j{i}cash">
                   <g transform="translate(70 170) rotate(-10)"><rect width="270" height="140" rx="12" fill="#3f8f5a"/><rect x="10" y="10" width="250" height="120" rx="8" fill="none" stroke="#bfe6c9" stroke-width="3"/><circle cx="135" cy="70" r="34" fill="#bfe6c9"/><text x="135" y="82" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#3f8f5a">RM</text></g>
@@ -826,7 +836,7 @@ def journey_html(i, cfg):
                   <rect x="300" y="360" width="240" height="56" rx="28" fill="#25D366"/><text x="420" y="399" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#fff">BERJAYA</text></g>
               </svg>
             </div>
-            <div id="j{i}s2" class="jstep">
+            <div id="j{i}s{off + 2}" class="jstep">
               <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
                 <g id="j{i}home"><polygon points="60,250 170,160 280,250" fill="#e2232d"/><rect x="85" y="250" width="170" height="150" fill="#f6f5f1"/>
                   <rect x="150" y="320" width="45" height="80" fill="#2a2f3a"/><rect x="100" y="275" width="40" height="36" fill="#9fc3ff"/><rect x="200" y="275" width="40" height="36" fill="#9fc3ff"/></g>
@@ -836,9 +846,35 @@ def journey_html(i, cfg):
               {car}
               <div id="j{i}yay" class="jyay">TAHNIAH! 🎉</div>
             </div>
-            <div id="j{i}lab" class="jlab">{"".join(f'<span id="j{i}l{k}" class="jl">{labels[k]}</span>' for k in range(3))}</div>
+            <div id="j{i}lab" class="jlab">{"".join(f'<span id="j{i}l{k}" class="jl">{labels[k]}</span>' for k in range(n))}</div>
           </div>
         </div>'''
+
+
+def docs_step(i):
+    """Journey step 0 (optional): IC, licence and bill get checked by a magnifier, then LULUS."""
+    tick = lambda k, x, y: (f'<g id="j{i}dk{k}" transform="translate({x} {y})"><circle r="30" fill="#25D366"/>'
+                            '<path d="M-14 0 l10 10 l18 -20" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>')
+    return f'''
+            <div id="j{i}s0" class="jstep">
+              <svg viewBox="0 0 840 520" width="840" height="520" aria-hidden="true">
+                <g transform="translate(50 130) rotate(-4)"><rect width="230" height="146" rx="14" fill="#d9e6f7"/><rect x="16" y="34" width="62" height="78" rx="6" fill="#9fb4d1"/>
+                  <rect x="94" y="44" width="116" height="10" rx="5" fill="#9fb4d1"/><rect x="94" y="68" width="96" height="10" rx="5" fill="#9fb4d1"/><rect x="94" y="92" width="106" height="10" rx="5" fill="#9fb4d1"/>
+                  <text x="115" y="26" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="20" fill="#2a4a78">MYKAD</text></g>
+                <g transform="translate(305 130) rotate(3)"><rect width="230" height="146" rx="14" fill="#f7dce4"/><rect x="16" y="34" width="62" height="78" rx="6" fill="#d9a3b3"/>
+                  <rect x="94" y="44" width="116" height="10" rx="5" fill="#d9a3b3"/><rect x="94" y="68" width="96" height="10" rx="5" fill="#d9a3b3"/><rect x="94" y="92" width="106" height="10" rx="5" fill="#d9a3b3"/>
+                  <text x="115" y="26" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="20" fill="#8a2f4a">LESEN</text></g>
+                <g transform="translate(575 70) rotate(-2)"><rect width="200" height="250" rx="10" fill="#f6f5f1"/>
+                  <text x="100" y="44" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="24" fill="#0b0d12">BIL</text>
+                  {"".join(f'<rect x="24" y="{70 + r * 30}" width="{152 - (r % 3) * 26}" height="10" rx="5" fill="#c9ced5"/>' for r in range(5))}
+                  <rect x="24" y="222" width="80" height="12" rx="6" fill="#e2232d"/></g>
+                {tick(0, 268, 130)}{tick(1, 522, 132)}{tick(2, 760, 76)}
+                <g id="j{i}mag"><g transform="translate(165 205)"><circle r="58" fill="rgba(255,255,255,.12)" stroke="#fff" stroke-width="9"/>
+                  <rect x="38" y="38" width="22" height="80" rx="10" fill="#fff" transform="rotate(-45 38 38)"/></g></g>
+                <g id="j{i}pass"><rect x="300" y="380" width="240" height="60" rx="30" fill="#25D366"/>
+                  <text x="420" y="421" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#fff">LULUS ✓</text></g>
+              </svg>
+            </div>'''
 
 
 def journey_js(J, s, cfg):
@@ -847,19 +883,31 @@ def journey_js(J, s, cfg):
     for k in range(len(title.split())):
         J(f'tl.fromTo("#j{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
     J(f'tl.fromTo("#j{i}stage",{{opacity:0,y:40}},{{opacity:1,y:0,duration:0.5,ease:"power3.out"}},{b + 0.3:.3f});')
-    t0, t1, t2 = step_times(s, cfg)
-    ends = [t1, t2, s["end"] + 1]
-    for k, t in enumerate((t0, t1, t2)):
+    ts = step_times(s, cfg)
+    n = len(ts)
+    off = n - 3
+    ends = ts[1:] + [s["end"] + 1]
+    for k, t in enumerate(ts):
         J(f'tl.fromTo("#j{i}s{k}",{{opacity:0,x:120}},{{opacity:1,x:0,duration:0.45,ease:"power3.out"}},{t - 0.1:.3f});')
         J(f'tl.fromTo("#j{i}l{k}",{{opacity:0,y:30}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{t:.3f});')
-        J(f'tl.fromTo("#j{i}d{k}",{{scale:0.7,backgroundColor:"rgba(255,255,255,.15)"}},{{scale:1,backgroundColor:"{"#25D366" if k == 2 else "#e2232d"}",duration:0.35,ease:"back.out(2.2)"}},{t:.3f});')
-        if k < 2:
+        J(f'tl.fromTo("#j{i}d{k}",{{scale:0.7,backgroundColor:"rgba(255,255,255,.15)"}},{{scale:1,backgroundColor:"{"#25D366" if k == n - 1 else "#e2232d"}",duration:0.35,ease:"back.out(2.2)"}},{t:.3f});')
+        if k < n - 1:
             J(f'tl.to("#j{i}s{k}",{{opacity:0,x:-120,duration:0.35,ease:"power2.in"}},{ends[k] - 0.25:.3f});')
             J(f'tl.to("#j{i}l{k}",{{opacity:0,y:-20,duration:0.25,ease:"power2.in"}},{ends[k] - 0.2:.3f});')
-    J(f'tl.set(["#j{i}s0","#j{i}s1","#j{i}s2","#j{i}l0","#j{i}l1","#j{i}l2"],{{opacity:0}},{b:.3f});')
+        if k:
+            J(f'tl.to("#j{i}fill",{{scaleX:{k / (n - 1):.3f},duration:0.4,ease:"power2.out"}},{t:.3f});')
+    J(f'tl.set({[f"#j{i}s{k}" for k in range(n)] + [f"#j{i}l{k}" for k in range(n)]},{{opacity:0}},{b:.3f});')
     J(f'tl.set("#j{i}fill",{{scaleX:0}},{b:.3f});')
-    J(f'tl.to("#j{i}fill",{{scaleX:0.5,duration:0.4,ease:"power2.out"}},{t1:.3f});')
-    J(f'tl.to("#j{i}fill",{{scaleX:1,duration:0.4,ease:"power2.out"}},{t2:.3f});')
+    if off:  # document check: magnifier passes over each card, tick, then LULUS
+        td = ts[0]
+        g = max(0.18, min(0.45, (ts[1] - td - 0.75) / 3.2))  # fit the checks into the time before step 2
+        J(f'tl.set(["#j{i}dk0","#j{i}dk1","#j{i}dk2","#j{i}pass"],{{opacity:0}},{b:.3f});')
+        for k, x in enumerate((0, 255, 500)):
+            J(f'tl.to("#j{i}mag",{{x:{x},y:{-40 if k == 2 else 0},duration:{g * 0.8:.2f},ease:"power2.inOut"}},{td + 0.05 + g * k:.3f});')
+            J(f'tl.fromTo("#j{i}dk{k}",{{opacity:0,scale:0.2}},{{opacity:1,scale:1,duration:0.25,ease:"back.out(2.4)"}},{td + 0.05 + g * (k + 0.8):.3f});')
+        J(f'tl.to("#j{i}mag",{{opacity:0,duration:0.15}},{td + 0.05 + g * 3:.3f});')
+        J(f'tl.fromTo("#j{i}pass",{{opacity:0,scale:0.5,transformOrigin:"420px 410px"}},{{opacity:1,scale:1,duration:0.3,ease:"back.out(2)"}},{td + 0.05 + g * 3:.3f});')
+    t0, t1, t2 = ts[off:]
     # step 1: signature draws while the pen follows, then the stamp lands
     J(f'tl.fromTo("#j{i}sig",{{strokeDashoffset:520}},{{strokeDashoffset:0,duration:1.1,ease:"power1.inOut"}},{t0 + 0.25:.3f});')
     J(f'tl.fromTo("#j{i}pen",{{x:0,y:0}},{{x:260,y:-8,duration:1.1,ease:"power1.inOut"}},{t0 + 0.25:.3f});')

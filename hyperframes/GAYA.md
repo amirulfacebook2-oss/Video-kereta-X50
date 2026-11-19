@@ -15,7 +15,7 @@ Versi sebelum ini (Aruz 2021, `videos/aruz2021.json`) masih boleh dirujuk.
 | 5 | Agreement | direct terus dengan owner + insurans/roadtax/plat/warranty |
 | 6 | Spesifikasi | `"head": "specs"`, 5–7 baris ✓ (hanya ciri yang ada pada unit) |
 | 7 | Interior | 2–5 gambar ikut cue, tiada zoom |
-| 8 | 3 Langkah Mudah | `"head": "journey"`: tandatangan → bayar cash/transfer → bawa balik kereta |
+| 8 | Langkah Mudah | `"head": "journey"`: (pilihan) semakan dokumen → tandatangan → bayar cash/transfer → bawa balik kereta. 4 langkah = langkah pertama semakan dokumen (MYKAD, LESEN, BIL ditanda ✓ + LULUS). `car_flip: true` jika kereta dalam gambar menghadap kanan |
 | 9 | Penutup | `"head": "cta2"`: deposit promo, dokumen, WhatsApp 017-203 6099 |
 
 Jadual 9 babak di bawah ialah susunan asas yang lama; untuk video baharu ikut struktur di atas.
@@ -124,6 +124,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
+| Proton X50 Executive Facelift 2026 (Quartz Black) | `videos/x50hitam.json` (hook "Jangan scroll dulu!", 4 langkah dengan semakan dokumen) |
 | Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
 
 ### Sebutan tambahan
