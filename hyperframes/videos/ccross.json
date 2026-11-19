@@ -43,7 +43,7 @@
   ],
   "script": [
     {
-      "vo": "*Sambung *bayar, *lease *to *own! Teringin SUV Toyota penuh teknologi? ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, masih koyak plastik!",
+      "vo": "Ini dia, unit yang *dinanti-nantikan! ^Toyota ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, untuk dijual secara *sambung *bayar.",
       "head": [
         [
           "SAMBUNG BAYAR",
@@ -56,11 +56,12 @@
           "silver"
         ],
         [
-          "SUV TOYOTA KOYAK PLASTIK",
+          "COROLLA CROSS 1.8 V",
           "tag",
           "pearl"
         ]
       ],
+      "studio": "cc_02_depan34.jpg",
       "move": "reveal",
       "trans": null
     },
@@ -87,7 +88,7 @@
       "trans": "whip-left"
     },
     {
-      "vo": "*Deposit? *RM18,000|lapan-belas-ribu-ringgit sahaja.",
+      "vo": "*Deposit? *RM18,000|lapan-belas-ribu-ringgit sahaja. Ini *bawah *harga *pasaran, biasanya deposit macam ni untuk kereta second hand.",
       "head": [
         [
           "DEPOSIT",
@@ -98,11 +99,15 @@
           "RM18,000",
           "price",
           "red"
+        ],
+        [
+          "BAWAH HARGA PASARAN",
+          "tag",
+          "pearl"
         ]
       ],
       "move": "orbit",
-      "trans": "flash",
-      "studio": "cc_02_depan34.jpg"
+      "trans": "flash"
     },
     {
       "vo": "*Bulanan pula, *RM1,512.|seribu-lima-ratus-dua-belas-ringgit. *Loan *9|sembilan *tahun.",
@@ -149,12 +154,11 @@
       "trans": "zoom"
     },
     {
-      "vo": "Enjin *1.8|satu-poin-lapan, power back door, kerusi kulit, ^Toyota ^Safety ^Sense, siap kamera *360.|tiga-ratus-enam-puluh-darjah.",
+      "vo": "Enjin *1.8,|satu-poin-lapan, kerusi kulit, ^Toyota ^Safety ^Sense, siap kamera *360.|tiga-ratus-enam-puluh-darjah.",
       "head": "specs",
       "title": "SPESIFIKASI",
       "checks": [
         "Enjin 1.8L, lancar & selesa",
-        "Electric power back door",
         "Kerusi kulit premium",
         "Kerusi pemandu elektrik",
         "Skrin sentuh infotainment",

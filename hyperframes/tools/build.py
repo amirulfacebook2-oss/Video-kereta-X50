@@ -533,7 +533,12 @@ def make_html(scenes, total):
                 f'<img class="crefl" src="{cp}" style="top:{h}px;height:{h}px" alt="" /></div>'
                 f'<div id="s{i}ssw" class="ssweep"></div>')
             b0 = s["start"]
-            J(f'tl.fromTo("#s{i}car",{{x:420,opacity:0}},{{x:0,opacity:1,duration:0.9,ease:"power3.out"}},{b0 + 0.05:.3f});')
+            if i == 0:  # hook: car is on stage at frame 0 (thumbnail); studio lights come up around it
+                inner.append(f'<div id="s{i}dim" class="sdim"></div>')
+                J(f'tl.fromTo("#s{i}dim",{{opacity:0.55}},{{opacity:0,duration:0.7,ease:"power2.out"}},0.05);')
+                J(f'tl.fromTo("#s{i}car",{{x:0,opacity:1}},{{x:0,opacity:1,duration:0.01}},0);')
+            else:
+                J(f'tl.fromTo("#s{i}car",{{x:420,opacity:0}},{{x:0,opacity:1,duration:0.9,ease:"power3.out"}},{b0 + 0.05:.3f});')
             J(f'tl.fromTo("#s{i}car",{{scale:1}},{{scale:1.05,duration:{max(1.0, s["end"] - b0 - 1.0):.3f},ease:"none"}},{b0 + 0.95:.3f});')
             J(f'tl.fromTo("#s{i}ssw",{{x:-1300}},{{x:1300,duration:1.2,ease:"power1.inOut"}},{b0 + 1.0:.3f});')
         elif cfg["move"] == "montage":
@@ -604,6 +609,18 @@ def make_html(scenes, total):
             recap_js(J, s, cfg)
         elif cfg["head"]:
             inner.append(head_html(i, cfg["head"]))
+            if cfg.get("head2"):
+                cue = next((w["t0"] for w in s["words"] if w["display"].strip(".,!?").lower() == cfg["head2_cue"].lower()), s["start"] + 2.5)
+                h2 = "".join(f'<div class="line {st}"><span id="h{i}b{j}" class="{co}">{esc(tx)}</span></div>' for j, (tx, st, co) in enumerate(cfg["head2"]))
+                inner.append(f'<div id="h{i}grp2" class="heads h2">{h2}</div>')
+                J(f'tl.set("#h{i}grp2",{{opacity:0}},0);')
+                J(f'tl.set("#h{i}grp2",{{opacity:1}},{cue - 0.02:.3f});')
+                J(f'tl.to("#s{i}cam .heads:not(.h2)",{{opacity:0,y:-30,duration:0.3,ease:"power2.in"}},{cue - 0.25:.3f});')
+                for j, (tx, st, co) in enumerate(cfg["head2"]):
+                    if st == "tag":
+                        J(f'tl.fromTo("#h{i}b{j}",{{opacity:0,y:18}},{{opacity:1,y:0,duration:0.4,ease:"power3.out"}},{cue + 0.25 + 0.12 * j:.3f});')
+                    else:
+                        J(f'tl.fromTo("#h{i}b{j}",{{yPercent:110,scale:1.15}},{{yPercent:0,scale:1,duration:0.45,ease:"back.out(1.6)"}},{cue + 0.05 + 0.12 * j:.3f});')
             pidx = next((k for k, h in enumerate(cfg["head"]) if h[1] == "price"), None)
             for j, (txt, style, color) in enumerate(cfg["head"]):
                 at = s["start"] + (0.0 if i == 0 else 0.15) + (BEAT if style == "price" else 0.14 * j)
@@ -1079,6 +1096,8 @@ TEMPLATE = r"""<!doctype html>
                -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,.9), transparent 45%); mask-image: linear-gradient(0deg, rgba(0,0,0,.9), transparent 45%); }
       .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
                  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
+      .sdim { position: absolute; inset: 0; background: #000; }
+      .heads.h2 { z-index: 7; }
       .ssweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
                 background: linear-gradient(105deg, transparent 44%, rgba(255,255,255,.14) 50%, transparent 56%); }
       .jstage { position: absolute; left: 60px; top: 400px; width: 960px; height: 760px; border-radius: 36px; overflow: hidden;
