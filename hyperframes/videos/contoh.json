@@ -1,6 +1,6 @@
 {
   "_cara_guna": "TEMPLAT RASMI (versi 19 Nov 2026, berdasarkan video Corolla Cross 1.8 V). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran dan promo_price. Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
-  "_babak": "9 babak: 1 hook studio (kereta dipotong atas pentas studio; tulisan SAMBUNG BAYAR / LEASE TO OWN + tag model; suara: 'Ini dia, unit yang dinanti-nantikan! <MODEL> untuk dijual secara sambung bayar.'), 2 model, 3 deposit + tag BAWAH HARGA PASARAN (sebut deposit ini biasanya untuk kereta second hand), 4 bulanan + LOAN x TAHUN, 5 agreement direct owner, 6 SPESIFIKASI (senarai ✓), 7 interior (tiada zoom, gambar ikut cue), 8 animasi 3 LANGKAH MUDAH (tandatangan, bayar cash/transfer, bawa balik kereta; car_side = gambar sisi), 9 penutup cta2 (deposit promo + dokumen + WhatsApp)",
+  "_babak": "9 babak: 1 hook studio (kereta dipotong atas pentas studio; tulisan SAMBUNG BAYAR / LEASE TO OWN + tag model; suara: 'Ini dia, unit yang dinanti-nantikan! <MODEL> untuk dijual secara sambung bayar.'), 2 model, 3 deposit + tag BAWAH HARGA PASARAN (sebut deposit ini biasanya untuk kereta second hand), 4 bulanan + LOAN x TAHUN, 5 agreement direct owner, 6 SPESIFIKASI (senarai ✓), 7 interior (tiada zoom, gambar ikut cue), 8 animasi 4 LANGKAH MUDAH (semakan dokumen, tandatangan, bayar cash/transfer, bawa balik kereta; car_side = gambar sisi, car_flip: true jika kereta menghadap kanan), 9 penutup cta2 (deposit promo + dokumen + WhatsApp)",
   "_fit_width": "gambar menegak yang keretanya lebar (depan 3/4, depan, belakang 3/4): dipapar penuh dan dinaikkan supaya kereta tidak terpotong dan sarikata duduk di bawah kereta",
   "_cues": "perkataan dalam skrip interior yang menukar gambar (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
   "_skrip": "Token: perkataan | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Nombor, harga, tahun dan telefon dieja penuh dalam sebutan. Babak 1 buka dengan ayat hook (tawaran utama). Guna '.' bukan '!' kecuali hook; elakkan 'je'.",
@@ -194,15 +194,19 @@
       "trans": "leak"
     },
     {
-      "vo": "Caranya senang. *Tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
       "head": "journey",
-      "title": "3 LANGKAH MUDAH",
+      "title": "4 LANGKAH MUDAH",
       "amount": "RM18,000",
       "car_side": "cc_04_sisi.jpg",
       "steps": [
         [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
           "Tandatangan perjanjian",
-          "Tandatangan"
+          "tandatangan"
         ],
         [
           "Bayar deposit",
@@ -215,7 +219,7 @@
       ],
       "move": "recap",
       "trans": "dip",
-      "min_beats": 16
+      "min_beats": 20
     },
     {
       "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",

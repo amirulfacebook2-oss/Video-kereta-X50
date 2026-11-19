@@ -1,21 +1,22 @@
 # Gaya KL AUTO SB (satu-satunya gaya, versi 19 Nov 2026)
 
 Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. Versi rasmi ialah video
-**Toyota Corolla Cross 1.8 V v3 dengan suara Ashraf** (`renders/KLAUTOSB_Corolla_Cross_18V_v3.mp4`, `videos/ccross.json`).
+**Toyota Corolla Cross 1.8 V v3 dengan suara Ashraf** (`renders/KLAUTOSB_Corolla_Cross_18V_v3.mp4`, `videos/ccross.json`),
+dengan animasi **4 langkah** (semakan dokumen dahulu) seperti video X50 Quartz Black (`videos/x50hitam.json`).
 Versi sebelum ini (Aruz 2021, `videos/aruz2021.json`) masih boleh dirujuk.
 
 ## Struktur rasmi (ikut video Corolla Cross)
 
 | # | Babak | Isi |
 |---|---|---|
-| 1 | Hook studio (`"studio": "depan34.jpg"`) | Kereta sebenar dipotong atas pentas studio, lampu menyala. Tulisan **SAMBUNG BAYAR / LEASE TO OWN** + tag model sejak frame 0. Suara: *"Ini dia, unit yang dinanti-nantikan! <Model> untuk dijual secara sambung bayar."* + bunyi pembukaan |
+| 1 | Hook studio (`"studio": "depan34.jpg"`) | Kereta sebenar dipotong atas pentas studio, lampu menyala. Tulisan **SAMBUNG BAYAR / LEASE TO OWN** + tag model sejak frame 0. Suara: ayat hook yang **berbeza setiap video** (cth *"Ini dia, unit yang dinanti-nantikan!"*, *"Jangan scroll dulu!"*) + *"<Model> untuk dijual secara sambung bayar."* + bunyi pembukaan |
 | 2 | Model | nama model, warna, keadaan (cth koyak plastik) |
 | 3 | Deposit | RMx dikira naik + tag **BAWAH HARGA PASARAN**. Suara: *"Deposit? RMx sahaja. Ini bawah harga pasaran, biasanya deposit macam ni untuk kereta second hand."* |
 | 4 | Bulanan | RMx + tag LOAN x TAHUN |
 | 5 | Agreement | direct terus dengan owner + insurans/roadtax/plat/warranty |
 | 6 | Spesifikasi | `"head": "specs"`, 5–7 baris ✓ (hanya ciri yang ada pada unit) |
 | 7 | Interior | 2–5 gambar ikut cue, tiada zoom |
-| 8 | Langkah Mudah | `"head": "journey"`: (pilihan) semakan dokumen → tandatangan → bayar cash/transfer → bawa balik kereta. 4 langkah = langkah pertama semakan dokumen (MYKAD, LESEN, BIL ditanda ✓ + LULUS). `car_flip: true` jika kereta dalam gambar menghadap kanan |
+| 8 | 4 Langkah Mudah (lalai) | `"head": "journey"`: semakan dokumen → tandatangan → bayar cash/transfer → bawa balik kereta. 4 langkah = langkah pertama semakan dokumen (MYKAD, LESEN, BIL ditanda ✓ + LULUS). `car_flip: true` jika kereta dalam gambar menghadap kanan |
 | 9 | Penutup | `"head": "cta2"`: deposit promo, dokumen, WhatsApp 017-203 6099 |
 
 Jadual 9 babak di bawah ialah susunan asas yang lama; untuk video baharu ikut struktur di atas.
