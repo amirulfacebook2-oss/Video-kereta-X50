@@ -53,6 +53,7 @@ owner, plate, roadtax/insurans, lokasi, warranty, agreement direct owner.
 | 8 | NAK VIEW KERETA? + senarai 4 perkara | belakang 3/4 | serong perlahan | gelap sekejap |
 | 9 | WHATSAPP SEKARANG / SAMBUNG BAYAR BERDEPOSIT + kad 017-203 6099 | depan 3/4 | tolak masuk perlahan + kilauan | zoom-through |
 
+- **Kamera lembut (`"zoom": "soft"`):** zoom dan gerakan dikurangkan kira-kira 1/3 supaya gambar tidak nampak terlalu dekat. Guna bersama `fit_width` untuk semua gambar luar kereta. Contoh: `videos/s70warna.json`.
 - **Kereta penuh dalam bingkai:** gambar dalam `fit_width` (depan 3/4, depan, belakang 3/4) dipapar penuh lebar, bermula y 110, dengan latar kabur.
 - **Harga:** angka dikira naik dari RM0 (0.9 saat) hingga angka tepat, dengan sedikit hentakan kamera bila angka mendarat.
 - **Senarai bertanda:** setiap baris muncul satu demi satu dengan tanda ✓ merah. Panel ikut lebar teks, dan baris tidak terbalut. Jika lebih 5 baris, baris dirapatkan.

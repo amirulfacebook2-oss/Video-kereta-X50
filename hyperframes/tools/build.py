@@ -14,6 +14,7 @@ import asyncio
 import html
 import json
 import math
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -42,18 +43,20 @@ _tts.MAX_GAP, _tts.KEEP_GAP = 0.60, 0.45   # snappier sentence pauses
 ASSETS = HF / "assets"
 AUD = ASSETS / "audio" / "hitam"
 PH = ASSETS / "photos"
+ZOOM_SOFT = False
 PHOTO_SRC = ROOT / "photos"
 
 
 def configure(name):
     """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
-    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA
+    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT
     v = VIDEOS[name] = load_video(name)
     if "script" in v:  # a different car: its own lines, headlines, moves and transitions
         SCRIPT = [dict(sc, photos=sc.get("photos", []), base_move=sc["move"], base_trans=sc.get("trans"),
                        trans=sc.get("trans"), min_beats=sc.get("min_beats", 0)) for sc in v["script"]]
         CTA = dict(CTA, **v.get("cta", {}))
     VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
+    ZOOM_SOFT = v.get("zoom") == "soft"
     AUD = ASSETS / "audio" / name
     PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
     custom = "script" in v
@@ -533,7 +536,7 @@ def make_html(scenes, total):
         inner = []
         if cfg.get("studio_trio"):  # hook with 3 colour choices: back-left, back-right, centre-front on one stage
             inner.append('<div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div>')
-            spots = [(20, 1110, 520), (540, 1110, 520), (190, 1200, 700)]  # (left, floor y, width) for cars 0,1,2
+            spots = [(0, 950, 540), (540, 950, 540), (210, 1225, 660)]  # (left, floor y, width) for cars 0,1,2
             order = [0, 1, 2]
             for k in order:
                 name, lab, cue = cfg["studio_trio"][k]
@@ -549,7 +552,7 @@ def make_html(scenes, total):
                     )
             inner.append(f'<div id="s{i}ssw" class="ssweep"></div><div id="s{i}dim" class="sdim"></div>')
             for k, (_, lab, _) in enumerate(cfg["studio_trio"]):  # one row of colour labels under the cars, above the dim layer
-                inner.append(f'<div id="s{i}cl{k}" class="clab" data-layout-allow-safe-zone style="left:{[90, 770, 430][k]}px;top:1250px">{esc(lab)}</div>')
+                inner.append(f'<div id="s{i}cl{k}" class="clab" data-layout-allow-safe-zone style="left:{[90, 770, 430][k]}px;top:1262px">{esc(lab)}</div>')
             b0 = s["start"]
             J(f'tl.fromTo("#s{i}dim",{{opacity:0.55}},{{opacity:0,duration:0.7,ease:"power2.out"}},0.05);')
             wt = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
@@ -625,6 +628,12 @@ def make_html(scenes, total):
                 "orbit": ("{scale:1.14,x:80,rotation:0.8}", "{scale:1.14,x:-80,rotation:-0.8}", "sine.inOut"),
                 "drift": ("{scale:1.1,x:-50,y:30}", "{scale:1.16,x:40,y:-20}", "sine.inOut"),
             }[cfg["move"]]
+            if ZOOM_SOFT:  # gentler camera: zoom and travel cut to about a third, so the whole car stays in frame
+                def soften(js):
+                    js = re.sub(r"scale:([0-9.]+)", lambda m: f"scale:{1 + (float(m.group(1)) - 1) * 0.35:.3f}", js)
+                    js = re.sub(r"([xy]):(-?[0-9.]+)", lambda m: f"{m.group(1)}:{float(m.group(2)) * 0.4:.0f}", js)
+                    return re.sub(r"rotation:(-?[0-9.]+)", "rotation:0", js)
+                mv = (soften(mv[0]), soften(mv[1]), mv[2])
             J(f'tl.fromTo("#s{i}kb",{mv[0]},{{...{mv[1]},duration:{d + PRE[cfg["trans"]]:.3f},ease:"{mv[2]}"}},{t0:.3f});')
             J(f'tl.fromTo("#s{i}bg",{{scale:1.0}},{{scale:1.05,duration:{d + PRE[cfg["trans"]]:.3f},ease:"none"}},{t0:.3f});')
             if cfg["move"] in ("rise", "cta"):

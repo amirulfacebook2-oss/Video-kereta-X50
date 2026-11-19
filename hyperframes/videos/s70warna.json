@@ -33,7 +33,15 @@
       "s70_01_depan34.jpg"
     ]
   ],
-  "fit_width": [],
+  "fit_width": [
+    "sw_merah_depan34.jpg",
+    "sw_silver_depan34.jpg",
+    "sw_putih_depan34.jpg",
+    "s70_04_belakang34.jpg",
+    "s70_01_depan34.jpg",
+    "s70_09_stereng.jpg",
+    "s70_07_dashboard.jpg"
+  ],
   "cues": [
     null,
     "belakang"
@@ -246,5 +254,6 @@
   "cta": {
     "meta": "Proton S70 Premium Facelift 2026"
   },
-  "_unit": "Proton S70 Premium Facelift 2026, 3 pilihan warna (merah, silver, putih)"
+  "_unit": "Proton S70 Premium Facelift 2026, 3 pilihan warna (merah, silver, putih)",
+  "zoom": "soft"
 }
