@@ -1,0 +1,250 @@
+{
+  "src": "s70warna",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "s70warna_el",
+  "photos": [
+    [
+      "sw_merah_depan34.jpg"
+    ],
+    [
+      "sw_merah_depan34.jpg"
+    ],
+    [
+      "sw_silver_depan34.jpg"
+    ],
+    [
+      "sw_putih_depan34.jpg"
+    ],
+    [
+      "s70_09_stereng.jpg"
+    ],
+    [
+      "s70_07_dashboard.jpg"
+    ],
+    [
+      "s70_06_depan_kerusi.jpg",
+      "s70_05_baris2.jpg"
+    ],
+    [
+      "s70_04_belakang34.jpg"
+    ],
+    [
+      "s70_01_depan34.jpg"
+    ]
+  ],
+  "fit_width": [],
+  "cues": [
+    null,
+    "belakang"
+  ],
+  "script": [
+    {
+      "vo": "Ada *tiga *pilihan *warna! *Merah, *silver dan *putih. ^Proton ^S70,|S-seventy, bulanan bawah *RM1,100,|seribu-seratus-ringgit, untuk dijual secara *sambung *bayar.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "3 PILIHAN WARNA",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "studio_trio": [
+        [
+          "sw_silver_depan34.jpg",
+          "SILVER",
+          "silver"
+        ],
+        [
+          "sw_putih_depan34.jpg",
+          "PUTIH",
+          "putih"
+        ],
+        [
+          "sw_merah_depan34.jpg",
+          "MERAH",
+          "merah"
+        ]
+      ],
+      "move": "reveal",
+      "trans": null
+    },
+    {
+      "vo": "^Proton ^S70|S-seventy ^Premium ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "PROTON S70",
+          "hero",
+          "silver"
+        ],
+        [
+          "PREMIUM FACELIFT 2026",
+          "label",
+          "pearl"
+        ],
+        [
+          "KOYAK PLASTIK",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left"
+    },
+    {
+      "vo": "*Deposit? *RM12,000|dua-belas-ribu-ringgit sahaja. Ini *bawah *harga *pasaran, biasanya deposit macam ni untuk kereta second hand.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM12,000",
+          "price",
+          "red"
+        ],
+        [
+          "BAWAH HARGA PASARAN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, bawah *RM1,100.|seribu-seratus-ringgit. Semua warna. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN BAWAH",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,100",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Proton.",
+      "head": "agreement",
+      "move": "track",
+      "trans": "zoom",
+      "title": "DIRECT OWNER",
+      "steps": [
+        [
+          "Insurans baharu",
+          "Insurans"
+        ],
+        [
+          "Roadtax baharu",
+          "roadtax"
+        ],
+        [
+          "Plat V",
+          "plat"
+        ],
+        [
+          "Warranty Proton",
+          "warranty"
+        ]
+      ]
+    },
+    {
+      "vo": "Enjin *1.5|satu-poin-lima *turbo, ada *kamera *reverse, *kerusi *kulit lagi.",
+      "head": "specs",
+      "title": "SPESIFIKASI",
+      "checks": [
+        "1.5 IGT Turbo 4 silinder",
+        "Kamera reverse",
+        "Rear tail light",
+        "Kerusi kulit"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 14
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas.",
+      "head": [
+        [
+          "INTERIOR PREMIUM",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "KERUSI KULIT",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "4 LANGKAH MUDAH",
+      "amount": "RM12,000",
+      "car_side": "sw_merah_depan34.jpg",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 20,
+      "car_flip": true
+    },
+    {
+      "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM12,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Proton S70 Premium Facelift 2026"
+  },
+  "_unit": "Proton S70 Premium Facelift 2026, 3 pilihan warna (merah, silver, putih)"
+}

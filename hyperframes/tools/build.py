@@ -449,6 +449,8 @@ def make_cutouts():
         for k in ("studio", "car_side"):
             if sc.get(k):
                 need.add(sc[k])
+        for name, _, _ in sc.get("studio_trio", []):
+            need.add(name)
     if not need:
         return
     from rembg import new_session, remove
@@ -529,7 +531,34 @@ def make_html(scenes, total):
         dur = round(c1 - c0, 3)
         s["clip"] = (round(c0, 3), dur)
         inner = []
-        if cfg.get("studio"):
+        if cfg.get("studio_trio"):  # hook with 3 colour choices: back-left, back-right, centre-front on one stage
+            inner.append('<div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div>')
+            spots = [(20, 1110, 520), (540, 1110, 520), (190, 1200, 700)]  # (left, floor y, width) for cars 0,1,2
+            order = [0, 1, 2]
+            for k in order:
+                name, lab, cue = cfg["studio_trio"][k]
+                cp = cut_path(name)
+                cw, ch = Image.open(HF / cp).size
+                x, fy, w = spots[k]
+                h = int(w * ch / cw)
+                inner.append(
+                    f'<div id="s{i}car{k}" class="scar" style="left:{x}px;width:{w}px;top:{fy - h}px;height:{h * 2}px">'
+                    f'<div class="cshadow" style="left:{w * 0.04:.0f}px;width:{w * 0.92:.0f}px;top:{h - 40}px"></div>'
+                    f'<img class="cimg" src="{cp}" style="width:{w}px;height:{h}px" alt="" />'
+                    f'<img class="crefl" src="{cp}" style="width:{w}px;top:{h}px;height:{h}px" alt="" /></div>'
+                    )
+            inner.append(f'<div id="s{i}ssw" class="ssweep"></div><div id="s{i}dim" class="sdim"></div>')
+            for k, (_, lab, _) in enumerate(cfg["studio_trio"]):  # one row of colour labels under the cars, above the dim layer
+                inner.append(f'<div id="s{i}cl{k}" class="clab" data-layout-allow-safe-zone style="left:{[90, 770, 430][k]}px;top:1250px">{esc(lab)}</div>')
+            b0 = s["start"]
+            J(f'tl.fromTo("#s{i}dim",{{opacity:0.55}},{{opacity:0,duration:0.7,ease:"power2.out"}},0.05);')
+            wt = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
+            for k, (_, lab, cue) in enumerate(cfg["studio_trio"]):
+                tc = wt.get(cue.lower(), b0 + 1.0 + 0.5 * k)
+                J(f'tl.fromTo("#s{i}cl{k}",{{opacity:0,y:20,scale:0.7}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2.2)"}},{tc - 0.05:.3f});')
+                J(f'tl.fromTo("#s{i}car{k}",{{y:0}},{{y:-14,duration:0.22,ease:"power2.out",yoyo:true,repeat:1}},{tc - 0.05:.3f});')
+            J(f'tl.fromTo("#s{i}ssw",{{x:-1300}},{{x:1300,duration:1.2,ease:"power1.inOut"}},{b0 + 1.0:.3f});')
+        elif cfg.get("studio"):
             cp = cut_path(cfg["studio"])
             cw, ch = Image.open(HF / cp).size
             w = 1000
@@ -1196,6 +1225,8 @@ TEMPLATE = r"""<!doctype html>
       .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
                  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
       .sdim { position: absolute; inset: 0; background: #000; }
+      .clab { position: absolute; z-index: 6; width: 220px; text-align: center; font-weight: 800; font-size: 30px; letter-spacing: .08em; color: #fff;
+              padding: 8px 0; border-radius: 30px; background: rgba(11,13,18,.75); border: 2px solid rgba(255,255,255,.35); }
       .heads.h2 { z-index: 7; }
       .ssweep { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: screen;
                 background: linear-gradient(105deg, transparent 44%, rgba(255,255,255,.14) 50%, transparent 56%); }

@@ -114,6 +114,8 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 - **Studio (`"studio": "gambar.jpg"`, lalai pada hook):** kereta sebenar dipotong (rembg, piksel kereta tidak diubah) dan diletak atas pentas studio gelap: lampu sorot, lantai berkilat, pantulan, bayang, kilauan cahaya. Kereta masuk dari kanan.
 - **Animasi 3 langkah (`"head": "journey"`):** (1) pen menulis tandatangan + cop SAH, (2) CASH atau TRANSFER online + ✓ BERJAYA, (3) kereta sebenar (`car_side`) bergerak pulang ke rumah + TAHNIAH. Setiap langkah menyala ikut perkataan yang disebut; bunyi pop, ka-ching dan whoosh. Contoh: `videos/ccross.json`.
 
+- **Hook 3 warna (`"studio_trio"`):** 3 kereta sebenar (dipotong) atas satu pentas studio, satu baris label warna yang muncul bila setiap warna disebut. Format: `[[gambar, LABEL, perkataan cue], ...]` (kiri, kanan, tengah depan). Contoh: `videos/s70warna.json`.
+
 ## Video yang sudah dibuat
 
 | Video | Fail |
@@ -126,6 +128,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
 | Proton X50 Executive Facelift 2026 (Quartz Black) | `videos/x50hitam.json` (hook "Jangan scroll dulu!", 4 langkah dengan semakan dokumen) |
+| Proton S70 Premium Facelift 2026 (3 warna: merah, silver, putih) | `videos/s70warna.json` (hook 3 warna, bulanan bawah RM1,100) |
 | Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
 
 ### Sebutan tambahan
