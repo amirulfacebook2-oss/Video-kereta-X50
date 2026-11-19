@@ -536,7 +536,7 @@ def make_html(scenes, total):
         inner = []
         if cfg.get("studio_trio"):  # hook with 3 colour choices: back-left, back-right, centre-front on one stage
             inner.append('<div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div>')
-            spots = [(0, 950, 540), (540, 950, 540), (210, 1225, 660)]  # (left, floor y, width) for cars 0,1,2
+            spots = [(50, 950, 480), (550, 950, 480), (220, 1225, 640)]  # (left, floor y, width) for cars 0,1,2
             order = [0, 1, 2]
             for k in order:
                 name, lab, cue = cfg["studio_trio"][k]
