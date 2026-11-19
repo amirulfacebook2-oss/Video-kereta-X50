@@ -132,25 +132,28 @@
     },
     {
       "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Proton.",
-      "head": [
-        [
-          "AGREEMENT",
-          "label",
-          "silver"
-        ],
-        [
-          "DIRECT OWNER",
-          "hero",
-          "pearl"
-        ],
-        [
-          "WARRANTY PROTON",
-          "tag",
-          "pearl"
-        ]
-      ],
+      "head": "agreement",
       "move": "track",
-      "trans": "zoom"
+      "trans": "zoom",
+      "title": "DIRECT OWNER",
+      "steps": [
+        [
+          "Insurans baharu",
+          "Insurans"
+        ],
+        [
+          "Roadtax baharu",
+          "roadtax"
+        ],
+        [
+          "Plat V",
+          "plat"
+        ],
+        [
+          "Warranty Proton",
+          "warranty"
+        ]
+      ]
     },
     {
       "vo": "Enjin *1.5|satu-poin-lima *turbo, skrin besar, meter digital, siap kawalan suara ^Hi ^Proton.",
@@ -229,7 +232,7 @@
     }
   ],
   "cta": {
-    "meta": "Toyota Corolla Cross 1.8 V"
+    "meta": "Proton X50 Executive Facelift 2026"
   },
   "_unit": "Proton X50 Executive Facelift 2026 Quartz Black"
 }

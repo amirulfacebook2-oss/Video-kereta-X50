@@ -244,7 +244,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey", "agreement")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -406,6 +406,11 @@ def extra_sfx(total, scenes):
             A.place(out, sfx_ching(), ts[1] + 1.25, 0.8)               # payment success
             A.place(out, A.whoosh(1.0, up=False), ts[2] + 0.2, 0.5)     # car drives home
             A.place(out, sfx_ding(), ts[2] + 1.5, 0.6)
+        if cfg["head"] == "agreement":
+            A.place(out, sfx_pop(0.9), b + 1.75, 0.7)
+            A.place(out, sfx_pop(1.1), b + 2.0, 0.6)
+            for k, t in enumerate(step_times(s, cfg)):
+                A.place(out, sfx_pop(1.15 + 0.08 * k), t, 0.65)
         if cfg["head"] == "process":
             for t in step_times(s, cfg):
                 A.place(out, sfx_pop(1.1), t + 0.12, 0.75)
@@ -603,6 +608,9 @@ def make_html(scenes, total):
         elif cfg["head"] == "journey":
             inner.append(journey_html(i, cfg))
             journey_js(J, s, cfg)
+        elif cfg["head"] == "agreement":
+            inner.append(agreement_html(i, cfg))
+            agreement_js(J, s, cfg)
         elif cfg["head"] == "process":
             inner.append(process_html(i, cfg))
             process_js(J, s, cfg)
@@ -929,6 +937,49 @@ def journey_js(J, s, cfg):
     J(f'tl.fromTo("#j{i}yay",{{opacity:0,scale:0.6}},{{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"}},{t2 + 1.5:.3f});')
 
 
+def agreement_html(i, cfg):
+    """Agreement scene: buyer and owner join on one AGREEMENT (direct, no middleman), then the perks tick in."""
+    title = cfg.get("title", "DIRECT OWNER")
+    q = "".join(f'<span id="a{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(title.split()))
+    person = lambda k, x, lab: (f'<g id="a{i}p{k}"><circle cx="{x}" cy="130" r="44" fill="#d6dce4"/>'
+                                f'<path d="M{x - 72} 290 C {x - 72} 200, {x + 72} 200, {x + 72} 290 Z" fill="#d6dce4"/>'
+                                f'<text x="{x}" y="335" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="30" fill="#fff">{lab}</text></g>')
+    chips = "".join(f'<div id="a{i}c{k}" class="achip"><span class="ack">✓</span>{esc(t)}</div>' for k, (t, _) in enumerate(cfg["steps"]))
+    return f'''<div class="cta">
+          <div class="ctaq">{q.strip()}</div>
+          <div id="a{i}stage" class="jstage" style="height:700px">
+            <svg class="asvg" viewBox="0 0 840 380" width="840" height="380" aria-hidden="true">
+              {person(0, 120, "ANDA")}{person(1, 720, cfg.get("owner_label", "OWNER"))}
+              <path id="a{i}l0" d="M200 200 H325" stroke="#e2232d" stroke-width="8" stroke-linecap="round" stroke-dasharray="130" stroke-dashoffset="130"/>
+              <path id="a{i}l1" d="M640 200 H515" stroke="#e2232d" stroke-width="8" stroke-linecap="round" stroke-dasharray="130" stroke-dashoffset="130"/>
+              <g id="a{i}doc"><rect x="335" y="40" width="170" height="230" rx="14" fill="#f6f5f1"/>
+                <text x="420" y="82" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="19" fill="#0b0d12">AGREEMENT</text>
+                {"".join(f'<rect x="358" y="{104 + r * 24}" width="{124 - (r % 3) * 22}" height="9" rx="4" fill="#c9ced5"/>' for r in range(5))}
+                <path d="M362 248 c 14 -22, 26 10, 40 -6 s 22 -14, 34 2 s 16 6, 28 -4" fill="none" stroke="#1d3c94" stroke-width="5" stroke-linecap="round"/></g>
+              <g id="a{i}ok" transform="translate(520 40)"><circle r="30" fill="#25D366"/>
+                <path d="M-15 0 l10 11 l20 -22" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
+            </svg>
+            <div id="a{i}tag" class="atag">🤝 TERUS DENGAN OWNER</div>
+            <div class="achips">{chips}</div>
+          </div>
+        </div>'''
+
+
+def agreement_js(J, s, cfg):
+    b, i = s["start"], s["i"]
+    for k in range(len(cfg.get("title", "DIRECT OWNER").split())):
+        J(f'tl.fromTo("#a{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#a{i}stage",{{opacity:0,y:40}},{{opacity:1,y:0,duration:0.5,ease:"power3.out"}},{b + 0.3:.3f});')
+    J(f'tl.fromTo("#a{i}p0",{{x:-160,opacity:0}},{{x:0,opacity:1,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
+    J(f'tl.fromTo("#a{i}p1",{{x:160,opacity:0}},{{x:0,opacity:1,duration:0.5,ease:"power3.out"}},{b + 0.6:.3f});')
+    J(f'tl.fromTo("#a{i}doc",{{opacity:0,y:30}},{{opacity:1,y:0,duration:0.45,ease:"back.out(1.8)"}},{b + 0.8:.3f});')
+    J(f'tl.fromTo(["#a{i}l0","#a{i}l1"],{{strokeDashoffset:130}},{{strokeDashoffset:0,duration:0.5,ease:"power2.out"}},{b + 1.2:.3f});')
+    J(f'tl.fromTo("#a{i}ok",{{opacity:0,scale:0.2,svgOrigin:"520 40"}},{{opacity:1,scale:1,duration:0.35,ease:"back.out(2.4)"}},{b + 1.75:.3f});')
+    J(f'tl.fromTo("#a{i}tag",{{opacity:0,scale:0.6}},{{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"}},{b + 2.0:.3f});')
+    for k, t in enumerate(step_times(s, cfg)):
+        J(f'tl.fromTo("#a{i}c{k}",{{opacity:0,y:24,scale:0.8}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2.2)"}},{t:.3f});')
+
+
 def process_html(i, cfg):
     """Ending variant A: numbered process steps, joined by a line that fills as each step is spoken."""
     title = cfg.get("title", "PROSES MUDAH")
@@ -1156,6 +1207,12 @@ TEMPLATE = r"""<!doctype html>
               justify-content: center; font-weight: 800; font-size: 28px; color: #fff; background: rgba(255,255,255,.15); }
       .jstep { position: absolute; left: 60px; top: 120px; width: 840px; height: 520px; }
       .jcar { position: absolute; left: 300px; top: 205px; width: 520px; }
+      .asvg { position: absolute; left: 60px; top: 40px; }
+      .atag { position: absolute; left: 0; top: 440px; width: 960px; text-align: center; font-weight: 800; font-size: 40px; color: #25D366; }
+      .achips { position: absolute; left: 40px; top: 520px; width: 880px; display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 18px; }
+      .achip { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 32px; color: #fff; padding: 12px 26px 12px 14px;
+               border-radius: 40px; background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.25); white-space: nowrap; }
+      .ack { display: inline-flex; width: 44px; height: 44px; border-radius: 22px; background: #e2232d; align-items: center; justify-content: center; font-size: 26px; }
       .jyay { position: absolute; left: 0; top: 40px; width: 840px; text-align: center; font-weight: 800; font-size: 56px; color: #fff; }
       .jlab { position: absolute; left: 0; bottom: 34px; width: 960px; height: 70px; }
       .jl { position: absolute; left: 0; width: 960px; text-align: center; font-weight: 800; font-size: 46px; color: #fff; letter-spacing: .02em; }

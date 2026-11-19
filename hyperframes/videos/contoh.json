@@ -139,26 +139,29 @@
       "trans": "whip-up"
     },
     {
-      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Toyota.",
-      "head": [
-        [
-          "AGREEMENT",
-          "label",
-          "silver"
-        ],
-        [
-          "DIRECT OWNER",
-          "hero",
-          "pearl"
-        ],
-        [
-          "WARRANTY TOYOTA",
-          "tag",
-          "pearl"
-        ]
-      ],
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Proton.",
+      "head": "agreement",
       "move": "track",
-      "trans": "zoom"
+      "trans": "zoom",
+      "title": "DIRECT OWNER",
+      "steps": [
+        [
+          "Insurans baharu",
+          "Insurans"
+        ],
+        [
+          "Roadtax baharu",
+          "roadtax"
+        ],
+        [
+          "Plat V",
+          "plat"
+        ],
+        [
+          "Warranty Toyota",
+          "warranty"
+        ]
+      ]
     },
     {
       "vo": "Enjin *1.8,|satu-poin-lapan, kerusi kulit, ^Toyota ^Safety ^Sense, siap kamera *360.|tiga-ratus-enam-puluh-darjah.",
@@ -236,6 +239,6 @@
     }
   ],
   "cta": {
-    "meta": "Toyota Corolla Cross 1.8 V"
+    "meta": "<MODEL KERETA> (tukar setiap video)"
   }
 }
