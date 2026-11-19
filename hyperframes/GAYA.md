@@ -140,5 +140,5 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 
 ### Sebutan tambahan
 
-  | Plat V | `V,|huruf-vi,` (bukan "lima") |
+  | Plate V | tulis `plate V`, sebut **"plate vi"** (`*plate *V,|vi,`); bukan "huruf vi" atau "lima" |
   | boot (but kereta) | tulis `boot`, bukan `but` |

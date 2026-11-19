@@ -145,7 +145,7 @@
       "trans": "whip-up"
     },
     {
-      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Proton.",
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plate *V,|vi, siap *warranty ^Proton.",
       "head": "agreement",
       "move": "track",
       "trans": "zoom",
@@ -160,8 +160,8 @@
           "roadtax"
         ],
         [
-          "Plat V",
-          "plat"
+          "Plate V",
+          "plate"
         ],
         [
           "Warranty Proton",

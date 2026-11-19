@@ -292,108 +292,108 @@
     "spoken": "Lebih",
     "style": null,
     "t0": 0.04,
-    "t1": 0.406
+    "t1": 0.405
    },
    {
     "display": "menarik,",
     "spoken": "menarik,",
     "style": null,
-    "t0": 0.406,
-    "t1": 1.391
+    "t0": 0.405,
+    "t1": 1.357
    },
    {
     "display": "agreement",
     "spoken": "agreement",
     "style": "silver",
-    "t0": 1.391,
-    "t1": 1.982
+    "t0": 1.357,
+    "t1": 1.946
    },
    {
     "display": "direct",
     "spoken": "direct",
     "style": "red",
-    "t0": 1.982,
-    "t1": 2.574
+    "t0": 1.946,
+    "t1": 2.537
    },
    {
     "display": "terus",
     "spoken": "terus",
     "style": "red",
-    "t0": 2.574,
-    "t1": 2.94
+    "t0": 2.537,
+    "t1": 2.901
    },
    {
     "display": "dengan",
     "spoken": "dengan",
     "style": "red",
-    "t0": 2.94,
-    "t1": 3.792
+    "t0": 2.901,
+    "t1": 3.742
    },
    {
     "display": "owner.",
     "spoken": "owner.",
     "style": "red",
-    "t0": 3.792,
-    "t1": 4.214
+    "t0": 3.742,
+    "t1": 4.163
    },
    {
     "display": "Insurans,",
     "spoken": "Insurans,",
     "style": null,
-    "t0": 4.214,
-    "t1": 4.806
+    "t0": 4.163,
+    "t1": 4.752
    },
    {
     "display": "roadtax",
     "spoken": "roadtax",
     "style": null,
-    "t0": 4.806,
-    "t1": 5.284
+    "t0": 4.752,
+    "t1": 5.228
    },
    {
     "display": "baharu,",
     "spoken": "baharu,",
     "style": null,
-    "t0": 5.284,
-    "t1": 5.953
+    "t0": 5.228,
+    "t1": 5.705
    },
    {
-    "display": "plat",
-    "spoken": "plat",
+    "display": "plate",
+    "spoken": "plate",
     "style": "red",
-    "t0": 5.953,
-    "t1": 6.262
+    "t0": 5.705,
+    "t1": 6.26
    },
    {
     "display": "V,",
-    "spoken": "huruf vi,",
+    "spoken": "vi,",
     "style": "red",
-    "t0": 6.262,
-    "t1": 7.077
+    "t0": 6.26,
+    "t1": 6.762
    },
    {
     "display": "siap",
     "spoken": "siap",
     "style": null,
-    "t0": 7.077,
-    "t1": 7.387
+    "t0": 6.762,
+    "t1": 7.07
    },
    {
     "display": "warranty",
     "spoken": "warranty",
     "style": "red",
-    "t0": 7.387,
-    "t1": 7.921
+    "t0": 7.07,
+    "t1": 7.603
    },
    {
     "display": "Proton.",
     "spoken": "Proton.",
     "style": "silver",
-    "t0": 7.921,
-    "t1": 8.4
+    "t0": 7.603,
+    "t1": 8.08
    }
   ],
-  "duration": 8.56
+  "duration": 8.24
  },
  {
   "tokens": [
