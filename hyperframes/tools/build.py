@@ -44,12 +44,13 @@ ASSETS = HF / "assets"
 AUD = ASSETS / "audio" / "hitam"
 PH = ASSETS / "photos"
 ZOOM_SOFT = False
+INTRO_SFX = True
 PHOTO_SRC = ROOT / "photos"
 
 
 def configure(name):
     """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
-    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT
+    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT, INTRO_SFX
     v = VIDEOS[name] = load_video(name)
     if "script" in v:  # a different car: its own lines, headlines, moves and transitions
         SCRIPT = [dict(sc, photos=sc.get("photos", []), base_move=sc["move"], base_trans=sc.get("trans"),
@@ -57,6 +58,7 @@ def configure(name):
         CTA = dict(CTA, **v.get("cta", {}))
     VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
     ZOOM_SOFT = v.get("zoom") == "soft"
+    INTRO_SFX = v.get("intro_sfx", True)
     AUD = ASSETS / "audio" / name
     PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
     custom = "script" in v
@@ -275,6 +277,8 @@ def make_audio(scenes, total):
     else:
         mus, _ = A.music(total, scenes)
     fx = A.sfx(total, scenes)
+    if not INTRO_SFX:  # no opening hit/sting: clear the hook's first moments of the effects bed
+        fx[: int(1.5 * SR)] = 0
     if STYLE.get("sfx_plus"):
         fx = fx + extra_sfx(total, scenes)
     from scipy.signal import lfilter
@@ -383,7 +387,8 @@ def sfx_intro():
 
 def extra_sfx(total, scenes):
     out = np.zeros(int(total * SR) + 3 * SR)
-    A.place(out, np.tanh(1.6 * sfx_intro()) * 0.38, 0.0)                    # opening sting (soft-clipped so it does not limit the mix)
+    if INTRO_SFX:
+        A.place(out, np.tanh(1.6 * sfx_intro()) * 0.38, 0.0)                # opening sting (soft-clipped so it does not limit the mix)
     for s in scenes:
         cfg, b = s["cfg"], s["start"]
         if isinstance(cfg["head"], list):
@@ -534,7 +539,20 @@ def make_html(scenes, total):
         dur = round(c1 - c0, 3)
         s["clip"] = (round(c0, 3), dur)
         inner = []
-        if cfg.get("studio_trio"):  # hook with 3 colour choices: back-left, back-right, centre-front on one stage
+        if cfg.get("hook_card"):  # hook: the real photo, uncropped, as a framed print that lands on its own blurred backdrop
+            ph = cfg["hook_card"]
+            iw, ih = Image.open(PH / ph).size
+            cw = cfg.get("card_w", 720)
+            chh = int(cw * ih / iw)
+            inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
+            inner.append(f'<div class="hcdim"></div><div id="s{i}card" class="hcard" style="left:{(1080 - cw) // 2 - 14}px;top:{cfg.get("card_top", 400)}px">'
+                         f'<img src="assets/photos/{ph}" style="width:{cw}px;height:{chh}px" alt="" /><div id="s{i}cgl" class="hcglint"></div></div>')
+            b0 = s["start"]
+            J(f'tl.fromTo("#s{i}card",{{rotation:-4,y:-30,scale:1.04}},{{rotation:1.5,y:0,scale:1,duration:0.7,ease:"back.out(1.6)"}},0);')
+            J(f'tl.to("#s{i}card",{{rotation:0,scale:1.03,duration:{max(1.0, s["end"] - 0.8):.3f},ease:"sine.inOut"}},0.7);')
+            J(f'tl.fromTo("#s{i}bg",{{scale:1.15}},{{scale:1.05,duration:{s["end"]:.3f},ease:"sine.out"}},0);')
+            J(f'tl.fromTo("#s{i}cgl",{{x:-900}},{{x:900,duration:1.1,ease:"power1.inOut"}},0.9);')
+        elif cfg.get("studio_trio"):  # hook with 3 colour choices: back-left, back-right, centre-front on one stage
             inner.append('<div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div>')
             spots = [(110, 960, 450), (500, 960, 450), (220, 1225, 640)]  # (left, floor y, width) for cars 0,1,2
             order = [0, 1, 2]
@@ -1234,6 +1252,12 @@ TEMPLATE = r"""<!doctype html>
       .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
                  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
       .sdim { position: absolute; inset: 0; background: #000; }
+      .hcdim { position: absolute; inset: 0; background: rgba(11,13,18,.45); }
+      .hcard { position: absolute; padding: 14px; background: #f6f5f1; border-radius: 22px; overflow: hidden; transform-origin: 50% 60%;
+               box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 8px 18px rgba(0,0,0,.4); }
+      .hcard img { display: block; border-radius: 12px; }
+      .hcglint { position: absolute; left: 0; top: 0; width: 100%; height: 100%; mix-blend-mode: screen;
+                 background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%); }
       .clab { position: absolute; z-index: 6; width: 220px; text-align: center; font-weight: 800; font-size: 30px; letter-spacing: .08em; color: #fff;
               padding: 8px 0; border-radius: 30px; background: rgba(11,13,18,.75); border: 2px solid rgba(255,255,255,.35); }
       .heads.h2 { z-index: 7; }
