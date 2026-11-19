@@ -1,7 +1,24 @@
-# Gaya KL AUTO SB (satu-satunya gaya, versi 17 Nov 2026)
+# Gaya KL AUTO SB (satu-satunya gaya, versi 19 Nov 2026)
 
 Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. Versi rasmi ialah video
-**Perodua Aruz Advance 2021 dengan suara Ashraf** (`renders/KLAUTOSB_Aruz_2021_Ashraf.mp4`, `videos/aruz2021.json`).
+**Toyota Corolla Cross 1.8 V v3 dengan suara Ashraf** (`renders/KLAUTOSB_Corolla_Cross_18V_v3.mp4`, `videos/ccross.json`).
+Versi sebelum ini (Aruz 2021, `videos/aruz2021.json`) masih boleh dirujuk.
+
+## Struktur rasmi (ikut video Corolla Cross)
+
+| # | Babak | Isi |
+|---|---|---|
+| 1 | Hook studio (`"studio": "depan34.jpg"`) | Kereta sebenar dipotong atas pentas studio, lampu menyala. Tulisan **SAMBUNG BAYAR / LEASE TO OWN** + tag model sejak frame 0. Suara: *"Ini dia, unit yang dinanti-nantikan! <Model> untuk dijual secara sambung bayar."* + bunyi pembukaan |
+| 2 | Model | nama model, warna, keadaan (cth koyak plastik) |
+| 3 | Deposit | RMx dikira naik + tag **BAWAH HARGA PASARAN**. Suara: *"Deposit? RMx sahaja. Ini bawah harga pasaran, biasanya deposit macam ni untuk kereta second hand."* |
+| 4 | Bulanan | RMx + tag LOAN x TAHUN |
+| 5 | Agreement | direct terus dengan owner + insurans/roadtax/plat/warranty |
+| 6 | Spesifikasi | `"head": "specs"`, 5–7 baris ✓ (hanya ciri yang ada pada unit) |
+| 7 | Interior | 2–5 gambar ikut cue, tiada zoom |
+| 8 | 3 Langkah Mudah | `"head": "journey"`: tandatangan → bayar cash/transfer → bawa balik kereta |
+| 9 | Penutup | `"head": "cta2"`: deposit promo, dokumen, WhatsApp 017-203 6099 |
+
+Jadual 9 babak di bawah ialah susunan asas yang lama; untuk video baharu ikut struktur di atas.
 Gaya lama (v1 hitam, suara Microsoft) telah dipadam. Semua video baharu
 guna gaya ini secara lalai (`DEFAULT_STYLE = "v2"` dalam `tools/build.py`). Templatnya ialah `videos/contoh.json`.
 
@@ -93,20 +110,20 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 
 ## Babak khas (pilihan)
 
-- **Studio (`"studio": "gambar.jpg"` pada babak deposit):** kereta sebenar dipotong (rembg, piksel kereta tidak diubah) dan diletak atas pentas studio gelap: lampu sorot, lantai berkilat, pantulan, bayang, kilauan cahaya. Kereta masuk dari kanan.
+- **Studio (`"studio": "gambar.jpg"`, lalai pada hook):** kereta sebenar dipotong (rembg, piksel kereta tidak diubah) dan diletak atas pentas studio gelap: lampu sorot, lantai berkilat, pantulan, bayang, kilauan cahaya. Kereta masuk dari kanan.
 - **Animasi 3 langkah (`"head": "journey"`):** (1) pen menulis tandatangan + cop SAH, (2) CASH atau TRANSFER online + ✓ BERJAYA, (3) kereta sebenar (`car_side`) bergerak pulang ke rumah + TAHNIAH. Setiap langkah menyala ikut perkataan yang disebut; bunyi pop, ka-ching dan whoosh. Contoh: `videos/ccross.json`.
 
 ## Video yang sudah dibuat
 
 | Video | Fail |
 |---|---|
-| Perodua Aruz Advance 2021 | `videos/aruz2021.json` (**versi rasmi templat**) |
+| Perodua Aruz Advance 2021 | `videos/aruz2021.json` (versi rasmi lama) |
 | Perodua Aruz Advance 2019 | `videos/aruz.json` |
 | Proton X50 Executive Facelift 2026 (putih) | `videos/x50.json` |
 | Proton S70 Premium Facelift 2026 (merah) | `videos/s70.json` (penutup PROSES + Deposit Promo) |
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
-| Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (hook soalan + bunyi pembukaan) |
+| Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
 | Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
 
 ### Sebutan tambahan

@@ -1,91 +1,93 @@
 {
-  "_cara_guna": "TEMPLAT RASMI (versi 17 Nov 2026, berdasarkan video Aruz 2021). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip dan butiran. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
-  "_babak": "9 babak ikut urutan 'photos' dan 'script': 1 hook (depan 3/4), 2 model (depan), 3 deposit (belakang 3/4), 4 bulanan (belakang / badge), 5 agreement (stereng / sisi), 6 butiran kereta (kabin / odometer), 7 interior (2-5 gambar: dashboard, baris 2, baris 3, but), 8 recap NAK VIEW KERETA? (belakang 3/4), 9 penutup WhatsApp (depan 3/4)",
+  "_cara_guna": "TEMPLAT RASMI (versi 19 Nov 2026, berdasarkan video Corolla Cross 1.8 V). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran dan promo_price. Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
+  "_babak": "9 babak: 1 hook studio (kereta dipotong atas pentas studio; tulisan SAMBUNG BAYAR / LEASE TO OWN + tag model; suara: 'Ini dia, unit yang dinanti-nantikan! <MODEL> untuk dijual secara sambung bayar.'), 2 model, 3 deposit + tag BAWAH HARGA PASARAN (sebut deposit ini biasanya untuk kereta second hand), 4 bulanan + LOAN x TAHUN, 5 agreement direct owner, 6 SPESIFIKASI (senarai ✓), 7 interior (tiada zoom, gambar ikut cue), 8 animasi 3 LANGKAH MUDAH (tandatangan, bayar cash/transfer, bawa balik kereta; car_side = gambar sisi), 9 penutup cta2 (deposit promo + dokumen + WhatsApp)",
   "_fit_width": "gambar menegak yang keretanya lebar (depan 3/4, depan, belakang 3/4): dipapar penuh dan dinaikkan supaya kereta tidak terpotong dan sarikata duduk di bawah kereta",
   "_cues": "perkataan dalam skrip interior yang menukar gambar (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
   "_skrip": "Token: perkataan | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Nombor, harga, tahun dan telefon dieja penuh dalam sebutan. Babak 1 buka dengan ayat hook (tawaran utama). Guna '.' bukan '!' kecuali hook; elakkan 'je'.",
   "_head": "jenis tajuk: hero (besar), hero-s (sederhana), label (kecil berjarak), price (harga dikira naik), tag (pil merah). 'specs' = senarai butiran kereta (title + checks), 'recap' = NAK VIEW KERETA? (guna cta.checks), 'cta' = kad WhatsApp.",
-  "_unit": "Contoh: Perodua Aruz Advance 2021 (putih)",
+  "_unit": "CONTOH: Toyota Corolla Cross 1.8 V (tukar untuk kereta baharu)",
   "_suara": "Suara: ElevenLabs Ashraf (voice id NHFTLozDZneDWyQjRGAO, model eleven_v4). Jana satu klip bagi setiap babak dan simpan sebagai assets/audio/<voice_dir>/el_<babak>.mp3. Klip yang ayatnya sama boleh disalin dari video lain.",
-  "src": "aruz2021",
+  "src": "ccross",
   "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "ccross_el",
   "photos": [
     [
-      "a21_01_depan34.jpg"
+      "cc_02_depan34.jpg"
     ],
     [
-      "a21_02_depan.jpg"
+      "cc_01_depan.jpg"
     ],
     [
-      "a21_03_belakang34.jpg"
+      "cc_03_belakang34.jpg"
     ],
     [
-      "a21_04_belakang.jpg"
+      "cc_05_belakang.jpg"
     ],
     [
-      "a21_05_stereng.jpg"
+      "cc_04_sisi.jpg"
     ],
     [
-      "a21_06_kabin.jpg"
+      "cc_10_dashboard.jpg"
     ],
     [
-      "a21_07_dashboard.jpg",
-      "a21_08_baris2.jpg",
-      "a21_09_baris3.jpg",
-      "a21_10_but.jpg"
+      "cc_09_kerusi_depan.jpg",
+      "cc_07_belakang_depan.jpg",
+      "cc_06_boot.jpg"
     ],
     [
-      "a21_03_belakang34.jpg"
+      "cc_03_belakang34.jpg"
     ],
     [
-      "a21_01_depan34.jpg"
+      "cc_02_depan34.jpg"
     ]
   ],
-  "fit_width": [
-    "a21_01_depan34.jpg",
-    "a21_02_depan.jpg",
-    "a21_03_belakang34.jpg"
-  ],
+  "fit_width": [],
   "cues": [
     null,
-    "Kemas",
-    "ada",
-    "Memang"
+    "belakang",
+    "boot"
   ],
   "script": [
     {
-      "vo": "*Deposit bawah *RM7K,|tujuh-ribu, dah boleh bawa balik SUV *7|tujuh seater! Ada satu unit ^Perodua ^Aruz ^Advance, *sambung *bayar *berdeposit.",
+      "vo": "Ini dia, unit yang *dinanti-nantikan! ^Toyota ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, untuk dijual secara *sambung *bayar.",
       "head": [
         [
-          "DEPOSIT BAWAH RM7K",
-          "hero-s",
+          "SAMBUNG BAYAR",
+          "hero",
           "pearl"
         ],
         [
-          "SAMBUNG BAYAR / LEASE TO OWN",
+          "LEASE TO OWN",
           "label",
           "silver"
         ],
         [
-          "SUV 7 SEATER",
+          "COROLLA CROSS 1.8 V",
           "tag",
           "pearl"
         ]
       ],
+      "studio": "cc_02_depan34.jpg",
       "move": "reveal",
       "trans": null
     },
     {
-      "vo": "^Perodua ^Aruz ^Advance, tahun *2021.|dua-ribu-dua-puluh-satu. SUV tujuh tempat duduk, memang selesa untuk keluarga.",
+      "vo": "^Toyota ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, warna putih. Kereta baru, jualan koyak plastik.",
       "head": [
         [
-          "PERODUA ARUZ",
+          "COROLLA CROSS",
           "hero",
           "silver"
         ],
         [
-          "ADVANCE 2021",
+          "TOYOTA 1.8 V",
           "label",
+          "pearl"
+        ],
+        [
+          "KOYAK PLASTIK",
+          "tag",
           "pearl"
         ]
       ],
@@ -93,7 +95,7 @@
       "trans": "whip-left"
     },
     {
-      "vo": "*Deposit? *RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.",
+      "vo": "*Deposit? *RM18,000|lapan-belas-ribu-ringgit sahaja. Ini *bawah *harga *pasaran, biasanya deposit macam ni untuk kereta second hand.",
       "head": [
         [
           "DEPOSIT",
@@ -101,16 +103,21 @@
           "silver"
         ],
         [
-          "RM6,988",
+          "RM18,000",
           "price",
           "red"
+        ],
+        [
+          "BAWAH HARGA PASARAN",
+          "tag",
+          "pearl"
         ]
       ],
       "move": "orbit",
       "trans": "flash"
     },
     {
-      "vo": "*Bulanan pula, *RM1,017.|seribu-tujuh-belas-ringgit. Baki *loan *8|lapan *tahun *7|tujuh *bulan.",
+      "vo": "*Bulanan pula, *RM1,512.|seribu-lima-ratus-dua-belas-ringgit. *Loan *9|sembilan *tahun.",
       "head": [
         [
           "BULANAN",
@@ -118,12 +125,12 @@
           "silver"
         ],
         [
-          "RM1,017",
+          "RM1,512",
           "price",
           "red"
         ],
         [
-          "LOAN 8 TAHUN 7 BULAN",
+          "LOAN 9 TAHUN",
           "tag",
           "pearl"
         ]
@@ -132,7 +139,7 @@
       "trans": "whip-up"
     },
     {
-      "vo": "Yang bestnya, ^agreement *terus *dengan *owner. *Roadtax dan *insurans pun dah siap, sampai *Jun *2027.|dua-ribu-dua-puluh-tujuh.",
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Toyota.",
       "head": [
         [
           "AGREEMENT",
@@ -145,7 +152,7 @@
           "pearl"
         ],
         [
-          "ROADTAX & INSURANS JUN 2027",
+          "WARRANTY TOYOTA",
           "tag",
           "pearl"
         ]
@@ -154,31 +161,31 @@
       "trans": "zoom"
     },
     {
-      "vo": "Mileage *111,000|seratus-sebelas-ribu kilometer, kereta ada di *Kuala *Lumpur.",
+      "vo": "Enjin *1.8,|satu-poin-lapan, kerusi kulit, ^Toyota ^Safety ^Sense, siap kamera *360.|tiga-ratus-enam-puluh-darjah.",
       "head": "specs",
-      "title": "BUTIRAN KERETA",
+      "title": "SPESIFIKASI",
       "checks": [
-        "Tahun 2021",
-        "Mileage 111K KM",
-        "Owner Melayu",
-        "Plate S** 4197",
-        "Due date 1hb",
-        "Lokasi Kuala Lumpur"
+        "Enjin 1.8L, lancar & selesa",
+        "Kerusi kulit premium",
+        "Kerusi pemandu elektrik",
+        "Skrin sentuh infotainment",
+        "Toyota Safety Sense (ADAS)",
+        "Kamera 360°"
       ],
       "move": "recap",
       "trans": "whip-left",
-      "min_beats": 10
+      "min_beats": 14
     },
     {
-      "vo": "Tengoklah interior dia. Kemas, ^selesa, ada ^tiga baris tempat duduk. Memang ngam untuk bawa ^family.",
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
       "head": [
         [
-          "INTERIOR KEMAS",
+          "INTERIOR PREMIUM",
           "hero-s",
           "pearl"
         ],
         [
-          "7 TEMPAT DUDUK",
+          "KERUSI KULIT",
           "label",
           "silver"
         ]
@@ -187,28 +194,44 @@
       "trans": "leak"
     },
     {
-      "vo": "Berminat dengan kereta ni?",
-      "head": "recap",
+      "vo": "Caranya senang. *Tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "3 LANGKAH MUDAH",
+      "amount": "RM18,000",
+      "car_side": "cc_04_sisi.jpg",
+      "steps": [
+        [
+          "Tandatangan perjanjian",
+          "Tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
       "move": "recap",
       "trans": "dip",
-      "min_beats": 8
+      "min_beats": 16
     },
     {
-      "vo": "*WhatsApp sekarang. *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Jangan tunggu lama.",
-      "head": "cta",
+      "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM18,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API"
+      ],
       "move": "cta",
       "trans": "zoom"
     }
   ],
   "cta": {
-    "meta": "Perodua Aruz Advance 2021",
-    "checks": [
-      "Deposit RM6,988",
-      "Bulanan RM1,017",
-      "Roadtax & insurans Jun 2027",
-      "Agreement direct owner"
-    ]
-  },
-  "voice": "elevenlabs",
-  "voice_dir": "aruz2021_el"
+    "meta": "Toyota Corolla Cross 1.8 V"
+  }
 }
