@@ -536,7 +536,7 @@ def make_html(scenes, total):
         inner = []
         if cfg.get("studio_trio"):  # hook with 3 colour choices: back-left, back-right, centre-front on one stage
             inner.append('<div class="studio"></div><div class="spot"></div><div class="sfloor"></div><div class="pool"></div>')
-            spots = [(50, 950, 480), (550, 950, 480), (220, 1225, 640)]  # (left, floor y, width) for cars 0,1,2
+            spots = [(110, 960, 450), (500, 960, 450), (220, 1225, 640)]  # (left, floor y, width) for cars 0,1,2
             order = [0, 1, 2]
             for k in order:
                 name, lab, cue = cfg["studio_trio"][k]
@@ -552,7 +552,7 @@ def make_html(scenes, total):
                     )
             inner.append(f'<div id="s{i}ssw" class="ssweep"></div><div id="s{i}dim" class="sdim"></div>')
             for k, (_, lab, _) in enumerate(cfg["studio_trio"]):  # one row of colour labels under the cars, above the dim layer
-                inner.append(f'<div id="s{i}cl{k}" class="clab" data-layout-allow-safe-zone style="left:{[90, 770, 430][k]}px;top:1262px">{esc(lab)}</div>')
+                inner.append(f'<div id="s{i}cl{k}" class="clab" data-layout-allow-safe-zone style="left:{[160, 700, 430][k]}px;top:1262px">{esc(lab)}</div>')
             b0 = s["start"]
             J(f'tl.fromTo("#s{i}dim",{{opacity:0.55}},{{opacity:0,duration:0.7,ease:"power2.out"}},0.05);')
             wt = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
