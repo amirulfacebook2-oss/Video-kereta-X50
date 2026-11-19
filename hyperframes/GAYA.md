@@ -130,7 +130,8 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
 | Proton X50 Executive Facelift 2026 (Quartz Black) | `videos/x50hitam.json` (hook "Jangan scroll dulu!", 4 langkah dengan semakan dokumen) |
 | Proton S70 Premium Facelift 2026 (3 warna: merah, silver, putih) | `videos/s70warna.json` (hook 3 warna, bulanan bawah RM1,100) |
-| Proton S70 Premium Facelift 2026 (silver) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
+| Proton S70 Premium Facelift 2026 (silver, gaya baharu) | `videos/s70silver2.json` (hook "Siapa cari sedan turbo?", kamera lembut) |
+| Proton S70 Premium Facelift 2026 (silver, lama) | `videos/s70silver.json` (hook SAMBUNG BAYAR / LEASE TO OWN di permulaan) |
 
 ### Sebutan tambahan
 
