@@ -116,6 +116,6 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 ## KL AUTO SB: video sambung bayar (baca dulu)
 
 Projek ini menghasilkan video promosi kereta KL AUTO SB. Gaya rasmi dan cara buat video kereta baharu ada dalam
-**`GAYA.md`**. Templat: `videos/contoh.json` (versi rasmi = `videos/ccross.json` Corolla Cross v3, suara ElevenLabs Ashraf).
+**`GAYA.md`**. Templat: `videos/contoh.json` (versi rasmi = `videos/x50putih3.json` X50 Snow White v4: tirai + cop, tanpa bunyi pembukaan, kamera lembut, suara ElevenLabs Ashraf).
 Bina: `python3 tools/build.py --video NAMA`, kemudian `./hf.sh check` dan `./hf.sh render --quality delivery -o renders/NAMA.mp4`.
 Ikut jadual "Sebutan tetap" dalam GAYA.md semasa menulis skrip.

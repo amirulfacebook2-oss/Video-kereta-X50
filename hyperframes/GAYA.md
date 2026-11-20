@@ -1,17 +1,38 @@
-# Gaya KL AUTO SB (satu-satunya gaya, versi 19 Nov 2026)
+# Gaya KL AUTO SB (satu-satunya gaya, versi 20 Nov 2026)
 
-Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. Versi rasmi ialah video
-**Toyota Corolla Cross 1.8 V v3 dengan suara Ashraf** (`renders/KLAUTOSB_Corolla_Cross_18V_v3.mp4`, `videos/ccross.json`),
-dengan animasi **4 langkah** (semakan dokumen dahulu) seperti video X50 Quartz Black (`videos/x50hitam.json`).
-Versi sebelum ini (Aruz 2021, `videos/aruz2021.json`) masih boleh dirujuk.
+Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. **Versi rasmi terkini ialah video
+Proton X50 Executive Snow White v4** (`renders/KLAUTOSB_X50_Snow_White_v4.mp4`, `videos/x50putih3.json`); templatnya `videos/contoh.json`.
+Semua unit seterusnya ikut gaya ini secara lalai:
 
-## Struktur rasmi (ikut video Corolla Cross)
+- **Pembukaan lalai: tirai + cop** (`hook_curtain` + `stamp`): skrin gelap dengan garis cahaya, tirai terbuka, gambar penuh (tidak dipotong), cop merah gaya storyboard dihentak bila disebut.
+  Ayat hook **berbeza setiap video**; tulisan SAMBUNG BAYAR / LEASE TO OWN / tag model sejak frame 0. Tiada baris warna (COLOR) dalam tajuk.
+- **Tanpa bunyi pembukaan** (`"intro_sfx": false`); hanya bunyi hentakan cop.
+- **Kamera lembut** (`"zoom": "soft"`) + `fit_width` untuk semua gambar luar kereta, stereng dan dashboard (gambar tidak terlalu zoom).
+- **Deposit:** tag **BAWAH MARKET**, suara *"Deposit? RMx sahaja. Ini bawah market."*
+- **Plate V:** tulis `plate V`, sebut "plate vi".
+- **Agreement beranimasi**, **animasi 4 langkah** (semakan dokumen dahulu), penutup `cta2` dengan `cta.meta` = model kereta.
+
+### Pilihan babak pembukaan (sedia ada)
+
+| Pilihan | Kunci | Bila guna |
+|---|---|---|
+| Tirai + cop (**lalai**) | `"hook_curtain": "depan34.jpg", "stamp": ["1 UNIT SAHAJA", "sahaja"]` | unit tunggal; teks cop boleh ditukar (cth "DEPOSIT RENDAH") |
+| Kad foto | `"hook_card": "depan34.jpg"` | gambar penuh dalam bingkai putih yang mendarat |
+| Studio | `"studio": "depan34.jpg"` | kereta dipotong atas pentas studio |
+| Studio 3 warna | `"studio_trio": [[gambar, LABEL, cue], ...]` | beberapa warna/unit sekali gus |
+
+Idea pembukaan yang belum dibina (boleh diminta bila-bila): lampu depan menyala, kilat kamera, harga dulu, skrin telefon (chat),
+kad foto berganda, koyak plastik. Contoh visual: `docs/idea_pembukaan_1.jpg` dan `docs/idea_pembukaan_2.jpg`.
+
+Versi lama (Corolla Cross, Aruz 2021) masih boleh dirujuk.
+
+## Struktur rasmi (ikut video X50 Snow White v4)
 
 | # | Babak | Isi |
 |---|---|---|
-| 1 | Hook studio (`"studio": "depan34.jpg"`) | Kereta sebenar dipotong atas pentas studio, lampu menyala. Tulisan **SAMBUNG BAYAR / LEASE TO OWN** + tag model sejak frame 0. Suara: ayat hook yang **berbeza setiap video** (cth *"Ini dia, unit yang dinanti-nantikan!"*, *"Jangan scroll dulu!"*) + *"<Model> untuk dijual secara sambung bayar."* + bunyi pembukaan |
+| 1 | Hook (lalai: tirai + cop; lihat pilihan di atas) | Tirai terbuka menunjukkan gambar penuh, cop dihentak bila disebut. Tulisan **SAMBUNG BAYAR / LEASE TO OWN** + tag model sejak frame 0. Suara: ayat hook yang **berbeza setiap video** (cth *"Satu unit sahaja!"*, *"Siapa cari sedan turbo?"*, *"Jangan scroll dulu!"*) + *"<Model> untuk dijual secara sambung bayar."* Tanpa bunyi pembukaan. |
 | 2 | Model | nama model, warna, keadaan (cth koyak plastik) |
-| 3 | Deposit | RMx dikira naik + tag **BAWAH HARGA PASARAN**. Suara: *"Deposit? RMx sahaja. Ini bawah harga pasaran, biasanya deposit macam ni untuk kereta second hand."* |
+| 3 | Deposit | RMx dikira naik + tag **BAWAH MARKET**. Suara: *"Deposit? RMx sahaja. Ini bawah market."* |
 | 4 | Bulanan | RMx + tag LOAN x TAHUN |
 | 5 | Agreement (animasi) | `"head": "agreement"`: ANDA ↔ dokumen AGREEMENT ↔ OWNER (garisan tersambung, ✓, "🤝 TERUS DENGAN OWNER"), kemudian chip ✓ muncul ikut perkataan (`steps`: insurans, roadtax, plat, warranty) |
 | 6 | Spesifikasi | `"head": "specs"`, 5–7 baris ✓ (hanya ciri yang ada pada unit) |

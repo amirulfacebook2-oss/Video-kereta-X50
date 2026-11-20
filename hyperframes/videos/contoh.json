@@ -1,48 +1,56 @@
 {
-  "_cara_guna": "TEMPLAT RASMI (versi 19 Nov 2026, berdasarkan video Corolla Cross 1.8 V). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran dan promo_price. Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
-  "_babak": "9 babak: 1 hook studio (kereta dipotong atas pentas studio; tulisan SAMBUNG BAYAR / LEASE TO OWN + tag model; suara: 'Ini dia, unit yang dinanti-nantikan! <MODEL> untuk dijual secara sambung bayar.'), 2 model, 3 deposit + tag BAWAH HARGA PASARAN (sebut deposit ini biasanya untuk kereta second hand), 4 bulanan + LOAN x TAHUN, 5 agreement direct owner, 6 SPESIFIKASI (senarai ✓), 7 interior (tiada zoom, gambar ikut cue), 8 animasi 4 LANGKAH MUDAH (semakan dokumen, tandatangan, bayar cash/transfer, bawa balik kereta; car_side = gambar sisi, car_flip: true jika kereta menghadap kanan), 9 penutup cta2 (deposit promo + dokumen + WhatsApp)",
+  "_cara_guna": "TEMPLAT RASMI (versi 20 Nov 2026, berdasarkan video X50 Snow White v4). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran, promo_price, amount dan cta.meta (model kereta). Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
+  "_babak": "9 babak: 1 hook tirai + cop (hook_curtain, stamp; ayat hook berbeza setiap video), 2 model + KOYAK PLASTIK, 3 deposit + tag BAWAH MARKET ('Ini bawah market.'), 4 bulanan + LOAN x TAHUN, 5 agreement beranimasi (head agreement: insurans, roadtax, plate V, warranty), 6 SPESIFIKASI, 7 interior (cues), 8 animasi 4 LANGKAH MUDAH (semakan dokumen dahulu; car_flip jika kereta menghadap kanan), 9 penutup cta2",
   "_fit_width": "gambar menegak yang keretanya lebar (depan 3/4, depan, belakang 3/4): dipapar penuh dan dinaikkan supaya kereta tidak terpotong dan sarikata duduk di bawah kereta",
   "_cues": "perkataan dalam skrip interior yang menukar gambar (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
   "_skrip": "Token: perkataan | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Nombor, harga, tahun dan telefon dieja penuh dalam sebutan. Babak 1 buka dengan ayat hook (tawaran utama). Guna '.' bukan '!' kecuali hook; elakkan 'je'.",
   "_head": "jenis tajuk: hero (besar), hero-s (sederhana), label (kecil berjarak), price (harga dikira naik), tag (pil merah). 'specs' = senarai butiran kereta (title + checks), 'recap' = NAK VIEW KERETA? (guna cta.checks), 'cta' = kad WhatsApp.",
-  "_unit": "CONTOH: Toyota Corolla Cross 1.8 V (tukar untuk kereta baharu)",
+  "_unit": "CONTOH: Proton X50 Executive Snow White (tukar untuk kereta baharu)",
   "_suara": "Suara: ElevenLabs Ashraf (voice id NHFTLozDZneDWyQjRGAO, model eleven_v4). Jana satu klip bagi setiap babak dan simpan sebagai assets/audio/<voice_dir>/el_<babak>.mp3. Klip yang ayatnya sama boleh disalin dari video lain.",
-  "src": "ccross",
+  "_pembukaan": "Pilihan hook lain: studio, studio_trio (3 warna), hook_card (kad foto). Idea belum dibina: lihat docs/idea_pembukaan_*.jpg",
+  "src": "putih",
   "style": "v2",
   "voice": "elevenlabs",
-  "voice_dir": "ccross_el",
+  "voice_dir": "x50putih3_el",
   "photos": [
     [
-      "cc_02_depan34.jpg"
+      "putih_01_depan34.jpg"
     ],
     [
-      "cc_01_depan.jpg"
+      "putih_02_depan.jpg"
     ],
     [
-      "cc_03_belakang34.jpg"
+      "putih_03_belakang34.jpg"
     ],
     [
-      "cc_05_belakang.jpg"
+      "putih_05_belakang.jpg"
     ],
     [
-      "cc_04_sisi.jpg"
+      "putih_04_badge.jpg"
     ],
     [
-      "cc_10_dashboard.jpg"
+      "putih_06_dashboard.jpg"
     ],
     [
-      "cc_09_kerusi_depan.jpg",
-      "cc_07_belakang_depan.jpg",
-      "cc_06_boot.jpg"
+      "putih_08_tempat_duduk_depan.jpg",
+      "putih_09_tempat_duduk_belakang.jpg",
+      "putih_10_but.jpg"
     ],
     [
-      "cc_03_belakang34.jpg"
+      "putih_03_belakang34.jpg"
     ],
     [
-      "cc_02_depan34.jpg"
+      "putih_01_depan34.jpg"
     ]
   ],
-  "fit_width": [],
+  "fit_width": [
+    "putih_01_depan34.jpg",
+    "putih_02_depan.jpg",
+    "putih_03_belakang34.jpg",
+    "putih_05_belakang.jpg",
+    "putih_04_badge.jpg",
+    "putih_06_dashboard.jpg"
+  ],
   "cues": [
     null,
     "belakang",
@@ -50,7 +58,7 @@
   ],
   "script": [
     {
-      "vo": "Ini dia, unit yang *dinanti-nantikan! ^Toyota ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, untuk dijual secara *sambung *bayar.",
+      "vo": "*Satu *unit *sahaja! ^Proton ^X50|X-fifty ^Executive, warna ^snow ^white, untuk dijual secara *sambung *bayar.",
       "head": [
         [
           "SAMBUNG BAYAR",
@@ -63,25 +71,30 @@
           "silver"
         ],
         [
-          "COROLLA CROSS 1.8 V",
+          "PROTON X50 EXECUTIVE",
           "tag",
           "pearl"
         ]
       ],
-      "studio": "cc_02_depan34.jpg",
+      "hook_curtain": "putih_01_depan34.jpg",
+      "stamp": [
+        "1 UNIT SAHAJA",
+        "sahaja"
+      ],
+      "stamp_top": 900,
       "move": "reveal",
       "trans": null
     },
     {
-      "vo": "^Toyota ^Corolla ^Cross *1.8|satu-poin-lapan *V,|vi, warna putih. Kereta baru, jualan koyak plastik.",
+      "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
       "head": [
         [
-          "COROLLA CROSS",
+          "X50 EXECUTIVE",
           "hero",
           "silver"
         ],
         [
-          "TOYOTA 1.8 V",
+          "FACELIFT 2026",
           "label",
           "pearl"
         ],
@@ -95,7 +108,7 @@
       "trans": "whip-left"
     },
     {
-      "vo": "*Deposit? *RM18,000|lapan-belas-ribu-ringgit sahaja. Ini *bawah *harga *pasaran, biasanya deposit macam ni untuk kereta second hand.",
+      "vo": "*Deposit? *RM13,000|tiga-belas-ribu-ringgit sahaja. Ini *bawah *market.",
       "head": [
         [
           "DEPOSIT",
@@ -103,12 +116,12 @@
           "silver"
         ],
         [
-          "RM18,000",
+          "RM13,000",
           "price",
           "red"
         ],
         [
-          "BAWAH HARGA PASARAN",
+          "BAWAH MARKET",
           "tag",
           "pearl"
         ]
@@ -117,7 +130,7 @@
       "trans": "flash"
     },
     {
-      "vo": "*Bulanan pula, *RM1,512.|seribu-lima-ratus-dua-belas-ringgit. *Loan *9|sembilan *tahun.",
+      "vo": "*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
       "head": [
         [
           "BULANAN",
@@ -125,7 +138,7 @@
           "silver"
         ],
         [
-          "RM1,512",
+          "RM1,300",
           "price",
           "red"
         ],
@@ -139,7 +152,7 @@
       "trans": "whip-up"
     },
     {
-      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plat *V,|huruf-vi, siap *warranty ^Proton.",
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plate *V,|vi, siap *warranty ^Proton.",
       "head": "agreement",
       "move": "track",
       "trans": "zoom",
@@ -154,26 +167,26 @@
           "roadtax"
         ],
         [
-          "Plat V",
-          "plat"
+          "Plate V",
+          "plate"
         ],
         [
-          "Warranty Toyota",
+          "Warranty Proton",
           "warranty"
         ]
       ]
     },
     {
-      "vo": "Enjin *1.8,|satu-poin-lapan, kerusi kulit, ^Toyota ^Safety ^Sense, siap kamera *360.|tiga-ratus-enam-puluh-darjah.",
+      "vo": "Enjin *1.5|satu-poin-lima *turbo, skrin besar, meter digital, siap kawalan suara ^Hi ^Proton.",
       "head": "specs",
       "title": "SPESIFIKASI",
       "checks": [
-        "Enjin 1.8L, lancar & selesa",
-        "Kerusi kulit premium",
-        "Kerusi pemandu elektrik",
-        "Skrin sentuh infotainment",
-        "Toyota Safety Sense (ADAS)",
-        "Kamera 360°"
+        "Enjin 1.5L Turbo",
+        "Skrin infotainment besar",
+        "Meter digital penuh",
+        "Kawalan suara \"Hi Proton\"",
+        "Lampu LED depan & belakang",
+        "Sensor parkir belakang"
       ],
       "move": "recap",
       "trans": "whip-left",
@@ -183,12 +196,12 @@
       "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
       "head": [
         [
-          "INTERIOR PREMIUM",
+          "INTERIOR KEMAS",
           "hero-s",
           "pearl"
         ],
         [
-          "KERUSI KULIT",
+          "RUANG LUAS",
           "label",
           "silver"
         ]
@@ -200,8 +213,8 @@
       "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
       "head": "journey",
       "title": "4 LANGKAH MUDAH",
-      "amount": "RM18,000",
-      "car_side": "cc_04_sisi.jpg",
+      "amount": "RM13,000",
+      "car_side": "putih_01_depan34.jpg",
       "steps": [
         [
           "Semakan dokumen",
@@ -222,13 +235,14 @@
       ],
       "move": "recap",
       "trans": "dip",
-      "min_beats": 20
+      "min_beats": 20,
+      "car_flip": true
     },
     {
       "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
       "head": "cta2",
       "promo_label": "DEPOSIT",
-      "promo_price": "RM18,000",
+      "promo_price": "RM13,000",
       "docs": [
         "IC",
         "LESEN",
@@ -240,5 +254,7 @@
   ],
   "cta": {
     "meta": "<MODEL KERETA> (tukar setiap video)"
-  }
+  },
+  "zoom": "soft",
+  "intro_sfx": false
 }
