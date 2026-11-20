@@ -45,12 +45,14 @@ AUD = ASSETS / "audio" / "hitam"
 PH = ASSETS / "photos"
 ZOOM_SOFT = False
 INTRO_SFX = True
+SHOWROOM = None
+SOFT_BG = set()
 PHOTO_SRC = ROOT / "photos"
 
 
 def configure(name):
     """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
-    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT, INTRO_SFX
+    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT, INTRO_SFX, SHOWROOM, SOFT_BG
     v = VIDEOS[name] = load_video(name)
     if "script" in v:  # a different car: its own lines, headlines, moves and transitions
         SCRIPT = [dict(sc, photos=sc.get("photos", []), base_move=sc["move"], base_trans=sc.get("trans"),
@@ -59,6 +61,8 @@ def configure(name):
     VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
     ZOOM_SOFT = v.get("zoom") == "soft"
     INTRO_SFX = v.get("intro_sfx", True)
+    SHOWROOM = v.get("showroom")
+    SOFT_BG = set(v.get("soft_bg", []))
     AUD = ASSETS / "audio" / name
     PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
     custom = "script" in v
@@ -437,6 +441,23 @@ def extra_sfx(total, scenes):
 
 
 # --------------------------------------------------------------------- photos
+_REMBG = None
+
+
+def soften_background(im):
+    """Blur and slightly darken/desaturate everything except the car, using a rembg mask (feathered edge)."""
+    global _REMBG
+    from rembg import new_session, remove
+    _REMBG = _REMBG or new_session("isnet-general-use")
+    small = im.copy()
+    small.thumbnail((1600, 1600), Image.LANCZOS)
+    mask = remove(small, session=_REMBG, only_mask=True, post_process_mask=True).resize(im.size, Image.LANCZOS)
+    mask = mask.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(3))
+    blur = im.filter(ImageFilter.GaussianBlur(max(6, im.width // 220)))
+    blur = ImageEnhance.Color(ImageEnhance.Brightness(blur).enhance(0.8)).enhance(0.6)
+    return Image.composite(im, blur, mask)
+
+
 def make_photos():
     PH.mkdir(parents=True, exist_ok=True)
     for name in sorted({p for s in SCRIPT for p in s["photos"]}):
@@ -444,6 +465,8 @@ def make_photos():
         im = ImageEnhance.Contrast(im).enhance(1.05)
         if STYLE["photo_bright"] != 1.0:
             im = ImageEnhance.Brightness(im).enhance(STYLE["photo_bright"])
+        if name in SOFT_BG:  # soften the scene behind the car (depth-of-field look); car pixels stay untouched
+            im = soften_background(im)
         fg = im.copy()
         fg.thumbnail((2400, 2400), Image.LANCZOS)
         fg.save(PH / name, quality=90)
@@ -463,6 +486,10 @@ def make_cutouts():
                 need.add(sc[k])
         for name, _, _ in sc.get("studio_trio", []):
             need.add(name)
+        if SHOWROOM:
+            for k in ("showroom_car", "hook_curtain"):
+                if sc.get(k):
+                    need.add(sc[k])
     if not need:
         return
     from rembg import new_session, remove
@@ -532,6 +559,25 @@ PRE = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0
 POST = {"whip-left": 0.18, "whip-up": 0.18, "zoom": 0.2, "flash": 0.0, "dip": 0.0, "leak": 0.35, None: 0.0}
 
 
+def showroom_plate(i, cfg, name, inner):
+    """Real car (rembg cutout, pixels untouched) standing on the video's showroom backdrop, with shadow and floor reflection."""
+    cp = cut_path(name)
+    cw, ch = Image.open(HF / cp).size
+    w = cfg.get("car_w", 960)
+    h = int(w * ch / cw)
+    if h > 640:  # tall shots (front/rear on) are scaled down so the car keeps a sensible size
+        h = 640
+        w = int(h * cw / ch)
+    floor = cfg.get("car_floor", 1360)
+    inner.append(f'<img id="s{i}bg" class="bg" src="{SHOWROOM}" alt="" />')
+    inner.append(f'<div id="s{i}kb" class="kb"><div id="s{i}car" class="scar" style="left:{(1080 - w) // 2}px;width:{w}px;top:{floor - h}px;height:{h * 2}px">'
+                 f'<div class="cshadow" style="left:{w * 0.02:.0f}px;width:{w * 0.96:.0f}px;top:{h - 50}px;height:110px"></div>'
+                 f'<div class="ccontact" style="left:{w * 0.08:.0f}px;width:{w * 0.84:.0f}px;top:{h - 22}px"></div>'
+                 f'<img class="cimg" src="{cp}" style="width:{w}px;height:{h}px" alt="" />'
+                 f'<img class="crefl" src="{cp}" style="width:{w}px;top:{h}px;height:{h}px" alt="" /></div></div>'
+                 f'<div id="s{i}ssw" class="ssweep"></div>')
+
+
 def make_html(scenes, total):
     body, js = [], []
     J = js.append
@@ -545,8 +591,12 @@ def make_html(scenes, total):
         inner = []
         if cfg.get("hook_curtain"):  # hook: dark curtains part to reveal the real (uncropped) photo, then a stamp slams on
             ph = cfg["hook_curtain"]
-            inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
-            inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi" src="assets/photos/{ph}" alt="" /></div>')
+            if SHOWROOM:
+                showroom_plate(i, cfg, ph, inner)
+                J(f'tl.fromTo("#s{i}ssw",{{x:-1300}},{{x:1300,duration:1.2,ease:"power1.inOut"}},0.9);')
+            else:
+                inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
+                inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi" src="assets/photos/{ph}" alt="" /></div>')
             if cfg.get("curtain", True):
                 inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
             st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
@@ -569,6 +619,13 @@ def make_html(scenes, total):
                 tn = max(ts + 0.6, wt.get(hn[2].lower(), ts + 1.0))
                 J(f'tl.set("#s{i}hnote",{{opacity:0}},0);')
                 J(f'tl.fromTo("#s{i}hnote",{{opacity:0,y:30,scale:0.95}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"back.out(1.6)"}},{tn - 0.05:.3f});')
+        elif SHOWROOM and cfg.get("showroom_car"):  # exterior shot rebuilt on the showroom: car glides in, slow push, light sweep
+            showroom_plate(i, cfg, cfg["showroom_car"], inner)
+            b0 = s["start"]
+            J(f'tl.fromTo("#s{i}car",{{x:300,opacity:0}},{{x:0,opacity:1,duration:0.8,ease:"power3.out"}},{b0 + 0.05:.3f});')
+            J(f'tl.fromTo("#s{i}kb",{{scale:1}},{{scale:1.04,duration:{max(1.0, s["end"] - b0):.3f},ease:"none"}},{b0:.3f});')
+            J(f'tl.fromTo("#s{i}bg",{{scale:1.04}},{{scale:1,duration:{max(1.0, s["end"] - b0):.3f},ease:"none"}},{b0:.3f});')
+            J(f'tl.fromTo("#s{i}ssw",{{x:-1300}},{{x:1300,duration:1.2,ease:"power1.inOut"}},{b0 + 0.9:.3f});')
         elif cfg.get("hook_card"):  # hook: the real photo, uncropped, as a framed print that lands on its own blurred backdrop
             ph = cfg["hook_card"]
             iw, ih = Image.open(PH / ph).size
@@ -1291,6 +1348,7 @@ TEMPLATE = r"""<!doctype html>
       .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
                  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
       .sdim { position: absolute; inset: 0; background: #000; }
+      .ccontact { position: absolute; height: 36px; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.92), rgba(0,0,0,0) 75%); }
       .curl, .curr { position: absolute; top: 0; width: 541px; height: 1920px; background: linear-gradient(90deg, #07080b, #161922 85%, #232733); }
       .curl { left: 0; }
       .curr { right: 0; transform-origin: 100% 50%; background: linear-gradient(270deg, #07080b, #161922 85%, #232733); }

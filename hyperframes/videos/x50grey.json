@@ -73,16 +73,10 @@
         "WAJIB ADA DEPOSIT",
         "wajib"
       ],
-      "stamp_top": 600,
+      "stamp_top": 560,
       "move": "reveal",
       "trans": null,
-      "stamp_size": 60,
-      "hook_note": [
-        "Tiada deposit?",
-        "Tak perlu PM ya 🙏",
-        "Tiada"
-      ],
-      "note_top": 770
+      "stamp_size": 60
     },
     {
       "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
@@ -247,12 +241,7 @@
         "BIL AIR/API"
       ],
       "move": "cta",
-      "trans": "zoom",
-      "note": [
-        "WAJIB ADA DEPOSIT",
-        "Tiada deposit? Tak perlu PM ya 🙏",
-        "Pastikan"
-      ]
+      "trans": "zoom"
     }
   ],
   "cta": {
@@ -260,5 +249,11 @@
   },
   "zoom": "soft",
   "intro_sfx": false,
-  "_unit": "Proton X50 Executive Facelift 2026 Jade Grey"
+  "_unit": "Proton X50 Executive Facelift 2026 Jade Grey",
+  "soft_bg": [
+    "xg_01_depan.jpg",
+    "xg_02_belakang34.jpg",
+    "xg_03_depan34.jpg",
+    "xg_04_belakang.jpg"
+  ]
 }
