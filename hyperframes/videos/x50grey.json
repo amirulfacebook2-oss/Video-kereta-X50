@@ -11,13 +11,13 @@
       "xs_01_depan.jpg"
     ],
     [
-      "xs_02_depan34_kanan.jpg"
+      "xs_09_depan34_kanan_lebar.jpg"
     ],
     [
       "xs_04_belakang.jpg"
     ],
     [
-      "xs_02_depan34_kanan.jpg"
+      "xs_09_depan34_kanan_lebar.jpg"
     ],
     [
       "xs_08_stereng.jpg"
@@ -37,7 +37,7 @@
   "fit_width": [
     "xs_03_depan34_kiri.jpg",
     "xs_01_depan.jpg",
-    "xs_02_depan34_kanan.jpg",
+    "xs_09_depan34_kanan_lebar.jpg",
     "xs_04_belakang.jpg",
     "xs_08_stereng.jpg",
     "xs_05_boot.jpg"
@@ -121,7 +121,8 @@
         ]
       ],
       "move": "orbit",
-      "trans": "flash"
+      "trans": "flash",
+      "photo_top": 350
     },
     {
       "vo": "*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
