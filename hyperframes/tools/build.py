@@ -596,7 +596,8 @@ def make_html(scenes, total):
                 J(f'tl.fromTo("#s{i}ssw",{{x:-1300}},{{x:1300,duration:1.2,ease:"power1.inOut"}},0.9);')
             else:
                 inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
-                inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi" src="assets/photos/{ph}" alt="" /></div>')
+                pt = f' style="top:{cfg["photo_top"]}px"' if cfg.get("photo_top") else ""
+                inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi"{pt} src="assets/photos/{ph}" alt="" /></div>')
             if cfg.get("curtain", True):
                 inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
             st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
@@ -717,7 +718,8 @@ def make_html(scenes, total):
             if ph in FIT_W:
                 card_cls = "contain hi"
             inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
-            inner.append(f'<div id="s{i}kb" class="kb"><img class="{card_cls}" src="assets/photos/{ph}" alt="" /></div>')
+            pt = f' style="top:{cfg["photo_top"]}px"' if cfg.get("photo_top") else ""
+            inner.append(f'<div id="s{i}kb" class="kb"><img class="{card_cls}"{pt} src="assets/photos/{ph}" alt="" /></div>')
             if cfg["move"] in ("rise", "cta"):
                 inner.append(f'<div id="s{i}sw" class="sweep"></div>')
             d = s["end"] - s["start"] + POST[nxt]

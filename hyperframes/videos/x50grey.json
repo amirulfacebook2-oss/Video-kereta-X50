@@ -1,46 +1,46 @@
 {
-  "src": "x50grey",
+  "src": "x50grey2",
   "style": "v2",
   "voice": "elevenlabs",
   "voice_dir": "x50grey_el",
   "photos": [
     [
-      "xg_03_depan34.jpg"
+      "xs_03_depan34_kiri.jpg"
     ],
     [
-      "xg_01_depan.jpg"
+      "xs_01_depan.jpg"
     ],
     [
-      "xg_02_belakang34.jpg"
+      "xs_02_depan34_kanan.jpg"
     ],
     [
-      "xg_04_belakang.jpg"
+      "xs_04_belakang.jpg"
     ],
     [
-      "xg_09_stereng.jpg"
+      "xs_02_depan34_kanan.jpg"
     ],
     [
-      "xg_08_dashboard.jpg"
+      "xs_08_stereng.jpg"
     ],
     [
-      "xg_07_kabin.jpg",
-      "xg_06_baris2.jpg",
-      "xg_05_boot.jpg"
+      "xs_07_dashboard.jpg",
+      "xs_06_baris2.jpg",
+      "xs_05_boot.jpg"
     ],
     [
-      "xg_02_belakang34.jpg"
+      "xs_04_belakang.jpg"
     ],
     [
-      "xg_03_depan34.jpg"
+      "xs_03_depan34_kiri.jpg"
     ]
   ],
   "fit_width": [
-    "xg_03_depan34.jpg",
-    "xg_01_depan.jpg",
-    "xg_02_belakang34.jpg",
-    "xg_04_belakang.jpg",
-    "xg_09_stereng.jpg",
-    "xg_08_dashboard.jpg"
+    "xs_03_depan34_kiri.jpg",
+    "xs_01_depan.jpg",
+    "xs_02_depan34_kanan.jpg",
+    "xs_04_belakang.jpg",
+    "xs_08_stereng.jpg",
+    "xs_05_boot.jpg"
   ],
   "cues": [
     null,
@@ -67,7 +67,7 @@
           "pearl"
         ]
       ],
-      "hook_curtain": "xg_03_depan34.jpg",
+      "hook_curtain": "xs_03_depan34_kiri.jpg",
       "curtain": false,
       "stamp": [
         "WAJIB ADA DEPOSIT",
@@ -76,7 +76,8 @@
       "stamp_top": 560,
       "move": "reveal",
       "trans": null,
-      "stamp_size": 60
+      "stamp_size": 60,
+      "photo_top": 300
     },
     {
       "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
@@ -207,7 +208,7 @@
       "head": "journey",
       "title": "4 LANGKAH MUDAH",
       "amount": "RM13,000",
-      "car_side": "xg_03_depan34.jpg",
+      "car_side": "xs_03_depan34_kiri.jpg",
       "steps": [
         [
           "Semakan dokumen",
@@ -241,7 +242,8 @@
         "BIL AIR/API"
       ],
       "move": "cta",
-      "trans": "zoom"
+      "trans": "zoom",
+      "photo_top": 330
     }
   ],
   "cta": {
@@ -249,11 +251,5 @@
   },
   "zoom": "soft",
   "intro_sfx": false,
-  "_unit": "Proton X50 Executive Facelift 2026 Jade Grey",
-  "soft_bg": [
-    "xg_01_depan.jpg",
-    "xg_02_belakang34.jpg",
-    "xg_03_depan34.jpg",
-    "xg_04_belakang.jpg"
-  ]
+  "_unit": "Proton X50 Executive Facelift 2026 Jade Grey"
 }
