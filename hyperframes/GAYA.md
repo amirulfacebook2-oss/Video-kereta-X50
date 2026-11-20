@@ -12,6 +12,10 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Plate V:** tulis `plate V`, sebut "plate vi".
 - **Agreement beranimasi**, **animasi 4 langkah** (semakan dokumen dahulu), penutup `cta2` dengan `cta.meta` = model kereta.
 
+- **Peringatan deposit (lalai):** di permulaan video, cop **WAJIB ADA DEPOSIT** + kad kuning lembut *"Tiada deposit? Tak perlu PM ya 🙏"*
+  (`"stamp": ["WAJIB ADA DEPOSIT", "wajib"], "stamp_size": 60, "hook_note": [tajuk, ayat, cue]`), suara *"Ingat ya, wajib ada deposit. Tiada deposit, tak perlu PM."*
+  Penutup pun ada kad sama (`"note"` dalam babak `cta2`), suara *"Pastikan deposit dah sedia ya, tiada deposit tak perlu PM."* Tirai boleh ditutup dengan `"curtain": false`.
+
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |
@@ -154,6 +158,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
+| Proton X50 Executive Facelift 2026 (Jade Grey) | `videos/x50grey.json` (peringatan wajib ada deposit di awal + penutup, tanpa tirai) |
 | Proton X50 Executive Facelift 2026 (Snow White, tirai + cop) | `videos/x50putih3.json` |
 | Proton X50 Executive Facelift 2026 (Snow White, gaya baharu) | `videos/x50putih2.json` (hook kad foto, tanpa bunyi pembukaan) |
 | Proton X50 Executive Facelift 2026 (Quartz Black) | `videos/x50hitam.json` (hook "Jangan scroll dulu!", 4 langkah dengan semakan dokumen) |

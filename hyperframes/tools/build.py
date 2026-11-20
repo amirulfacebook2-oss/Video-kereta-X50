@@ -547,12 +547,14 @@ def make_html(scenes, total):
             ph = cfg["hook_curtain"]
             inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
             inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi" src="assets/photos/{ph}" alt="" /></div>')
-            inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
+            if cfg.get("curtain", True):
+                inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
             st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
-            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px">{esc(st_txt)}</div>')
-            J(f'tl.fromTo("#s{i}cln",{{opacity:1,scaleY:1}},{{opacity:0,scaleY:1.2,duration:0.3,ease:"power2.in"}},0.12);')
-            J(f'tl.fromTo("#s{i}cl",{{xPercent:0}},{{xPercent:-102,duration:0.8,ease:"power3.inOut"}},0.15);')
-            J(f'tl.fromTo("#s{i}cr",{{xPercent:0}},{{xPercent:102,duration:0.8,ease:"power3.inOut"}},0.15);')
+            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px;font-size:{cfg.get("stamp_size", 76)}px">{esc(st_txt)}</div>')
+            if cfg.get("curtain", True):
+                J(f'tl.fromTo("#s{i}cln",{{opacity:1,scaleY:1}},{{opacity:0,scaleY:1.2,duration:0.3,ease:"power2.in"}},0.12);')
+                J(f'tl.fromTo("#s{i}cl",{{xPercent:0}},{{xPercent:-102,duration:0.8,ease:"power3.inOut"}},0.15);')
+                J(f'tl.fromTo("#s{i}cr",{{xPercent:0}},{{xPercent:102,duration:0.8,ease:"power3.inOut"}},0.15);')
             J(f'tl.fromTo("#s{i}kb",{{scale:1.06}},{{scale:1.0,duration:1.2,ease:"power2.out"}},0.15);')
             J(f'tl.to("#s{i}kb",{{scale:1.03,duration:{max(1.0, s["end"] - 1.4):.3f},ease:"sine.inOut"}},1.35);')
             wt = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
@@ -561,6 +563,12 @@ def make_html(scenes, total):
             J(f'tl.fromTo("#s{i}stamp",{{opacity:0,scale:2.6,rotation:-18}},{{opacity:1,scale:1,rotation:-10,duration:0.22,ease:"power4.in"}},{ts:.3f});')
             J(f'tl.fromTo("#s{i}cam",{{x:0,y:0}},{{x:10,y:-6,duration:0.05,ease:"none",yoyo:true,repeat:5}},{ts + 0.22:.3f});')
             J(f'tl.set("#s{i}cam",{{x:0,y:0}},{ts + 0.55:.3f});')
+            if cfg.get("hook_note"):  # soft reminder card on the hook (e.g. deposit required), on its cue word
+                hn = cfg["hook_note"]
+                inner.append(f'<div id="s{i}hnote" class="c2note hnote" data-layout-allow-occlusion style="top:{cfg.get("note_top", 1250)}px"><b>{esc(hn[0])}</b><span>{esc(hn[1])}</span></div>')
+                tn = max(ts + 0.6, wt.get(hn[2].lower(), ts + 1.0))
+                J(f'tl.set("#s{i}hnote",{{opacity:0}},0);')
+                J(f'tl.fromTo("#s{i}hnote",{{opacity:0,y:30,scale:0.95}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"back.out(1.6)"}},{tn - 0.05:.3f});')
         elif cfg.get("hook_card"):  # hook: the real photo, uncropped, as a framed print that lands on its own blurred backdrop
             ph = cfg["hook_card"]
             iw, ih = Image.open(PH / ph).size
@@ -1091,6 +1099,7 @@ def process_js(J, s, cfg):
 def cta2_html(i, cfg):
     """Ending variant B: promo deposit + documents + WhatsApp card."""
     docs = "".join(f'<span id="d{i}c{k}" class="dchip">{esc(d)}</span>' for k, d in enumerate(cfg["docs"]))
+    note = (f'<div id="c2note" class="c2note"><b>{esc(cfg["note"][0])}</b><span>{esc(cfg["note"][1])}</span></div>' if cfg.get("note") else "")
     return f'''<div class="cta">
           <div class="line label c2lab"><span id="c2lab" class="pearl">{esc(cfg["promo_label"])}</span></div>
           <div class="line price c2price"><span id="c2price" class="red">{esc(cfg["promo_price"])}</span></div>
@@ -1102,7 +1111,7 @@ def cta2_html(i, cfg):
               <div id="ct_meta" class="cmeta">{esc(CTA["meta"])}</div>
             </div>
             <div id="ct_glint" class="glint"></div>
-          </div>
+          </div>{note}
         </div>'''
 
 
@@ -1125,6 +1134,9 @@ def cta2_js(J, s, cfg):
     J(f'tl.fromTo("#ct_ring2",{{scale:1,opacity:0.85}},{{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"}},{n2 - 0.05:.3f});')
     J(f'tl.fromTo("#ct_meta",{{opacity:0}},{{opacity:1,duration:0.5,ease:"power2.out"}},{n2 + 0.6:.3f});')
     J(f'tl.fromTo("#ct_glint",{{x:-220}},{{x:1000,duration:0.8,ease:"power2.inOut"}},{n2 + 1.2:.3f});')
+    if cfg.get("note"):  # soft reminder (e.g. deposit required) lands on its cue word
+        tn = next((x["t0"] for x in s["words"] if x["display"].strip(".,!?").lower() == cfg["note"][2].lower()), b + 2.0)
+        J(f'tl.fromTo("#c2note",{{opacity:0,y:30,scale:0.95}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"back.out(1.6)"}},{tn - 0.05:.3f});')
 
 
 def cta_html(i):
@@ -1258,6 +1270,11 @@ TEMPLATE = r"""<!doctype html>
       .dlab { font-family: var(--font-label); font-weight: 700; font-size: 26px; letter-spacing: .12em; color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.7)); }
       .dchip { font-weight: 700; font-size: 30px; color: #fff; padding: 8px 22px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
       .ccard.c2card { top: 640px; }
+      .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
+                background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+      .hnote { z-index: 9; }
+      .c2note b { display: block; font-weight: 800; font-size: 40px; letter-spacing: .02em; }
+      .c2note span { display: block; font-weight: 700; font-size: 30px; margin-top: 4px; }
       .studio { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 42% at 50% 40%, #4a5262 0%, #232833 45%, #0b0d12 100%); }
       .spot { position: absolute; left: 140px; top: -120px; width: 800px; height: 1400px; mix-blend-mode: screen;
               background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,0) 85%);
