@@ -1325,9 +1325,9 @@ TEMPLATE = r"""<!doctype html>
       .c2lab.label { font-size: 42px; letter-spacing: .2em; }
       .c2price { position: absolute; top: 330px; left: 120px; width: 840px; }
       .c2price.price { font-size: 150px; }
-      .c2docs { position: absolute; top: 548px; left: 120px; width: 840px; display: flex; gap: 14px; justify-content: center; align-items: center; }
+      .c2docs { position: absolute; top: 548px; left: 60px; width: 960px; display: flex; gap: 10px; justify-content: center; align-items: center; }
       .dlab { font-family: var(--font-label); font-weight: 700; font-size: 26px; letter-spacing: .12em; color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.7)); }
-      .dchip { font-weight: 700; font-size: 30px; color: #fff; padding: 8px 22px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
+      .dchip { white-space: nowrap; font-weight: 700; font-size: 27px; color: #fff; padding: 8px 18px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
       .ccard.c2card { top: 640px; }
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }

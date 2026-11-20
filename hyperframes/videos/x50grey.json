@@ -232,14 +232,15 @@
       "min_beats": 20
     },
     {
-      "vo": "Sediakan IC, lesen dan bil air atau api. *Pastikan deposit dah sedia ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
       "head": "cta2",
       "promo_label": "DEPOSIT",
       "promo_price": "RM13,000",
       "docs": [
         "IC",
         "LESEN",
-        "BIL AIR/API"
+        "BIL AIR/API",
+        "DEPOSIT"
       ],
       "move": "cta",
       "trans": "zoom",

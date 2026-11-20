@@ -91,9 +91,9 @@
       .c2lab.label { font-size: 42px; letter-spacing: .2em; }
       .c2price { position: absolute; top: 330px; left: 120px; width: 840px; }
       .c2price.price { font-size: 150px; }
-      .c2docs { position: absolute; top: 548px; left: 120px; width: 840px; display: flex; gap: 14px; justify-content: center; align-items: center; }
+      .c2docs { position: absolute; top: 548px; left: 60px; width: 960px; display: flex; gap: 10px; justify-content: center; align-items: center; }
       .dlab { font-family: var(--font-label); font-weight: 700; font-size: 26px; letter-spacing: .12em; color: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.7)); }
-      .dchip { font-weight: 700; font-size: 30px; color: #fff; padding: 8px 22px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
+      .dchip { white-space: nowrap; font-weight: 700; font-size: 27px; color: #fff; padding: 8px 18px; border-radius: 30px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.3); }
       .ccard.c2card { top: 640px; }
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
@@ -180,7 +180,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="80.593" data-width="1080" data-height="1920" data-fps="30" data-motion-blur="on">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="80.847" data-width="1080" data-height="1920" data-fps="30" data-motion-blur="on">
       <div id="s0" class="scene clip" data-start="0.000" data-duration="10.349" data-track-index="1" data-track-kind="graphics" style="z-index:10"><div id="s0cam" class="cam"><img id="s0bg" class="bg" src="assets/photos/bg_xs_03_depan34_kiri.jpg" alt="" /><div id="s0kb" class="kb"><img class="contain hi" style="top:300px" src="assets/photos/xs_03_depan34_kiri.jpg" alt="" /></div><div id="s0stamp" class="stamp" data-layout-allow-occlusion style="top:560px;font-size:60px">WAJIB ADA DEPOSIT</div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h0_0" class="pearl">SAMBUNG BAYAR</span></div><div class="line label"><span id="h0_1" class="silver">LEASE TO OWN</span></div><div class="line tag"><span id="h0_2" class="pearl">PROTON X50 EXECUTIVE</span></div></div></div></div>
       <div id="s1" class="scene clip" data-start="9.989" data-duration="8.316" data-track-index="2" data-track-kind="graphics" style="z-index:11"><div id="s1cam" class="cam"><img id="s1bg" class="bg" src="assets/photos/bg_xs_01_depan.jpg" alt="" /><div id="s1kb" class="kb"><img class="contain hi" src="assets/photos/xs_01_depan.jpg" alt="" /></div><div id="s1sw" class="sweep"></div><div class="shade"></div><div class="heads"><div class="line hero"><span id="h1_0" class="silver">X50 EXECUTIVE</span></div><div class="line label"><span id="h1_1" class="pearl">FACELIFT 2026</span></div><div class="line tag"><span id="h1_2" class="pearl">KOYAK PLASTIK</span></div></div></div></div>
       <div id="s2" class="scene clip" data-start="18.305" data-duration="5.265" data-track-index="1" data-track-kind="graphics" style="z-index:12"><div id="s2cam" class="cam"><img id="s2bg" class="bg" src="assets/photos/bg_xs_02_depan34_kanan.jpg" alt="" /><div id="s2kb" class="kb"><img class="contain hi" src="assets/photos/xs_02_depan34_kanan.jpg" alt="" /></div><div class="shade"></div><div class="heads"><div class="line label"><span id="h2_0" class="silver">DEPOSIT</span></div><div class="line price" style="margin:0 -100px"><span id="h2_1" class="red">RM13,000</span></div><div class="line tag"><span id="h2_2" class="pearl">BAWAH MARKET</span></div></div></div></div>
@@ -281,10 +281,10 @@
             <div id="j7lab" class="jlab"><span id="j7l0" class="jl">Semakan dokumen</span><span id="j7l1" class="jl">Tandatangan perjanjian</span><span id="j7l2" class="jl">Bayar deposit</span><span id="j7l3" class="jl">Terus bawa balik kereta!</span></div>
           </div>
         </div></div></div>
-      <div id="s8" class="scene clip" data-start="62.342" data-duration="18.251" data-track-index="1" data-track-kind="graphics" style="z-index:18"><div id="s8cam" class="cam"><img id="s8bg" class="bg" src="assets/photos/bg_xs_03_depan34_kiri.jpg" alt="" /><div id="s8kb" class="kb"><img class="contain hi" style="top:330px" src="assets/photos/xs_03_depan34_kiri.jpg" alt="" /></div><div id="s8sw" class="sweep"></div><div class="shade"></div><div class="cta">
+      <div id="s8" class="scene clip" data-start="62.342" data-duration="18.505" data-track-index="1" data-track-kind="graphics" style="z-index:18"><div id="s8cam" class="cam"><img id="s8bg" class="bg" src="assets/photos/bg_xs_03_depan34_kiri.jpg" alt="" /><div id="s8kb" class="kb"><img class="contain hi" style="top:330px" src="assets/photos/xs_03_depan34_kiri.jpg" alt="" /></div><div id="s8sw" class="sweep"></div><div class="shade"></div><div class="cta">
           <div class="line label c2lab"><span id="c2lab" class="pearl">DEPOSIT</span></div>
           <div class="line price c2price"><span id="c2price" class="red">RM13,000</span></div>
-          <div id="c2docs" class="c2docs"><span class="dlab">DOKUMEN:</span><span id="d8c0" class="dchip">IC</span><span id="d8c1" class="dchip">LESEN</span><span id="d8c2" class="dchip">BIL AIR/API</span></div>
+          <div id="c2docs" class="c2docs"><span class="dlab">DOKUMEN:</span><span id="d8c0" class="dchip">IC</span><span id="d8c1" class="dchip">LESEN</span><span id="d8c2" class="dchip">BIL AIR/API</span><span id="d8c3" class="dchip">DEPOSIT</span></div>
           <div id="ct_card" class="ccard c2card">
             <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div><div id="ct_ring2" class="ring"></div></div>
             <div class="ctext">
@@ -294,12 +294,12 @@
             <div id="ct_glint" class="glint"></div>
           </div>
         </div></div></div>
-      <div id="captions" class="clip" data-start="0" data-duration="80.593" data-track-index="5" data-track-kind="captions" data-layout-allow-safe-zone style="z-index:40"><div id="c0" class="grp"><span id="c0p" class="pill"><span class="w ">Nak</span> <span class="w red">sambung</span> <span class="w red">bayar</span> <span class="w silver">Proton</span></span></div><div id="c1" class="grp"><span id="c1p" class="pill"><span class="w silver">X50</span> <span class="w silver">Executive,</span></span></div><div id="c2" class="grp"><span id="c2p" class="pill"><span class="w ">warna</span> <span class="w silver">Jade</span> <span class="w silver">Grey?</span></span></div><div id="c3" class="grp"><span id="c3p" class="pill"><span class="w ">Ingat</span> <span class="w ">ya,</span></span></div><div id="c4" class="grp"><span id="c4p" class="pill"><span class="w red">wajib</span> <span class="w red">ada</span> <span class="w red">deposit.</span></span></div><div id="c5" class="grp"><span id="c5p" class="pill"><span class="w ">Tiada</span> <span class="w ">deposit,</span></span></div><div id="c6" class="grp"><span id="c6p" class="pill"><span class="w ">tak</span> <span class="w ">perlu</span> <span class="w ">PM.</span></span></div><div id="c7" class="grp"><span id="c7p" class="pill"><span class="w silver">Proton</span> <span class="w silver">X50</span> <span class="w silver">Executive</span></span></div><div id="c8" class="grp"><span id="c8p" class="pill"><span class="w silver">Facelift,</span> <span class="w ">model</span> <span class="w red">2026.</span></span></div><div id="c9" class="grp"><span id="c9p" class="pill"><span class="w ">Kereta</span> <span class="w ">baru,</span></span></div><div id="c10" class="grp"><span id="c10p" class="pill"><span class="w ">jualan</span> <span class="w ">koyak</span> <span class="w ">plastik.</span></span></div><div id="c11" class="grp"><span id="c11p" class="pill"><span class="w red">Deposit?</span></span></div><div id="c12" class="grp"><span id="c12p" class="pill"><span class="w red">RM13,000</span> <span class="w ">sahaja.</span></span></div><div id="c13" class="grp"><span id="c13p" class="pill"><span class="w ">Ini</span> <span class="w red">bawah</span> <span class="w red">market.</span></span></div><div id="c14" class="grp"><span id="c14p" class="pill"><span class="w red">Bulanan</span> <span class="w ">pula,</span> <span class="w red">RM1,300.</span></span></div><div id="c15" class="grp"><span id="c15p" class="pill"><span class="w red">Loan</span> <span class="w red">9</span> <span class="w red">tahun.</span></span></div><div id="c16" class="grp"><span id="c16p" class="pill"><span class="w ">Lebih</span> <span class="w ">menarik,</span></span></div><div id="c17" class="grp"><span id="c17p" class="pill"><span class="w silver">agreement</span> <span class="w red">direct</span> <span class="w red">terus</span></span></div><div id="c18" class="grp"><span id="c18p" class="pill"><span class="w red">dengan</span> <span class="w red">owner.</span></span></div><div id="c19" class="grp"><span id="c19p" class="pill"><span class="w ">Insurans,</span> <span class="w ">roadtax</span></span></div><div id="c20" class="grp"><span id="c20p" class="pill"><span class="w ">baharu,</span> <span class="w red">plate</span> <span class="w red">V,</span></span></div><div id="c21" class="grp"><span id="c21p" class="pill"><span class="w ">siap</span> <span class="w red">warranty</span> <span class="w silver">Proton.</span></span></div><div id="c22" class="grp"><span id="c22p" class="pill"><span class="w ">Enjin</span> <span class="w red">1.5</span> <span class="w red">turbo,</span></span></div><div id="c23" class="grp"><span id="c23p" class="pill"><span class="w ">skrin</span> <span class="w ">besar,</span></span></div><div id="c24" class="grp"><span id="c24p" class="pill"><span class="w ">meter</span> <span class="w ">digital,</span></span></div><div id="c25" class="grp"><span id="c25p" class="pill"><span class="w ">siap</span> <span class="w ">kawalan</span> <span class="w ">suara</span> <span class="w silver">Hi</span></span></div><div id="c26" class="grp"><span id="c26p" class="pill"><span class="w silver">Proton.</span></span></div><div id="c27" class="grp"><span id="c27p" class="pill"><span class="w ">Tengoklah</span> <span class="w ">interior</span> <span class="w ">dia.</span></span></div><div id="c28" class="grp"><span id="c28p" class="pill"><span class="w ">Kemas,</span> <span class="w silver">selesa,</span></span></div><div id="c29" class="grp"><span id="c29p" class="pill"><span class="w ">belakang</span> <span class="w ">pun</span> <span class="w silver">luas,</span></span></div><div id="c30" class="grp"><span id="c30p" class="pill"><span class="w ">boot</span> <span class="w ">pun</span> <span class="w ">besar.</span></span></div><div id="c31" class="grp"><span id="c31p" class="pill"><span class="w ">Caranya</span> <span class="w ">senang.</span></span></div><div id="c32" class="grp"><span id="c32p" class="pill"><span class="w red">Semak</span> <span class="w ">dokumen,</span></span></div><div id="c33" class="grp"><span id="c33p" class="pill"><span class="w red">tandatangan</span> <span class="w ">perjanjian,</span></span></div><div id="c34" class="grp"><span id="c34p" class="pill"><span class="w red">bayar</span> <span class="w ">deposit,</span></span></div><div id="c35" class="grp"><span id="c35p" class="pill"><span class="w ">dan</span> <span class="w ">terus</span> <span class="w ">boleh</span> <span class="w red">bawa</span></span></div><div id="c36" class="grp"><span id="c36p" class="pill"><span class="w ">balik</span> <span class="w ">kereta!</span></span></div><div id="c37" class="grp cta-pos"><span id="c37p" class="pill"><span class="w ">Sediakan</span> <span class="w ">IC,</span></span></div><div id="c38" class="grp cta-pos"><span id="c38p" class="pill"><span class="w ">lesen</span> <span class="w ">dan</span> <span class="w ">bil</span> <span class="w ">air</span> <span class="w ">atau</span> <span class="w ">api.</span></span></div><div id="c39" class="grp cta-pos"><span id="c39p" class="pill"><span class="w red">Pastikan</span> <span class="w ">deposit</span> <span class="w ">dah</span></span></div><div id="c40" class="grp cta-pos"><span id="c40p" class="pill"><span class="w ">sedia</span> <span class="w ">ya,</span></span></div><div id="c41" class="grp cta-pos"><span id="c41p" class="pill"><span class="w ">tiada</span> <span class="w ">deposit</span> <span class="w ">tak</span> <span class="w ">perlu</span> <span class="w ">PM.</span></span></div><div id="c42" class="grp cta-pos"><span id="c42p" class="pill"><span class="w red">WhatsApp</span> <span class="w ">sekarang,</span></span></div><div id="c43" class="grp cta-pos"><span id="c43p" class="pill"><span class="w red">017-203</span> <span class="w red">6099.</span></span></div><div id="c44" class="grp cta-pos"><span id="c44p" class="pill"><span class="w ">Siapa</span> <span class="w ">cepat,</span></span></div><div id="c45" class="grp cta-pos"><span id="c45p" class="pill"><span class="w ">dia</span> <span class="w ">dapat!</span></span></div></div>
-      <div id="bug" class="clip" data-start="0" data-duration="80.593" data-track-index="6" data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>
-      <div id="fx" class="clip" data-start="0" data-duration="80.593" data-track-index="7" data-track-kind="graphics" style="z-index:42"><div id="flash"></div><div id="dip"></div><div id="leak"></div></div>
-      <audio id="music" class="clip" src="assets/audio/x50grey/music.wav" data-start="0" data-duration="80.593" data-track-index="8"></audio>
-      <audio id="sfx" class="clip" src="assets/audio/x50grey/sfx.wav" data-start="0" data-duration="80.593" data-track-index="9"></audio>
-      <audio id="vo" class="clip" src="assets/audio/x50grey/vo.wav" data-start="0" data-duration="80.593" data-track-index="4"></audio>
+      <div id="captions" class="clip" data-start="0" data-duration="80.847" data-track-index="5" data-track-kind="captions" data-layout-allow-safe-zone style="z-index:40"><div id="c0" class="grp"><span id="c0p" class="pill"><span class="w ">Nak</span> <span class="w red">sambung</span> <span class="w red">bayar</span> <span class="w silver">Proton</span></span></div><div id="c1" class="grp"><span id="c1p" class="pill"><span class="w silver">X50</span> <span class="w silver">Executive,</span></span></div><div id="c2" class="grp"><span id="c2p" class="pill"><span class="w ">warna</span> <span class="w silver">Jade</span> <span class="w silver">Grey?</span></span></div><div id="c3" class="grp"><span id="c3p" class="pill"><span class="w ">Ingat</span> <span class="w ">ya,</span></span></div><div id="c4" class="grp"><span id="c4p" class="pill"><span class="w red">wajib</span> <span class="w red">ada</span> <span class="w red">deposit.</span></span></div><div id="c5" class="grp"><span id="c5p" class="pill"><span class="w ">Tiada</span> <span class="w ">deposit,</span></span></div><div id="c6" class="grp"><span id="c6p" class="pill"><span class="w ">tak</span> <span class="w ">perlu</span> <span class="w ">PM.</span></span></div><div id="c7" class="grp"><span id="c7p" class="pill"><span class="w silver">Proton</span> <span class="w silver">X50</span> <span class="w silver">Executive</span></span></div><div id="c8" class="grp"><span id="c8p" class="pill"><span class="w silver">Facelift,</span> <span class="w ">model</span> <span class="w red">2026.</span></span></div><div id="c9" class="grp"><span id="c9p" class="pill"><span class="w ">Kereta</span> <span class="w ">baru,</span></span></div><div id="c10" class="grp"><span id="c10p" class="pill"><span class="w ">jualan</span> <span class="w ">koyak</span> <span class="w ">plastik.</span></span></div><div id="c11" class="grp"><span id="c11p" class="pill"><span class="w red">Deposit?</span></span></div><div id="c12" class="grp"><span id="c12p" class="pill"><span class="w red">RM13,000</span> <span class="w ">sahaja.</span></span></div><div id="c13" class="grp"><span id="c13p" class="pill"><span class="w ">Ini</span> <span class="w red">bawah</span> <span class="w red">market.</span></span></div><div id="c14" class="grp"><span id="c14p" class="pill"><span class="w red">Bulanan</span> <span class="w ">pula,</span> <span class="w red">RM1,300.</span></span></div><div id="c15" class="grp"><span id="c15p" class="pill"><span class="w red">Loan</span> <span class="w red">9</span> <span class="w red">tahun.</span></span></div><div id="c16" class="grp"><span id="c16p" class="pill"><span class="w ">Lebih</span> <span class="w ">menarik,</span></span></div><div id="c17" class="grp"><span id="c17p" class="pill"><span class="w silver">agreement</span> <span class="w red">direct</span> <span class="w red">terus</span></span></div><div id="c18" class="grp"><span id="c18p" class="pill"><span class="w red">dengan</span> <span class="w red">owner.</span></span></div><div id="c19" class="grp"><span id="c19p" class="pill"><span class="w ">Insurans,</span> <span class="w ">roadtax</span></span></div><div id="c20" class="grp"><span id="c20p" class="pill"><span class="w ">baharu,</span> <span class="w red">plate</span> <span class="w red">V,</span></span></div><div id="c21" class="grp"><span id="c21p" class="pill"><span class="w ">siap</span> <span class="w red">warranty</span> <span class="w silver">Proton.</span></span></div><div id="c22" class="grp"><span id="c22p" class="pill"><span class="w ">Enjin</span> <span class="w red">1.5</span> <span class="w red">turbo,</span></span></div><div id="c23" class="grp"><span id="c23p" class="pill"><span class="w ">skrin</span> <span class="w ">besar,</span></span></div><div id="c24" class="grp"><span id="c24p" class="pill"><span class="w ">meter</span> <span class="w ">digital,</span></span></div><div id="c25" class="grp"><span id="c25p" class="pill"><span class="w ">siap</span> <span class="w ">kawalan</span> <span class="w ">suara</span> <span class="w silver">Hi</span></span></div><div id="c26" class="grp"><span id="c26p" class="pill"><span class="w silver">Proton.</span></span></div><div id="c27" class="grp"><span id="c27p" class="pill"><span class="w ">Tengoklah</span> <span class="w ">interior</span> <span class="w ">dia.</span></span></div><div id="c28" class="grp"><span id="c28p" class="pill"><span class="w ">Kemas,</span> <span class="w silver">selesa,</span></span></div><div id="c29" class="grp"><span id="c29p" class="pill"><span class="w ">belakang</span> <span class="w ">pun</span> <span class="w silver">luas,</span></span></div><div id="c30" class="grp"><span id="c30p" class="pill"><span class="w ">boot</span> <span class="w ">pun</span> <span class="w ">besar.</span></span></div><div id="c31" class="grp"><span id="c31p" class="pill"><span class="w ">Caranya</span> <span class="w ">senang.</span></span></div><div id="c32" class="grp"><span id="c32p" class="pill"><span class="w red">Semak</span> <span class="w ">dokumen,</span></span></div><div id="c33" class="grp"><span id="c33p" class="pill"><span class="w red">tandatangan</span> <span class="w ">perjanjian,</span></span></div><div id="c34" class="grp"><span id="c34p" class="pill"><span class="w red">bayar</span> <span class="w ">deposit,</span></span></div><div id="c35" class="grp"><span id="c35p" class="pill"><span class="w ">dan</span> <span class="w ">terus</span> <span class="w ">boleh</span> <span class="w red">bawa</span></span></div><div id="c36" class="grp"><span id="c36p" class="pill"><span class="w ">balik</span> <span class="w ">kereta!</span></span></div><div id="c37" class="grp cta-pos"><span id="c37p" class="pill"><span class="w ">Sediakan</span> <span class="w ">IC,</span></span></div><div id="c38" class="grp cta-pos"><span id="c38p" class="pill"><span class="w ">lesen,</span> <span class="w ">bil</span> <span class="w ">air</span> <span class="w ">atau</span> <span class="w ">api,</span></span></div><div id="c39" class="grp cta-pos"><span id="c39p" class="pill"><span class="w ">dan</span> <span class="w red">deposit.</span></span></div><div id="c40" class="grp cta-pos"><span id="c40p" class="pill"><span class="w red">Deposit</span> <span class="w red">wajib</span> <span class="w ">ya,</span></span></div><div id="c41" class="grp cta-pos"><span id="c41p" class="pill"><span class="w ">tiada</span> <span class="w ">deposit</span> <span class="w ">tak</span> <span class="w ">perlu</span> <span class="w ">PM.</span></span></div><div id="c42" class="grp cta-pos"><span id="c42p" class="pill"><span class="w red">WhatsApp</span> <span class="w ">sekarang,</span></span></div><div id="c43" class="grp cta-pos"><span id="c43p" class="pill"><span class="w red">017-203</span> <span class="w red">6099.</span></span></div><div id="c44" class="grp cta-pos"><span id="c44p" class="pill"><span class="w ">Siapa</span> <span class="w ">cepat,</span></span></div><div id="c45" class="grp cta-pos"><span id="c45p" class="pill"><span class="w ">dia</span> <span class="w ">dapat!</span></span></div></div>
+      <div id="bug" class="clip" data-start="0" data-duration="80.847" data-track-index="6" data-track-kind="graphics" data-layout-allow-safe-zone style="z-index:41"><span class="bar"></span><span class="bt">KL AUTO SB</span></div>
+      <div id="fx" class="clip" data-start="0" data-duration="80.847" data-track-index="7" data-track-kind="graphics" style="z-index:42"><div id="flash"></div><div id="dip"></div><div id="leak"></div></div>
+      <audio id="music" class="clip" src="assets/audio/x50grey/music.wav" data-start="0" data-duration="80.847" data-track-index="8"></audio>
+      <audio id="sfx" class="clip" src="assets/audio/x50grey/sfx.wav" data-start="0" data-duration="80.847" data-track-index="9"></audio>
+      <audio id="vo" class="clip" src="assets/audio/x50grey/vo.wav" data-start="0" data-duration="80.847" data-track-index="4"></audio>
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
@@ -438,8 +438,8 @@
       tl.fromTo("#j7yay",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.4,ease:"back.out(2)"},59.933);
       tl.fromTo("#dip",{opacity:0},{opacity:1,duration:0.25,ease:"power2.in"},52.123);
       tl.to("#dip",{opacity:0,duration:0.4,ease:"power2.out"},52.373);
-      tl.fromTo("#s8kb",{scale:1.000},{...{scale:1.018},duration:18.251,ease:"sine.inOut"},62.342);
-      tl.fromTo("#s8bg",{scale:1.0},{scale:1.05,duration:18.251,ease:"none"},62.342);
+      tl.fromTo("#s8kb",{scale:1.000},{...{scale:1.018},duration:18.505,ease:"sine.inOut"},62.342);
+      tl.fromTo("#s8bg",{scale:1.0},{scale:1.05,duration:18.505,ease:"none"},62.342);
       tl.fromTo("#s8sw",{x:-1300},{x:1300,duration:1.3,ease:"power1.inOut"},63.942);
       tl.fromTo("#c2lab",{yPercent:110},{yPercent:0,duration:0.5,ease:"power3.out"},62.642);
       tl.fromTo("#c2price",{yPercent:110,scale:0.9,opacity:0},{yPercent:0,scale:1,opacity:1,duration:0.5,ease:"back.out(1.5)"},62.992);
@@ -449,13 +449,14 @@
       tl.fromTo("#d8c0",{opacity:0,y:20,scale:0.8},{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2)"},64.042);
       tl.fromTo("#d8c1",{opacity:0,y:20,scale:0.8},{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2)"},64.292);
       tl.fromTo("#d8c2",{opacity:0,y:20,scale:0.8},{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2)"},64.542);
+      tl.fromTo("#d8c3",{opacity:0,y:20,scale:0.8},{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2)"},64.792);
       tl.fromTo("#ct_card",{opacity:0,y:50,scale:0.94},{opacity:1,y:0,scale:1,duration:0.6,ease:"back.out(1.4)"},64.742);
-      tl.fromTo("#ct_n1",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},71.846);
-      tl.fromTo("#ct_n2",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},73.762);
-      tl.fromTo("#ct_ring",{scale:1,opacity:0.85},{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"},71.846);
-      tl.fromTo("#ct_ring2",{scale:1,opacity:0.85},{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"},73.762);
-      tl.fromTo("#ct_meta",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},74.412);
-      tl.fromTo("#ct_glint",{x:-220},{x:1000,duration:0.8,ease:"power2.inOut"},75.012);
+      tl.fromTo("#ct_n1",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},71.836);
+      tl.fromTo("#ct_n2",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},73.817);
+      tl.fromTo("#ct_ring",{scale:1,opacity:0.85},{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"},71.836);
+      tl.fromTo("#ct_ring2",{scale:1,opacity:0.85},{scale:1.9,opacity:0,duration:0.9,ease:"power2.out"},73.817);
+      tl.fromTo("#ct_meta",{opacity:0},{opacity:1,duration:0.5,ease:"power2.out"},74.467);
+      tl.fromTo("#ct_glint",{x:-220},{x:1000,duration:0.8,ease:"power2.inOut"},75.067);
       tl.fromTo("#s7cam",{scale:1,opacity:1},{scale:1.6,opacity:0,duration:0.4,ease:"power2.in"},62.342);
       tl.fromTo("#s8cam",{scale:1.18,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"power2.out"},62.342);
       tl.set("#s7cam",{zIndex:2},62.342);
@@ -607,42 +608,42 @@
       tl.fromTo("#c36p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},58.743);
       tl.to("#c36",{opacity:0,duration:0.1,ease:"power2.in"},60.413);
       tl.set("#c36",{opacity:0,visibility:"hidden"},60.513);
-      tl.set("#c37",{opacity:1,visibility:"visible"},62.752);
-      tl.fromTo("#c37p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},62.752);
-      tl.to("#c37",{opacity:0,duration:0.1,ease:"power2.in"},63.426);
-      tl.set("#c37",{opacity:0,visibility:"hidden"},63.526);
-      tl.set("#c38",{opacity:1,visibility:"visible"},63.546);
-      tl.fromTo("#c38p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},63.546);
-      tl.to("#c38",{opacity:0,duration:0.1,ease:"power2.in"},65.403);
-      tl.set("#c38",{opacity:0,visibility:"hidden"},65.503);
-      tl.set("#c39",{opacity:1,visibility:"visible"},65.523);
-      tl.fromTo("#c39p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},65.523);
-      tl.to("#c39",{opacity:0,duration:0.1,ease:"power2.in"},67.099);
-      tl.set("#c39",{opacity:0,visibility:"hidden"},67.199);
-      tl.set("#c40",{opacity:1,visibility:"visible"},67.219);
-      tl.fromTo("#c40p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},67.219);
-      tl.to("#c40",{opacity:0,duration:0.1,ease:"power2.in"},67.723);
-      tl.set("#c40",{opacity:0,visibility:"hidden"},67.823);
-      tl.set("#c41",{opacity:1,visibility:"visible"},67.843);
-      tl.fromTo("#c41p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},67.843);
-      tl.to("#c41",{opacity:0,duration:0.1,ease:"power2.in"},69.992);
-      tl.set("#c41",{opacity:0,visibility:"hidden"},70.092);
-      tl.set("#c42",{opacity:1,visibility:"visible"},70.112);
-      tl.fromTo("#c42p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},70.112);
-      tl.to("#c42",{opacity:0,duration:0.1,ease:"power2.in"},71.696);
-      tl.set("#c42",{opacity:0,visibility:"hidden"},71.796);
-      tl.set("#c43",{opacity:1,visibility:"visible"},71.816);
-      tl.fromTo("#c43p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},71.816);
-      tl.to("#c43",{opacity:0,duration:0.1,ease:"power2.in"},75.368);
-      tl.set("#c43",{opacity:0,visibility:"hidden"},75.468);
-      tl.set("#c44",{opacity:1,visibility:"visible"},75.488);
-      tl.fromTo("#c44p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},75.488);
-      tl.to("#c44",{opacity:0,duration:0.1,ease:"power2.in"},76.472);
-      tl.set("#c44",{opacity:0,visibility:"hidden"},76.572);
-      tl.set("#c45",{opacity:1,visibility:"visible"},76.592);
-      tl.fromTo("#c45p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},76.592);
-      tl.to("#c45",{opacity:0,duration:0.1,ease:"power2.in"},78.212);
-      tl.set("#c45",{opacity:0,visibility:"hidden"},78.312);
+      tl.set("#c37",{opacity:1,visibility:"visible"},62.722);
+      tl.fromTo("#c37p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},62.722);
+      tl.to("#c37",{opacity:0,duration:0.1,ease:"power2.in"},63.402);
+      tl.set("#c37",{opacity:0,visibility:"hidden"},63.502);
+      tl.set("#c38",{opacity:1,visibility:"visible"},63.522);
+      tl.fromTo("#c38p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},63.522);
+      tl.to("#c38",{opacity:0,duration:0.1,ease:"power2.in"},65.424);
+      tl.set("#c38",{opacity:0,visibility:"hidden"},65.524);
+      tl.set("#c39",{opacity:1,visibility:"visible"},65.544);
+      tl.fromTo("#c39p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},65.544);
+      tl.to("#c39",{opacity:0,duration:0.1,ease:"power2.in"},66.415);
+      tl.set("#c39",{opacity:0,visibility:"hidden"},66.515);
+      tl.set("#c40",{opacity:1,visibility:"visible"},66.535);
+      tl.fromTo("#c40p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},66.535);
+      tl.to("#c40",{opacity:0,duration:0.1,ease:"power2.in"},67.969);
+      tl.set("#c40",{opacity:0,visibility:"hidden"},68.069);
+      tl.set("#c41",{opacity:1,visibility:"visible"},68.089);
+      tl.fromTo("#c41p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},68.089);
+      tl.to("#c41",{opacity:0,duration:0.1,ease:"power2.in"},70.213);
+      tl.set("#c41",{opacity:0,visibility:"hidden"},70.313);
+      tl.set("#c42",{opacity:1,visibility:"visible"},70.333);
+      tl.fromTo("#c42p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},70.333);
+      tl.to("#c42",{opacity:0,duration:0.1,ease:"power2.in"},71.686);
+      tl.set("#c42",{opacity:0,visibility:"hidden"},71.786);
+      tl.set("#c43",{opacity:1,visibility:"visible"},71.806);
+      tl.fromTo("#c43p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},71.806);
+      tl.to("#c43",{opacity:0,duration:0.1,ease:"power2.in"},75.456);
+      tl.set("#c43",{opacity:0,visibility:"hidden"},75.556);
+      tl.set("#c44",{opacity:1,visibility:"visible"},75.576);
+      tl.fromTo("#c44p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},75.576);
+      tl.to("#c44",{opacity:0,duration:0.1,ease:"power2.in"},76.546);
+      tl.set("#c44",{opacity:0,visibility:"hidden"},76.646);
+      tl.set("#c45",{opacity:1,visibility:"visible"},76.666);
+      tl.fromTo("#c45p",{opacity:0},{opacity:1,duration:0.14,ease:"power2.out"},76.666);
+      tl.to("#c45",{opacity:0,duration:0.1,ease:"power2.in"},78.322);
+      tl.set("#c45",{opacity:0,visibility:"hidden"},78.422);
       window.__timelines["main"] = tl;
       tl.seek(0);
     </script>

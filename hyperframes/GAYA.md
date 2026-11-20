@@ -12,6 +12,7 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Plate V:** tulis `plate V`, sebut "plate vi".
 - **Agreement beranimasi**, **animasi 4 langkah** (semakan dokumen dahulu), penutup `cta2` dengan `cta.meta` = model kereta.
 
+- **Dokumen penutup:** `docs` = IC, LESEN, BIL AIR/API, **DEPOSIT**; suara "Sediakan IC, lesen, bil air atau api, dan deposit. Deposit wajib ya, tiada deposit tak perlu PM."
 - **Peringatan deposit (lalai):** di permulaan video, cop **WAJIB ADA DEPOSIT** sahaja (tiada kad kuning; jangan terlalu banyak cop)
   (`"stamp": ["WAJIB ADA DEPOSIT", "wajib"], "stamp_size": 60`), suara *"Ingat ya, wajib ada deposit. Tiada deposit, tak perlu PM."*
   Penutup: suara *"Pastikan deposit dah sedia ya, tiada deposit tak perlu PM."* Tirai boleh ditutup dengan `"curtain": false`.
