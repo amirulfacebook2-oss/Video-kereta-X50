@@ -1279,8 +1279,8 @@ TEMPLATE = r"""<!doctype html>
       .curr { right: 0; transform-origin: 100% 50%; background: linear-gradient(270deg, #07080b, #161922 85%, #232733); }
       .curline { position: absolute; left: 537px; top: 0; width: 6px; height: 1920px; background: #fff; box-shadow: 0 0 30px 10px rgba(255,255,255,.55); }
       .stamp { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; padding: 14px 34px; border: 9px solid #e2232d; border-radius: 18px;
-               font-weight: 800; font-size: 76px; letter-spacing: .02em; color: #e2232d; background: rgba(255,255,255,.92); z-index: 8;
-               text-shadow: 0 2px 6px rgba(0,0,0,.35); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+               font-weight: 800; font-size: 76px; letter-spacing: .02em; color: #e2232d; background: transparent; z-index: 8;
+               text-shadow: 0 0 2px rgba(255,255,255,.6); filter: drop-shadow(0 3px 6px rgba(0,0,0,.45)); }
       .hcdim { position: absolute; inset: 0; background: rgba(11,13,18,.45); }
       .hcard { position: absolute; padding: 14px; background: #f6f5f1; border-radius: 22px; overflow: hidden; transform-origin: 50% 60%;
                box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 8px 18px rgba(0,0,0,.4); }
