@@ -414,6 +414,10 @@ def extra_sfx(total, scenes):
             A.place(out, sfx_ching(), ts[1] + 1.25, 0.8)               # payment success
             A.place(out, A.whoosh(1.0, up=False), ts[2] + 0.2, 0.5)     # car drives home
             A.place(out, sfx_ding(), ts[2] + 1.5, 0.6)
+        if cfg.get("hook_curtain"):  # stamp thud (same cue as the stamp animation)
+            cue = cfg.get("stamp", ["", "sahaja"])[1].lower()
+            ts = max(1.0, next((w["t0"] for w in s["words"] if w["display"].strip(".,!?").lower() == cue), 1.0))
+            A.place(out, A.impact(False), ts + 0.2, 0.9)
         if cfg["head"] == "agreement":
             A.place(out, sfx_pop(0.9), b + 1.75, 0.7)
             A.place(out, sfx_pop(1.1), b + 2.0, 0.6)
@@ -539,7 +543,25 @@ def make_html(scenes, total):
         dur = round(c1 - c0, 3)
         s["clip"] = (round(c0, 3), dur)
         inner = []
-        if cfg.get("hook_card"):  # hook: the real photo, uncropped, as a framed print that lands on its own blurred backdrop
+        if cfg.get("hook_curtain"):  # hook: dark curtains part to reveal the real (uncropped) photo, then a stamp slams on
+            ph = cfg["hook_curtain"]
+            inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
+            inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi" src="assets/photos/{ph}" alt="" /></div>')
+            inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
+            st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
+            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px">{esc(st_txt)}</div>')
+            J(f'tl.fromTo("#s{i}cln",{{opacity:1,scaleY:1}},{{opacity:0,scaleY:1.2,duration:0.3,ease:"power2.in"}},0.12);')
+            J(f'tl.fromTo("#s{i}cl",{{xPercent:0}},{{xPercent:-102,duration:0.8,ease:"power3.inOut"}},0.15);')
+            J(f'tl.fromTo("#s{i}cr",{{xPercent:0}},{{xPercent:102,duration:0.8,ease:"power3.inOut"}},0.15);')
+            J(f'tl.fromTo("#s{i}kb",{{scale:1.06}},{{scale:1.0,duration:1.2,ease:"power2.out"}},0.15);')
+            J(f'tl.to("#s{i}kb",{{scale:1.03,duration:{max(1.0, s["end"] - 1.4):.3f},ease:"sine.inOut"}},1.35);')
+            wt = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
+            ts = max(1.0, wt.get(st_cue.lower(), 1.0))
+            J(f'tl.set("#s{i}stamp",{{opacity:0}},0);')
+            J(f'tl.fromTo("#s{i}stamp",{{opacity:0,scale:2.6,rotation:-18}},{{opacity:1,scale:1,rotation:-10,duration:0.22,ease:"power4.in"}},{ts:.3f});')
+            J(f'tl.fromTo("#s{i}cam",{{x:0,y:0}},{{x:10,y:-6,duration:0.05,ease:"none",yoyo:true,repeat:5}},{ts + 0.22:.3f});')
+            J(f'tl.set("#s{i}cam",{{x:0,y:0}},{ts + 0.55:.3f});')
+        elif cfg.get("hook_card"):  # hook: the real photo, uncropped, as a framed print that lands on its own blurred backdrop
             ph = cfg["hook_card"]
             iw, ih = Image.open(PH / ph).size
             cw = cfg.get("card_w", 720)
@@ -1252,6 +1274,13 @@ TEMPLATE = r"""<!doctype html>
       .cshadow { position: absolute; left: 40px; width: 920px; height: 80px;
                  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.75), rgba(0,0,0,0) 70%); }
       .sdim { position: absolute; inset: 0; background: #000; }
+      .curl, .curr { position: absolute; top: 0; width: 541px; height: 1920px; background: linear-gradient(90deg, #07080b, #161922 85%, #232733); }
+      .curl { left: 0; }
+      .curr { right: 0; transform-origin: 100% 50%; background: linear-gradient(270deg, #07080b, #161922 85%, #232733); }
+      .curline { position: absolute; left: 537px; top: 0; width: 6px; height: 1920px; background: #fff; box-shadow: 0 0 30px 10px rgba(255,255,255,.55); }
+      .stamp { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; padding: 14px 34px; border: 9px solid #e2232d; border-radius: 18px;
+               font-weight: 800; font-size: 76px; letter-spacing: .02em; color: #e2232d; background: rgba(255,255,255,.92); z-index: 8;
+               text-shadow: 0 2px 6px rgba(0,0,0,.35); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
       .hcdim { position: absolute; inset: 0; background: rgba(11,13,18,.45); }
       .hcard { position: absolute; padding: 14px; background: #f6f5f1; border-radius: 22px; overflow: hidden; transform-origin: 50% 60%;
                box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 8px 18px rgba(0,0,0,.4); }

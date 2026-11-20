@@ -118,6 +118,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 - **Hook 3 warna (`"studio_trio"`):** 3 kereta sebenar (dipotong) atas satu pentas studio, satu baris label warna yang muncul bila setiap warna disebut. Format: `[[gambar, LABEL, perkataan cue], ...]` (kiri, kanan, tengah depan). Contoh: `videos/s70warna.json`.
 
 - **Hook kad foto (`"hook_card": "gambar.jpg"`):** gambar asal penuh (tidak dipotong) dalam bingkai putih yang jatuh dan mendarat, atas latar kabur gambar sama, dengan kilauan cahaya. `card_top`, `card_w` laras kedudukan. Pilihan jika tidak mahu studio.
+- **Hook tirai + cop (`"hook_curtain": "gambar.jpg"`, `"stamp": ["1 UNIT SAHAJA", "sahaja"]`):** skrin gelap dengan garis cahaya, tirai terbuka ke kiri dan kanan menunjukkan gambar penuh, kemudian cop merah dihentak (dengan gegaran dan bunyi hentakan) tepat bila perkataan cue disebut. `stamp_top` laras kedudukan cop. Contoh: `videos/x50putih3.json`.
 - **Tanpa bunyi pembukaan:** `"intro_sfx": false` dalam fail video.
 - **Deposit:** tag ringkas **BAWAH MARKET**, suara *"Ini bawah market."* (tanpa sebut kereta second hand).
 
@@ -132,6 +133,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
+| Proton X50 Executive Facelift 2026 (Snow White, tirai + cop) | `videos/x50putih3.json` |
 | Proton X50 Executive Facelift 2026 (Snow White, gaya baharu) | `videos/x50putih2.json` (hook kad foto, tanpa bunyi pembukaan) |
 | Proton X50 Executive Facelift 2026 (Quartz Black) | `videos/x50hitam.json` (hook "Jangan scroll dulu!", 4 langkah dengan semakan dokumen) |
 | Proton S70 Premium Facelift 2026 (3 warna: merah, silver, putih) | `videos/s70warna.json` (hook 3 warna, bulanan bawah RM1,100) |
