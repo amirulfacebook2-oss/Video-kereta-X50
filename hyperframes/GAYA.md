@@ -1,31 +1,28 @@
 # Gaya KL AUTO SB (satu-satunya gaya, versi 20 Nov 2026)
 
 Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. **Versi rasmi terkini ialah video
-Proton X50 Executive Snow White v4** (`renders/KLAUTOSB_X50_Snow_White_v4.mp4`, `videos/x50putih3.json`); templatnya `videos/contoh.json`.
+Proton X50 Executive Jade Grey v4** (`renders/KLAUTOSB_X50_Jade_Grey_v4.mp4`, `videos/x50grey.json`); templatnya `videos/contoh.json`.
 Semua unit seterusnya ikut gaya ini secara lalai:
 
-- **Pembukaan lalai: tirai + cop** (`hook_curtain` + `stamp`): skrin gelap dengan garis cahaya, tirai terbuka, gambar penuh (tidak dipotong), cop merah gaya storyboard dihentak bila disebut.
-  Ayat hook **berbeza setiap video**; tulisan SAMBUNG BAYAR / LEASE TO OWN / tag model sejak frame 0. Tiada baris warna (COLOR) dalam tajuk.
+- **Gambar:** gambar showroom yang disediakan pemilik (kereta atas lantai showroom gelap) dipakai **penuh, tidak dipotong** (`fit_width`).
+  `"photo_top"` pada babak menurunkan gambar supaya tulisan, cop atau kad tidak menutup kereta. Gambar depan 3/4 yang lebar sesuai untuk babak deposit/agreement.
+  Jika hanya ada gambar asal (luar), guna `"soft_bg"` untuk kaburkan latar. Latar showroom buatan (kereta dipotong) **tidak** digunakan.
+- **Pembukaan lalai:** ayat hook **berbeza setiap video** + cop **WAJIB ADA DEPOSIT** dihentak bila disebut (`hook_curtain` + `"curtain": false`,
+  `"stamp": ["WAJIB ADA DEPOSIT", "wajib"], "stamp_size": 60`). Suara: *"... Ingat ya, wajib ada deposit. Tiada deposit, tak perlu PM."*
+  Satu cop sahaja (tiada kad kuning). Tulisan SAMBUNG BAYAR / LEASE TO OWN / tag model sejak frame 0. Tiada baris warna (COLOR).
 - **Tanpa bunyi pembukaan** (`"intro_sfx": false`); hanya bunyi hentakan cop.
-- **Kamera lembut** (`"zoom": "soft"`) + `fit_width` untuk semua gambar luar kereta, stereng dan dashboard (gambar tidak terlalu zoom).
+- **Kamera lembut** (`"zoom": "soft"`).
 - **Deposit:** tag **BAWAH MARKET**, suara *"Deposit? RMx sahaja. Ini bawah market."*
 - **Plate V:** tulis `plate V`, sebut "plate vi".
-- **Agreement beranimasi**, **animasi 4 langkah** (semakan dokumen dahulu), penutup `cta2` dengan `cta.meta` = model kereta.
-
-- **Dokumen penutup:** `docs` = IC, LESEN, BIL AIR/API, **DEPOSIT**; suara "Sediakan IC, lesen, bil air atau api, dan deposit. Deposit wajib ya, tiada deposit tak perlu PM."
-- **Peringatan deposit (lalai):** di permulaan video, cop **WAJIB ADA DEPOSIT** sahaja (tiada kad kuning; jangan terlalu banyak cop)
-  (`"stamp": ["WAJIB ADA DEPOSIT", "wajib"], "stamp_size": 60`), suara *"Ingat ya, wajib ada deposit. Tiada deposit, tak perlu PM."*
-  Penutup: suara *"Pastikan deposit dah sedia ya, tiada deposit tak perlu PM."* Tirai boleh ditutup dengan `"curtain": false`.
-- **Latar showroom buatan (kereta dipotong):** sudah dicuba dan **tidak digunakan** (kereta nampak terapung).
-
-- **Gambar showroom (disediakan oleh pemilik):** gambar kereta yang sudah diedit ke latar showroom boleh terus diguna (`fit_width`, tidak dipotong). `"photo_top"` pada babak menurunkan gambar supaya cop/kad tidak menutup kereta. Contoh: `videos/x50grey.json` (`photos/x50grey2`).
-- **Kaburkan latar gambar asal (`"soft_bg": [gambar...]`):** latar belakang kereta dikaburkan dan digelapkan sedikit, kereta tidak diubah.
+- **Agreement beranimasi**, **animasi 4 langkah** (semakan dokumen dahulu).
+- **Penutup:** `docs` = IC, LESEN, BIL AIR/API, **DEPOSIT**; suara *"Sediakan IC, lesen, bil air atau api, dan deposit. Deposit wajib ya, tiada deposit tak perlu PM."*; `cta.meta` = model kereta.
 
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |
 |---|---|---|
-| Tirai + cop (**lalai**) | `"hook_curtain": "depan34.jpg", "stamp": ["1 UNIT SAHAJA", "sahaja"]` | unit tunggal; teks cop boleh ditukar (cth "DEPOSIT RENDAH") |
+| Cop WAJIB ADA DEPOSIT tanpa tirai (**lalai**) | `"hook_curtain": "depan34.jpg", "curtain": false, "stamp": ["WAJIB ADA DEPOSIT", "wajib"]` | semua unit |
+| Tirai + cop 1 UNIT SAHAJA | `"hook_curtain": "depan34.jpg", "stamp": ["1 UNIT SAHAJA", "sahaja"]` | unit tunggal; teks cop boleh ditukar (cth "DEPOSIT RENDAH") |
 | Kad foto | `"hook_card": "depan34.jpg"` | gambar penuh dalam bingkai putih yang mendarat |
 | Studio | `"studio": "depan34.jpg"` | kereta dipotong atas pentas studio |
 | Studio 3 warna | `"studio_trio": [[gambar, LABEL, cue], ...]` | beberapa warna/unit sekali gus |
@@ -35,7 +32,7 @@ kad foto berganda, koyak plastik. Contoh visual: `docs/idea_pembukaan_1.jpg` dan
 
 Versi lama (Corolla Cross, Aruz 2021) masih boleh dirujuk.
 
-## Struktur rasmi (ikut video X50 Snow White v4)
+## Struktur rasmi (ikut video X50 Jade Grey v4)
 
 | # | Babak | Isi |
 |---|---|---|
@@ -163,7 +160,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
-| Proton X50 Executive Facelift 2026 (Jade Grey) | `videos/x50grey.json` (gambar showroom, cop WAJIB ADA DEPOSIT di awal, tanpa tirai) |
+| Proton X50 Executive Facelift 2026 (Jade Grey) | `videos/x50grey.json` (**versi rasmi templat**: gambar showroom, cop WAJIB ADA DEPOSIT, deposit dalam dokumen) |
 | Proton X50 Executive Facelift 2026 (Snow White, tirai + cop) | `videos/x50putih3.json` |
 | Proton X50 Executive Facelift 2026 (Snow White, gaya baharu) | `videos/x50putih2.json` (hook kad foto, tanpa bunyi pembukaan) |
 | Proton X50 Executive Facelift 2026 (Quartz Black) | `videos/x50hitam.json` (hook "Jangan scroll dulu!", 4 langkah dengan semakan dokumen) |

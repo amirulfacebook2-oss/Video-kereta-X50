@@ -1,55 +1,55 @@
 {
-  "_cara_guna": "TEMPLAT RASMI (versi 20 Nov 2026, berdasarkan video X50 Snow White v4). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran, promo_price, amount dan cta.meta (model kereta). Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
-  "_babak": "9 babak: 1 hook tirai + cop (hook_curtain, stamp; ayat hook berbeza setiap video), 2 model + KOYAK PLASTIK, 3 deposit + tag BAWAH MARKET ('Ini bawah market.'), 4 bulanan + LOAN x TAHUN, 5 agreement beranimasi (head agreement: insurans, roadtax, plate V, warranty), 6 SPESIFIKASI, 7 interior (cues), 8 animasi 4 LANGKAH MUDAH (semakan dokumen dahulu; car_flip jika kereta menghadap kanan), 9 penutup cta2",
+  "_cara_guna": "TEMPLAT RASMI (versi 20 Nov 2026, berdasarkan video X50 Jade Grey v4). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran, promo_price, amount dan cta.meta (model kereta). Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
+  "_babak": "9 babak: 1 hook (ayat berbeza setiap video) + cop WAJIB ADA DEPOSIT, tanpa tirai, tanpa bunyi pembukaan; 2 model + KOYAK PLASTIK; 3 deposit + tag BAWAH MARKET; 4 bulanan + LOAN x TAHUN; 5 agreement beranimasi; 6 SPESIFIKASI; 7 interior (cues); 8 animasi 4 LANGKAH MUDAH; 9 penutup cta2 (docs termasuk DEPOSIT, suara 'deposit wajib, tiada deposit tak perlu PM'). Gambar showroom (dari pemilik) dipakai penuh dengan fit_width; photo_top turunkan gambar bila tulisan menutup kereta.",
   "_fit_width": "gambar menegak yang keretanya lebar (depan 3/4, depan, belakang 3/4): dipapar penuh dan dinaikkan supaya kereta tidak terpotong dan sarikata duduk di bawah kereta",
   "_cues": "perkataan dalam skrip interior yang menukar gambar (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
   "_skrip": "Token: perkataan | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Nombor, harga, tahun dan telefon dieja penuh dalam sebutan. Babak 1 buka dengan ayat hook (tawaran utama). Guna '.' bukan '!' kecuali hook; elakkan 'je'.",
   "_head": "jenis tajuk: hero (besar), hero-s (sederhana), label (kecil berjarak), price (harga dikira naik), tag (pil merah). 'specs' = senarai butiran kereta (title + checks), 'recap' = NAK VIEW KERETA? (guna cta.checks), 'cta' = kad WhatsApp.",
-  "_unit": "CONTOH: Proton X50 Executive Snow White (tukar untuk kereta baharu)",
+  "_unit": "CONTOH: Proton X50 Executive Jade Grey (tukar untuk kereta baharu)",
   "_suara": "Suara: ElevenLabs Ashraf (voice id NHFTLozDZneDWyQjRGAO, model eleven_v4). Jana satu klip bagi setiap babak dan simpan sebagai assets/audio/<voice_dir>/el_<babak>.mp3. Klip yang ayatnya sama boleh disalin dari video lain.",
   "_pembukaan": "Pilihan hook lain: studio, studio_trio (3 warna), hook_card (kad foto). Idea belum dibina: lihat docs/idea_pembukaan_*.jpg",
-  "src": "putih",
+  "src": "x50grey2",
   "style": "v2",
   "voice": "elevenlabs",
-  "voice_dir": "x50putih3_el",
+  "voice_dir": "x50grey_el",
   "photos": [
     [
-      "putih_01_depan34.jpg"
+      "xs_03_depan34_kiri.jpg"
     ],
     [
-      "putih_02_depan.jpg"
+      "xs_01_depan.jpg"
     ],
     [
-      "putih_03_belakang34.jpg"
+      "xs_09_depan34_kanan_lebar.jpg"
     ],
     [
-      "putih_05_belakang.jpg"
+      "xs_04_belakang.jpg"
     ],
     [
-      "putih_04_badge.jpg"
+      "xs_09_depan34_kanan_lebar.jpg"
     ],
     [
-      "putih_06_dashboard.jpg"
+      "xs_08_stereng.jpg"
     ],
     [
-      "putih_08_tempat_duduk_depan.jpg",
-      "putih_09_tempat_duduk_belakang.jpg",
-      "putih_10_but.jpg"
+      "xs_07_dashboard.jpg",
+      "xs_06_baris2.jpg",
+      "xs_05_boot.jpg"
     ],
     [
-      "putih_03_belakang34.jpg"
+      "xs_04_belakang.jpg"
     ],
     [
-      "putih_01_depan34.jpg"
+      "xs_03_depan34_kiri.jpg"
     ]
   ],
   "fit_width": [
-    "putih_01_depan34.jpg",
-    "putih_02_depan.jpg",
-    "putih_03_belakang34.jpg",
-    "putih_05_belakang.jpg",
-    "putih_04_badge.jpg",
-    "putih_06_dashboard.jpg"
+    "xs_03_depan34_kiri.jpg",
+    "xs_01_depan.jpg",
+    "xs_09_depan34_kanan_lebar.jpg",
+    "xs_04_belakang.jpg",
+    "xs_08_stereng.jpg",
+    "xs_05_boot.jpg"
   ],
   "cues": [
     null,
@@ -58,7 +58,7 @@
   ],
   "script": [
     {
-      "vo": "*Satu *unit *sahaja! ^Proton ^X50|X-fifty ^Executive, warna ^snow ^white, untuk dijual secara *sambung *bayar.",
+      "vo": "Nak *sambung *bayar ^Proton ^X50|X-fifty ^Executive, warna ^Jade ^Grey? Ingat ya, *wajib *ada *deposit. Tiada deposit, tak perlu PM.",
       "head": [
         [
           "SAMBUNG BAYAR",
@@ -76,14 +76,17 @@
           "pearl"
         ]
       ],
-      "hook_curtain": "putih_01_depan34.jpg",
+      "hook_curtain": "xs_03_depan34_kiri.jpg",
+      "curtain": false,
       "stamp": [
-        "1 UNIT SAHAJA",
-        "sahaja"
+        "WAJIB ADA DEPOSIT",
+        "wajib"
       ],
-      "stamp_top": 900,
+      "stamp_top": 560,
       "move": "reveal",
-      "trans": null
+      "trans": null,
+      "stamp_size": 60,
+      "photo_top": 300
     },
     {
       "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Kereta baru, jualan koyak plastik.",
@@ -127,7 +130,8 @@
         ]
       ],
       "move": "orbit",
-      "trans": "flash"
+      "trans": "flash",
+      "photo_top": 350
     },
     {
       "vo": "*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
@@ -214,7 +218,7 @@
       "head": "journey",
       "title": "4 LANGKAH MUDAH",
       "amount": "RM13,000",
-      "car_side": "putih_01_depan34.jpg",
+      "car_side": "xs_03_depan34_kiri.jpg",
       "steps": [
         [
           "Semakan dokumen",
@@ -235,21 +239,22 @@
       ],
       "move": "recap",
       "trans": "dip",
-      "min_beats": 20,
-      "car_flip": true
+      "min_beats": 20
     },
     {
-      "vo": "Sediakan IC, lesen dan bil air atau api. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
       "head": "cta2",
       "promo_label": "DEPOSIT",
       "promo_price": "RM13,000",
       "docs": [
         "IC",
         "LESEN",
-        "BIL AIR/API"
+        "BIL AIR/API",
+        "DEPOSIT"
       ],
       "move": "cta",
-      "trans": "zoom"
+      "trans": "zoom",
+      "photo_top": 330
     }
   ],
   "cta": {
