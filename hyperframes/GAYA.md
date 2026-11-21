@@ -17,6 +17,10 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Agreement beranimasi**, **animasi 4 langkah** (semakan dokumen dahulu).
 - **Penutup:** `docs` = IC, LESEN, BIL AIR/API, **DEPOSIT**; suara *"Sediakan IC, lesen, bil air atau api, dan deposit. Deposit wajib ya, tiada deposit tak perlu PM."*; `cta.meta` = model kereta.
 
+- **Hook syarat utama (`"hook_checks"`):** panel SYARAT UTAMA dengan ✓ Deposit RMx, IC, Lesen (setiap baris menyala bila disebut) + cop **DEPOSIT WAJIB RMx**.
+  Suara: *"Syarat utama sambung bayar, cuma deposit RMx, IC dan lesen sahaja. Yang serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. Tengok video ni sampai habis, dan fahamkan dulu ya."*
+  Penutup `docs` = IC, LESEN, DEPOSIT. Contoh: `videos/s70v2.json`.
+
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |
@@ -160,6 +164,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Perodua Aruz Advance 2019 (biru) | `videos/aruzbiru.json` |
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
+| Proton S70 Premium Facelift 2026 (3 warna, syarat utama) | `videos/s70v2.json` |
 | Proton X50 Executive Facelift 2026 (Jade Grey) | `videos/x50grey.json` (**versi rasmi templat**: gambar showroom, cop WAJIB ADA DEPOSIT, deposit dalam dokumen) |
 | Proton X50 Executive Facelift 2026 (Snow White, tirai + cop) | `videos/x50putih3.json` |
 | Proton X50 Executive Facelift 2026 (Snow White, gaya baharu) | `videos/x50putih2.json` (hook kad foto, tanpa bunyi pembukaan) |

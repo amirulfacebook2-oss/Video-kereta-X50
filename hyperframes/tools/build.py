@@ -418,6 +418,11 @@ def extra_sfx(total, scenes):
             A.place(out, sfx_ching(), ts[1] + 1.25, 0.8)               # payment success
             A.place(out, A.whoosh(1.0, up=False), ts[2] + 0.2, 0.5)     # car drives home
             A.place(out, sfx_ding(), ts[2] + 1.5, 0.6)
+        if cfg.get("hook_checks"):
+            wd = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
+            for k, (_, c) in enumerate(cfg["hook_checks"]):
+                if c.lower() in wd:
+                    A.place(out, sfx_pop(1.1 + 0.1 * k), wd[c.lower()], 0.7)
         if cfg.get("hook_curtain"):  # stamp thud (same cue as the stamp animation)
             cue = cfg.get("stamp", ["", "sahaja"])[1].lower()
             ts = max(1.0, next((w["t0"] for w in s["words"] if w["display"].strip(".,!?").lower() == cue), 1.0))
@@ -614,6 +619,14 @@ def make_html(scenes, total):
             J(f'tl.fromTo("#s{i}stamp",{{opacity:0,scale:2.6,rotation:-18}},{{opacity:1,scale:1,rotation:-10,duration:0.22,ease:"power4.in"}},{ts:.3f});')
             J(f'tl.fromTo("#s{i}cam",{{x:0,y:0}},{{x:10,y:-6,duration:0.05,ease:"none",yoyo:true,repeat:5}},{ts + 0.22:.3f});')
             J(f'tl.set("#s{i}cam",{{x:0,y:0}},{ts + 0.55:.3f});')
+            if cfg.get("hook_checks"):  # requirement checklist on the hook; each row ticks in on its cue word
+                rows = "".join(f'<div id="s{i}hc{k}" class="hcrow"><span class="ack">✓</span>{esc(txt)}</div>' for k, (txt, _) in enumerate(cfg["hook_checks"]))
+                inner.append(f'<div id="s{i}hcp" class="hcpanel" style="top:{cfg.get("checks_top", 520)}px"><div class="hctitle">{esc(cfg.get("checks_title", "SYARAT"))}</div>{rows}</div>')
+                tcs = [wt.get(c.lower(), 1.0 + 0.5 * k) for k, (_, c) in enumerate(cfg["hook_checks"])]
+                J(f'tl.set("#s{i}hcp",{{opacity:0}},0);')
+                J(f'tl.fromTo("#s{i}hcp",{{opacity:0,y:20}},{{opacity:1,y:0,duration:0.35,ease:"power3.out"}},{max(0.3, tcs[0] - 0.45):.3f});')
+                for k, tc in enumerate(tcs):
+                    J(f'tl.fromTo("#s{i}hc{k}",{{opacity:0.25,x:-24}},{{opacity:1,x:0,duration:0.3,ease:"power3.out"}},{tc - 0.05:.3f});')
             if cfg.get("hook_note"):  # soft reminder card on the hook (e.g. deposit required), on its cue word
                 hn = cfg["hook_note"]
                 inner.append(f'<div id="s{i}hnote" class="c2note hnote" data-layout-allow-occlusion style="top:{cfg.get("note_top", 1250)}px"><b>{esc(hn[0])}</b><span>{esc(hn[1])}</span></div>')
@@ -1332,6 +1345,10 @@ TEMPLATE = r"""<!doctype html>
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
       .hnote { z-index: 9; }
+      .hcpanel { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; z-index: 7; padding: 18px 34px 22px; border-radius: 26px;
+                 background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18); box-shadow: 0 14px 34px rgba(0,0,0,.5); }
+      .hctitle { font-weight: 800; font-size: 30px; letter-spacing: .2em; color: #d6dce4; text-align: center; margin-bottom: 8px; }
+      .hcrow { display: flex; align-items: center; gap: 16px; font-weight: 800; font-size: 46px; color: #fff; padding: 6px 0; white-space: nowrap; }
       .c2note b { display: block; font-weight: 800; font-size: 40px; letter-spacing: .02em; }
       .c2note span { display: block; font-weight: 700; font-size: 30px; margin-top: 4px; }
       .studio { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 42% at 50% 40%, #4a5262 0%, #232833 45%, #0b0d12 100%); }
