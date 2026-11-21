@@ -1,13 +1,14 @@
 # Gaya KL AUTO SB (satu-satunya gaya, versi 20 Nov 2026)
 
 Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. **Versi rasmi terkini ialah video
-Proton X50 Executive Jade Grey v4** (`renders/KLAUTOSB_X50_Jade_Grey_v4.mp4`, `videos/x50grey.json`); templatnya `videos/contoh.json`.
+Proton S70 3 warna v4** (`renders/KLAUTOSB_S70_3_Warna_Syarat_v4.mp4`, `videos/s70v2.json`); templatnya `videos/contoh.json`.
+Ia mengikut gaya X50 Jade Grey v4 di bawah, dengan **hook SYARAT UTAMA sebagai lalai** (untuk tapis penonton yang serius sahaja).
 Semua unit seterusnya ikut gaya ini secara lalai:
 
 - **Gambar:** gambar showroom yang disediakan pemilik (kereta atas lantai showroom gelap) dipakai **penuh, tidak dipotong** (`fit_width`).
   `"photo_top"` pada babak menurunkan gambar supaya tulisan, cop atau kad tidak menutup kereta. Gambar depan 3/4 yang lebar sesuai untuk babak deposit/agreement.
   Jika hanya ada gambar asal (luar), guna `"soft_bg"` untuk kaburkan latar. Latar showroom buatan (kereta dipotong) **tidak** digunakan.
-- **Pembukaan lalai:** ayat hook **berbeza setiap video** + cop **WAJIB ADA DEPOSIT** dihentak bila disebut (`hook_curtain` + `"curtain": false`,
+- **Pembukaan lalai (baru): hook SYARAT UTAMA** (lihat di bawah). Pilihan lama: ayat hook berbeza + cop **WAJIB ADA DEPOSIT** dihentak bila disebut (`hook_curtain` + `"curtain": false`,
   `"stamp": ["WAJIB ADA DEPOSIT", "wajib"], "stamp_size": 60`). Suara: *"... Ingat ya, wajib ada deposit. Tiada deposit, tak perlu PM."*
   Satu cop sahaja (tiada kad kuning). Tulisan SAMBUNG BAYAR / LEASE TO OWN / tag model sejak frame 0. Tiada baris warna (COLOR).
 - **Tanpa bunyi pembukaan** (`"intro_sfx": false`); hanya bunyi hentakan cop.
