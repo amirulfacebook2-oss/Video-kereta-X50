@@ -21,6 +21,9 @@ Semua unit seterusnya ikut gaya ini secara lalai:
   Suara: *"Syarat utama sambung bayar, cuma deposit RMx, IC dan lesen sahaja. Yang serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. Tengok video ni sampai habis, dan fahamkan dulu ya."*
   Penutup `docs` = IC, LESEN, DEPOSIT. Contoh: `videos/s70v2.json`.
 
+- **Pilihan warna (`"color_cars": [[gambar, LABEL, cue], ...]`, `color_top`):** kereta kecil sebenar (dipotong) dalam kad muncul satu demi satu bila warna disebut, dengan bunyi pop.
+- **Cop latar putih:** `"stamp_white": true` (tulisan dan bingkai merah atas latar putih).
+
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |

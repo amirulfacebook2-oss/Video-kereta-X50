@@ -418,6 +418,11 @@ def extra_sfx(total, scenes):
             A.place(out, sfx_ching(), ts[1] + 1.25, 0.8)               # payment success
             A.place(out, A.whoosh(1.0, up=False), ts[2] + 0.2, 0.5)     # car drives home
             A.place(out, sfx_ding(), ts[2] + 1.5, 0.6)
+        if cfg.get("color_cars"):
+            wd = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
+            for k, (_, _, c) in enumerate(cfg["color_cars"]):
+                if c.lower() in wd:
+                    A.place(out, sfx_pop(1.1 + 0.12 * k), wd[c.lower()], 0.7)
         if cfg.get("hook_checks"):
             wd = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
             for k, (_, c) in enumerate(cfg["hook_checks"]):
@@ -490,6 +495,8 @@ def make_cutouts():
             if sc.get(k):
                 need.add(sc[k])
         for name, _, _ in sc.get("studio_trio", []):
+            need.add(name)
+        for name, _, _ in sc.get("color_cars", []):
             need.add(name)
         if SHOWROOM:
             for k in ("showroom_car", "hook_curtain"):
@@ -606,7 +613,7 @@ def make_html(scenes, total):
             if cfg.get("curtain", True):
                 inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
             st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
-            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px;font-size:{cfg.get("stamp_size", 76)}px">{esc(st_txt)}</div>')
+            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px;font-size:{cfg.get("stamp_size", 76)}px{';background:rgba(255,255,255,.94)' if cfg.get("stamp_white") else ''}">{esc(st_txt)}</div>')
             if cfg.get("curtain", True):
                 J(f'tl.fromTo("#s{i}cln",{{opacity:1,scaleY:1}},{{opacity:0,scaleY:1.2,duration:0.3,ease:"power2.in"}},0.12);')
                 J(f'tl.fromTo("#s{i}cl",{{xPercent:0}},{{xPercent:-102,duration:0.8,ease:"power3.inOut"}},0.15);')
@@ -760,6 +767,16 @@ def make_html(scenes, total):
                 sw = s["start"] + (0.4 if cfg["move"] == "rise" else 1.4)
                 J(f'tl.fromTo("#s{i}sw",{{x:-1300}},{{x:1300,duration:1.3,ease:"power1.inOut"}},{sw:.3f});')
         inner.append('<div class="shade"></div>')
+        if cfg.get("color_cars"):  # small real-car cutouts pop in as each colour is spoken
+            wtc = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
+            n = len(cfg["color_cars"])
+            cards = ""
+            for k, (name, lab, cue) in enumerate(cfg["color_cars"]):
+                cards += (f'<div id="s{i}cc{k}" class="ccar"><img src="{cut_path(name)}" alt="" /><div class="cclab">{esc(lab)}</div></div>')
+                tc = wtc.get(cue.lower(), s["start"] + 2 + 0.5 * k)
+                J(f'tl.fromTo("#s{i}cc{k}",{{opacity:0,y:40,scale:0.6}},{{opacity:1,y:0,scale:1,duration:0.4,ease:"back.out(2)"}},{tc - 0.05:.3f});')
+            inner.append(f'<div id="s{i}ccrow" class="ccrow" style="top:{cfg.get("color_top", 450)}px">{cards}</div>')
+            J(f'tl.set("#s{i}ccrow .ccar",{{opacity:0}},{s["start"]:.3f});')
         if cfg["head"] == "cta":
             inner.append(cta_html(i))
             cta_js(J, s)
@@ -1345,6 +1362,11 @@ TEMPLATE = r"""<!doctype html>
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
       .hnote { z-index: 9; }
+      .ccrow { position: absolute; left: 30px; width: 1020px; display: flex; justify-content: center; gap: 18px; z-index: 6; }
+      .ccar { width: 320px; padding: 14px 10px 10px; border-radius: 24px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.2);
+              box-shadow: 0 10px 26px rgba(0,0,0,.5); text-align: center; }
+      .ccar img { width: 290px; height: 150px; object-fit: contain; display: block; margin: 0 auto; filter: drop-shadow(0 8px 10px rgba(0,0,0,.6)); }
+      .cclab { margin-top: 6px; font-weight: 800; font-size: 32px; letter-spacing: .1em; color: #fff; }
       .hcpanel { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; z-index: 7; padding: 18px 34px 22px; border-radius: 26px;
                  background: rgba(11,13,18,.78); border: 2px solid rgba(255,255,255,.18); box-shadow: 0 14px 34px rgba(0,0,0,.5); }
       .hctitle { font-weight: 800; font-size: 30px; letter-spacing: .2em; color: #d6dce4; text-align: center; margin-bottom: 8px; }

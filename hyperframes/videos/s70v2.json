@@ -77,7 +77,7 @@
         "DEPOSIT WAJIB RM12,000",
         "RM12,000"
       ],
-      "stamp_top": 930,
+      "stamp_top": 1010,
       "move": "reveal",
       "trans": null,
       "stamp_size": 50,
@@ -97,7 +97,8 @@
       ],
       "checks_title": "SYARAT UTAMA",
       "checks_top": 560,
-      "photo_top": 330
+      "photo_top": 330,
+      "stamp_white": true
     },
     {
       "vo": "^Proton ^S70|S-seventy ^Premium ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^putih, ^silver dan ^merah. Kereta baru, jualan koyak plastik.",
@@ -119,7 +120,26 @@
         ]
       ],
       "move": "rise",
-      "trans": "whip-left"
+      "trans": "whip-left",
+      "color_cars": [
+        [
+          "sv_06_putih_depan34.jpg",
+          "PUTIH",
+          "putih"
+        ],
+        [
+          "sv_08_silver_depan34.jpg",
+          "SILVER",
+          "silver"
+        ],
+        [
+          "sv_02_merah_depan34.jpg",
+          "MERAH",
+          "merah"
+        ]
+      ],
+      "color_top": 575,
+      "photo_top": 420
     },
     {
       "vo": "*Deposit *promo? *RM12,000|dua-belas-ribu-ringgit sahaja. Ini *bawah *market.",
