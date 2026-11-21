@@ -18,7 +18,7 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Penutup:** `docs` = IC, LESEN, BIL AIR/API, **DEPOSIT**; suara *"Sediakan IC, lesen, bil air atau api, dan deposit. Deposit wajib ya, tiada deposit tak perlu PM."*; `cta.meta` = model kereta.
 
 - **Hook syarat utama (`"hook_checks"`):** panel SYARAT UTAMA dengan ✓ Deposit RMx, IC, Lesen (setiap baris menyala bila disebut) + cop **DEPOSIT WAJIB RMx**.
-  Suara: *"Syarat utama sambung bayar, cuma deposit RMx, IC dan lesen sahaja. Yang serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. Tengok video ni sampai habis, dan fahamkan dulu ya."*
+  Suara: *"Syarat utama sambung bayar kereta <MODEL> ni, cuma deposit RMx, IC dan lesen sahaja. Yang serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. Tengok video ni sampai habis, dan fahamkan dulu ya."*
   Penutup `docs` = IC, LESEN, DEPOSIT. Contoh: `videos/s70v2.json`.
 
 - **Pilihan warna (`"color_cars": [[gambar, LABEL, cue], ...]`, `color_top`):** kereta kecil sebenar (dipotong) dalam kad muncul satu demi satu bila warna disebut, dengan bunyi pop.
