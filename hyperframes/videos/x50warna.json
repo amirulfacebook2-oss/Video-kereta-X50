@@ -1,0 +1,301 @@
+{
+  "src": "x50warna",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "x50warna_el",
+  "photos": [
+    [
+      "xw_13_grey_depan34.jpg"
+    ],
+    [
+      "xw_04_hitam_depan.jpg"
+    ],
+    [
+      "xw_02_putih_belakang34.jpg"
+    ],
+    [
+      "xw_06_hitam_belakang.jpg"
+    ],
+    [
+      "xw_14_grey_belakang.jpg"
+    ],
+    [
+      "xw_11_stereng.jpg"
+    ],
+    [
+      "xw_10_kokpit.jpg",
+      "xw_08_kerusi_depan.jpg",
+      "xw_09_baris2.jpg",
+      "xw_15_grey_boot.jpg"
+    ],
+    [
+      "xw_03_putih_boot.jpg"
+    ],
+    [
+      "xw_12_grey_depan.jpg"
+    ]
+  ],
+  "fit_width": [
+    "xw_04_hitam_depan.jpg",
+    "xw_02_putih_belakang34.jpg",
+    "xw_06_hitam_belakang.jpg",
+    "xw_03_putih_boot.jpg",
+    "xw_13_grey_depan34.jpg",
+    "xw_14_grey_belakang.jpg",
+    "xw_12_grey_depan.jpg",
+    "xw_11_stereng.jpg",
+    "xw_15_grey_boot.jpg"
+  ],
+  "cues": [
+    null,
+    "selesa",
+    "belakang",
+    "boot"
+  ],
+  "script": [
+    {
+      "vo": "*Syarat *utama *sambung *bayar kereta ^X50|X-fifty ^Executive ni, cuma *deposit *RM13,000,|tiga-belas-ribu-ringgit, *IC dan *lesen sahaja. Yang *serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. *Tengok video ni sampai *habis, dan fahamkan dulu ya.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "PROTON X50 EXECUTIVE 2026",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "hook_curtain": "xw_13_grey_depan34.jpg",
+      "curtain": false,
+      "stamp": [
+        "DEPOSIT WAJIB RM13,000",
+        "RM13,000"
+      ],
+      "stamp_top": 1010,
+      "move": "reveal",
+      "trans": null,
+      "stamp_size": 50,
+      "hook_checks": [
+        [
+          "Deposit RM13,000",
+          "RM13,000"
+        ],
+        [
+          "IC",
+          "IC"
+        ],
+        [
+          "Lesen",
+          "lesen"
+        ]
+      ],
+      "checks_title": "SYARAT UTAMA",
+      "checks_top": 560,
+      "stamp_white": true
+    },
+    {
+      "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^Jade ^Grey, ^Snow ^White dan ^Quartz ^Black. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "PROTON X50",
+          "hero",
+          "silver"
+        ],
+        [
+          "EXECUTIVE FACELIFT 2026",
+          "label",
+          "pearl"
+        ],
+        [
+          "3 PILIHAN WARNA",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left",
+      "color_cars": [
+        [
+          "xw_13_grey_depan34.jpg",
+          "JADE GREY",
+          "Jade"
+        ],
+        [
+          "xw_01_putih_depan.jpg",
+          "SNOW WHITE",
+          "Snow"
+        ],
+        [
+          "xw_05_hitam_depan34.jpg",
+          "QUARTZ BLACK",
+          "Quartz"
+        ]
+      ],
+      "color_top": 575,
+      "photo_top": 470
+    },
+    {
+      "vo": "*Deposit? *RM13,000|tiga-belas-ribu-ringgit sahaja. Ini *bawah *market.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM13,000",
+          "price",
+          "red"
+        ],
+        [
+          "BAWAH MARKET",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,300.|seribu-tiga-ratus-ringgit. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,300",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plate *V,|vi, siap *warranty ^Proton.",
+      "head": "agreement",
+      "move": "track",
+      "trans": "zoom",
+      "title": "DIRECT OWNER",
+      "steps": [
+        [
+          "Insurans baharu",
+          "Insurans"
+        ],
+        [
+          "Roadtax baharu",
+          "roadtax"
+        ],
+        [
+          "Plate V",
+          "plate"
+        ],
+        [
+          "Warranty Proton",
+          "warranty"
+        ]
+      ]
+    },
+    {
+      "vo": "Enjin *1.5|satu-poin-lima *turbo, skrin besar, meter digital, siap kawalan suara ^Hi ^Proton.",
+      "head": "specs",
+      "title": "SPESIFIKASI",
+      "checks": [
+        "Enjin 1.5L Turbo",
+        "Skrin infotainment besar",
+        "Meter digital penuh",
+        "Kawalan suara \"Hi Proton\"",
+        "Lampu LED depan & belakang",
+        "Sensor parkir belakang"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 14
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
+      "head": [
+        [
+          "INTERIOR KEMAS",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "RUANG LUAS",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "4 LANGKAH MUDAH",
+      "amount": "RM13,000",
+      "car_side": "xw_13_grey_depan34.jpg",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 20
+    },
+    {
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM13,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API",
+        "DEPOSIT"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Proton X50 Executive Facelift 2026"
+  },
+  "zoom": "soft",
+  "intro_sfx": false,
+  "_unit": "Proton X50 Executive Facelift 2026 (Jade Grey / Snow White / Quartz Black)",
+  "soft_bg": [
+    "xw_04_hitam_depan.jpg",
+    "xw_02_putih_belakang34.jpg",
+    "xw_06_hitam_belakang.jpg",
+    "xw_03_putih_boot.jpg"
+  ]
+}
