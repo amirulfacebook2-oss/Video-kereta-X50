@@ -8,7 +8,7 @@
       "sv_02_merah_depan34.jpg"
     ],
     [
-      "sv_06_putih_depan34.jpg"
+      "sv_07_silver_depan.jpg"
     ],
     [
       "sv_08_silver_depan34.jpg"
@@ -53,7 +53,7 @@
   ],
   "script": [
     {
-      "vo": "*Syarat *utama sambung bayar, cuma *deposit *RM12,000,|dua-belas-ribu-ringgit, *IC dan *lesen sahaja. Yang *serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. *Tengok video ni sampai *habis, dan fahamkan dulu ya.",
+      "vo": "*Syarat *utama ^S70|S-seventy ^Premium ni, cuma *deposit *RM12,000,|dua-belas-ribu-ringgit, *IC dan *lesen sahaja. Yang *serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. *Tengok video ni sampai *habis, dan fahamkan dulu ya.",
       "head": [
         [
           "SAMBUNG BAYAR",
@@ -66,7 +66,7 @@
           "silver"
         ],
         [
-          "PROTON S70 PREMIUM",
+          "PROTON S70 PREMIUM 2026",
           "tag",
           "pearl"
         ]
@@ -250,13 +250,14 @@
       "min_beats": 20
     },
     {
-      "vo": "Sediakan IC, lesen dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
       "head": "cta2",
       "promo_label": "DEPOSIT PROMO",
       "promo_price": "RM12,000",
       "docs": [
         "IC",
         "LESEN",
+        "BIL AIR/API",
         "DEPOSIT"
       ],
       "move": "cta",

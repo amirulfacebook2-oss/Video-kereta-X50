@@ -6,255 +6,262 @@
     "spoken": "Syarat",
     "style": "red",
     "t0": 0.03,
-    "t1": 0.434
+    "t1": 0.449
    },
    {
     "display": "utama",
     "spoken": "utama",
     "style": "red",
-    "t0": 0.434,
-    "t1": 0.784
+    "t0": 0.449,
+    "t1": 0.812
    },
    {
-    "display": "sambung",
-    "spoken": "sambung",
-    "style": null,
-    "t0": 0.784,
-    "t1": 1.242
+    "display": "S70",
+    "spoken": "S seventy",
+    "style": "silver",
+    "t0": 0.812,
+    "t1": 1.343
    },
    {
-    "display": "bayar,",
-    "spoken": "bayar,",
+    "display": "Premium",
+    "spoken": "Premium",
+    "style": "silver",
+    "t0": 1.343,
+    "t1": 1.818
+   },
+   {
+    "display": "ni,",
+    "spoken": "ni,",
     "style": null,
-    "t0": 1.242,
-    "t1": 1.946
+    "t0": 1.818,
+    "t1": 2.069
    },
    {
     "display": "cuma",
     "spoken": "cuma",
     "style": null,
-    "t0": 1.946,
-    "t1": 2.242
+    "t0": 2.069,
+    "t1": 2.617
    },
    {
     "display": "deposit",
     "spoken": "deposit",
     "style": "red",
-    "t0": 2.242,
-    "t1": 2.7
+    "t0": 2.617,
+    "t1": 3.091
    },
    {
     "display": "RM12,000,",
     "spoken": "dua belas ribu ringgit,",
     "style": "red",
-    "t0": 2.7,
-    "t1": 4.108
+    "t0": 3.091,
+    "t1": 4.533
    },
    {
     "display": "IC",
     "spoken": "IC",
     "style": "red",
-    "t0": 4.108,
-    "t1": 4.297
+    "t0": 4.533,
+    "t1": 4.728
    },
    {
     "display": "dan",
     "spoken": "dan",
     "style": null,
-    "t0": 4.297,
-    "t1": 4.539
+    "t0": 4.728,
+    "t1": 4.98
    },
    {
     "display": "lesen",
     "spoken": "lesen",
     "style": "red",
-    "t0": 4.539,
-    "t1": 4.889
+    "t0": 4.98,
+    "t1": 5.343
    },
    {
     "display": "sahaja.",
     "spoken": "sahaja.",
     "style": null,
-    "t0": 4.889,
-    "t1": 5.347
+    "t0": 5.343,
+    "t1": 5.818
    },
    {
     "display": "Yang",
     "spoken": "Yang",
     "style": null,
-    "t0": 5.347,
-    "t1": 5.643
+    "t0": 5.818,
+    "t1": 6.125
    },
    {
     "display": "serius",
     "spoken": "serius",
     "style": "red",
-    "t0": 5.643,
-    "t1": 6.567
+    "t0": 6.125,
+    "t1": 6.984
    },
    {
     "display": "dan",
     "spoken": "dan",
     "style": null,
-    "t0": 6.567,
-    "t1": 6.81
+    "t0": 6.984,
+    "t1": 7.235
    },
    {
     "display": "dah",
     "spoken": "dah",
     "style": null,
-    "t0": 6.81,
-    "t1": 7.052
+    "t0": 7.235,
+    "t1": 7.487
    },
    {
     "display": "ada",
     "spoken": "ada",
     "style": null,
-    "t0": 7.052,
-    "t1": 7.295
+    "t0": 7.487,
+    "t1": 7.738
    },
    {
     "display": "deposit,",
     "spoken": "deposit,",
     "style": null,
-    "t0": 7.295,
-    "t1": 7.806
+    "t0": 7.738,
+    "t1": 8.269
    },
    {
     "display": "baru",
     "spoken": "baru",
     "style": null,
-    "t0": 7.806,
-    "t1": 8.263
+    "t0": 8.269,
+    "t1": 8.576
    },
    {
     "display": "PM",
     "spoken": "PM",
     "style": null,
-    "t0": 8.263,
-    "t1": 8.451
+    "t0": 8.576,
+    "t1": 8.982
    },
    {
     "display": "ya.",
     "spoken": "ya.",
     "style": null,
-    "t0": 8.451,
-    "t1": 8.693
+    "t0": 8.982,
+    "t1": 9.233
    },
    {
     "display": "Kalau",
     "spoken": "Kalau",
     "style": null,
-    "t0": 8.693,
-    "t1": 9.044
+    "t0": 9.233,
+    "t1": 9.596
    },
    {
     "display": "tiada",
     "spoken": "tiada",
     "style": null,
-    "t0": 9.044,
-    "t1": 9.884
+    "t0": 9.596,
+    "t1": 10.439
    },
    {
     "display": "deposit,",
     "spoken": "deposit,",
     "style": null,
-    "t0": 9.884,
-    "t1": 10.395
+    "t0": 10.439,
+    "t1": 10.97
    },
    {
     "display": "tak",
     "spoken": "tak",
     "style": null,
-    "t0": 10.395,
-    "t1": 10.848
+    "t0": 10.97,
+    "t1": 11.222
    },
    {
     "display": "perlu",
     "spoken": "perlu",
     "style": null,
-    "t0": 10.848,
-    "t1": 11.198
+    "t0": 11.222,
+    "t1": 11.835
    },
    {
     "display": "PM",
     "spoken": "PM",
     "style": null,
-    "t0": 11.198,
-    "t1": 11.386
+    "t0": 11.835,
+    "t1": 12.03
    },
    {
     "display": "dulu.",
     "spoken": "dulu.",
     "style": null,
-    "t0": 11.386,
-    "t1": 11.737
+    "t0": 12.03,
+    "t1": 12.393
    },
    {
     "display": "Tengok",
     "spoken": "Tengok",
     "style": "red",
-    "t0": 11.737,
-    "t1": 12.601
+    "t0": 12.393,
+    "t1": 13.192
    },
    {
     "display": "video",
     "spoken": "video",
     "style": null,
-    "t0": 12.601,
-    "t1": 12.951
+    "t0": 13.192,
+    "t1": 13.556
    },
    {
     "display": "ni",
     "spoken": "ni",
     "style": null,
-    "t0": 12.951,
-    "t1": 13.139
+    "t0": 13.556,
+    "t1": 13.751
    },
    {
     "display": "sampai",
     "spoken": "sampai",
     "style": null,
-    "t0": 13.139,
-    "t1": 13.543
+    "t0": 13.751,
+    "t1": 14.17
    },
    {
     "display": "habis,",
     "spoken": "habis,",
     "style": "red",
-    "t0": 13.543,
-    "t1": 14.137
+    "t0": 14.17,
+    "t1": 14.589
    },
    {
     "display": "dan",
     "spoken": "dan",
     "style": null,
-    "t0": 14.137,
-    "t1": 14.38
+    "t0": 14.589,
+    "t1": 14.981
    },
    {
     "display": "fahamkan",
     "spoken": "fahamkan",
     "style": null,
-    "t0": 14.38,
-    "t1": 14.891
+    "t0": 14.981,
+    "t1": 15.511
    },
    {
     "display": "dulu",
     "spoken": "dulu",
     "style": null,
-    "t0": 14.891,
-    "t1": 15.188
+    "t0": 15.511,
+    "t1": 15.819
    },
    {
     "display": "ya.",
     "spoken": "ya.",
     "style": null,
-    "t0": 15.188,
-    "t1": 15.43
+    "t0": 15.819,
+    "t1": 16.07
    }
   ],
-  "duration": 15.6
+  "duration": 16.239979166666668
  },
  {
   "tokens": [
@@ -843,150 +850,178 @@
     "display": "Sediakan",
     "spoken": "Sediakan",
     "style": null,
-    "t0": 0.05,
-    "t1": 0.588
+    "t0": 0.01,
+    "t1": 0.553
    },
    {
     "display": "IC,",
     "spoken": "IC,",
     "style": null,
-    "t0": 0.588,
-    "t1": 0.843
+    "t0": 0.553,
+    "t1": 0.81
    },
    {
-    "display": "lesen",
-    "spoken": "lesen",
+    "display": "lesen,",
+    "spoken": "lesen,",
     "style": null,
-    "t0": 0.843,
-    "t1": 1.401
+    "t0": 0.81,
+    "t1": 1.499
+   },
+   {
+    "display": "bil",
+    "spoken": "bil",
+    "style": null,
+    "t0": 1.499,
+    "t1": 1.756
+   },
+   {
+    "display": "air",
+    "spoken": "air",
+    "style": null,
+    "t0": 1.756,
+    "t1": 2.203
+   },
+   {
+    "display": "atau",
+    "spoken": "atau",
+    "style": null,
+    "t0": 2.203,
+    "t1": 2.518
+   },
+   {
+    "display": "api,",
+    "spoken": "api,",
+    "style": null,
+    "t0": 2.518,
+    "t1": 2.832
    },
    {
     "display": "dan",
     "spoken": "dan",
     "style": null,
-    "t0": 1.401,
-    "t1": 1.656
+    "t0": 2.832,
+    "t1": 3.09
    },
    {
     "display": "deposit.",
     "spoken": "deposit.",
     "style": "red",
-    "t0": 1.656,
-    "t1": 2.194
+    "t0": 3.09,
+    "t1": 3.823
    },
    {
     "display": "Deposit",
     "spoken": "Deposit",
     "style": "red",
-    "t0": 2.194,
-    "t1": 2.676
+    "t0": 3.823,
+    "t1": 4.308
    },
    {
     "display": "wajib",
     "spoken": "wajib",
     "style": "red",
-    "t0": 2.676,
-    "t1": 3.484
+    "t0": 4.308,
+    "t1": 5.12
    },
    {
     "display": "ya,",
     "spoken": "ya,",
     "style": null,
-    "t0": 3.484,
-    "t1": 3.739
+    "t0": 5.12,
+    "t1": 5.377
    },
    {
     "display": "tiada",
     "spoken": "tiada",
     "style": null,
-    "t0": 3.739,
-    "t1": 4.107
+    "t0": 5.377,
+    "t1": 5.749
    },
    {
     "display": "deposit",
     "spoken": "deposit",
     "style": null,
-    "t0": 4.107,
-    "t1": 4.928
+    "t0": 5.749,
+    "t1": 6.575
    },
    {
     "display": "tak",
     "spoken": "tak",
     "style": null,
-    "t0": 4.928,
-    "t1": 5.183
+    "t0": 6.575,
+    "t1": 6.832
    },
    {
     "display": "perlu",
     "spoken": "perlu",
     "style": null,
-    "t0": 5.183,
-    "t1": 5.741
+    "t0": 6.832,
+    "t1": 7.363
    },
    {
     "display": "PM.",
     "spoken": "PM.",
     "style": null,
-    "t0": 5.741,
-    "t1": 5.996
+    "t0": 7.363,
+    "t1": 7.621
    },
    {
     "display": "WhatsApp",
     "spoken": "WhatsApp",
     "style": "red",
-    "t0": 5.996,
-    "t1": 6.904
+    "t0": 7.621,
+    "t1": 8.494
    },
    {
     "display": "sekarang,",
     "spoken": "sekarang,",
     "style": null,
-    "t0": 6.904,
-    "t1": 7.499
+    "t0": 8.494,
+    "t1": 9.094
    },
    {
     "display": "017-203",
     "spoken": "kosong satu tujuh, dua kosong tiga,",
     "style": "red",
-    "t0": 7.499,
-    "t1": 9.473
+    "t0": 9.094,
+    "t1": 11.075
    },
    {
     "display": "6099.",
     "spoken": "enam kosong sembilan sembilan.",
     "style": "red",
-    "t0": 9.473,
-    "t1": 11.217
+    "t0": 11.075,
+    "t1": 12.864
    },
    {
     "display": "Siapa",
     "spoken": "Siapa",
     "style": null,
-    "t0": 11.217,
-    "t1": 11.586
+    "t0": 12.864,
+    "t1": 13.525
    },
    {
     "display": "cepat,",
     "spoken": "cepat,",
     "style": null,
-    "t0": 11.586,
-    "t1": 12.36
+    "t0": 13.525,
+    "t1": 13.954
    },
    {
     "display": "dia",
     "spoken": "dia",
     "style": null,
-    "t0": 12.36,
-    "t1": 12.795
+    "t0": 13.954,
+    "t1": 14.401
    },
    {
     "display": "dapat!",
     "spoken": "dapat!",
     "style": null,
-    "t0": 12.795,
-    "t1": 13.22
+    "t0": 14.401,
+    "t1": 14.83
    }
   ],
-  "duration": 13.42
+  "duration": 15.03
  }
 ]
