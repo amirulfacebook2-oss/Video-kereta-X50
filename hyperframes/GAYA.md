@@ -26,7 +26,7 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Cop latar putih:** `"stamp_white": true` (tulisan dan bingkai merah atas latar putih).
 
 - **Kad deposit profesional (`"badge": [LABEL, NILAI, ayat kecil]`, `badge_top`) — LALAI BARU untuk hook:** garisan merah melintas, panel kaca gelap terbuka dari tengah,
-  label DEPOSIT WAJIB, angka dikira naik, ayat kecil (cth "Serius sahaja, sila PM") dan kilauan; bunyi whoosh + ka-ching. Ganti cop (pemilik mahu nampak profesional)
+  label DEPOSIT WAJIB, angka dikira naik, ayat kecil (cth "Ready deposit & serius sahaja PM"), panel rapat bawah tag (badge_top ~545) dan kilauan; bunyi whoosh + ka-ching. Ganti cop (pemilik mahu nampak profesional)
   dan tiada panel SYARAT UTAMA (IC & lesen cukup disebut dalam suara). Contoh: `videos/x50warna.json`.
 
 ### Pilihan babak pembukaan (sedia ada)

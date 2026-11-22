@@ -1414,13 +1414,13 @@ TEMPLATE = r"""<!doctype html>
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
       .hnote { z-index: 9; }
       .pbadge { position: absolute; left: 0; right: 0; margin: 0 auto; width: 660px; z-index: 8; overflow: hidden; text-align: center;
-                padding: 30px 40px 28px; border-radius: 28px; background: linear-gradient(160deg, rgba(20,23,30,.88), rgba(11,13,18,.80));
+                padding: 22px 36px 22px; border-radius: 26px; background: linear-gradient(160deg, rgba(20,23,30,.88), rgba(11,13,18,.80));
                 border: 1.5px solid rgba(255,255,255,.18); box-shadow: 0 24px 60px rgba(0,0,0,.55); backdrop-filter: blur(6px); }
       .pbar { position: absolute; left: 0; top: 0; width: 100%; height: 8px; background: #e2232d; transform-origin: 0 50%; }
       .plab { font-weight: 700; font-size: 32px; letter-spacing: .3em; color: #d6dce4; }
       .pvalw { overflow: hidden; margin-top: 4px; }
-      .pval { font-weight: 800; font-size: 118px; line-height: 1.05; color: #fff; }
-      .psub { margin-top: 10px; font-weight: 700; font-size: 30px; color: #fff; }
+      .pval { font-weight: 800; font-size: 100px; line-height: 1.05; color: #fff; }
+      .psub { margin-top: 6px; font-weight: 700; font-size: 32px; color: #fff; }
       .psub::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 6px; background: #25D366; margin-right: 12px; vertical-align: middle; }
       .pglint { position: absolute; top: 0; left: 0; width: 140px; height: 100%; transform: skewX(-20deg);
                 background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); }
