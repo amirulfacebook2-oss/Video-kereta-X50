@@ -1,0 +1,290 @@
+{
+  "src": "s70v2",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "s70v3_el",
+  "photos": [
+    [
+      "sv_02_merah_depan34.jpg"
+    ],
+    [
+      "sv_07_silver_depan.jpg"
+    ],
+    [
+      "sv_08_silver_depan34.jpg"
+    ],
+    [
+      "sv_16_merah_belakang.jpg"
+    ],
+    [
+      "sv_14_silver_belakang.jpg"
+    ],
+    [
+      "sv_09_stereng.jpg"
+    ],
+    [
+      "sv_10_kokpit.jpg",
+      "sv_04_kerusi_depan.jpg",
+      "sv_03_baris2.jpg"
+    ],
+    [
+      "sv_12_putih_belakang34.jpg"
+    ],
+    [
+      "sv_02_merah_depan34.jpg"
+    ]
+  ],
+  "fit_width": [
+    "sv_01_merah_depan.jpg",
+    "sv_02_merah_depan34.jpg",
+    "sv_05_putih_depan.jpg",
+    "sv_06_putih_depan34.jpg",
+    "sv_07_silver_depan.jpg",
+    "sv_08_silver_depan34.jpg",
+    "sv_09_stereng.jpg",
+    "sv_12_putih_belakang34.jpg",
+    "sv_14_silver_belakang.jpg",
+    "sv_16_merah_belakang.jpg"
+  ],
+  "cues": [
+    null,
+    "selesa",
+    "belakang"
+  ],
+  "script": [
+    {
+      "vo": "*Syarat *utama *sambung *bayar kereta ^S70|S-seventy ^Premium ni, cuma *deposit *RM12,000,|dua-belas-ribu-ringgit, *IC dan *lesen sahaja. Yang *serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. *Tengok video ni sampai *habis, dan fahamkan dulu ya.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "PROTON S70 PREMIUM 2026",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "hook_curtain": "sv_02_merah_depan34.jpg",
+      "curtain": false,
+      "stamp": [
+        "",
+        "RM12,000"
+      ],
+      "move": "reveal",
+      "trans": null,
+      "photo_top": 330,
+      "badge": [
+        "DEPOSIT WAJIB",
+        "RM12,000",
+        "Ready deposit & serius sahaja PM"
+      ],
+      "badge_top": 545
+    },
+    {
+      "vo": "^Proton ^S70|S-seventy ^Premium ^Facelift, model|mo-del *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^putih, ^silver dan ^merah. Kereta baru, jualan koyak plastik.",
+      "head": [
+        [
+          "PROTON S70",
+          "hero",
+          "silver"
+        ],
+        [
+          "PREMIUM FACELIFT 2026",
+          "label",
+          "pearl"
+        ],
+        [
+          "3 PILIHAN WARNA",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left",
+      "color_cars": [
+        [
+          "sv_06_putih_depan34.jpg",
+          "PUTIH",
+          "putih"
+        ],
+        [
+          "sv_08_silver_depan34.jpg",
+          "SILVER",
+          "silver"
+        ],
+        [
+          "sv_02_merah_depan34.jpg",
+          "MERAH",
+          "merah"
+        ]
+      ],
+      "color_top": 575,
+      "photo_top": 420
+    },
+    {
+      "vo": "*Deposit *promo? *RM12,000|dua-belas-ribu-ringgit sahaja. Ini *bawah *market.",
+      "head": [
+        [
+          "DEPOSIT PROMO",
+          "label",
+          "silver"
+        ],
+        [
+          "RM12,000",
+          "price",
+          "red"
+        ],
+        [
+          "BAWAH MARKET",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash"
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,088.|seribu-lapan-puluh-lapan-ringgit. *Loan *9|sembilan *tahun.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,088",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 9 TAHUN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up"
+    },
+    {
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Insurans, roadtax baharu, *plate *V,|vi, siap *warranty ^Proton.",
+      "head": "agreement",
+      "move": "track",
+      "trans": "zoom",
+      "title": "DIRECT OWNER",
+      "steps": [
+        [
+          "Insurans baharu",
+          "Insurans"
+        ],
+        [
+          "Roadtax baharu",
+          "roadtax"
+        ],
+        [
+          "Plate V",
+          "plate"
+        ],
+        [
+          "Warranty Proton",
+          "warranty"
+        ]
+      ]
+    },
+    {
+      "vo": "Enjin *1.5|satu-poin-lima *turbo, ada *kamera *reverse, *kerusi *kulit lagi.",
+      "head": "specs",
+      "title": "SPESIFIKASI",
+      "checks": [
+        "1.5 IGT Turbo 4 silinder",
+        "Kamera reverse",
+        "Rear tail light",
+        "Kerusi kulit"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 14
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas.",
+      "head": [
+        [
+          "INTERIOR PREMIUM",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "KERUSI KULIT",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "4 LANGKAH MUDAH",
+      "amount": "RM12,000",
+      "car_side": "sv_02_merah_depan34.jpg",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 20
+    },
+    {
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *012-297|kosong-satu-dua,-dua-sembilan-tujuh, *9744.|sembilan-tujuh-empat-empat. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT PROMO",
+      "promo_price": "RM12,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API",
+        "DEPOSIT"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Proton S70 Premium Facelift 2026",
+    "phone": "012-297 9744"
+  },
+  "zoom": "soft",
+  "intro_sfx": false,
+  "_unit": "Proton S70 Premium Facelift 2026 (putih/silver/merah)",
+  "soft_bg": [
+    "sv_01_merah_depan.jpg",
+    "sv_02_merah_depan34.jpg",
+    "sv_05_putih_depan.jpg",
+    "sv_06_putih_depan34.jpg",
+    "sv_07_silver_depan.jpg",
+    "sv_08_silver_depan34.jpg",
+    "sv_14_silver_belakang.jpg"
+  ]
+}
