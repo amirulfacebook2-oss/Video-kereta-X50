@@ -84,7 +84,7 @@
         "Ready deposit & serius sahaja PM"
       ],
       "badge_top": 545,
-      "photo_top": 564
+      "photo_top": 520
     },
     {
       "vo": "^Perodua ^Aruz ^Advance. Ada *dua *pilihan *warna, ^biru dan ^silver. SUV tujuh tempat duduk, memang ngam untuk keluarga.",
@@ -120,7 +120,7 @@
         ]
       ],
       "color_top": 575,
-      "photo_top": 564
+      "photo_top": 530
     },
     {
       "vo": "*Deposit? *RM6,988|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit sahaja. Ini *bawah *market.",
@@ -143,7 +143,7 @@
       ],
       "move": "orbit",
       "trans": "flash",
-      "photo_top": 564
+      "photo_top": 320
     },
     {
       "vo": "*Bulanan pula, *RM1,085.|seribu-lapan-puluh-lima-ringgit. Baki *loan *8|lapan *tahun *11|sebelas *bulan.",
@@ -166,7 +166,7 @@
       ],
       "move": "push",
       "trans": "whip-up",
-      "photo_top": 564
+      "photo_top": 300
     },
     {
       "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Siap *smart *warranty *5|lima *tahun, kereta ada di *Kuala *Lumpur.",
@@ -200,7 +200,7 @@
       "move": "recap",
       "trans": "whip-left",
       "min_beats": 14,
-      "photo_top": 564
+      "photo_top": 480
     },
     {
       "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
@@ -261,7 +261,7 @@
       ],
       "move": "cta",
       "trans": "zoom",
-      "photo_top": 564
+      "photo_top": 485
     }
   ],
   "cta": {
