@@ -5,7 +5,7 @@
   "voice_dir": "x50warna_el",
   "photos": [
     [
-      "xw_13_grey_depan34.jpg"
+      "xw_01_putih_depan.jpg"
     ],
     [
       "xw_04_hitam_depan.jpg"
@@ -44,7 +44,8 @@
     "xw_14_grey_belakang.jpg",
     "xw_12_grey_depan.jpg",
     "xw_11_stereng.jpg",
-    "xw_15_grey_boot.jpg"
+    "xw_15_grey_boot.jpg",
+    "xw_01_putih_depan.jpg"
   ],
   "cues": [
     null,
@@ -72,13 +73,13 @@
           "pearl"
         ]
       ],
-      "hook_curtain": "xw_13_grey_depan34.jpg",
+      "hook_curtain": "xw_01_putih_depan.jpg",
       "curtain": false,
       "stamp": [
         "DEPOSIT WAJIB RM13,000",
         "RM13,000"
       ],
-      "stamp_top": 1010,
+      "stamp_top": 860,
       "move": "reveal",
       "trans": null,
       "stamp_size": 50,
@@ -98,7 +99,8 @@
       ],
       "checks_title": "SYARAT UTAMA",
       "checks_top": 560,
-      "stamp_white": true
+      "stamp_white": true,
+      "photo_top": 430
     },
     {
       "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^Jade ^Grey, ^Snow ^White dan ^Quartz ^Black. Kereta baru, jualan koyak plastik.",
@@ -296,6 +298,7 @@
     "xw_04_hitam_depan.jpg",
     "xw_02_putih_belakang34.jpg",
     "xw_06_hitam_belakang.jpg",
-    "xw_03_putih_boot.jpg"
+    "xw_03_putih_boot.jpg",
+    "xw_01_putih_depan.jpg"
   ]
 }
