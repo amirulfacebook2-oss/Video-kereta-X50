@@ -431,7 +431,14 @@ def extra_sfx(total, scenes):
         if cfg.get("hook_curtain"):  # stamp thud (same cue as the stamp animation)
             cue = cfg.get("stamp", ["", "sahaja"])[1].lower()
             ts = max(1.0, next((w["t0"] for w in s["words"] if w["display"].strip(".,!?").lower() == cue), 1.0))
-            A.place(out, A.impact(False), ts + 0.2, 0.9)
+            if cfg.get("badge"):
+                A.place(out, A.whoosh(0.5, up=True), ts - 0.35, 0.4)
+                A.place(out, sfx_ching(), ts + 1.1, 0.6)
+            elif cfg.get("stamp_fx"):
+                A.place(out, A.whoosh(0.35, up=False), ts - 0.3, 0.45)
+                A.place(out, A.impact(True), ts + 0.03, 0.85)
+            else:
+                A.place(out, A.impact(False), ts + 0.2, 0.9)
         if cfg["head"] == "agreement":
             A.place(out, sfx_pop(0.9), b + 1.75, 0.7)
             A.place(out, sfx_pop(1.1), b + 2.0, 0.6)
@@ -613,7 +620,12 @@ def make_html(scenes, total):
             if cfg.get("curtain", True):
                 inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
             st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
-            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px;font-size:{cfg.get("stamp_size", 76)}px{';background:rgba(255,255,255,.94)' if cfg.get("stamp_white") else ''}">{esc(st_txt)}</div>')
+            if cfg.get("badge"):  # professional info card instead of a rubber stamp
+                bl, bv, bsub = cfg["badge"]
+                inner.append(f'<div id="s{i}bdg" class="pbadge" style="top:{cfg.get("badge_top", 640)}px"><div id="s{i}bbar" class="pbar"></div>'
+                             f'<div id="s{i}blab" class="plab">{esc(bl)}</div><div class="pvalw"><div id="s{i}bval" class="pval">{esc(bv)}</div></div>'
+                             f'<div id="s{i}bsub" class="psub">{esc(bsub)}</div><div id="s{i}bgl" class="pglint"></div></div>')
+            inner.append(f'<div id="s{i}stamp" class="stamp" data-layout-allow-occlusion style="top:{cfg.get("stamp_top", 700)}px;font-size:{cfg.get("stamp_size", 76)}px{';background:rgba(255,255,255,.94)' if cfg.get("stamp_white") else ''}{';overflow:hidden' if cfg.get("stamp_fx") else ''}">{esc(st_txt)}{f'<span id="s{i}sglint" class="sglint"></span>' if cfg.get("stamp_fx") else ''}</div>')
             if cfg.get("curtain", True):
                 J(f'tl.fromTo("#s{i}cln",{{opacity:1,scaleY:1}},{{opacity:0,scaleY:1.2,duration:0.3,ease:"power2.in"}},0.12);')
                 J(f'tl.fromTo("#s{i}cl",{{xPercent:0}},{{xPercent:-102,duration:0.8,ease:"power3.inOut"}},0.15);')
@@ -623,9 +635,48 @@ def make_html(scenes, total):
             wt = {w["display"].strip(".,!?").lower(): w["t0"] for w in s["words"]}
             ts = max(1.0, wt.get(st_cue.lower(), 1.0))
             J(f'tl.set("#s{i}stamp",{{opacity:0}},0);')
-            J(f'tl.fromTo("#s{i}stamp",{{opacity:0,scale:2.6,rotation:-18}},{{opacity:1,scale:1,rotation:-10,duration:0.22,ease:"power4.in"}},{ts:.3f});')
-            J(f'tl.fromTo("#s{i}cam",{{x:0,y:0}},{{x:10,y:-6,duration:0.05,ease:"none",yoyo:true,repeat:5}},{ts + 0.22:.3f});')
-            J(f'tl.set("#s{i}cam",{{x:0,y:0}},{ts + 0.55:.3f});')
+            if cfg.get("badge"):
+                bvn = int("".join(c for c in cfg["badge"][1] if c.isdigit()) or 0)
+                J(f'tl.set(["#s{i}bdg","#s{i}blab","#s{i}bval","#s{i}bsub"],{{opacity:0}},0);')
+                J(f'tl.set("#s{i}bbar",{{scaleX:0}},0);')
+                J(f'tl.to("#s{i}bbar",{{scaleX:1,duration:0.45,ease:"power3.inOut"}},{ts - 0.35:.3f});')
+                J(f'tl.fromTo("#s{i}bdg",{{opacity:0,clipPath:"inset(0% 50% 0% 50%)"}},{{opacity:1,clipPath:"inset(0% 0% 0% 0%)",duration:0.55,ease:"power3.out"}},{ts - 0.1:.3f});')
+                J(f'tl.fromTo("#s{i}blab",{{opacity:0,y:16}},{{opacity:1,y:0,duration:0.5,ease:"power3.out"}},{ts + 0.1:.3f});')
+                J(f'tl.fromTo("#s{i}bval",{{opacity:0,yPercent:100}},{{opacity:1,yPercent:0,duration:0.5,ease:"power3.out"}},{ts + 0.2:.3f});')
+                J(f'(()=>{{const el=document.getElementById("s{i}bval"),o={{v:0}};tl.fromTo(o,{{v:0}},{{v:{bvn},duration:0.9,ease:"power2.out",onUpdate:()=>{{el.textContent="RM"+Math.round(o.v).toLocaleString("en-US");}}}},{ts + 0.2:.3f});}})();')
+                J(f'tl.fromTo("#s{i}bsub",{{opacity:0,y:12}},{{opacity:1,y:0,duration:0.4,ease:"power2.out"}},{ts + 0.9:.3f});')
+                J(f'tl.fromTo("#s{i}bgl",{{x:-500}},{{x:900,duration:0.9,ease:"power2.inOut"}},{ts + 1.2:.3f});')
+            elif cfg.get("stamp_fx"):  # cinematic slam: shadow lands first, stamp slams, flash + shockwave + ink burst, settle wobble, glint, pulse
+                sy = cfg.get("stamp_top", 700)
+                inner.append(f'<div id="s{i}sshd" class="sshadow" style="top:{sy + 10}px"></div>'
+                             f'<div id="s{i}sring" class="sring" style="top:{sy + 60}px"></div><div id="s{i}sring2" class="sring" style="top:{sy + 60}px"></div>'
+                             + "".join(f'<div id="s{i}sp{k}" class="sdot" style="top:{sy + 55}px"></div>' for k in range(10))
+                             + f'<div id="s{i}sflash" class="sflash"></div>')
+                J(f'tl.set(["#s{i}sshd","#s{i}sring","#s{i}sring2","#s{i}sflash"' + "".join(f',"#s{i}sp{k}"' for k in range(10)) + f'],{{opacity:0}},0);')
+                J(f'tl.set("#s{i}sshd",{{scale:2.2}},{ts - 0.26:.3f});')
+                J(f'tl.to("#s{i}sshd",{{opacity:0.55,scale:1,duration:0.3,ease:"power3.in"}},{ts - 0.25:.3f});')
+                J(f'tl.to("#s{i}sshd",{{opacity:0,duration:0.2}},{ts + 0.1:.3f});')
+                J(f'tl.fromTo("#s{i}stamp",{{opacity:0,scale:3.2,rotation:-24,y:-60}},{{opacity:1,scale:0.9,rotation:-9,y:0,duration:0.28,ease:"power4.in"}},{ts - 0.25:.3f});')
+                J(f'tl.to("#s{i}stamp",{{scale:1,rotation:-11,duration:0.5,ease:"elastic.out(1.2,0.35)"}},{ts + 0.03:.3f});')
+                J(f'tl.set("#s{i}sflash",{{opacity:0.55}},{ts + 0.03:.3f});')
+                J(f'tl.to("#s{i}sflash",{{opacity:0,duration:0.35,ease:"power2.out"}},{ts + 0.031:.3f});')
+                for r, (d, sc) in enumerate(((0.6, 3.2), (0.8, 4.2))):
+                    J(f'tl.set("#s{i}sring{"2" if r else ""}",{{opacity:0.9,scale:0.4}},{ts + 0.03 + 0.08 * r:.3f});')
+                    J(f'tl.to("#s{i}sring{"2" if r else ""}",{{opacity:0,scale:{sc},duration:{d},ease:"power2.out"}},{ts + 0.031 + 0.08 * r:.3f});')
+                for k in range(10):
+                    ang = k * 36 + 8
+                    dx = int(math.cos(math.radians(ang)) * (300 + 40 * (k % 3)))
+                    dy = int(math.sin(math.radians(ang)) * (150 + 30 * (k % 2)))
+                    J(f'tl.set("#s{i}sp{k}",{{opacity:1,x:0,y:0,scale:1}},{ts + 0.03:.3f});')
+                    J(f'tl.to("#s{i}sp{k}",{{opacity:0,x:{dx},y:{dy},scale:0.3,duration:0.55,ease:"power3.out"}},{ts + 0.031:.3f});')
+                J(f'tl.fromTo("#s{i}cam",{{x:0,y:0}},{{x:14,y:-9,duration:0.045,ease:"none",yoyo:true,repeat:7}},{ts + 0.03:.3f});')
+                J(f'tl.set("#s{i}cam",{{x:0,y:0}},{ts + 0.42:.3f});')
+                J(f'tl.fromTo("#s{i}sglint",{{x:-700}},{{x:900,duration:0.8,ease:"power2.inOut"}},{ts + 0.8:.3f});')
+                J(f'tl.to("#s{i}stamp",{{scale:1.05,duration:0.45,ease:"sine.inOut",yoyo:true,repeat:{max(1, int((s["end"] - ts - 2) / 0.9)) * 2 - 1}}},{ts + 1.7:.3f});')
+            else:
+                J(f'tl.fromTo("#s{i}stamp",{{opacity:0,scale:2.6,rotation:-18}},{{opacity:1,scale:1,rotation:-10,duration:0.22,ease:"power4.in"}},{ts:.3f});')
+                J(f'tl.fromTo("#s{i}cam",{{x:0,y:0}},{{x:10,y:-6,duration:0.05,ease:"none",yoyo:true,repeat:5}},{ts + 0.22:.3f});')
+                J(f'tl.set("#s{i}cam",{{x:0,y:0}},{ts + 0.55:.3f});')
             if cfg.get("hook_checks"):  # requirement checklist on the hook; each row ticks in on its cue word
                 rows = "".join(f'<div id="s{i}hc{k}" class="hcrow"><span class="ack">✓</span>{esc(txt)}</div>' for k, (txt, _) in enumerate(cfg["hook_checks"]))
                 inner.append(f'<div id="s{i}hcp" class="hcpanel" style="top:{cfg.get("checks_top", 520)}px"><div class="hctitle">{esc(cfg.get("checks_title", "SYARAT"))}</div>{rows}</div>')
@@ -1362,6 +1413,24 @@ TEMPLATE = r"""<!doctype html>
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
       .hnote { z-index: 9; }
+      .pbadge { position: absolute; left: 0; right: 0; margin: 0 auto; width: 660px; z-index: 8; overflow: hidden; text-align: center;
+                padding: 30px 40px 28px; border-radius: 28px; background: linear-gradient(160deg, rgba(20,23,30,.88), rgba(11,13,18,.80));
+                border: 1.5px solid rgba(255,255,255,.18); box-shadow: 0 24px 60px rgba(0,0,0,.55); backdrop-filter: blur(6px); }
+      .pbar { position: absolute; left: 0; top: 0; width: 100%; height: 8px; background: #e2232d; transform-origin: 0 50%; }
+      .plab { font-weight: 700; font-size: 32px; letter-spacing: .3em; color: #d6dce4; }
+      .pvalw { overflow: hidden; margin-top: 4px; }
+      .pval { font-weight: 800; font-size: 118px; line-height: 1.05; color: #fff; }
+      .psub { margin-top: 10px; font-weight: 700; font-size: 30px; color: #fff; }
+      .psub::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 6px; background: #25D366; margin-right: 12px; vertical-align: middle; }
+      .pglint { position: absolute; top: 0; left: 0; width: 140px; height: 100%; transform: skewX(-20deg);
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); }
+      .sshadow { position: absolute; left: 0; right: 0; margin: 0 auto; width: 640px; height: 130px; border-radius: 24px; z-index: 7;
+                 background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.7), rgba(0,0,0,0) 70%); transform: rotate(-10deg); opacity: 0; }
+      .sring { opacity: 0; position: absolute; left: 390px; width: 300px; height: 120px; border-radius: 50%; border: 8px solid #e2232d; z-index: 7; }
+      .sdot { position: absolute; left: 532px; width: 16px; height: 16px; border-radius: 8px; background: #e2232d; z-index: 7; opacity: 0; }
+      .sflash { position: absolute; inset: 0; background: #fff; z-index: 9; pointer-events: none; opacity: 0; }
+      .sglint { position: absolute; top: -20px; left: 0; width: 160px; height: 200%; transform: skewX(-20deg);
+                background: linear-gradient(90deg, transparent, rgba(226,35,45,.28), transparent); }
       .ccrow { position: absolute; left: 30px; width: 1020px; display: flex; justify-content: center; gap: 18px; z-index: 6; }
       .ccar { width: 320px; padding: 14px 10px 10px; border-radius: 24px; background: rgba(11,13,18,.72); border: 2px solid rgba(255,255,255,.2);
               box-shadow: 0 10px 26px rgba(0,0,0,.5); text-align: center; }

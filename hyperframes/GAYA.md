@@ -25,6 +25,10 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Pilihan warna (`"color_cars": [[gambar, LABEL, cue], ...]`, `color_top`):** kereta kecil sebenar (dipotong) dalam kad muncul satu demi satu bila warna disebut, dengan bunyi pop.
 - **Cop latar putih:** `"stamp_white": true` (tulisan dan bingkai merah atas latar putih).
 
+- **Kad deposit profesional (`"badge": [LABEL, NILAI, ayat kecil]`, `badge_top`) — LALAI BARU untuk hook:** garisan merah melintas, panel kaca gelap terbuka dari tengah,
+  label DEPOSIT WAJIB, angka dikira naik, ayat kecil (cth "Serius sahaja, sila PM") dan kilauan; bunyi whoosh + ka-ching. Ganti cop (pemilik mahu nampak profesional)
+  dan tiada panel SYARAT UTAMA (IC & lesen cukup disebut dalam suara). Contoh: `videos/x50warna.json`.
+
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |

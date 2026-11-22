@@ -76,31 +76,18 @@
       "hook_curtain": "xw_01_putih_depan.jpg",
       "curtain": false,
       "stamp": [
-        "DEPOSIT WAJIB RM13,000",
+        "",
         "RM13,000"
       ],
-      "stamp_top": 860,
       "move": "reveal",
       "trans": null,
-      "stamp_size": 50,
-      "hook_checks": [
-        [
-          "Deposit RM13,000",
-          "RM13,000"
-        ],
-        [
-          "IC",
-          "IC"
-        ],
-        [
-          "Lesen",
-          "lesen"
-        ]
+      "photo_top": 420,
+      "badge": [
+        "DEPOSIT WAJIB",
+        "RM13,000",
+        "Serius sahaja, sila PM"
       ],
-      "checks_title": "SYARAT UTAMA",
-      "checks_top": 560,
-      "stamp_white": true,
-      "photo_top": 430
+      "badge_top": 600
     },
     {
       "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^Jade ^Grey, ^Snow ^White dan ^Quartz ^Black. Kereta baru, jualan koyak plastik.",
