@@ -1,6 +1,6 @@
 {
-  "_cara_guna": "TEMPLAT RASMI (versi 20 Nov 2026, berdasarkan video S70 3 warna v4 (syarat utama)). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran, promo_price, amount dan cta.meta (model kereta). Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
-  "_babak": "9 babak: 1 hook SYARAT UTAMA (hook_checks: Deposit RMx, IC, Lesen + cop putih DEPOSIT WAJIB RMx; suara 'Syarat utama sambung bayar kereta <MODEL> ni, cuma deposit RMx, IC dan lesen sahaja. Yang serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. Tengok video ni sampai habis, dan fahamkan dulu ya.'); 2 model (+ color_cars jika ada beberapa warna); 3 deposit + BAWAH MARKET; 4 bulanan; 5 agreement beranimasi; 6 SPESIFIKASI; 7 interior; 8 4 LANGKAH MUDAH; 9 penutup cta2 (docs IC, LESEN, BIL AIR/API, DEPOSIT). Gambar luar: fit_width + soft_bg (kaburkan latar); photo_top turunkan gambar bila tulisan menutup kereta.",
+  "_cara_guna": "TEMPLAT RASMI (versi 20 Nov 2026, berdasarkan video S70 3 warna v5 / X50 3 warna v4)). Salin fail ini kepada videos/NAMA.json, letak gambar dalam ../photos/NAMA/, tukar 'src', nama gambar, skrip, butiran, promo_price, amount dan cta.meta (model kereta). Jana suara ElevenLabs Ashraf satu klip setiap babak ke assets/audio/NAMA_el/el_<babak>.mp3 dan tukar 'voice_dir'. Kemudian: python3 tools/build.py --video NAMA && ./hf.sh check && ./hf.sh render --quality delivery -o renders/NAMA.mp4",
+  "_babak": "9 babak: 1 hook: suara 'Syarat utama sambung bayar kereta <MODEL> ni, cuma deposit RMx, IC dan lesen sahaja. Yang serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. Tengok video ni sampai habis, dan fahamkan dulu ya.' + kad deposit profesional (badge: DEPOSIT WAJIB, RMx, 'Ready deposit & serius sahaja PM', badge_top ~545; tiada cop, tiada panel syarat); 2 model ('model|mo-del') + color_cars jika beberapa warna; 3 deposit + BAWAH MARKET; 4 bulanan; 5 agreement beranimasi; 6 SPESIFIKASI; 7 interior; 8 4 LANGKAH MUDAH; 9 penutup cta2 (docs IC, LESEN, BIL AIR/API, DEPOSIT; WhatsApp cta.phone 012-297 9744). Gambar: fit_width + soft_bg; photo_top bila perlu.",
   "_fit_width": "gambar menegak yang keretanya lebar (depan 3/4, depan, belakang 3/4): dipapar penuh dan dinaikkan supaya kereta tidak terpotong dan sarikata duduk di bawah kereta",
   "_cues": "perkataan dalam skrip interior yang menukar gambar (null = gambar pertama); bilangan mesti sama dengan bilangan gambar interior",
   "_skrip": "Token: perkataan | TULISAN|sebutan (cth 'RM6,988.|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit.') | *perkataan / ^perkataan = kata kunci. Nombor, harga, tahun dan telefon dieja penuh dalam sebutan. Babak 1 buka dengan ayat hook (tawaran utama). Guna '.' bukan '!' kecuali hook; elakkan 'je'.",
@@ -11,7 +11,7 @@
   "src": "s70v2",
   "style": "v2",
   "voice": "elevenlabs",
-  "voice_dir": "s70v2_el",
+  "voice_dir": "s70v3_el",
   "photos": [
     [
       "sv_02_merah_depan34.jpg"
@@ -83,34 +83,21 @@
       "hook_curtain": "sv_02_merah_depan34.jpg",
       "curtain": false,
       "stamp": [
-        "DEPOSIT WAJIB RM12,000",
+        "",
         "RM12,000"
       ],
-      "stamp_top": 1010,
       "move": "reveal",
       "trans": null,
-      "stamp_size": 50,
-      "hook_checks": [
-        [
-          "Deposit RM12,000",
-          "RM12,000"
-        ],
-        [
-          "IC",
-          "IC"
-        ],
-        [
-          "Lesen",
-          "lesen"
-        ]
-      ],
-      "checks_title": "SYARAT UTAMA",
-      "checks_top": 560,
       "photo_top": 330,
-      "stamp_white": true
+      "badge": [
+        "DEPOSIT WAJIB",
+        "RM12,000",
+        "Ready deposit & serius sahaja PM"
+      ],
+      "badge_top": 545
     },
     {
-      "vo": "^Proton ^S70|S-seventy ^Premium ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^putih, ^silver dan ^merah. Kereta baru, jualan koyak plastik.",
+      "vo": "^Proton ^S70|S-seventy ^Premium ^Facelift, model|mo-del *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^putih, ^silver dan ^merah. Kereta baru, jualan koyak plastik.",
       "head": [
         [
           "PROTON S70",
@@ -279,7 +266,7 @@
       "min_beats": 20
     },
     {
-      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *012-297|kosong-satu-dua,-dua-sembilan-tujuh, *9744.|sembilan-tujuh-empat-empat. Siapa cepat, dia dapat!",
       "head": "cta2",
       "promo_label": "DEPOSIT PROMO",
       "promo_price": "RM12,000",
@@ -294,7 +281,8 @@
     }
   ],
   "cta": {
-    "meta": "<MODEL KERETA> (tukar setiap video)"
+    "meta": "<MODEL KERETA> (tukar setiap video)",
+    "phone": "012-297 9744"
   },
   "zoom": "soft",
   "intro_sfx": false,

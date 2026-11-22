@@ -1,8 +1,12 @@
 # Gaya KL AUTO SB (satu-satunya gaya, versi 20 Nov 2026)
 
 Gaya rumah untuk video promosi kereta *sambung bayar / lease to own* KL AUTO SB. **Versi rasmi terkini ialah video
-Proton S70 3 warna v4** (`renders/KLAUTOSB_S70_3_Warna_Syarat_v4.mp4`, `videos/s70v2.json`); templatnya `videos/contoh.json`.
-Ia mengikut gaya X50 Jade Grey v4 di bawah, dengan **hook SYARAT UTAMA sebagai lalai** (untuk tapis penonton yang serius sahaja).
+Proton S70 3 warna v5** (`renders/KLAUTOSB_S70_3_Warna_v5.mp4`, `videos/s70v3.json`) dan X50 3 warna v4 (`videos/x50warna.json`); templatnya `videos/contoh.json`.
+Lalai untuk semua unit seterusnya:
+- **Hook:** suara syarat utama (deposit, IC, lesen; serius sahaja PM; tengok sampai habis) + **kad deposit profesional** (`badge`), tanpa cop dan tanpa panel SYARAT UTAMA.
+- **Nombor WhatsApp: 012-297 9744** (`"cta": {"phone": "012-297 9744"}`).
+- **Sebutan:** "model" = "mo-del"; "plate V" = "plate vi".
+- Bahagian lain ikut gaya X50 Jade Grey v4 di bawah (kad warna, BAWAH MARKET, agreement beranimasi, 4 langkah, dokumen termasuk DEPOSIT).
 Semua unit seterusnya ikut gaya ini secara lalai:
 
 - **Gambar:** gambar showroom yang disediakan pemilik (kereta atas lantai showroom gelap) dipakai **penuh, tidak dipotong** (`fit_width`).
