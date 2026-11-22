@@ -177,6 +177,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
 | Proton X50 Executive Facelift 2026 (3 warna, syarat utama) | `videos/x50warna.json` |
+| Perodua Aruz Advance (biru & silver, 2019/2020/2022) | `videos/aruz2w.json` (gambar melintang: photo_top setiap babak) |
 | Proton S70 Premium Facelift 2026 (3 warna, kad deposit, 012-297 9744) | `videos/s70v3.json` |
 | Proton S70 Premium Facelift 2026 (3 warna, syarat utama) | `videos/s70v2.json` |
 | Proton X50 Executive Facelift 2026 (Jade Grey) | `videos/x50grey.json` (**versi rasmi templat**: gambar showroom, cop WAJIB ADA DEPOSIT, deposit dalam dokumen) |

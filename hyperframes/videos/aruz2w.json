@@ -1,0 +1,283 @@
+{
+  "src": "aruz2warna",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "aruz2w_el",
+  "photos": [
+    [
+      "az_05_silver_depan34.jpg"
+    ],
+    [
+      "az_01_biru_depan.jpg"
+    ],
+    [
+      "az_03_biru_belakang34.jpg"
+    ],
+    [
+      "az_07_silver_belakang.jpg"
+    ],
+    [
+      "az_06_silver_belakang34.jpg"
+    ],
+    [
+      "az_11_dashboard.jpg"
+    ],
+    [
+      "az_10_baris2.jpg",
+      "az_09_baris3.jpg",
+      "az_08_boot.jpg"
+    ],
+    [
+      "az_08_boot.jpg"
+    ],
+    [
+      "az_02_biru_depan34.jpg"
+    ]
+  ],
+  "fit_width": [
+    "az_05_silver_depan34.jpg",
+    "az_01_biru_depan.jpg",
+    "az_03_biru_belakang34.jpg",
+    "az_07_silver_belakang.jpg",
+    "az_06_silver_belakang34.jpg",
+    "az_02_biru_depan34.jpg",
+    "az_04_silver_depan.jpg",
+    "az_11_dashboard.jpg",
+    "az_08_boot.jpg"
+  ],
+  "cues": [
+    null,
+    "belakang",
+    "boot"
+  ],
+  "script": [
+    {
+      "vo": "*Syarat *utama *sambung *bayar kereta ^Perodua ^Aruz ^Advance ni, cuma *deposit *RM6,988,|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit, *IC dan *lesen sahaja. Yang *serius dan dah ada deposit, baru PM ya. Kalau tiada deposit, tak perlu PM dulu. *Tengok video ni sampai *habis, dan fahamkan dulu ya.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "PERODUA ARUZ ADVANCE",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "hook_curtain": "az_05_silver_depan34.jpg",
+      "curtain": false,
+      "stamp": [
+        "",
+        "RM6,988"
+      ],
+      "move": "reveal",
+      "trans": null,
+      "badge": [
+        "DEPOSIT WAJIB",
+        "RM6,988",
+        "Ready deposit & serius sahaja PM"
+      ],
+      "badge_top": 545,
+      "photo_top": 740
+    },
+    {
+      "vo": "^Perodua ^Aruz ^Advance. Ada *dua *pilihan *warna, ^biru dan ^silver. SUV tujuh tempat duduk, memang ngam untuk keluarga.",
+      "head": [
+        [
+          "PERODUA ARUZ",
+          "hero",
+          "silver"
+        ],
+        [
+          "ADVANCE · 7 SEATER",
+          "label",
+          "pearl"
+        ],
+        [
+          "2 PILIHAN WARNA",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left",
+      "color_cars": [
+        [
+          "az_02_biru_depan34.jpg",
+          "BIRU",
+          "biru"
+        ],
+        [
+          "az_05_silver_depan34.jpg",
+          "SILVER",
+          "silver"
+        ]
+      ],
+      "color_top": 575,
+      "photo_top": 790
+    },
+    {
+      "vo": "*Deposit? *RM6,988|enam-ribu-sembilan-ratus-lapan-puluh-lapan-ringgit sahaja. Ini *bawah *market.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM6,988",
+          "price",
+          "red"
+        ],
+        [
+          "BAWAH MARKET",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash",
+      "photo_top": 560
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,085.|seribu-lapan-puluh-lima-ringgit. Baki *loan *8|lapan *tahun *11|sebelas *bulan.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,085",
+          "price",
+          "red"
+        ],
+        [
+          "LOAN 8 TAHUN 11 BULAN",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up",
+      "photo_top": 560
+    },
+    {
+      "vo": "Lebih menarik, ^agreement *direct *terus *dengan *owner. Siap *smart *warranty *5|lima *tahun, kereta ada di *Kuala *Lumpur.",
+      "head": "agreement",
+      "move": "track",
+      "trans": "zoom",
+      "title": "DIRECT OWNER",
+      "steps": [
+        [
+          "Smart Warranty 5 tahun",
+          "smart"
+        ],
+        [
+          "Lokasi Kuala Lumpur",
+          "Kuala"
+        ]
+      ]
+    },
+    {
+      "vo": "Ada pilihan tahun *2019,|dua-ribu-sembilan-belas, *2020|dua-ribu-dua-puluh dan *2022.|dua-ribu-dua-puluh-dua. Enjin *1.5,|satu-poin-lima, *kerusi *kulit lagi.",
+      "head": "specs",
+      "title": "BUTIRAN UNIT",
+      "checks": [
+        "Tahun 2019 / 2020 / 2022",
+        "7 tempat duduk",
+        "Enjin 1.5L",
+        "Kerusi kulit",
+        "Smart Warranty 5 tahun",
+        "Lokasi Kuala Lumpur"
+      ],
+      "move": "recap",
+      "trans": "whip-left",
+      "min_beats": 14,
+      "photo_top": 620
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas, boot pun besar.",
+      "head": [
+        [
+          "INTERIOR KEMAS",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "7 TEMPAT DUDUK",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "4 LANGKAH MUDAH",
+      "amount": "RM6,988",
+      "car_side": "az_05_silver_depan34.jpg",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 20,
+      "car_flip": true
+    },
+    {
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *012-297|kosong-satu-dua,-dua-sembilan-tujuh, *9744.|sembilan-tujuh-empat-empat. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM6,988",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API",
+        "DEPOSIT"
+      ],
+      "move": "cta",
+      "trans": "zoom",
+      "photo_top": 760
+    }
+  ],
+  "cta": {
+    "meta": "Perodua Aruz Advance",
+    "phone": "012-297 9744"
+  },
+  "zoom": "soft",
+  "intro_sfx": false,
+  "soft_bg": [
+    "az_05_silver_depan34.jpg",
+    "az_01_biru_depan.jpg",
+    "az_03_biru_belakang34.jpg",
+    "az_07_silver_belakang.jpg",
+    "az_06_silver_belakang34.jpg",
+    "az_02_biru_depan34.jpg",
+    "az_04_silver_depan.jpg"
+  ],
+  "_unit": "Perodua Aruz Advance (biru & silver, 2019/2020/2022)"
+}
