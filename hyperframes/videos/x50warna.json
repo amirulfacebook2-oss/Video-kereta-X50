@@ -90,7 +90,7 @@
       "badge_top": 545
     },
     {
-      "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^Jade ^Grey, ^Snow ^White dan ^Quartz ^Black. Kereta baru, jualan koyak plastik.",
+      "vo": "^Proton ^X50|X-fifty ^Executive ^Facelift, model|mo-del *2026.|dua-ribu-dua-puluh-enam. Ada *tiga *pilihan *warna, ^Jade ^Grey, ^Snow ^White dan ^Quartz ^Black. Kereta baru, jualan koyak plastik.",
       "head": [
         [
           "PROTON X50",
@@ -261,7 +261,7 @@
       "min_beats": 20
     },
     {
-      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *017-203|kosong-satu-tujuh,-dua-kosong-tiga, *6099.|enam-kosong-sembilan-sembilan. Siapa cepat, dia dapat!",
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *012-297|kosong-satu-dua,-dua-sembilan-tujuh, *9744.|sembilan-tujuh-empat-empat. Siapa cepat, dia dapat!",
       "head": "cta2",
       "promo_label": "DEPOSIT",
       "promo_price": "RM13,000",
@@ -276,7 +276,8 @@
     }
   ],
   "cta": {
-    "meta": "Proton X50 Executive Facelift 2026"
+    "meta": "Proton X50 Executive Facelift 2026",
+    "phone": "012-297 9744"
   },
   "zoom": "soft",
   "intro_sfx": false,

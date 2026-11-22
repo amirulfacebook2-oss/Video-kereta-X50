@@ -184,5 +184,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 
 ### Sebutan tambahan
 
+  | model | tulis `model|mo-del` (sebut "mo-del", bukan "modal") |
+  | Nombor WhatsApp | `"cta": {"phone": "012-297 9744"}` dan dalam skrip `*012-297|kosong-satu-dua,-dua-sembilan-tujuh, *9744.|sembilan-tujuh-empat-empat.` |
   | Plate V | tulis `plate V`, sebut **"plate vi"** (`*plate *V,|vi,`); bukan "huruf vi" atau "lima" |
   | boot (but kereta) | tulis `boot`, bukan `but` |

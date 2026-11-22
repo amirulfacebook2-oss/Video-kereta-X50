@@ -59,6 +59,7 @@ def configure(name):
                        trans=sc.get("trans"), min_beats=sc.get("min_beats", 0)) for sc in v["script"]]
         CTA = dict(CTA, **v.get("cta", {}))
     VIDEO, STYLE, CUES, FIT_W = name, STYLES[v["style"]], v.get("cues"), set(v.get("fit_width", []))
+    CTA = dict(CTA, **v.get("cta", {}))
     ZOOM_SOFT = v.get("zoom") == "soft"
     INTRO_SFX = v.get("intro_sfx", True)
     SHOWROOM = v.get("showroom")
@@ -280,7 +281,7 @@ def make_audio(scenes, total):
         mus = M.groove(total, scenes, BEAT)
     else:
         mus, _ = A.music(total, scenes)
-    fx = A.sfx(total, scenes)
+    fx = sfx_bed(total, scenes)
     if not INTRO_SFX:  # no opening hit/sting: clear the hook's first moments of the effects bed
         fx[: int(1.5 * SR)] = 0
     if STYLE.get("sfx_plus"):
@@ -389,6 +390,27 @@ def sfx_intro():
     return A.reverb(rev + hit + shutter + sparkle, 1.6, 0.25)
 
 
+def sfx_bed(total, scenes):
+    """Same as src/audio.py sfx(), but finds the phone number from CTA["phone"] (any number, not only 017)."""
+    n = int(total * SR) + SR * 3
+    out = np.zeros(n)
+    if INTRO_SFX:
+        A.place(out, A.impact(True), 0.0, 0.8)
+    for s in scenes[1:]:
+        A.place(out, A.whoosh(0.6, up=s["i"] % 2 == 1), s["start"] - 0.38, 0.55)
+    for s in scenes:
+        if s["cfg"]["head"] and s["cfg"]["head"] != "cta" and s["i"] in (2, 3, 4):
+            A.place(out, A.impact(False), s["start"] + BEAT, 0.5)
+    last = scenes[-1]
+    A.place(out, A.riser(2 * BEAT), last["start"] - 2 * BEAT, 0.45)
+    A.place(out, A.impact(True), last["start"], 0.7)
+    p1 = CTA["phone"].split()[0]
+    ph = [w for w in last["words"] if w["display"].rstrip(".,") == p1]
+    if ph:
+        A.place(out, A.impact(False), ph[0]["t0"], 0.45)
+    return out[: int(total * SR)]
+
+
 def extra_sfx(total, scenes):
     out = np.zeros(int(total * SR) + 3 * SR)
     if INTRO_SFX:
@@ -451,9 +473,10 @@ def extra_sfx(total, scenes):
             A.place(out, sfx_ching(), b + 0.45 + 0.85, 0.9)
         if cfg["head"] in ("cta", "cta2"):
             w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
-            A.place(out, sfx_ding(), w["017-203"] - 0.05, 0.8)
-            A.place(out, sfx_ding(), w["6099"] - 0.05, 0.6)
-            A.place(out, sfx_sweep(0.8), w["6099"] + 1.2, 0.8)
+            p1, p2 = CTA["phone"].split()
+            A.place(out, sfx_ding(), w[p1] - 0.05, 0.8)
+            A.place(out, sfx_ding(), w[p2] - 0.05, 0.6)
+            A.place(out, sfx_sweep(0.8), w[p2] + 1.2, 0.8)
     return out[: int(total * SR)]
 
 
@@ -1247,7 +1270,7 @@ def cta2_html(i, cfg):
           <div id="ct_card" class="ccard c2card">
             <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div><div id="ct_ring2" class="ring"></div></div>
             <div class="ctext">
-              <div class="cnum"><span id="ct_n1" class="nw">017-203</span> <span id="ct_n2" class="nw">6099</span></div>
+              <div class="cnum"><span id="ct_n1" class="nw">{CTA["phone"].split()[0]}</span> <span id="ct_n2" class="nw">{CTA["phone"].split()[1]}</span></div>
               <div id="ct_meta" class="cmeta">{esc(CTA["meta"])}</div>
             </div>
             <div id="ct_glint" class="glint"></div>
@@ -1258,7 +1281,7 @@ def cta2_html(i, cfg):
 def cta2_js(J, s, cfg):
     b = s["start"]
     w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
-    n1, n2 = w["017-203"], w["6099"]
+    n1, n2 = (w[x] for x in CTA["phone"].split())
     val = int("".join(ch for ch in cfg["promo_price"] if ch.isdigit()))
     J(f'tl.fromTo("#c2lab",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.1:.3f});')
     J(f'tl.fromTo("#c2price",{{yPercent:110,scale:0.9,opacity:0}},{{yPercent:0,scale:1,opacity:1,duration:0.5,ease:"back.out(1.5)"}},{b + 0.45:.3f});')
@@ -1288,7 +1311,7 @@ def cta_html(i):
           <div id="ct_card" class="ccard">
             <div id="ct_icon" class="cicon"><svg viewBox="0 0 48 48" width="62" height="62" aria-hidden="true"><circle cx="24" cy="23" r="16" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M11 39 L13.5 31 L19 35.5 Z" fill="#fff"/><path d="M18.5 16.5c1.2-1 2.4-.9 3 .4l1.2 2.6c.4.9.1 1.7-.7 2.3l-.9.7c.9 2 2.5 3.6 4.5 4.6l.7-.9c.6-.8 1.4-1.1 2.3-.7l2.6 1.2c1.3.6 1.4 1.8.4 3-1.4 1.6-3.4 2-5.6 1-4.3-2-7.6-5.3-9.6-9.6-1-2.2-.6-4.2 1-5.6z" fill="#fff"/></svg><div id="ct_ring" class="ring"></div><div id="ct_ring2" class="ring"></div></div>
             <div class="ctext">
-              <div class="cnum"><span id="ct_n1" class="nw">017-203</span> <span id="ct_n2" class="nw">6099</span></div>
+              <div class="cnum"><span id="ct_n1" class="nw">{CTA["phone"].split()[0]}</span> <span id="ct_n2" class="nw">{CTA["phone"].split()[1]}</span></div>
               <div id="ct_meta" class="cmeta">{esc(c["meta"])}</div>
             </div>
             <div id="ct_glint" class="glint"></div>
@@ -1299,7 +1322,7 @@ def cta_html(i):
 def cta_js(J, s):
     b = s["start"]
     w = {x["display"].rstrip(".,"): x["t0"] for x in s["words"]}
-    n1, n2 = w["017-203"], w["6099"]
+    n1, n2 = (w[x] for x in CTA["phone"].split())
     J(f'tl.fromTo("#ct_q",{{yPercent:110}},{{yPercent:0,duration:0.55,ease:"power3.out"}},{b + 0.1:.3f});')
     J(f'tl.fromTo("#ct_rule",{{scaleX:0}},{{scaleX:1,duration:0.5,ease:"power3.out"}},{b + 0.4:.3f});')
     J(f'tl.fromTo("#ct_sub",{{yPercent:110}},{{yPercent:0,duration:0.5,ease:"power3.out"}},{b + 0.5:.3f});')
