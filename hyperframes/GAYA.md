@@ -33,6 +33,10 @@ Semua unit seterusnya ikut gaya ini secara lalai:
   label DEPOSIT WAJIB, angka dikira naik, ayat kecil (cth "Ready deposit & serius sahaja PM"), panel rapat bawah tag (badge_top ~545) dan kilauan; bunyi whoosh + ka-ching. Ganti cop (pemilik mahu nampak profesional)
   dan tiada panel SYARAT UTAMA (IC & lesen cukup disebut dalam suara). Contoh: `videos/x50warna.json`.
 
+- **Hook potongan laju (`"hook_reel": [gambar1, gambar2, gambar3]`, `reel_dur` 0.42s):** 3 sudut kereta bertukar laju dengan kilat putih + whoosh sebelum mendarat pada gambar utama.
+- **Babak VS (`"head": "versus"`):** kad BELI BIASA (✕ kelabu) lawan SAMBUNG BAYAR (✓ hijau), baris menyala ikut perkataan; akhirnya kad sambung bayar membesar dengan cahaya hijau + ka-ching.
+  Hook contoh: *"Tak nak pening mohon loan bank? ... boleh sambung bayar."* Contoh: `videos/x50snow.json`.
+
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |

@@ -254,7 +254,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey", "agreement")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey", "agreement", "versus")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -461,6 +461,16 @@ def extra_sfx(total, scenes):
                 A.place(out, A.impact(True), ts + 0.03, 0.85)
             else:
                 A.place(out, A.impact(False), ts + 0.2, 0.9)
+        if cfg["head"] == "versus":
+            lt, rt = versus_times(s, cfg)
+            for t in lt:
+                A.place(out, sfx_pop(0.8), t, 0.5)
+            for k, t in enumerate(rt):
+                A.place(out, sfx_pop(1.15 + 0.08 * k), t, 0.7)
+            A.place(out, sfx_ching(), rt[-1] + 0.6, 0.8)
+        if cfg.get("hook_reel"):
+            for k in range(1, len(cfg["hook_reel"]) + 1):
+                A.place(out, A.whoosh(0.3, up=k % 2 == 0), k * cfg.get("reel_dur", 0.42) - 0.12, 0.45)
         if cfg["head"] == "agreement":
             A.place(out, sfx_pop(0.9), b + 1.75, 0.7)
             A.place(out, sfx_pop(1.1), b + 2.0, 0.6)
@@ -500,7 +510,7 @@ def soften_background(im):
 
 def make_photos():
     PH.mkdir(parents=True, exist_ok=True)
-    for name in sorted({p for s in SCRIPT for p in s["photos"]}):
+    for name in sorted({p for s in SCRIPT for p in s["photos"]} | {p for s in SCRIPT for p in s.get("hook_reel", [])}):
         im = ImageOps.exif_transpose(Image.open(PHOTO_SRC / name)).convert("RGB")
         im = ImageEnhance.Contrast(im).enhance(1.05)
         if STYLE["photo_bright"] != 1.0:
@@ -640,6 +650,20 @@ def make_html(scenes, total):
                 inner.append(f'<img id="s{i}bg" class="bg" src="assets/photos/bg_{ph}" alt="" />')
                 pt = f' style="top:{cfg["photo_top"]}px"' if cfg.get("photo_top") else ""
                 inner.append(f'<div id="s{i}kb" class="kb"><img class="contain hi"{pt} src="assets/photos/{ph}" alt="" /></div>')
+            if cfg.get("hook_reel"):  # fast cuts through other angles before landing on the main photo
+                rd = cfg.get("reel_dur", 0.42)
+                for k, rp in enumerate(cfg["hook_reel"]):
+                    inner.append(f'<div id="s{i}rl{k}" class="reel"><img class="bg" src="assets/photos/bg_{rp}" alt="" />'
+                                 f'<img class="contain hi" style="top:{cfg.get("photo_top", 110)}px" src="assets/photos/{rp}" alt="" /></div>')
+                    J(f'tl.set("#s{i}rl{k}",{{opacity:{1 if k == 0 else 0}}},0);')
+                    if k:
+                        J(f'tl.set("#s{i}rl{k}",{{opacity:1}},{k * rd:.3f});')
+                    J(f'tl.fromTo("#s{i}rl{k}",{{scale:1.14}},{{scale:1.0,duration:{rd:.2f},ease:"power3.out"}},{k * rd:.3f});')
+                    J(f'tl.set("#s{i}rl{k}",{{opacity:0}},{(k + 1) * rd:.3f});')
+                inner.append(f'<div id="s{i}rflash" class="sflash"></div>')
+                for k in range(1, len(cfg["hook_reel"]) + 1):
+                    J(f'tl.set("#s{i}rflash",{{opacity:0.45}},{k * rd:.3f});')
+                    J(f'tl.to("#s{i}rflash",{{opacity:0,duration:0.22,ease:"power2.out"}},{k * rd + 0.001:.3f});')
             if cfg.get("curtain", True):
                 inner.append(f'<div id="s{i}cl" class="curl"></div><div id="s{i}cr" class="curr"></div><div id="s{i}cln" class="curline"></div>')
             st_txt, st_cue = cfg.get("stamp", ["1 UNIT SAHAJA", "sahaja"])
@@ -857,6 +881,9 @@ def make_html(scenes, total):
         elif cfg["head"] == "journey":
             inner.append(journey_html(i, cfg))
             journey_js(J, s, cfg)
+        elif cfg["head"] == "versus":
+            inner.append(versus_html(i, cfg))
+            versus_js(J, s, cfg)
         elif cfg["head"] == "agreement":
             inner.append(agreement_html(i, cfg))
             agreement_js(J, s, cfg)
@@ -1229,6 +1256,54 @@ def agreement_js(J, s, cfg):
         J(f'tl.fromTo("#a{i}c{k}",{{opacity:0,y:24,scale:0.8}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"back.out(2.2)"}},{t:.3f});')
 
 
+def word_time(s, cue, fallback):
+    for w in s["words"]:
+        if w["display"].strip(".,!?").lower() == cue.lower():
+            return w["t0"]
+    return fallback
+
+
+def versus_html(i, cfg):
+    """Modern comparison: 'buy the usual way' (greyed, crosses) vs 'sambung bayar' (green ticks); each row lights on its cue word."""
+    q = "".join(f'<span id="v{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(cfg.get("title", "BEZA DIA").split()))
+    lr = "".join(f'<div id="v{i}l{k}" class="vrow vbad"><span class="vx">✕</span><span>{esc(tx)}</span></div>' for k, (tx, _) in enumerate(cfg["left"]))
+    rr = "".join(f'<div id="v{i}r{k}" class="vrow"><span class="vx vok">✓</span><span>{esc(tx)}</span></div>' for k, (tx, _) in enumerate(cfg["right"]))
+    return f'''<div class="vdim"></div><div class="cta">
+          <div class="ctaq">{q.strip()}</div>
+          <div class="vwrap">
+            <div id="v{i}L" class="vcard"><div class="vhead vhl">{esc(cfg["left_title"])}</div>{lr}</div>
+            <div id="v{i}R" class="vcard"><div id="v{i}glow" class="vglow"></div><div class="vhead vhr">{esc(cfg["right_title"])}</div>{rr}</div>
+            <div id="v{i}vs" class="vvs">VS</div>
+          </div>
+        </div>'''
+
+
+def versus_times(s, cfg):
+    b = s["start"]
+    lt = [word_time(s, c, b + 1.2 + 0.6 * k) for k, (_, c) in enumerate(cfg["left"])]
+    rt = [word_time(s, c, b + 3.5 + 0.6 * k) for k, (_, c) in enumerate(cfg["right"])]
+    return lt, rt
+
+
+def versus_js(J, s, cfg):
+    b, i = s["start"], s["i"]
+    for k in range(len(cfg.get("title", "BEZA DIA").split())):
+        J(f'tl.fromTo("#v{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    J(f'tl.fromTo("#v{i}L",{{opacity:0,x:-120}},{{opacity:1,x:0,duration:0.55,ease:"power3.out"}},{b + 0.3:.3f});')
+    J(f'tl.fromTo("#v{i}R",{{opacity:0,x:120}},{{opacity:1,x:0,duration:0.55,ease:"power3.out"}},{b + 0.4:.3f});')
+    J(f'tl.fromTo("#v{i}vs",{{opacity:0,scale:0.2,rotation:-90}},{{opacity:1,scale:1,rotation:0,duration:0.5,ease:"back.out(2.2)"}},{b + 0.7:.3f});')
+    lt, rt = versus_times(s, cfg)
+    for side, ts in (("l", lt), ("r", rt)):
+        for k, t in enumerate(ts):
+            J(f'tl.fromTo("#v{i}{side}{k}",{{opacity:0.15,x:{-24 if side == "l" else 24}}},{{opacity:1,x:0,duration:0.35,ease:"power3.out"}},{t - 0.05:.3f});')
+    fin = rt[-1] + 0.6
+    J(f'tl.set("#v{i}glow",{{opacity:0}},{b:.3f});')
+    J(f'tl.to("#v{i}L",{{opacity:0.4,scale:0.95,duration:0.5,ease:"power2.out"}},{fin:.3f});')
+    J(f'tl.to("#v{i}R",{{scale:1.05,duration:0.5,ease:"back.out(1.8)"}},{fin:.3f});')
+    J(f'tl.to("#v{i}glow",{{opacity:1,duration:0.4}},{fin:.3f});')
+    J(f'tl.to("#v{i}vs",{{opacity:0,scale:0.5,duration:0.3}},{fin:.3f});')
+
+
 def process_html(i, cfg):
     """Ending variant A: numbered process steps, joined by a line that fills as each step is spoken."""
     title = cfg.get("title", "PROSES MUDAH")
@@ -1436,6 +1511,23 @@ TEMPLATE = r"""<!doctype html>
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
       .hnote { z-index: 9; }
+      .reel { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+      .vwrap { position: absolute; top: 440px; left: 24px; width: 1032px; display: flex; gap: 22px; align-items: stretch; }
+      .vcard { position: relative; flex: 1; padding: 30px 24px 20px; border-radius: 28px; background: rgba(11,13,18,.92);
+               border: 2px solid rgba(255,255,255,.14); box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+      .vglow { position: absolute; inset: -3px; border-radius: 30px; border: 4px solid #25D366; box-shadow: 0 0 46px rgba(37,211,102,.55); }
+      .vhead { font-weight: 800; font-size: 36px; letter-spacing: .06em; text-align: center; margin-bottom: 14px; }
+      .vhl { color: #b8bdc6; } .vhr { color: #25D366; }
+      .vrow { display: flex; gap: 14px; align-items: center; font-weight: 700; font-size: 40px; line-height: 1.15; color: #fff; padding: 18px 0;
+              border-top: 1px solid rgba(255,255,255,.1); }
+      .vbad { color: #c9ced5; }
+      .vdim { position: absolute; inset: 0; background: rgba(11,13,18,.55); z-index: 5; }
+      .vx { flex-shrink: 0; display: inline-flex; width: 56px; height: 56px; border-radius: 28px; background: #5a5f69; align-items: center;
+            justify-content: center; font-size: 30px; color: #fff; }
+      .vok { background: #25D366; }
+      .vvs { position: absolute; left: 50%; top: 44%; width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 44px; background: #e2232d;
+             display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 32px; color: #fff; z-index: 2;
+             box-shadow: 0 8px 22px rgba(0,0,0,.5); }
       .pbadge { position: absolute; left: 0; right: 0; margin: 0 auto; width: 660px; z-index: 8; overflow: hidden; text-align: center;
                 padding: 22px 36px 22px; border-radius: 26px; background: linear-gradient(160deg, rgba(20,23,30,.88), rgba(11,13,18,.80));
                 border: 1.5px solid rgba(255,255,255,.18); box-shadow: 0 24px 60px rgba(0,0,0,.55); backdrop-filter: blur(6px); }
