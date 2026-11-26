@@ -37,6 +37,10 @@ Semua unit seterusnya ikut gaya ini secara lalai:
 - **Babak VS (`"head": "versus"`):** kad BELI BIASA (✕ kelabu) lawan SAMBUNG BAYAR (✓ hijau), baris menyala ikut perkataan; akhirnya kad sambung bayar membesar dengan cahaya hijau + ka-ching.
   Hook contoh: *"Tak nak pening mohon loan bank? ... boleh sambung bayar."* Contoh: `videos/x50snow.json`.
 
+- **Muzik latar alternatif (`"music": "night"`):** trap/moody dalam A minor (clap half-time, 808, hi-hat bergulung, pad dan pluck). Lalai ialah house ceria.
+- **Babak statistik (`"head": "stats"`, `tiles`: [LABEL, NILAI, cue]):** jubin gaya dashboard yang muncul ikut perkataan, angka dikira naik. Contoh: `videos/viosE.json`.
+- **Bukan direct owner:** jangan sebut "agreement direct owner"; ganti babak agreement dengan babak statistik, dan VS guna "IC & lesen sahaja".
+
 ### Pilihan babak pembukaan (sedia ada)
 
 | Pilihan | Kunci | Bila guna |
@@ -181,6 +185,7 @@ Skrip guna "." (bukan "!") kecuali ayat hook; elakkan "je".
 | Toyota Vios G 2026 (putih) | `videos/vios.json` |
 | Toyota Corolla Cross 1.8 V (putih) | `videos/ccross.json` (**versi rasmi templat**: hook studio, deposit bawah harga pasaran, 3 langkah mudah) |
 | Proton X50 Executive Facelift 2026 (3 warna, syarat utama) | `videos/x50warna.json` |
+| Toyota Vios 1.5 E (A) 2024 hitam | `videos/viosE.json` (muzik night, babak stats, bukan direct owner) |
 | Perodua Aruz Advance (biru & silver, 2019/2020/2022) | `videos/aruz2w.json` (gambar melintang: photo_top dilaras supaya gambar rapat ~30px di bawah tulisan atas) |
 | Proton S70 Premium Facelift 2026 (3 warna, kad deposit, 012-297 9744) | `videos/s70v3.json` |
 | Proton S70 Premium Facelift 2026 (3 warna, syarat utama) | `videos/s70v2.json` |

@@ -46,13 +46,14 @@ PH = ASSETS / "photos"
 ZOOM_SOFT = False
 INTRO_SFX = True
 SHOWROOM = None
+MUSIC = None
 SOFT_BG = set()
 PHOTO_SRC = ROOT / "photos"
 
 
 def configure(name):
     """Point the build at one video: its photos, audio folder, style and per-scene overrides."""
-    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT, INTRO_SFX, SHOWROOM, SOFT_BG
+    global VIDEO, STYLE, AUD, PHOTO_SRC, CUES, FIT_W, SCRIPT, CTA, ZOOM_SOFT, INTRO_SFX, SHOWROOM, SOFT_BG, MUSIC
     v = VIDEOS[name] = load_video(name)
     if "script" in v:  # a different car: its own lines, headlines, moves and transitions
         SCRIPT = [dict(sc, photos=sc.get("photos", []), base_move=sc["move"], base_trans=sc.get("trans"),
@@ -63,6 +64,7 @@ def configure(name):
     ZOOM_SOFT = v.get("zoom") == "soft"
     INTRO_SFX = v.get("intro_sfx", True)
     SHOWROOM = v.get("showroom")
+    MUSIC = v.get("music")
     SOFT_BG = set(v.get("soft_bg", []))
     AUD = ASSETS / "audio" / name
     PHOTO_SRC = ROOT / "photos" / v["src"] if v["src"] else ROOT / "photos"
@@ -254,7 +256,7 @@ def timeline(vo):
     for i, (cfg, v) in enumerate(zip(SCRIPT, vo)):
         last = i == len(SCRIPT) - 1
         need = VO_LEAD + v["duration"] + (CTA_HOLD if last else TAIL_PAD)
-        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey", "agreement", "versus")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
+        beats = max(cfg["min_beats"] if (i in (0, len(SCRIPT) - 1) or cfg["head"] in ("recap", "specs", "process", "journey", "agreement", "versus", "stats")) else 0, math.ceil(need / (BEAT / 2)) / 2)  # half-beat grid
         words = [dict(w, t0=round(w["t0"] + t + VO_LEAD, 3), t1=round(w["t1"] + t + VO_LEAD, 3)) for w in v["tokens"]]
         scenes.append(dict(i=i, start=round(t, 3), end=round(t + beats * BEAT, 3), beats=beats,
                            vo_start=t + VO_LEAD, words=words, cfg=cfg))
@@ -276,7 +278,10 @@ def make_audio(scenes, total):
         A.place(vo, np.fromfile(raw, dtype=np.float32).astype(np.float64), s["vo_start"])
         raw.unlink()
     # audio.py expects cfg["head"] on scenes; give it our scenes as-is
-    if STYLE["music"] == "groove":
+    if MUSIC == "night":
+        import music as M
+        mus = M.night(total, scenes, BEAT)
+    elif STYLE["music"] == "groove":
         import music as M
         mus = M.groove(total, scenes, BEAT)
     else:
@@ -461,6 +466,10 @@ def extra_sfx(total, scenes):
                 A.place(out, A.impact(True), ts + 0.03, 0.85)
             else:
                 A.place(out, A.impact(False), ts + 0.2, 0.9)
+        if cfg["head"] == "stats":
+            for k, t in enumerate(stats_times(s, cfg)):
+                A.place(out, A.whoosh(0.3, up=True), t - 0.2, 0.35)
+                A.place(out, sfx_pop(1.0 + 0.1 * k), t + 0.25, 0.7)
         if cfg["head"] == "versus":
             lt, rt = versus_times(s, cfg)
             for t in lt:
@@ -881,6 +890,9 @@ def make_html(scenes, total):
         elif cfg["head"] == "journey":
             inner.append(journey_html(i, cfg))
             journey_js(J, s, cfg)
+        elif cfg["head"] == "stats":
+            inner.append(stats_html(i, cfg))
+            stats_js(J, s, cfg)
         elif cfg["head"] == "versus":
             inner.append(versus_html(i, cfg))
             versus_js(J, s, cfg)
@@ -1304,6 +1316,37 @@ def versus_js(J, s, cfg):
     J(f'tl.to("#v{i}vs",{{opacity:0,scale:0.5,duration:0.3}},{fin:.3f});')
 
 
+def stats_html(i, cfg):
+    """Dashboard tiles: each fact pops in on its cue word, numbers count up."""
+    q = "".join(f'<span id="t{i}q{k}" class="qw">{esc(w)}</span> ' for k, w in enumerate(cfg.get("title", "BUTIRAN UNIT").split()))
+    tiles = "".join(f'<div id="t{i}c{k}" class="stile"><div class="sbar2"></div><div class="slab">{esc(lab)}</div>'
+                    f'<div id="t{i}v{k}" class="sval">{esc(val)}</div></div>' for k, (lab, val, _) in enumerate(cfg["tiles"]))
+    return f'''<div class="vdim"></div><div class="cta">
+          <div class="ctaq">{q.strip()}</div>
+          <div class="sgrid">{tiles}</div>
+        </div>'''
+
+
+def stats_times(s, cfg):
+    return [word_time(s, c, s["start"] + 1.0 + 0.8 * k) for k, (_, _, c) in enumerate(cfg["tiles"])]
+
+
+def stats_js(J, s, cfg):
+    import re as _re
+    b, i = s["start"], s["i"]
+    for k in range(len(cfg.get("title", "BUTIRAN UNIT").split())):
+        J(f'tl.fromTo("#t{i}q{k}",{{opacity:0,y:40,scale:1.1}},{{opacity:1,y:0,scale:1,duration:0.45,ease:"power3.out"}},{b + 0.1 + 0.12 * k:.3f});')
+    for k, t in enumerate(stats_times(s, cfg)):
+        lab, val, _ = cfg["tiles"][k]
+        J(f'tl.fromTo("#t{i}c{k}",{{opacity:0,y:60,scale:0.7,rotation:{-6 if k % 2 == 0 else 6}}},{{opacity:1,y:0,scale:1,rotation:0,duration:0.55,ease:"back.out(1.8)"}},{t - 0.1:.3f});')
+        m = _re.match(r"^(\D*)([\d,]+)(.*)$", val)
+        if m:
+            pre, num, suf = m.group(1), int(m.group(2).replace(",", "")), m.group(3)
+            start = num - 24 if num > 1900 and num < 2100 else 0
+            fmt = "" if start else '.toLocaleString("en-US")'
+            J(f'(()=>{{const el=document.getElementById("t{i}v{k}"),o={{v:{start}}};tl.fromTo(o,{{v:{start}}},{{v:{num},duration:0.8,ease:"power2.out",onUpdate:()=>{{el.textContent={pre!r}+Math.round(o.v){fmt}+{suf!r};}}}},{t:.3f});}})();')
+
+
 def process_html(i, cfg):
     """Ending variant A: numbered process steps, joined by a line that fills as each step is spoken."""
     title = cfg.get("title", "PROSES MUDAH")
@@ -1511,6 +1554,12 @@ TEMPLATE = r"""<!doctype html>
       .c2note { position: absolute; top: 830px; left: 150px; width: 780px; padding: 18px 26px; border-radius: 26px; text-align: center;
                 background: rgba(255,214,102,.94); color: #2a2208; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
       .hnote { z-index: 9; }
+      .sgrid { position: absolute; top: 420px; left: 40px; width: 1000px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+      .stile { position: relative; overflow: hidden; padding: 34px 26px 30px; border-radius: 28px; background: rgba(11,13,18,.9);
+               border: 2px solid rgba(255,255,255,.14); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
+      .sbar2 { position: absolute; left: 0; top: 0; width: 100%; height: 8px; background: #e2232d; }
+      .slab { font-weight: 700; font-size: 28px; letter-spacing: .14em; color: #b8bdc6; }
+      .sval { margin-top: 8px; font-weight: 800; font-size: 56px; line-height: 1.05; color: #fff; }
       .reel { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
       .vwrap { position: absolute; top: 440px; left: 24px; width: 1032px; display: flex; gap: 22px; align-items: stretch; }
       .vcard { position: relative; flex: 1; padding: 30px 24px 20px; border-radius: 28px; background: rgba(11,13,18,.92);

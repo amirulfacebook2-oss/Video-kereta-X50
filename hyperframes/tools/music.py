@@ -159,3 +159,104 @@ def groove(total, scenes, beat):
     L = drums + body + lead_l + shk_l
     R = drums + body + lead_r + shk_r
     return np.stack([L, R])[:, : int(total * SR)]
+
+
+# ---------------------------------------------------------------- "night" style
+# Moody trap / future-bass bed in A minor (Am F C G): half-time clap, 808 sub glides, rolling hats,
+# airy pad and a soft pluck arpeggio. Same sections as groove (intro filter, drop, break, drop B, end hit).
+NIGHT_CHORDS = [
+    ([57, 60, 64, 67], 33),   # Am7
+    ([53, 57, 60, 64], 29),   # Fmaj7
+    ([48, 55, 60, 64], 36),   # C
+    ([55, 59, 62, 67], 31),   # G
+]
+
+
+def sub808(root, ln):
+    n = int(ln * SR)
+    t = np.arange(n) / SR
+    f = A.mtof(root) * (1 + 0.9 * np.exp(-t / 0.03))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    return np.tanh(2.2 * np.sin(ph) * np.exp(-t / (ln * 0.55))) * 0.8
+
+
+def pluck(f, ln=0.35):
+    n = int(ln * SR)
+    t = np.arange(n) / SR
+    s = A.saw(f, n, 6) * np.exp(-t / 0.09) * (1 - np.exp(-t / 0.002))
+    return A.lp(s, 3000) * 0.5
+
+
+def night(total, scenes, beat):
+    n = int(total * SR) + 4 * SR
+    drums, sub, padbuf, lead, intro_buf = (np.zeros(n) for _ in range(5))
+    hl, hr = np.zeros(n), np.zeros(n)
+    hook_end = scenes[1]["start"]
+    mont = next((s for s in scenes if s["cfg"]["move"] == "montage"), None)
+    bd_start = mont["start"] if mont else total
+    bd_end = mont["end"] if mont else total
+    final_t = scenes[-1]["words"][-1]["t1"] + 0.35
+    final_beat = int(np.ceil(final_t / beat))
+    K, C = A.kick(), A.clap()
+    six = beat / 4
+
+    def section(t):
+        if t < hook_end:
+            return "intro"
+        if bd_start <= t < bd_end:
+            return "break"
+        return "dropB" if t >= bd_end else "dropA"
+
+    for b in range(final_beat):
+        t = b * beat
+        sec = section(t)
+        bar, pos = b // 4, b % 4
+        chord, root = NIGHT_CHORDS[bar % 4]
+        drop = sec in ("dropA", "dropB")
+        # kick + 808 pattern (half-time trap): beat 1, the "and" of 2 (even bars) or beat 3.5 (odd bars)
+        hits = {0: 0.0} if pos == 0 else {}
+        if pos == 1 and bar % 2 == 0:
+            hits[1] = 0.5
+        if pos == 2 and bar % 2 == 1:
+            hits[2] = 0.5
+        for _, off in hits.items():
+            if sec != "break":
+                A.place(drums, K, t + off * beat, 0.9 if drop else 0.6)
+                A.place(sub, sub808(root - 12, beat * 1.6), t + off * beat, 0.9 if drop else 0.5)
+        # half-time clap on beat 3
+        if drop and pos == 2:
+            A.place(drums, C, t, 0.8)
+        # hats: 8ths, rolling 16th/32nd at bar end
+        if sec != "intro" or t > hook_end * 0.5:
+            roll = drop and pos == 3 and bar % 2 == 1
+            steps = 8 if roll else 2
+            for k in range(steps):
+                tk = t + k * beat / steps
+                g = (0.32 if k % 2 == 0 else 0.22) * (0.6 if sec == "break" else 1.0)
+                h = A.hat(False)
+                A.place(hl, h, tk, g * (1.0 if k % 2 else 0.7))
+                A.place(hr, h, tk, g * (0.7 if k % 2 else 1.0))
+        # pad every bar, pluck arpeggio in eighths
+        if pos == 0:
+            A.place(padbuf if sec != "intro" else intro_buf, A.lp(sum(A.saw(A.mtof(m) * d, int((4 * beat + 0.4) * SR), 7)
+                     for m in chord for d in (1.0, 1.006)) / 8 * np.minimum(1, np.arange(int((4 * beat + 0.4) * SR)) / SR / 0.3), 2400), t, 0.6)
+        if sec in ("dropA", "dropB", "break"):
+            for k in range(2):
+                note = chord[(b * 2 + k) % len(chord)] + 12
+                A.place(lead, pluck(A.mtof(note)), t + k * beat / 2, 0.45 if sec != "dropA" else 0.3)
+    ramp = np.clip(np.arange(n) / SR / max(hook_end, 0.1), 0, 1) ** 2
+    intro_mix = A.lp(intro_buf, 600) * (1 - ramp) + intro_buf * ramp
+    body = A.reverb(padbuf + intro_mix, 2.6, 0.35) + sub
+    d = int(0.75 * beat * SR)
+    ll, lr = lead.copy(), lead.copy()
+    ll[d:] += 0.35 * lead[:-d]
+    lr[2 * d:] += 0.25 * lead[:-2 * d]
+    ll, lr = A.reverb(ll, 2.0, 0.3), A.reverb(lr, 2.0, 0.3)
+    if bd_end < total:
+        A.place(body, A.riser(2 * beat) * 0.7, bd_end - 2 * beat)
+    end = A.shimmer_chord([57, 60, 64, 69, 72, 76], 4.0)
+    end[: int(2.0 * SR)] += A.impact(True) * 0.8
+    A.place(body, end, final_beat * beat)
+    L = drums + body + ll + hl
+    R = drums + body + lr + hr
+    return np.stack([L, R])[:, : int(total * SR)]

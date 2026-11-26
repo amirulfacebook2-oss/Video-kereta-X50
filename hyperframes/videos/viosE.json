@@ -1,0 +1,293 @@
+{
+  "src": "viosE",
+  "style": "v2",
+  "voice": "elevenlabs",
+  "voice_dir": "viosE_el",
+  "photos": [
+    [
+      "ve_02_depan34.jpg"
+    ],
+    [
+      "ve_01_depan.jpg"
+    ],
+    [
+      "ve_04_belakang.jpg"
+    ],
+    [
+      "ve_03_belakang34.jpg"
+    ],
+    [
+      "ve_04_belakang.jpg"
+    ],
+    [
+      "ve_01_depan.jpg"
+    ],
+    [
+      "ve_06_kokpit.jpg",
+      "ve_05_baris2.jpg"
+    ],
+    [
+      "ve_03_belakang34.jpg"
+    ],
+    [
+      "ve_02_depan34.jpg"
+    ]
+  ],
+  "fit_width": [
+    "ve_01_depan.jpg",
+    "ve_02_depan34.jpg",
+    "ve_03_belakang34.jpg",
+    "ve_04_belakang.jpg"
+  ],
+  "cues": [
+    null,
+    "belakang"
+  ],
+  "script": [
+    {
+      "vo": "^Toyota ^Vios *2024,|dua-ribu-dua-puluh-empat, bulanan *RM1,040|seribu-empat-puluh-ringgit sahaja? Betul, *sambung *bayar. Syarat utama, *deposit *RM11,000,|sebelas-ribu-ringgit, *IC dan *lesen. Yang *serius dan dah ada deposit, baru PM ya. *Tengok sampai *habis.",
+      "head": [
+        [
+          "SAMBUNG BAYAR",
+          "hero",
+          "pearl"
+        ],
+        [
+          "LEASE TO OWN",
+          "label",
+          "silver"
+        ],
+        [
+          "TOYOTA VIOS 1.5 E · 2024",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "hook_curtain": "ve_02_depan34.jpg",
+      "curtain": false,
+      "stamp": [
+        "",
+        "RM11,000"
+      ],
+      "move": "reveal",
+      "trans": null,
+      "photo_top": 480,
+      "badge": [
+        "DEPOSIT WAJIB",
+        "RM11,000",
+        "Ready deposit & serius sahaja PM"
+      ],
+      "badge_top": 545,
+      "hook_reel": [
+        "ve_01_depan.jpg",
+        "ve_03_belakang34.jpg",
+        "ve_04_belakang.jpg"
+      ]
+    },
+    {
+      "vo": "^Toyota ^Vios *1.5,|satu-poin-lima, *E *spec automatik. Warna hitam, nampak *sporty dan *elegan.",
+      "head": [
+        [
+          "TOYOTA VIOS",
+          "hero",
+          "silver"
+        ],
+        [
+          "1.5 E SPEC (A)",
+          "label",
+          "pearl"
+        ],
+        [
+          "HITAM · SPORTY",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "rise",
+      "trans": "whip-left",
+      "photo_top": 470
+    },
+    {
+      "vo": "Bezanya jelas. Beli cara biasa, kena *mohon loan bank, *tunggu kelulusan, prosesnya *lama. *Sambung *bayar pula, cuma *deposit, *IC dan lesen, terus *bawa balik kereta.",
+      "head": "versus",
+      "title": "BEZA DIA",
+      "left_title": "BELI BIASA",
+      "right_title": "SAMBUNG BAYAR",
+      "left": [
+        [
+          "Mohon loan bank",
+          "mohon"
+        ],
+        [
+          "Tunggu kelulusan",
+          "tunggu"
+        ],
+        [
+          "Proses lama",
+          "lama"
+        ]
+      ],
+      "right": [
+        [
+          "Deposit RM11,000",
+          "deposit"
+        ],
+        [
+          "IC & lesen sahaja",
+          "IC"
+        ],
+        [
+          "Terus bawa balik",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "flash",
+      "min_beats": 16
+    },
+    {
+      "vo": "*Deposit? *RM11,000|sebelas-ribu-ringgit sahaja. Ini *bawah *market.",
+      "head": [
+        [
+          "DEPOSIT",
+          "label",
+          "silver"
+        ],
+        [
+          "RM11,000",
+          "price",
+          "red"
+        ],
+        [
+          "BAWAH MARKET",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "orbit",
+      "trans": "flash",
+      "photo_top": 330
+    },
+    {
+      "vo": "*Bulanan pula, *RM1,040.|seribu-empat-puluh-ringgit. Baki *loan *6|enam *tahun lebih.",
+      "head": [
+        [
+          "BULANAN",
+          "label",
+          "silver"
+        ],
+        [
+          "RM1,040",
+          "price",
+          "red"
+        ],
+        [
+          "BAKI LOAN 6 TAHUN+",
+          "tag",
+          "pearl"
+        ]
+      ],
+      "move": "push",
+      "trans": "whip-up",
+      "photo_top": 300
+    },
+    {
+      "vo": "Tahun *2024,|dua-ribu-dua-puluh-empat, *mileage *62,000|enam-puluh-dua-ribu kilometer. *Roadtax dan insurans sampai Februari *2027.|dua-ribu-dua-puluh-tujuh. Kereta ada di *Setiawangsa, Kuala Lumpur.",
+      "head": "stats",
+      "title": "BUTIRAN UNIT",
+      "tiles": [
+        [
+          "TAHUN",
+          "2024",
+          "Tahun"
+        ],
+        [
+          "MILEAGE",
+          "62K KM",
+          "mileage"
+        ],
+        [
+          "ROADTAX & INSURANS",
+          "FEB 2027",
+          "Roadtax"
+        ],
+        [
+          "LOKASI",
+          "SETIAWANGSA",
+          "Setiawangsa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "flash",
+      "min_beats": 14
+    },
+    {
+      "vo": "Tengoklah interior dia. Kemas, ^selesa, belakang pun ^luas.",
+      "head": [
+        [
+          "INTERIOR KEMAS",
+          "hero-s",
+          "pearl"
+        ],
+        [
+          "AUTO · E SPEC",
+          "label",
+          "silver"
+        ]
+      ],
+      "move": "montage",
+      "trans": "leak"
+    },
+    {
+      "vo": "Caranya senang. *Semak dokumen, *tandatangan perjanjian, *bayar deposit, dan terus boleh *bawa balik kereta!",
+      "head": "journey",
+      "title": "4 LANGKAH MUDAH",
+      "amount": "RM11,000",
+      "car_side": "ve_02_depan34.jpg",
+      "steps": [
+        [
+          "Semakan dokumen",
+          "Semak"
+        ],
+        [
+          "Tandatangan perjanjian",
+          "tandatangan"
+        ],
+        [
+          "Bayar deposit",
+          "bayar"
+        ],
+        [
+          "Terus bawa balik kereta!",
+          "bawa"
+        ]
+      ],
+      "move": "recap",
+      "trans": "dip",
+      "min_beats": 20
+    },
+    {
+      "vo": "Sediakan IC, lesen, bil air atau api, dan *deposit. *Deposit *wajib ya, tiada deposit tak perlu PM. *WhatsApp sekarang, *012-297|kosong-satu-dua,-dua-sembilan-tujuh, *9744.|sembilan-tujuh-empat-empat. Siapa cepat, dia dapat!",
+      "head": "cta2",
+      "promo_label": "DEPOSIT",
+      "promo_price": "RM11,000",
+      "docs": [
+        "IC",
+        "LESEN",
+        "BIL AIR/API",
+        "DEPOSIT"
+      ],
+      "move": "cta",
+      "trans": "zoom"
+    }
+  ],
+  "cta": {
+    "meta": "Toyota Vios 1.5 E 2024",
+    "phone": "012-297 9744"
+  },
+  "zoom": "soft",
+  "intro_sfx": false,
+  "soft_bg": [],
+  "_unit": "Toyota Vios 1.5 E (A) 2024 hitam (bukan direct owner)",
+  "music": "night"
+}
